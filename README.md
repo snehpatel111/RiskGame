@@ -20,10 +20,11 @@ This project is a Java implementation of the classic board game "Risk." The game
 To get started with the Risk game:
 
 1. Clone this repository to your local machine.
-2. Build the project using your preferred build tool (e.g., Gradle or Maven).
-3. Run the game.
+2. Build the project using `mvn compile` or `mvn clean package`.
+3. Run the game using `mvn exec:java -Dexce.mainClass="Controllers.GameEngine"`
 
 ## Contributors
+
 - Sneh Patel
 - Romit Patel
 - Rushi Donga

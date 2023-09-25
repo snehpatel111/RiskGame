@@ -21,7 +21,7 @@ To get started with the Risk game:
 
 1. Clone this repository to your local machine.
 2. Build the project using `mvn compile` or `mvn clean package`.
-3. Run the game using `mvn exec:java -Dexce.mainClass="Controllers.GameEngine"`
+3. Run the game using `mvn exec:java`
 
 ## Contributors
 

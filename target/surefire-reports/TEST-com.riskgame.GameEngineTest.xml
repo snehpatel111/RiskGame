@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.044" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.036" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -11,7 +11,7 @@
     <property name="java.vm.specification.version" value="21"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-21-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/home/sneh/RiskGame/target/surefire/surefirebooter10872020139606170754.jar /home/sneh/RiskGame/target/surefire 2023-09-25T19-30-54_702-jvmRun1 surefire16699824516955925751tmp surefire_07622050596131129740tmp"/>
+    <property name="sun.java.command" value="/home/sneh/RiskGame/target/surefire/surefirebooter2018468764201075864.jar /home/sneh/RiskGame/target/surefire 2023-09-25T23-38-09_702-jvmRun1 surefire14155421615687945823tmp surefire_017382346749630005984tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/sneh/RiskGame/target/test-classes:/home/sneh/RiskGame/target/classes:/home/sneh/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/sneh/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/sneh/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/home/sneh/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -26,7 +26,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/sneh/RiskGame/target/surefire/surefirebooter10872020139606170754.jar"/>
+    <property name="surefire.real.class.path" value="/home/sneh/RiskGame/target/surefire/surefirebooter2018468764201075864.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21+35-LTS-2513"/>
     <property name="user.name" value="sneh"/>
@@ -52,5 +52,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.005"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.004"/>
 </testsuite>

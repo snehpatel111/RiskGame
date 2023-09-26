@@ -20,40 +20,4 @@ public class MapValidator {
     public MapValidator() {
         this.d_mapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
     }
-
-    /**
-     * Checks if given continent already exists in the game map.
-     * 
-     * @param p_gameMap     GameMap object containing current states of continents
-     *                      and countries.
-     * @param p_continentId Name of continent.
-     * @return Returns true if continent exists in the map, false otherwise.
-     */
-    public boolean isContinentExist(GameMap p_gameMap, String p_continentId) {
-        if (p_gameMap.getContinents().containsKey(p_continentId.toLowerCase()))
-            return true;
-        else
-            return false;
-    }
-
-    /**
-     * Validates if the given continent can be added to the game map.
-     * 
-     * @param p_gameMap      GameMap object containing current states of continents
-     *                       and countries.
-     * @param p_continentId  Name of continent.
-     * @param p_controlValue Control value of continent.
-     * @return True if continent can be added to map, false otherwise.
-     */
-    public boolean isContinentAdded(GameMap p_gameMap, String p_continentId, int p_controlValue) {
-        if (!(this.isContinentExist(p_gameMap, p_continentId))) {
-            if (p_controlValue < 0)
-                return false;
-            Continent l_continent = new Continent(p_continentId, p_controlValue);
-            p_gameMap.getContinents().put(p_continentId.toLowerCase(), l_continent);
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

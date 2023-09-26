@@ -94,40 +94,42 @@ public class Continent {
                 if (Util.isAlphabetic(p_args[2])) {
                     this.d_continentId = p_args[2];
                 } else {
-                    System.out.println(Constant.ERROR_COLOR + "Invalid Continent ID" + Constant.RESET_COLOR);
+                    System.out.println(Constant.ERROR_COLOR + "Invalid Continent Id" + Constant.RESET_COLOR);
                 }
                 this.d_controlValue = Integer.parseInt(p_args[3]);
 
-                boolean l_isContinentAdded = new MapValidator().isContinentAdded(p_gameMap, this.d_continentId,
+                boolean l_isContinentAdded = this.isContinentAdded(p_gameMap, this.d_continentId,
                         this.d_controlValue);
                 if (l_isContinentAdded) {
-                    System.out.println(this.d_continentId + " continent added to the map");
+                    System.out.println(Constant.SUCCESS_COLOR + this.d_continentId + " added to the map"
+                            + Constant.RESET_COLOR);
                     p_gamePhase = Phase.EDITMAP;
                 } else {
-                    System.out.println("Continent already exists - Please add valid Continent ID");
+                    System.out.println(this.d_continentId + " already exists - Please add valid Continent Id");
                 }
             } else if (p_args[1].equals("-remove")) {
                 if (Util.isAlphabetic(p_args[2])) {
                     this.d_continentId = p_args[2];
                 } else {
-                    System.out.println("Invalid Continent Id");
+                    System.out.println(Constant.ERROR_COLOR + "Invalid Continent Id" + Constant.RESET_COLOR);
                 }
-                boolean l_check = this.removeContinent(p_gameMap);
-                if (l_check) {
-                    System.out.println("Continent removed from Map");
+                boolean l_isContinentRemoved = this.removeContinent(p_gameMap);
+                if (l_isContinentRemoved) {
+                    System.out.println(
+                            Constant.SUCCESS_COLOR + this.d_continentId + " removed from map" + Constant.RESET_COLOR);
                     p_gamePhase = Phase.EDITMAP;
                 } else
-                    System.out.println("Continent doesn't exist - Please enter valid Continent ID");
+                    System.out.println(this.d_continentId + " doesn't exist - Please enter valid Continent Id");
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(
                     Constant.ERROR_COLOR
-                            + "Invalid command - It should be of the form: editcontinent -add continentID controlvalue or editcontinent -remove continentId"
+                            + "Invalid command - It should be of the form: editcontinent -add continentId controlvalue or editcontinent -remove continentId"
                             + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(
                     Constant.ERROR_COLOR
-                            + "Invalid command - it should be of the form: editcontinent -add continentID controlvalue or editcontinent -remove continentId"
+                            + "Invalid command - it should be of the form: editcontinent -add continentId controlvalue or editcontinent -remove continentId"
                             + Constant.RESET_COLOR);
         }
     }
@@ -176,6 +178,90 @@ public class Continent {
             return true;
         } else {
             System.out.println(p_countryId + " does not exist.");
+            return false;
+        }
+    }
+
+    public void editCountry(GameMap p_gameMap, Phase p_gamePhase, String[] p_args) {
+        try {
+            Country country = new Country();
+            String l_countryId = null;
+            String l_continentId = null;
+            if (p_args[1].equals("-add")) {
+                if (!Util.isAlphabetic(p_args[2]) || !Util.isAlphabetic(p_args[3])) {
+                    System.out.println(Constant.ERROR_COLOR + "Invalid country/continent name" + Constant.RESET_COLOR);
+                }
+                l_countryId = p_args[2];
+                l_continentId = p_args[3];
+                boolean l_isCountryAdded = country.isCountryAdded(p_gameMap, l_countryId, l_continentId);
+                if (l_isCountryAdded) {
+                    System.out.println(Constant.SUCCESS_COLOR + l_countryId + " added to " + l_continentId
+                            + Constant.RESET_COLOR);
+                    p_gamePhase = Phase.EDITMAP;
+                } else {
+                    System.out.println(l_countryId + " already exists - Please add valid Country Id");
+                }
+            } else if (p_args[1].equals("-remove")) {
+                if (!Util.isAlphabetic(p_args[2])) {
+                    System.out.println(Constant.ERROR_COLOR + "Invalid country name" + Constant.RESET_COLOR);
+                }
+                l_countryId = p_args[2];
+                boolean l_isCountryRemoved = country.removeCountry(p_gameMap, l_countryId);
+                if (l_isCountryRemoved) {
+                    System.out
+                            .println(Constant.SUCCESS_COLOR + l_countryId + " removed"
+                                    + Constant.RESET_COLOR);
+                    p_gamePhase = Phase.EDITMAP;
+                } else {
+                    System.out.println(l_countryId + " does not exist - Please enter valid country name");
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcountry -add countryId continentId or editcountry -remove countryId"
+                            + Constant.RESET_COLOR);
+        } catch (Exception e) {
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcountry -add countryId continentId or editcountry -remove countryId"
+                            + Constant.RESET_COLOR);
+        }
+    }
+
+    /**
+     * Checks if given continent already exists in the game map. If not, adds
+     * continent in the map.
+     * 
+     * @param p_gameMap     GameMap object containing current states of continents
+     *                      and countries.
+     * @param p_continentId Name of continent.
+     * @return Returns true if continent exists in the map, false otherwise.
+     */
+    public boolean isContinentExist(GameMap p_gameMap, String p_continentId) {
+        if (p_gameMap.getContinents().containsKey(p_continentId.toLowerCase()))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Validates if the given continent can be added to the game map.
+     * 
+     * @param p_gameMap      GameMap object containing current states of continents
+     *                       and countries.
+     * @param p_continentId  Name of continent.
+     * @param p_controlValue Control value of continent.
+     * @return True if continent can be added to map, false otherwise.
+     */
+    public boolean isContinentAdded(GameMap p_gameMap, String p_continentId, int p_controlValue) {
+        if (!(this.isContinentExist(p_gameMap, p_continentId))) {
+            if (p_controlValue < 0)
+                return false;
+            Continent l_continent = new Continent(p_continentId, p_controlValue);
+            p_gameMap.getContinents().put(p_continentId.toLowerCase(), l_continent);
+            return true;
+        } else {
             return false;
         }
     }

@@ -75,6 +75,9 @@ public class StartUpPhase {
                 case "editcontinent":
                     continent.editContinent(this.d_gameMap, this.d_gamePhase, l_data);
                     break;
+                case "editcountry":
+                    continent.editCountry(this.d_gameMap, this.d_gamePhase, l_data);
+                    break;
                 default:
                     System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                     System.out.println(

@@ -1,6 +1,10 @@
 package main.java.com.riskgame.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import main.java.com.riskgame.utility.Constant;
 
 public class Country {
     public int d_index;
@@ -20,7 +24,7 @@ public class Country {
     /**
      * Initialize Country object with given arguments.
      * 
-     * @param p_countryId          ID of the country
+     * @param p_countryId          Id of the country
      * @param p_belongingContinent Name of the continent to which this country
      *                             belongs.
      */
@@ -36,7 +40,7 @@ public class Country {
      * This constructor is used while reading ".map" files.
      * 
      * @param p_index          Index in the ".map" file
-     * @param p_countryId      ID of the country
+     * @param p_countryId      Id of the country
      * @param p_continentIndex Index of the continent this country belongs to
      * @param p_xCoOrdinate    X-Coordinate on GUI map
      * @param p_yCoOrdinate    y-Coordinate on GUI map
@@ -110,6 +114,119 @@ public class Country {
                 System.out.println(this.d_countryId + " and " + p_neighborCountryId + "  does not exist.");
             else if (!p_gameMap.getCountries().containsKey(this.d_countryId.toLowerCase()))
                 System.out.println(this.d_countryId + " does not exist.");
+            else
+                System.out.println(p_neighborCountryId + " does not exist.");
+            return false;
+        }
+    }
+
+    /**
+     * Checks if country already exists in the game map. If not, adds country in the
+     * map.
+     * 
+     * @param p_gameMap     GamePhase object containing continents and countries.
+     * @param p_countryId   Name of country to be checked.
+     * @param p_continentId Name of continent in which given country is being
+     *                      checked.
+     * @return Returns true if country is added, otherwise false.
+     */
+    public boolean isCountryAdded(GameMap p_gameMap, String p_countryId, String p_continentId) {
+        if (!this.isCountryExist(p_gameMap, p_countryId)) {
+            if (!p_gameMap.getContinents().containsKey(p_continentId.toLowerCase())) {
+                System.out.println(p_continentId + " does not exist.");
+                return false;
+            }
+            Country l_country = new Country(p_countryId, p_continentId);
+            Continent l_continent = p_gameMap.getContinents().get(p_continentId.toLowerCase());
+            l_continent.getCountries().put(p_countryId.toLowerCase(), l_country);
+            p_gameMap.getCountries().put(p_countryId.toLowerCase(), l_country);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if country exist in map.
+     * 
+     * @param p_gameMap   GameMap object that contains continents and countries.
+     * @param p_countryId Name of country to be checked.
+     * @return Returns true if country exist in the map, otherwise false.
+     */
+    public boolean isCountryExist(GameMap p_gameMap, String p_countryId) {
+        if (p_gameMap.getCountries().containsKey(p_countryId.toLowerCase()))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Remove country from map.
+     * 
+     * @param p_gameMap   GameMap object containing continents and countries.
+     * @param p_countryId Name of country to be removed.
+     * @return Return true, if country is deleted otherwise false.
+     */
+    public boolean removeCountry(GameMap p_gameMap, String p_countryId) {
+        if (p_gameMap.getCountries().containsKey(p_countryId.toLowerCase())) {
+            Country l_country = p_gameMap.getCountries().get(p_countryId.toLowerCase());
+            ArrayList<Country> l_removeCountryList = new ArrayList<Country>();
+
+            // remove each neighbor of country
+            for (Country l_neighbor : l_country.getNeighbors().values()) {
+                l_removeCountryList.add(l_neighbor);
+            }
+            Iterator<Country> l_itr = l_removeCountryList.listIterator();
+            while (l_itr.hasNext()) {
+                Country l_neighbor = l_itr.next();
+                if (!this.removeCountryNeighbor(p_gameMap, l_country.getCountryId(), l_neighbor.getCountryId()))
+                    return false;
+            }
+            p_gameMap.getCountries().remove(p_countryId.toLowerCase());
+            p_gameMap.getContinents().get(l_country.getBelongingContinent().toLowerCase()).getCountries()
+                    .remove(p_countryId.toLowerCase());
+            return true;
+        } else {
+            System.out.println(p_countryId + " does not exist.");
+            return false;
+        }
+    }
+
+    /**
+     * Removes neighboring country of given country.
+     * 
+     * @param p_gameMap           GameMap object containing continents and
+     *                            countries, and neighbors of each country.
+     * @param p_countryId         Name of country whose neighbor is going to be
+     *                            deleted.
+     * @param p_neighborCountryId Neighbor country name to be deleted as neighbor of
+     *                            given country
+     * @return Returns true, if neighbor is deleted successfully, otherwise false.
+     */
+    public boolean removeCountryNeighbor(GameMap p_gameMap, String p_countryId, String p_neighborCountryId) {
+        if (p_gameMap.getCountries().containsKey(p_countryId.toLowerCase())
+                && p_gameMap.getCountries().containsKey(p_neighborCountryId.toLowerCase())) {
+            Country l_country1 = p_gameMap.getCountries().get(p_countryId.toLowerCase());
+            Country l_country2 = p_gameMap.getCountries().get(p_neighborCountryId.toLowerCase());
+
+            // Check if both countries are neighbor to each other
+            if (l_country1.getNeighbors().containsKey(l_country2.getCountryId().toLowerCase())) {
+                l_country1.getNeighbors().remove(p_neighborCountryId.toLowerCase());
+                System.out.println(Constant.SUCCESS_COLOR + p_countryId + " removed as neighbor to "
+                        + p_neighborCountryId + Constant.RESET_COLOR);
+            }
+            if (l_country2.getNeighbors().containsKey(l_country1.getCountryId().toLowerCase())) {
+                l_country2.getNeighbors().remove(p_countryId.toLowerCase());
+                System.out.println(Constant.SUCCESS_COLOR + p_neighborCountryId + " removed as neighbor to "
+                        + p_countryId + Constant.RESET_COLOR);
+            }
+            return true;
+        } else {
+            if (!p_gameMap.getCountries().containsKey(p_countryId.toLowerCase())
+                    && !p_gameMap.getCountries().containsKey(p_neighborCountryId.toLowerCase()))
+                System.out.println(p_countryId + " and " + p_neighborCountryId + "  does not exist.");
+            else if (!p_gameMap.getCountries().containsKey(p_countryId.toLowerCase()))
+                System.out.println(p_countryId + " does not exist.");
             else
                 System.out.println(p_neighborCountryId + " does not exist.");
             return false;

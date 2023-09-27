@@ -60,7 +60,8 @@ public class StartUpPhase {
                     }
                     break;
                 default:
-                    System.out.println(Constant.ERROR_COLOR + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName>"
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName>"
                             + Constant.RESET_COLOR);
                     break;
             }
@@ -77,6 +78,9 @@ public class StartUpPhase {
                     break;
                 case "editcountry":
                     continent.editCountry(this.d_gameMap, this.d_gamePhase, l_data);
+                    break;
+                case "editneighbor":
+                    continent.editCountryNeighbor(this.d_gameMap, this.d_gamePhase, l_data);
                     break;
                 default:
                     System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);

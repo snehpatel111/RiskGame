@@ -68,7 +68,7 @@ public class StartUpPhase {
         }
 
         // Edit phase.
-        // Edit phase commands: editcontinent, editcountry, editneighbour, savemap,
+        // Edit phase commands: editcontinent, editcountry, editneighbor, savemap,
         // showmap, editmap, loadmap, validatemap
         else if (this.d_gamePhase.equals(Phase.EDITMAP)) {
             Continent continent = new Continent();
@@ -82,10 +82,15 @@ public class StartUpPhase {
                 case "editneighbor":
                     continent.editCountryNeighbor(this.d_gameMap, this.d_gamePhase, l_data);
                     break;
+                case "showmap":
+                    MapHelper l_gameMap = new MapHelper();
+                    l_gameMap.showMap(this.d_gameMap);
+                    this.d_gamePhase = Phase.EDITMAP;
+                    break;
                 default:
                     System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                     System.out.println(
-                            "Try any of following command: editcontinent, editcountry, editneighbour, savemap, showmap, editmap, loadmap, validatemap");
+                            "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap, validatemap");
                     break;
             }
         }

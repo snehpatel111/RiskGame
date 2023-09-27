@@ -72,6 +72,15 @@ public class Country {
     }
 
     /**
+     * Returns the index of country in the ".map" file
+     * 
+     * @return Returns index of the country
+     */
+    public int getIndex() {
+        return this.d_index;
+    }
+
+    /**
      * Returns neighbors of country.
      * 
      * @return Returns neighbors of country.
@@ -154,10 +163,7 @@ public class Country {
      * @return Returns true if country exist in the map, otherwise false.
      */
     public boolean isCountryExist(GameMap p_gameMap, String p_countryId) {
-        if (p_gameMap.getCountries().containsKey(p_countryId.toLowerCase()))
-            return true;
-        else
-            return false;
+        return p_gameMap.getCountries().containsKey(p_countryId.toLowerCase());
     }
 
     /**

@@ -1,12 +1,12 @@
 package com.riskgame.controller;
 
-import main.java.com.riskgame.model.Phase;
-import main.java.com.riskgame.utility.Constant;
-
 import java.io.File;
-import java.util.*;
+import java.util.Scanner;
 
 import com.riskgame.model.StartUpPhase;
+
+import main.java.com.riskgame.model.Phase;
+import main.java.com.riskgame.utility.Constant;
 
 /**
  * This is the entry point of the game. It initializes the game state and keeps

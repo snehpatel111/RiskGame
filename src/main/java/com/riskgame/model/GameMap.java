@@ -1,8 +1,6 @@
 package main.java.com.riskgame.model;
 
 import java.util.HashMap;
-import main.java.com.riskgame.model.Country;
-import main.java.com.riskgame.model.Continent;
 
 /**
  * Contains details of the map like continents, countries etc during the game.

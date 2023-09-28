@@ -1,17 +1,13 @@
 package main.java.com.riskgame.model;
 
-import java.util.*;
-
-import main.java.com.riskgame.utility.MapValidator;
-import main.java.com.riskgame.utility.Constant;
-import main.java.com.riskgame.model.GameMap;
-import main.java.com.riskgame.model.Country;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+
+import main.java.com.riskgame.utility.Constant;
 
 /**
  * This class contains helper functions related to Map.

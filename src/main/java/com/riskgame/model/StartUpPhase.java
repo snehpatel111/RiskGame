@@ -42,14 +42,17 @@ public class StartUpPhase {
                         MapHelper l_gameMap = new MapHelper();
                         this.d_gameMap = l_gameMap.editMap(l_mapFileName);
                         System.out.println("Editing for Map: " + l_mapFileName + "\n");
+                        System.out.println("See the selected map using " + Constant.SUCCESS_COLOR
+                                + "showmap"
+                                + Constant.RESET_COLOR);
                         System.out.println("Edit continent using " + Constant.SUCCESS_COLOR
-                                + "editcontinent -add <continentId> <continentvalue> or editcontinent -remove <continentId>"
+                                + "editcontinent -add <continentId> <continentValue> or editcontinent -remove <continentId>"
                                 + Constant.RESET_COLOR);
                         System.out.println("Edit country using " + Constant.SUCCESS_COLOR
                                 + "editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
                                 + Constant.RESET_COLOR);
                         System.out.println("Edit neighbor using " + Constant.SUCCESS_COLOR
-                                + "editneighbor -add <countryId> <neighborcountryId> or editneighbor -remove <countryId> <neighborcountryId>"
+                                + "editneighbor -add <countryId> <neighborCountryId> or editneighbor -remove <countryId> <neighborCountryId>"
                                 + Constant.RESET_COLOR + "\n");
 
                         this.d_gamePhase = Phase.EDITMAP;
@@ -80,7 +83,7 @@ public class StartUpPhase {
                     continent.editCountry(this.d_gameMap, this.d_gamePhase, l_data);
                     break;
                 case "editneighbor":
-                    continent.editCountryNeighbor(this.d_gameMap, this.d_gamePhase, l_data);
+                    continent.editNeighborCountry(this.d_gameMap, this.d_gamePhase, l_data);
                     break;
                 case "showmap":
                     MapHelper l_gameMap = new MapHelper();

@@ -110,11 +110,13 @@ public class Country {
             // check if both countries are neighbor or not.
             if (l_country.getNeighbors().containsKey(l_neighborCountry.getCountryId().toLowerCase())) {
                 l_country.getNeighbors().remove(p_neighborCountryId.toLowerCase());
-                System.out.println(this.d_countryId + " remove as neighbor of " + p_neighborCountryId);
+                System.out.println(Constant.SUCCESS_COLOR + this.d_countryId + " remove as neighbor of "
+                        + p_neighborCountryId + Constant.RESET_COLOR);
             }
             if (l_neighborCountry.getNeighbors().containsKey(l_country.getCountryId().toLowerCase())) {
                 l_neighborCountry.getNeighbors().remove(this.d_countryId.toLowerCase());
-                System.out.println(p_neighborCountryId + " remove as neighbor of " + this.d_countryId);
+                System.out.println(Constant.SUCCESS_COLOR + p_neighborCountryId + " remove as neighbor of "
+                        + this.d_countryId + Constant.RESET_COLOR);
             }
             return true;
         } else {
@@ -250,7 +252,7 @@ public class Country {
      * @param p_neighborCountryId Name of neighbor country.
      * @return Return true, if country is added as neighbor, otherwise false.
      */
-    public boolean isCountryNeighborAdded(GameMap p_gameMap, String p_countryId, String p_neighborCountryId) {
+    public boolean isNeighborCountryAdded(GameMap p_gameMap, String p_countryId, String p_neighborCountryId) {
         if (p_gameMap.getCountries().containsKey(p_countryId.toLowerCase())
                 && p_gameMap.getCountries().containsKey(p_neighborCountryId.toLowerCase())) {
             Country l_country = p_gameMap.getCountries().get(p_countryId.toLowerCase());
@@ -262,14 +264,16 @@ public class Country {
                 System.out.println(Constant.SUCCESS_COLOR + p_countryId + " added as neighbor of " + p_neighborCountryId
                         + Constant.RESET_COLOR);
             } else {
-                System.out.println(p_countryId + " is already a neighbor of " + p_neighborCountryId);
+                System.out.println(Constant.ERROR_COLOR + p_countryId + " is already a neighbor of "
+                        + p_neighborCountryId + Constant.RESET_COLOR);
             }
             if (!l_neighborCountry.getNeighbors().containsKey(l_country.getCountryId().toLowerCase())) {
                 l_neighborCountry.getNeighbors().put(p_countryId.toLowerCase(), l_country);
                 System.out.println(Constant.SUCCESS_COLOR + p_neighborCountryId + " added as neighbor of " + p_countryId
                         + Constant.RESET_COLOR);
             } else {
-                System.out.println(p_neighborCountryId + " is already a neighbor of " + p_countryId);
+                System.out.println(Constant.ERROR_COLOR + p_neighborCountryId + " is already a neighbor of "
+                        + p_countryId + Constant.RESET_COLOR);
             }
             return true;
         } else {
@@ -300,8 +304,8 @@ public class Country {
             Country l_country = p_gameMap.getCountries().get(p_countryId.toLowerCase());
             Country l_neighborCountry = p_gameMap.getCountries().get(p_neighborCountryId.toLowerCase());
 
-            return l_country.getNeighbors().containsKey(l_neighborCountry.getCountryId())
-                    && l_neighborCountry.getNeighbors().containsKey(l_country.getCountryId());
+            return l_country.getNeighbors().containsKey(l_neighborCountry.getCountryId().toLowerCase())
+                    && l_neighborCountry.getNeighbors().containsKey(l_country.getCountryId().toLowerCase());
         }
         return false;
     }

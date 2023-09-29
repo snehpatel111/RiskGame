@@ -116,6 +116,13 @@ public class StartUpPhase {
                         System.out.println(Constant.ERROR_COLOR
                                 + "Invalid command! Try command -> loadmap <mapName>"
                                 + Constant.RESET_COLOR);
+                case "validatemap":
+                	MapValidator l_mapValidator = new MapValidator();
+                    if(l_mapValidator.validateMap(this.d_gameMap)){
+                            System.out.println(" Map got Validated "+Constant.SUCCESS_COLOR + " You are in right track"+Constant.RESET_COLOR);
+                    }
+                    else{
+                        System.out.println("** Invalid Map **"+ Constant.ERROR_COLOR + " Please check the Map you have entered"+Constant.RESET_COLOR);
                     }
                     break;
                 default:

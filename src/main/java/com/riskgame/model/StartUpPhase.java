@@ -62,6 +62,20 @@ public class StartUpPhase {
                                 + Constant.RESET_COLOR);
                     }
                     break;
+                case "loadmap":
+                    try {
+                        String l_mapFileName = l_data[1];
+                        MapHelper l_gameMapHelper = new MapHelper();
+                        this.d_gameMap = l_gameMapHelper.loadMap(l_mapFileName);
+                        System.out.println(Constant.SUCCESS_COLOR
+                                + l_mapFileName + " loaded successfully."
+                                + Constant.RESET_COLOR + "\n");
+                    } catch (Exception e) {
+                        System.out.println(Constant.ERROR_COLOR
+                                + "Invalid command! Try command -> loadmap <mapName>"
+                                + Constant.RESET_COLOR);
+                    }
+                    break;
                 default:
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName>"
@@ -89,6 +103,20 @@ public class StartUpPhase {
                     MapHelper l_gameMap = new MapHelper();
                     l_gameMap.showMap(this.d_gameMap);
                     this.d_gamePhase = Phase.EDITMAP;
+                    break;
+                case "loadmap":
+                    try {
+                        String l_mapFileName = l_data[1];
+                        MapHelper l_gameMapHelper = new MapHelper();
+                        this.d_gameMap = l_gameMapHelper.loadMap(l_mapFileName);
+                        System.out.println(Constant.SUCCESS_COLOR
+                                + l_mapFileName + " loaded successfully."
+                                + Constant.RESET_COLOR + "\n");
+                    } catch (Exception e) {
+                        System.out.println(Constant.ERROR_COLOR
+                                + "Invalid command! Try command -> loadmap <mapName>"
+                                + Constant.RESET_COLOR);
+                    }
                     break;
                 default:
                     System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);

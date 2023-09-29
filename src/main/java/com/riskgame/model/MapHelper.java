@@ -39,8 +39,19 @@ public class MapHelper {
         return this.d_gameMap;
     }
 
-    public void loadMap(String mapFileName) throws IOException {
-        System.out.println("Load map from file: " + mapFileName);
+    /**
+     * load <code>.map</code> files and create GameMap object accordingly.
+     * 
+     * @param p_mapFileName Name of .map file
+     * @return Returns GameMap object of respective map
+     */
+    public GameMap loadMap(String p_mapFileName) throws IOException {
+        String l_filePath = Constant.MAP_PATH + p_mapFileName;
+        this.d_gameMap = new GameMap(p_mapFileName);
+        
+        System.out.println("Loading map from file: " + p_mapFileName + "....");
+        this.readMap(l_filePath);
+        return this.d_gameMap;
     }
 
     /**
@@ -188,6 +199,26 @@ public class MapHelper {
     }
 
     /**
+     *  Registers this new country as part of its continent.
+	 * If duplicate country exits the program throwing error.
+     * @param p_country
+     */
+    private void addCountryToContinent(Country p_country) {
+        Country country = new Country();
+        if (!country.isCountryExist(this.d_gameMap, p_country.getCountryId())) {
+            Continent l_belongingContinent = this.d_gameMap.getContinents()
+                    .get(p_country.getBelongingContinent().toLowerCase());
+            l_belongingContinent.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
+            this.d_gameMap.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
+        } else {
+            System.out.println(Constant.ERROR_COLOR + "Error reading the file." + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR + "Two countries of same name exists in the same continent."
+                    + Constant.RESET_COLOR);
+            System.exit(-1);
+        }
+    }
+
+    /**
      * Display Map as a text
      * 
      * @param p_gameMap GameMap object containing continents and countries
@@ -245,18 +276,5 @@ public class MapHelper {
      * 
      * @param p_country Country to be added
      */
-    private void addCountryToContinent(Country p_country) {
-        Country country = new Country();
-        if (!country.isCountryExist(this.d_gameMap, p_country.getCountryId())) {
-            Continent l_belongingContinent = this.d_gameMap.getContinents()
-                    .get(p_country.getBelongingContinent().toLowerCase());
-            l_belongingContinent.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
-            this.d_gameMap.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
-        } else {
-            System.out.println(Constant.ERROR_COLOR + "Error reading the file." + Constant.RESET_COLOR);
-            System.out.println(Constant.ERROR_COLOR + "Two countries of same name exists in the same continent."
-                    + Constant.RESET_COLOR);
-            System.exit(-1);
-        }
-    }
+
 }

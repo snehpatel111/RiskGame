@@ -108,4 +108,8 @@ public class PlayerHelper {
 		}
 	}
 
+    public void showPlayers(ArrayList<Player> p_playerList){
+        System.out.println("Showing players:");
+    }
+
 }

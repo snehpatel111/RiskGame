@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import com.riskgame.model.StartUpPhase;
 
-import main.java.com.riskgame.model.Phase;
-import main.java.com.riskgame.utility.Constant;
+import com.riskgame.utility.Phase;
+import com.riskgame.utility.Constant;
 
 /**
  * This is the entry point of the game. It initializes the game state and keeps

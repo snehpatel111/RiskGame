@@ -1,4 +1,4 @@
-package main.java.com.riskgame.utility;
+package com.riskgame.utility;
 
 /**
  * Helper method to for game.
@@ -7,6 +7,7 @@ public class Util {
 
     /**
      * Validates if given string is a valid alphanumerical value.
+     * 
      * @param p_arg String to validate.
      * @return True if string contains only alphabets, false otherwise.
      */

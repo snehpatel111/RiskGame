@@ -1,4 +1,4 @@
-package main.java.com.riskgame.model;
+package com.riskgame.model;
 
 import java.util.HashMap;
 
@@ -44,6 +44,7 @@ public class GameMap {
 
     /**
      * Returns countries of continent.
+     * 
      * @return Returns countries of continent.
      */
     public HashMap<String, Country> getCountries() {

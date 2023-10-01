@@ -1,11 +1,8 @@
 package com.riskgame.model;
 
-import main.java.com.riskgame.model.Continent;
-import main.java.com.riskgame.model.GameMap;
-import main.java.com.riskgame.model.MapHelper;
-import main.java.com.riskgame.model.Phase;
-import main.java.com.riskgame.model.Player;
-import main.java.com.riskgame.utility.Constant;
+import com.riskgame.utility.Constant;
+import com.riskgame.utility.MapValidator;
+import com.riskgame.utility.Phase;
 
 /**
  * Implements parsing of initial commands during startup phase.
@@ -116,13 +113,18 @@ public class StartUpPhase {
                         System.out.println(Constant.ERROR_COLOR
                                 + "Invalid command! Try command -> loadmap <mapName>"
                                 + Constant.RESET_COLOR);
-                case "validatemap":
-                	MapValidator l_mapValidator = new MapValidator();
-                    if(l_mapValidator.validateMap(this.d_gameMap)){
-                            System.out.println(" Map got Validated "+Constant.SUCCESS_COLOR + " You are in right track"+Constant.RESET_COLOR);
                     }
-                    else{
-                        System.out.println("** Invalid Map **"+ Constant.ERROR_COLOR + " Please check the Map you have entered"+Constant.RESET_COLOR);
+                    break;
+                case "validatemap":
+                    try {
+                        MapValidator l_mapValidator = new MapValidator();
+                        if (l_mapValidator.validateMap(this.d_gameMap)) {
+                            System.out.println(
+                                    Constant.SUCCESS_COLOR + "Map is validated successfully!" + Constant.RESET_COLOR);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(Constant.ERROR_COLOR + "Invalid Map!"
+                                + Constant.RESET_COLOR);
                     }
                     break;
                 default:

@@ -1,13 +1,18 @@
-package main.java.com.riskgame.utility;
+package com.riskgame.utility;
 
-import org.jgrapht.*;
+import java.util.HashMap;
+
+import org.jgrapht.Graph;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import main.java.com.riskgame.model.Country;
+import com.riskgame.model.Continent;
+import com.riskgame.model.Country;
+import com.riskgame.model.GameMap;
 
 /**
- * Helper method to validate game map.
+ * Contains methods that will be used to validate the game map object.
  */
 public class MapValidator {
 
@@ -17,106 +22,107 @@ public class MapValidator {
     public MapValidator() {
         this.d_mapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
     }
-    
-    
+
     /**
-	 * It consist of various validity checks to ensure that map is suitable for playing the game.
-	 * Checks:
-	 * 	1) any empty continent is present or not, i.e. continent without any country
-	 * 	2) map for the game is connected graph or not
-	 * 	3) each continent in map is a connected sub-graph or not
-	 * @param p_gameMap GameMap  to be be checked.
-	 * @return return true if map is valid, else false if map is invalid
-	 */
-	public boolean validateMap(GameMap p_gameMap) {
-		
-		if(!this.isContinentEmpty(p_gameMap)) {
-			System.out.println("** Invalid map - "+Constant.ERROR_COLOR +" There is No Continent present in the Map"+Constant.RESET_COLOR);
-			return false;
-		}
-		else if(!this.isGraphConnected(this.createGraph(p_gameMap))) {
-			System.out.println("** Invalid map - "+Constant.ERROR_COLOR +" Graph is not Connected"+Constant.RESET_COLOR);
-			return false;
-		}
-		else if(!this.isContinentConnected(p_gameMap)) {
-			System.out.println("** Invalid map - "+Constant.ERROR_COLOR +" please check that One of the Continent is not connected to sub-graph "+Constant.RESET_COLOR);
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * This function will Check if any continent is empty and does not hold any country.
-	 * @param p_gameMap  object representing the game map
-	 * @return true if no continent is empty, else false indicating empty continent
-	 */
-	public boolean isContinentEmpty(GameMap p_gameMap) {
-		for(Continent l_continent : p_gameMap.getContinents().values()) {
-			if(l_continent.getCountries().size()==0)
-				return false;
-		}
-		return true;
-	}
-	
-	/**
-     * This function checks if the graph is a connected graph.
-     * @param p_graph The graph whose connectivity is checked
-     * @return returns true if the graph is connected
+     * Validates the game map.
+     * 
+     * @param p_gameMap GameMap to be be checked.
+     * @return Returns true if map is valid, otherwise false
+     */
+    public boolean validateMap(GameMap p_gameMap) {
+        if (!this.isContinentEmpty(p_gameMap)) {
+            System.out.println(Constant.ERROR_COLOR + "Invalid map!"
+                    + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR + "Continent is not present in the map"
+                    + Constant.RESET_COLOR);
+            return false;
+        } else if (!this.isGraphConnected(this.createGraph(p_gameMap))) {
+            System.out.println(Constant.ERROR_COLOR + "Graph is not connected!" + Constant.RESET_COLOR);
+            return false;
+        } else if (!this.isContinentConnected(p_gameMap)) {
+            System.out.println(Constant.ERROR_COLOR
+                    + "One of the continent is not connected sub-graph " + Constant.RESET_COLOR);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This function checks if any continent is empty.
+     * 
+     * @param p_gameMap GameMap object representing countries, continents and
+     *                  neighbors.
+     * @return Returns true if continent is empty, otherwise false.
+     */
+    public boolean isContinentEmpty(GameMap p_gameMap) {
+        for (Continent l_continent : p_gameMap.getContinents().values()) {
+            if (l_continent.getCountries().size() == 0)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * This function checks if graph is connected.
+     * 
+     * @param p_graph Graph object to be checked
+     * @return Returns true if graph is connected, otherwise false
      */
     public boolean isGraphConnected(Graph<Country, DefaultEdge> p_graph) {
-        ConnectivityInspector<Country, DefaultEdge> l_graphCheck = new ConnectivityInspector<>(p_graph);
-        if (l_graphCheck.isConnected())
-            return true;
-        else
-            return false;
+        ConnectivityInspector<Country, DefaultEdge> l_graphConnection = new ConnectivityInspector<>(p_graph);
+        return l_graphConnection.isConnected();
     }
-    
-    
+
     /**
-     * Creates a graph(using jgrapht library) by taking countries as vertices and adds edges between country and its neighbors
-     *
-     * @param p_gameMap is GameMap object  representing countries ,continents and borders.
-     * @return returns graph representing the map
+     * Creates a graph by taking countries as vertices and adds edges between
+     * neighbors.
+     * 
+     * @param p_gameMap GameMap object representing countries, continents and
+     *                  neighbors.
+     * @return Returns graph object that represents the game map.
      */
     public Graph<Country, DefaultEdge> createGraph(GameMap p_gameMap) {
-
-        //add Country to the Graph
-        for (Country l_countryDetails : p_gameMap.getCountries().values()) {
-            d_mapGraph.addVertex(l_countryDetails);
+        // Add Country to the Graph
+        for (Country l_country : p_gameMap.getCountries().values()) {
+            this.d_mapGraph.addVertex(l_country);
         }
 
-        //add Edges between country and its neighbours
-        for (Country l_countryDetails : p_gameMap.getCountries().values()) {
-            for (Country l_neighbor : l_countryDetails.getNeighbors().values()) {
-                d_mapGraph.addEdge(l_countryDetails, l_neighbor);
+        // Add Edges between country and its neighbors
+        for (Country l_country : p_gameMap.getCountries().values()) {
+            for (Country l_neighbor : l_country.getNeighbors().values()) {
+                this.d_mapGraph.addEdge(l_country, l_neighbor);
             }
         }
-        return d_mapGraph;
+        return this.d_mapGraph;
     }
 
     /**
-   	 * Checks if all continents are connected sub-graphs or not
-   	 * @param p_gameMap is a GameMap object representing the game map
-   	 * @return true if all continents are connected sub-graph, else false indicating incorrect map
-   	 */
-   	public boolean isContinentConnected(GameMap p_gameMap) {
-   		for(Continent l_continent : p_gameMap.getContinents().values()) {
-   			Graph<Country, DefaultEdge> l_subGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-   			l_subGraph = createSubGraph(l_subGraph, l_continent.getCountries());
-   			if(!isGraphConnected(l_subGraph)) {
-   				return false;
-   			}
-   		}
-   		return true;
-   	}
-   	
-    /**
-     *This function creates a subgraph for a continent
-     * @param p_subGraph subgraph for a continent
-     * @param p_countries countries of a continent
-     * @return p_subGraph a subgraph for a continent
+     * Validates if all continents are connected sub-graph.
+     * 
+     * @param p_gameMap GameMap object representing countries, continents and
+     *                  neighbors.
+     * @return Returns true if all continents are connected sub-graph, otherwise
+     *         false
      */
-    public Graph<Country, DefaultEdge> createSubGraph(Graph<Country, DefaultEdge> p_subGraph, HashMap<String, Country> p_countries) {
+    public boolean isContinentConnected(GameMap p_gameMap) {
+        for (Continent l_continent : p_gameMap.getContinents().values()) {
+            Graph<Country, DefaultEdge> l_subGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+            l_subGraph = this.createSubGraph(l_subGraph, l_continent.getCountries());
+            if (!this.isGraphConnected(l_subGraph))
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * This function creates a subgraph for a continent.
+     * 
+     * @param p_subGraph  Subgraph of a continent
+     * @param p_countries Countries of a continent
+     * @return Returns a subgraph for a continent
+     */
+    public Graph<Country, DefaultEdge> createSubGraph(Graph<Country, DefaultEdge> p_subGraph,
+            HashMap<String, Country> p_countries) {
 
         for (Country l_country : p_countries.values()) {
             p_subGraph.addVertex(l_country);
@@ -131,5 +137,5 @@ public class MapValidator {
         }
         return p_subGraph;
     }
-    
+
 }

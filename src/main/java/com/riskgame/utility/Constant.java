@@ -1,4 +1,4 @@
-package main.java.com.riskgame.utility;
+package com.riskgame.utility;
 
 public class Constant {
     public static final String MAP_PATH = "src/main/resource/map/";

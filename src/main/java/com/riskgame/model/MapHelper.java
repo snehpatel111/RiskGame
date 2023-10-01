@@ -1,4 +1,4 @@
-package main.java.com.riskgame.model;
+package com.riskgame.model;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.com.riskgame.utility.Constant;
+import com.riskgame.utility.Constant;
 
 /**
  * This class contains helper functions related to Map.
@@ -48,7 +48,7 @@ public class MapHelper {
     public GameMap loadMap(String p_mapFileName) throws IOException {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         this.d_gameMap = new GameMap(p_mapFileName);
-        
+
         System.out.println("Loading map from file: " + p_mapFileName + "....");
         this.readMap(l_filePath);
         return this.d_gameMap;
@@ -199,8 +199,9 @@ public class MapHelper {
     }
 
     /**
-     *  Registers this new country as part of its continent.
-	 * If duplicate country exits the program throwing error.
+     * Registers this new country as part of its continent.
+     * If duplicate country exits the program throwing error.
+     * 
      * @param p_country
      */
     private void addCountryToContinent(Country p_country) {

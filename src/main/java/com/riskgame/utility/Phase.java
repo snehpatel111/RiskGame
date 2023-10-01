@@ -1,4 +1,4 @@
-package main.java.com.riskgame.model;
+package com.riskgame.utility;
 
 /**
  * Describes the current phase of the game.
@@ -11,7 +11,8 @@ public enum Phase {
     NULL,
 
     /**
-     * Map editing phase. Allows players to add/remove continents, countries, and neighbors.
+     * Map editing phase. Allows players to add/remove continents, countries, and
+     * neighbors.
      * Phase ends when <code>loadmap</code> command is encountered.
      */
     EDITMAP,

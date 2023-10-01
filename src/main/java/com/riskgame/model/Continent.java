@@ -1,11 +1,12 @@
-package main.java.com.riskgame.model;
+package com.riskgame.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import main.java.com.riskgame.utility.Constant;
-import main.java.com.riskgame.utility.Util;
+import com.riskgame.utility.Constant;
+import com.riskgame.utility.Util;
+import com.riskgame.utility.Phase;
 
 /**
  * Contains details about continents like control value, color, countries,

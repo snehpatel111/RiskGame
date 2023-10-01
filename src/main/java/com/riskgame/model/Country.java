@@ -1,10 +1,10 @@
-package main.java.com.riskgame.model;
+package com.riskgame.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import main.java.com.riskgame.utility.Constant;
+import com.riskgame.utility.Constant;
 
 public class Country {
     public int d_index;

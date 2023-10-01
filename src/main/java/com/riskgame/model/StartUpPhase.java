@@ -244,9 +244,7 @@ public class StartUpPhase {
                 }
             }
             return this.d_gamePhase;
-        } catch (
-
-        Exception e) {
+        } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR +
                     "Invalid command!"
                     + Constant.RESET_COLOR);

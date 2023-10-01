@@ -248,7 +248,7 @@ public class MapHelper {
             return;
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
-        System.out.printf("%25s%25s%35s\n", "Continents", "Country", "Country's neighbors");
+        System.out.printf("%25s%25s%35s\n", "Continent", "Country", "Neighbour Countries");
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
         boolean l_printContinentName = true;

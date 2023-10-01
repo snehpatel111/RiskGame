@@ -36,8 +36,76 @@ public class Player {
         this.d_executionOrderList = new ArrayDeque<>();
     }
 
+    /**
+     * Returns the player name
+     * 
+     * @return The player name
+     */
     public String getPlayerName() {
         return this.d_playerName;
+    }
+
+    /**
+     * Set the name of the player
+     * 
+     * @param p_playerName Name of the player
+     */
+    public void setPlayerName(String p_playerName) {
+        this.d_playerName = p_playerName;
+    }
+
+    /**
+     * Getter method to return the countries owned by a player.
+     * 
+     * @return The countries owned by the player
+     */
+    public HashMap<String, Country> getOwnedCountries() {
+        return this.d_ownedCountries;
+    }
+
+    /**
+     * Seta the countries owned by the player
+     * 
+     * @param p_countries Countries owned by player
+     */
+    public void setOwnedCountries(HashMap<String, Country> p_countries) {
+        this.d_ownedCountries = p_countries;
+    }
+
+    /**
+     * Getter method to return the continents owned by a player.
+     * 
+     * @return The continents owned by the player
+     */
+    public HashMap<String, Continent> getOwnedContinents() {
+        return this.d_ownedContinents;
+    }
+
+    /**
+     * Setter method to set the continents owned by the player
+     * 
+     * @param p_continents Continents owned by player
+     */
+    public void setOwnedContinents(HashMap<String, Continent> p_continents) {
+        this.d_ownedContinents = p_continents;
+    }
+
+    /**
+     * Getter method to return number of armies owned by player
+     * 
+     * @return Number of armies owned
+     */
+    public int getOwnedArmyCount() {
+        return this.d_ownedArmyCount;
+    }
+
+    /**
+     * Setter method to set number of armies owned by player
+     * 
+     * @param p_ownedArmyCount Number of armies owned
+     */
+    public void setOwnedArmyCount(int p_ownedArmyCount) {
+        this.d_ownedArmyCount = p_ownedArmyCount;
     }
 
     /**

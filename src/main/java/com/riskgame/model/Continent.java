@@ -103,6 +103,22 @@ public class Continent {
     }
 
     /**
+     * Setter method to set control value of the continent
+     * @param p_controlValue set control value of the continent to this value
+     */
+    public void setControlValue(int p_controlValue) {
+        d_controlValue = p_controlValue;
+    }
+
+    /**
+     * Setter method to set color of the continent
+     * @param p_continentColor set color of the continent to this value
+     */
+    public void setContinentColor(String p_continentColor) {
+        d_continentColor = p_continentColor;
+    }
+
+    /**
      * Returns countries of continent.
      * 
      * @return Returns countries of continent.

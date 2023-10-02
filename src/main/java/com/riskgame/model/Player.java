@@ -2,9 +2,12 @@ package com.riskgame.model;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
@@ -36,8 +39,76 @@ public class Player {
         this.d_executionOrderList = new ArrayDeque<>();
     }
 
+    /**
+     * Returns the player name
+     * 
+     * @return The player name
+     */
     public String getPlayerName() {
         return this.d_playerName;
+    }
+
+    /**
+     * Set the name of the player
+     * 
+     * @param p_playerName Name of the player
+     */
+    public void setPlayerName(String p_playerName) {
+        this.d_playerName = p_playerName;
+    }
+
+    /**
+     * Getter method to return the countries owned by a player.
+     * 
+     * @return The countries owned by the player
+     */
+    public HashMap<String, Country> getOwnedCountries() {
+        return this.d_ownedCountries;
+    }
+
+    /**
+     * Seta the countries owned by the player
+     * 
+     * @param p_countries Countries owned by player
+     */
+    public void setOwnedCountries(HashMap<String, Country> p_countries) {
+        this.d_ownedCountries = p_countries;
+    }
+
+    /**
+     * Getter method to return the continents owned by a player.
+     * 
+     * @return The continents owned by the player
+     */
+    public HashMap<String, Continent> getOwnedContinents() {
+        return this.d_ownedContinents;
+    }
+
+    /**
+     * Setter method to set the continents owned by the player
+     * 
+     * @param p_continents Continents owned by player
+     */
+    public void setOwnedContinents(HashMap<String, Continent> p_continents) {
+        this.d_ownedContinents = p_continents;
+    }
+
+    /**
+     * Getter method to return number of armies owned by player
+     * 
+     * @return Number of armies owned
+     */
+    public int getOwnedArmyCount() {
+        return this.d_ownedArmyCount;
+    }
+
+    /**
+     * Setter method to set number of armies owned by player
+     * 
+     * @param p_ownedArmyCount Number of armies owned
+     */
+    public void setOwnedArmyCount(int p_ownedArmyCount) {
+        this.d_ownedArmyCount = p_ownedArmyCount;
     }
 
     /**
@@ -149,5 +220,31 @@ public class Player {
             }
         }
         return false;
+    }
+
+    /**
+     * Randomly assigns countries to players from the game map and player list
+     * 
+     * @param p_gameMap    The game map containing countries
+     * @param p_playerList The list of players
+     */
+    public static void assignCountries(GameMap p_gameMap, List<Player> p_playerList) {
+        try {
+            if (p_playerList.size() < 2) {
+                System.out.println(Constant.ERROR_COLOR + "Minimum two players are required to play the game."
+                        + Constant.RESET_COLOR);
+                return;
+            }
+            Collections.shuffle(p_playerList);
+            for (Country l_country : p_gameMap.getCountries().values()) {
+                int l_randomIndex = new Random().nextInt(p_playerList.size());
+                Player l_randomPlayer = p_playerList.get(l_randomIndex);
+                l_randomPlayer.getOwnedCountries().put(l_country.getCountryId().toLowerCase(), l_country);
+            }
+            System.out.println(
+                    Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
+        } catch (Exception e) {
+            System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
+        }
     }
 }

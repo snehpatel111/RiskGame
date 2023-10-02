@@ -103,27 +103,11 @@ public class Continent {
     }
 
     /**
-     * Returns the Control Value of the continent.
-     * @return returns the Control Value of the continent
-     */
-    public int getControlValue() {
-        return this.d_controlValue;
-    }
-
-    /**
      * Setter method to set control value of the continent
      * @param p_controlValue set control value of the continent to this value
      */
     public void setControlValue(int p_controlValue) {
         d_controlValue = p_controlValue;
-    }
-
-    /**
-     * Returns the color of the continent.
-     * @return returns the color of the continent
-     */
-    public String getContinentColor() {
-        return this.d_continentColor;
     }
 
     /**

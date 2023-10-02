@@ -2,9 +2,12 @@ package com.riskgame.model;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
@@ -217,5 +220,31 @@ public class Player {
             }
         }
         return false;
+    }
+
+    /**
+     * Randomly assigns countries to players from the game map and player list
+     * 
+     * @param p_gameMap    The game map containing countries
+     * @param p_playerList The list of players
+     */
+    public static void assignCountries(GameMap p_gameMap, List<Player> p_playerList) {
+        try {
+            if (p_playerList.size() < 2) {
+                System.out.println(Constant.ERROR_COLOR + "Minimum two players are required to play the game."
+                        + Constant.RESET_COLOR);
+                return;
+            }
+            Collections.shuffle(p_playerList);
+            for (Country l_country : p_gameMap.getCountries().values()) {
+                int l_randomIndex = new Random().nextInt(p_playerList.size());
+                Player l_randomPlayer = p_playerList.get(l_randomIndex);
+                l_randomPlayer.getOwnedCountries().put(l_country.getCountryId().toLowerCase(), l_country);
+            }
+            System.out.println(
+                    Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
+        } catch (Exception e) {
+            System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
+        }
     }
 }

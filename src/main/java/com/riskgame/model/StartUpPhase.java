@@ -1,15 +1,19 @@
 package com.riskgame.model;
 
-import com.riskgame.utility.Constant;
-import com.riskgame.utility.MapValidator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 import com.riskgame.utility.Phase;
 
 import com.riskgame.model.Continent;
+import com.riskgame.model.Country;
 import com.riskgame.model.GameMap;
 import com.riskgame.model.MapHelper;
 import com.riskgame.model.Player;
-
-import java.util.ArrayList;
+import com.riskgame.utility.Constant;
+import com.riskgame.utility.MapValidator;
 
 /**
  * Implements parsing of initial commands during startup phase.
@@ -119,6 +123,38 @@ public class StartUpPhase {
                     case "editneighbor":
                         continent.editNeighborCountry(this.d_gameMap, this.d_gamePhase, l_data);
                         break;
+                    case "editmap":
+                        try {
+                            if (!isValidCommandArgument(l_data, 2)) {
+                                System.out.println(Constant.ERROR_COLOR
+                                        + "Invalid command! Try command -> editmap sample.map" + Constant.RESET_COLOR);
+                                break;
+                            }
+                            String l_mapFileName = l_data[1];
+                            MapHelper l_gameMap = new MapHelper();
+                            this.d_gameMap = l_gameMap.editMap(l_mapFileName);
+                            System.out.println("Editing for Map: " + l_mapFileName + "\n");
+                            System.out.println("See the selected map using " + Constant.SUCCESS_COLOR
+                                    + "showmap"
+                                    + Constant.RESET_COLOR);
+                            System.out.println("Edit continent using " + Constant.SUCCESS_COLOR
+                                    + "editcontinent -add <continentId> <continentValue> or editcontinent -remove <continentId>"
+                                    + Constant.RESET_COLOR);
+                            System.out.println("Edit country using " + Constant.SUCCESS_COLOR
+                                    + "editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
+                                    + Constant.RESET_COLOR);
+                            System.out.println("Edit neighbor using " + Constant.SUCCESS_COLOR
+                                    + "editneighbor -add <countryId> <neighborCountryId> or editneighbor -remove <countryId> <neighborCountryId>"
+                                    + Constant.RESET_COLOR + "\n");
+
+                            this.d_gamePhase = Phase.EDITMAP;
+                            break;
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out
+                                    .println(Constant.ERROR_COLOR + "Invalid command! Try command -> editmap sample.map"
+                                            + Constant.RESET_COLOR);
+                        }
+                        break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {
                             System.out.println(Constant.ERROR_COLOR
@@ -216,16 +252,10 @@ public class StartUpPhase {
                         Player l_player = new Player(l_data[1]);
                         l_player.managePlayer(this.d_playerList, this.d_gamePhase, l_data);
                         break;
-
-                    // case "assigncountries":
-                    // boolean l_check = d_StartUp.assignCountries(d_Map, d_Players);
-                    // if (l_check) {
-                    // System.out.println("Countries allocated randomly amongst Players");
-                    // d_GamePhase = Phase.ISSUE_ORDERS;
-                    // }
-                    // d_GamePhase = Phase.ISSUE_ORDERS;
-                    // break;
-
+                    case "assigncountries":
+                        Player.assignCountries(this.d_gameMap, this.d_playerList);
+                        this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {
                             System.out.println(Constant.ERROR_COLOR

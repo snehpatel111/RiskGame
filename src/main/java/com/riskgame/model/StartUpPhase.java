@@ -171,6 +171,28 @@ public class StartUpPhase {
                                     + Constant.RESET_COLOR);
                         }
                         break;
+                    case "savemap":
+                        MapHelper l_mapHelper = new MapHelper();
+                        try {
+                            boolean l_isMapSaved = l_mapHelper.saveMap(d_gameMap, l_data[1]);
+                            if (l_isMapSaved) {
+                                System.out.println(
+                                        Constant.SUCCESS_COLOR + "Map saved successfully" + Constant.RESET_COLOR);
+                                this.d_gamePhase = Phase.EDITMAP;
+                            } else
+                                System.out.println(
+                                        Constant.ERROR_COLOR + "Error while saving - invalid map"
+                                                + Constant.RESET_COLOR);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println(Constant.ERROR_COLOR +
+                                    "Invalid command - It should be of the form(without extension) savemap filename"
+                                    + Constant.RESET_COLOR);
+                        } catch (Exception e) {
+                            System.out.println(Constant.ERROR_COLOR +
+                                    "Invalid command - It should be of the form(without extension) savemap filename"
+                                    + Constant.RESET_COLOR);
+                        }
+                        break;
                     default:
                         System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                         System.out.println(Constant.ERROR_COLOR +
@@ -196,13 +218,13 @@ public class StartUpPhase {
                         break;
 
                     // case "assigncountries":
-                    //     boolean l_check = d_StartUp.assignCountries(d_Map, d_Players);
-                    //     if (l_check) {
-                    //         System.out.println("Countries allocated randomly amongst Players");
-                    //         d_GamePhase = Phase.ISSUE_ORDERS;
-                    //     }
-                    //     d_GamePhase = Phase.ISSUE_ORDERS;
-                    //     break;
+                    // boolean l_check = d_StartUp.assignCountries(d_Map, d_Players);
+                    // if (l_check) {
+                    // System.out.println("Countries allocated randomly amongst Players");
+                    // d_GamePhase = Phase.ISSUE_ORDERS;
+                    // }
+                    // d_GamePhase = Phase.ISSUE_ORDERS;
+                    // break;
 
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {

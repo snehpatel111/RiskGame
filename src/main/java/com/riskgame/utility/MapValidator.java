@@ -24,13 +24,23 @@ public class MapValidator {
     }
 
     /**
+     * Validate map name.
+     * 
+     * @param p_mapName Map name to check
+     * @return Returns true if map name is valid, otherwise false
+     */
+    public boolean isValidMapName(String p_mapName) {
+        return p_mapName != null && p_mapName.matches("^[a-zA-Z.]*$");
+    }
+
+    /**
      * Validates the game map.
      * 
      * @param p_gameMap GameMap to be be checked.
      * @return Returns true if map is valid, otherwise false
      */
     public boolean isValidMap(GameMap p_gameMap) {
-        if (!this.isContinentEmpty(p_gameMap)) {
+        if (this.isEmptyContinent(p_gameMap)) {
             System.out.println(Constant.ERROR_COLOR + "Invalid map!"
                     + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + "Continent is not present in the map"
@@ -54,12 +64,12 @@ public class MapValidator {
      *                  neighbors.
      * @return Returns true if continent is empty, otherwise false.
      */
-    public boolean isContinentEmpty(GameMap p_gameMap) {
+    public boolean isEmptyContinent(GameMap p_gameMap) {
         for (Continent l_continent : p_gameMap.getContinents().values()) {
             if (l_continent.getCountries().size() == 0)
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
     /**

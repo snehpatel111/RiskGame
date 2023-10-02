@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.294" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.139" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="C:\Users\yashc\.jdks\openjdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\yashc\AppData\Local\Temp\surefire13230403291724229227\surefirebooter17833514598042104770.jar C:\Users\yashc\AppData\Local\Temp\surefire13230403291724229227 2023-09-28T19-50-21_915-jvmRun1 surefire9762134351718151881tmp surefire_017078547443209375205tmp"/>
+    <property name="sun.java.command" value="C:\Users\yashc\AppData\Local\Temp\surefire14574639673771540605\surefirebooter18285153933349504990.jar C:\Users\yashc\AppData\Local\Temp\surefire14574639673771540605 2023-10-01T18-09-37_495-jvmRun1 surefire16370035738610360653tmp surefire_015653367344695096647tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\yashc\OneDrive\Desktop\CANADA\Related study\MACS\Fall-2023\APP\Project\Build1\RiskGame\target\test-classes;C:\Users\yashc\OneDrive\Desktop\CANADA\Related study\MACS\Fall-2023\APP\Project\Build1\RiskGame\target\classes;C:\Users\yashc\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\yashc\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\yashc\.m2\repository\org\jgrapht\jgrapht-core\1.3.1\jgrapht-core-1.3.1.jar;C:\Users\yashc\.m2\repository\org\jheaps\jheaps\0.10\jheaps-0.10.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\yashc\AppData\Local\Temp\surefire13230403291724229227\surefirebooter17833514598042104770.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\yashc\AppData\Local\Temp\surefire14574639673771540605\surefirebooter18285153933349504990.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21+35-2513"/>
@@ -58,5 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.024"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.007"/>
 </testsuite>

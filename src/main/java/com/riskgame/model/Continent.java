@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.riskgame.model.StartUpPhase;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.Util;
 import com.riskgame.utility.Phase;
@@ -92,6 +93,13 @@ public class Continent {
     public void editContinent(GameMap p_gameMap, Phase p_gamePhase, String[] p_args) {
         try {
             if (p_args[1].equals("-add")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue>"
+                            +
+                            Constant.RESET_COLOR);
+                    return;
+                }
                 if (!Util.isAlphabetic(p_args[2])) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid continent Id."
                             + Constant.RESET_COLOR);
@@ -111,6 +119,12 @@ public class Continent {
                             + " already exists - Please add valid Continent Id" + Constant.RESET_COLOR);
                 }
             } else if (p_args[1].equals("-remove")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcontinent -remove <continentId>"
+                            + Constant.RESET_COLOR);
+                    return;
+                }
                 if (!this.isContinentExist(p_gameMap, p_args[2])) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid Continent Id."
                             + Constant.RESET_COLOR);
@@ -124,6 +138,11 @@ public class Continent {
                     p_gamePhase = Phase.EDITMAP;
                 } else
                     System.out.println(this.d_continentId + " doesn't exist - Please enter valid Continent Id");
+            } else {
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>"
+                                + Constant.RESET_COLOR);
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(
@@ -210,6 +229,12 @@ public class Continent {
             String l_countryId = null;
             String l_continentId = null;
             if (p_args[1].equals("-add")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcountry -add <countryId> <continentId>"
+                            + Constant.RESET_COLOR);
+                    return;
+                }
                 if (!Util.isAlphabetic(p_args[2]) || !this.isContinentExist(p_gameMap, p_args[3])) {
                     System.out.println(
                             Constant.ERROR_COLOR + "Invalid country/continent name."
@@ -228,6 +253,12 @@ public class Continent {
                             + " already exists - Please add valid Country Id" + Constant.RESET_COLOR);
                 }
             } else if (p_args[1].equals("-remove")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editcountry -remove <countryId>"
+                            + Constant.RESET_COLOR);
+                    return;
+                }
                 if (!this.isCountryExist(p_gameMap, p_args[2])) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country name."
                             + Constant.RESET_COLOR);
@@ -243,6 +274,11 @@ public class Continent {
                 } else {
                     System.out.println(l_countryId + " does not exist - Please enter valid country name");
                 }
+            } else {
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
+                                + Constant.RESET_COLOR);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(
@@ -309,6 +345,12 @@ public class Continent {
             String l_countryId = p_args[2];
             String l_neighborCountryId = p_args[3];
             if (p_args[1].equals("-add")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editneighbor -add <countryId> <neighborCountryId>"
+                            + Constant.RESET_COLOR);
+                    return;
+                }
                 if (!country.isCountryExist(p_gameMap, l_countryId)
                         || !country.isCountryExist(p_gameMap, l_neighborCountryId)) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country Id."
@@ -322,6 +364,12 @@ public class Continent {
                     System.out.println("Country does not exist - Please enter valid countryId/neighborcountryId");
                 }
             } else if (p_args[1].equals("-remove")) {
+                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                    System.out.println(Constant.ERROR_COLOR
+                            + "Invalid command - It should be of the form: editneighbor -add <countryId> <neighborCountryId>"
+                            + Constant.RESET_COLOR);
+                    return;
+                }
                 if (!country.isNeighbor(p_gameMap, l_countryId, l_neighborCountryId)) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country Id."
                             + Constant.RESET_COLOR);

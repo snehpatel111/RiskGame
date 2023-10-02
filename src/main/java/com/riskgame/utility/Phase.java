@@ -22,4 +22,11 @@ public enum Phase {
      * Phase ends when all players provide orders for their turns.
      */
     ISSUE_ORDERS,
+    /**
+     * Starting phase of the game. Players will be added in this phase and assigned
+     * armies.
+     * This phase starts after "loadmap" and ends when all players have been
+     * assigned armies which is after "assignedarmies" command.
+     */
+    STARTUP,
 }

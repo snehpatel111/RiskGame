@@ -29,7 +29,7 @@ public class MapValidator {
      * @param p_gameMap GameMap to be be checked.
      * @return Returns true if map is valid, otherwise false
      */
-    public boolean validateMap(GameMap p_gameMap) {
+    public boolean isValidMap(GameMap p_gameMap) {
         if (!this.isContinentEmpty(p_gameMap)) {
             System.out.println(Constant.ERROR_COLOR + "Invalid map!"
                     + Constant.RESET_COLOR);

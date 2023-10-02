@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import com.riskgame.utility.Constant;
+import com.riskgame.utility.MapValidator;
 
 /**
  * This class contains helper functions related to Map.
@@ -40,18 +41,33 @@ public class MapHelper {
     }
 
     /**
-     * load <code>.map</code> files and create GameMap object accordingly.
+     * Loads map data from file and populates GameMap object.
      * 
-     * @param p_mapFileName Name of .map file
-     * @return Returns GameMap object of respective map
+     * @param p_mapFileName Name of map file
+     * @return Returns GameMap object constructed from map file
      */
-    public GameMap loadMap(String p_mapFileName) throws IOException {
+    public GameMap loadMap(String p_mapFileName) {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
-        this.d_gameMap = new GameMap(p_mapFileName);
-
-        System.out.println("Loading map from file: " + p_mapFileName + "....");
-        this.readMap(l_filePath);
-        return this.d_gameMap;
+        File l_file = new File(l_filePath);
+        if (l_file.exists()) {
+            this.d_gameMap = new GameMap(p_mapFileName);
+            System.out.println("Loading map from " + p_mapFileName + "...");
+            this.readMap(l_filePath);
+            MapValidator l_mapValidator = new MapValidator();
+            if (!l_mapValidator.isValidMap(this.d_gameMap)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Map is not valid for playing. Try to correct map or choose from existing one"
+                        + Constant.RESET_COLOR);
+                return null;
+            }
+            System.out.println(
+                    Constant.SUCCESS_COLOR + p_mapFileName + "loaded successfully." + Constant.RESET_COLOR);
+            return this.d_gameMap;
+        }
+        System.out.println(Constant.ERROR_COLOR + p_mapFileName
+                + " does not exist. Please check file path or create new map using editmap <mapName> command."
+                + Constant.RESET_COLOR);
+        return null;
     }
 
     /**

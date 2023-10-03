@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import com.riskgame.utility.Phase;
+import java.util.Iterator;
 
 import com.riskgame.model.Continent;
 import com.riskgame.model.Country;
 import com.riskgame.model.GameMap;
 import com.riskgame.model.MapHelper;
 import com.riskgame.model.Player;
+import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
 
@@ -102,6 +102,7 @@ public class StartUpPhase {
                                 this.d_gamePhase = Phase.NULL;
                             } else {
                                 this.d_gamePhase = Phase.STARTUP;
+                                System.out.println("Proceed to add game player");
                             }
                         } catch (Exception e) {
                             System.out.println(Constant.ERROR_COLOR
@@ -280,6 +281,35 @@ public class StartUpPhase {
                                 "Invalid command - use gameplayer command or assigncountries command or showmap command in the start up phase!"
                                 + Constant.RESET_COLOR);
                         break;
+                }
+            }
+            // ISSUE_ORDER phase commands: deploy, pass, showmap
+            else if (this.d_gamePhase.equals(Phase.ISSUE_ORDERS)) {
+                int l_counter = 0;
+                Iterator<Player> l_iterator = this.d_playerList.listIterator();
+                while (l_iterator.hasNext()) {
+                    Player l_player = l_iterator.next();
+                    System.out.println(Constant.SUCCESS_COLOR + "Player " + l_player.getPlayerName() + " has "
+                            + l_player.getOwnedArmyCount() + " armies currently!" + Constant.RESET_COLOR);
+                }
+                System.out.println("Total armies left in reinforcement pool: " + l_counter);
+                if (l_counter > 0) {
+                    switch (l_commandName) {
+                        case "deploy":
+                            p_player.issue_order(l_data);
+                            break;
+                        case "pass":
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        default:
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy>");
+                            break;
+                    }
+                } else {
+                    System.out.println("Press Enter to continue with EXECUTE phase...");
+                    this.d_gamePhase = Phase.EXECUTE_ORDERS;
+                    return this.d_gamePhase;
                 }
             }
             return this.d_gamePhase;

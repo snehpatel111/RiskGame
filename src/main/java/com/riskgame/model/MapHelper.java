@@ -63,7 +63,7 @@ public class MapHelper {
                 return null;
             }
             System.out.println(
-                    Constant.SUCCESS_COLOR + p_mapFileName + "loaded successfully." + Constant.RESET_COLOR);
+                    Constant.SUCCESS_COLOR + "Map is valid and loaded successfully." + Constant.RESET_COLOR);
             return this.d_gameMap;
         }
         System.out.println(Constant.ERROR_COLOR + p_mapFileName

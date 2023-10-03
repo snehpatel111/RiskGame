@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
+import org.jgrapht.alg.util.VertexDegreeComparator.Order;
+
 import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
 import com.riskgame.model.Order;
@@ -230,6 +232,43 @@ public class Player {
             }
         }
         return false;
+    }
+
+    /**
+     * This function adds Order object to the list of Orders.
+     * It has no parameters.
+     */
+    public void issue_order() {
+        this.d_executionOrderList.add(this.d_executeOrder);
+        for (ExecuteOrder l_x : d_executionOrderList){
+            System.out.println(l_x.getD_player().getPlayerName());
+        }
+    }
+
+    /**
+     * getter for order queue
+     * @return d_OrderList
+     */
+    public Queue<ExecuteOrder> getD_orderList() {
+        return d_executionOrderList;
+    }
+
+    /**
+     * This function sets the created Object to Players Object
+     *
+     * @param p_order created Order
+     */
+    public void addOrder(ExecuteOrder p_order) {
+        this.d_executeOrder = p_order;
+    }
+
+    /**
+     * This function takes the first Order in the List and calls execute() on it.
+     *
+     * @return first Order in the List.
+     */
+    public ExecuteOrder next_order() {
+        return d_executionOrderList.poll();
     }
 
     /**

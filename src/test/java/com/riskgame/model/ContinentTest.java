@@ -90,4 +90,55 @@ public class ContinentTest {
 
         assertTrue(this.d_gameMap.getContinents().isEmpty());
     }
+
+    /**
+     * Test case for checking if the continent is correctly removed when editing
+     * the continent with the "-remove" command.
+     */
+    @Test
+    public void testEditContinentRemovingExistingContinent() {
+        String l_continentId = "azio";
+        int l_controlValue = 5;
+
+        this.d_continent.isContinentAdded(this.d_gameMap, l_continentId, l_controlValue);
+
+        String[] args = { "editcontinent", "-remove", l_continentId };
+        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
+
+        assertNull(this.d_gameMap.getContinents().get(l_continentId.toLowerCase()));
+    }
+
+    /**
+     * Test case for checking if editing a non-existing continent with the "-add" command
+     * actually adds a new continent.
+     */
+    @Test
+    public void testEditContinentAddingNonexistentContinent() {
+        String l_continentId = "newContinent";
+        int l_controlValue = 5;
+
+        String[] args = { "editcontinent", "-add", l_continentId, Integer.toString(l_controlValue) };
+        this.d_gameMap.getContinents().clear(); // Clear existing continents
+        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
+
+        assertNotNull(this.d_gameMap.getContinents().get(l_continentId.toLowerCase()));
+    }
+
+    /**
+     * Test case for checking if an existing continent remains unchanged when editing
+     * a non-existing continent with the "-remove" command.
+     */
+    @Test
+    public void testEditContinentEditingNonexistentContinent() {
+        String l_existingContinentId = "azio";
+        int l_controlValue = 5;
+        String l_nonexistentContinentId = "NonexistentContinent";
+
+        this.d_continent.isContinentAdded(this.d_gameMap, l_existingContinentId, l_controlValue);
+
+        String[] args = { "editcontinent", "-remove", l_nonexistentContinentId };
+        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
+
+        assertNotNull(this.d_gameMap.getContinents().get(l_existingContinentId.toLowerCase()));
+    }
 }

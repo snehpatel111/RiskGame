@@ -139,6 +139,14 @@ public class Country {
     }
 
     /**
+	 * Getter method to get number of armies in the country.
+	 * @return returns d_numberOfArmies
+	 */
+	public int getNumberOfArmies() {
+		return this.d_numberOfArmies;
+	}
+
+    /**
      * Returns is neighbor removed or not
      * 
      * @param p_gameMap           GameMap object containing countries and

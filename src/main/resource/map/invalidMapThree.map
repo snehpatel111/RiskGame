@@ -1,0 +1,28 @@
+name invalidMapThree Map
+
+[files]
+
+[continents]
+South-America 2 red
+Europe 5 blue
+Africa 3 orange
+
+[countries]
+1 Greenland 1 0 0
+2 Ontario 2 0 0
+3 Quebec 3 0 0
+4 Eastern-United-States 2 0 0
+5 Venezuela 1 0 0
+6 Peru 1 0 0
+7 Brazil 2 0 0
+8 Argentina 3 0 0
+ 
+[borders]
+1 3 5 8 
+2 4
+3 6 8
+4 2 7
+5 1 3 5
+6 3 8
+7 2
+8 3 5 6

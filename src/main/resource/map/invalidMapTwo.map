@@ -1,0 +1,30 @@
+name invalid Map
+
+[files]
+
+[continents]
+North-England 4 000
+Wales 3 000
+South-West-England 1 000
+
+[countries]
+1 Roxburghshire 1 0 0
+2 Cumberland 3 0 0
+3 Northumberland 3 0 0
+4 Westmorland 2 0 0
+5 Durham 1 0 0
+6 Cornwall 2 0 0
+7 Devon 1 0 0
+8 Somerset 3 0 0
+9 Dorset 2 0 0
+
+[borders]
+1 4 6 9
+2 3 8 
+3 2 
+4 1 5 7 9 
+5 4 7  
+6 7 9 1
+7 4 5 7
+8 3 2
+9 7 5 1

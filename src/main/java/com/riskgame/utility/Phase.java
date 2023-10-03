@@ -18,11 +18,6 @@ public enum Phase {
     EDITMAP,
 
     /**
-     * Individual turn of player. Players add orders to the list in their turns.
-     * Phase ends when all players provide orders for their turns.
-     */
-    ISSUE_ORDERS,
-    /**
      * Starting phase of the game. Players will be added in this phase and assigned
      * armies.
      * This phase starts after "loadmap" and ends when all players have been
@@ -41,4 +36,11 @@ public enum Phase {
      * Phase ends when player ends his turn and next start his move.
      */
     SWITCH_TURN,
+
+    /**
+     * Individual turn of player. Players add orders to the list in their turns.
+     * Phase ends when all players provide orders for their turns.
+     */
+    ISSUE_ORDERS,
+
 }

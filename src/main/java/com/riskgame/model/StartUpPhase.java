@@ -15,6 +15,8 @@ import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
 
+import static java.lang.System.exit;
+
 /**
  * Implements parsing of initial commands during startup phase.
  */
@@ -182,7 +184,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         this.d_gamePhase = Phase.EDITMAP;
                         break;
                     case "loadmap":
@@ -290,7 +292,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         break;
                     default:
                         System.out.println(Constant.ERROR_COLOR +

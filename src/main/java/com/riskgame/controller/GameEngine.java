@@ -3,9 +3,13 @@ package com.riskgame.controller;
 import java.io.File;
 import java.util.Scanner;
 
-import com.riskgame.model.StartUpPhase;
+import java.util.Iterator;
 
+import com.riskgame.model.StartUpPhase;
 import com.riskgame.utility.Phase;
+
+import com.riskgame.model.Continent;
+import com.riskgame.model.Player;
 import com.riskgame.utility.Constant;
 
 /**
@@ -26,16 +30,47 @@ public class GameEngine {
                     + Constant.RESET_COLOR + " command. e.x. " + Constant.SUCCESS_COLOR + "loadmap sample.map"
                     + Constant.RESET_COLOR + "\n");
             String l_command = sc.nextLine();
-            StartUpPhase startupPhase = new StartUpPhase();
-            Phase l_gamePhase = startupPhase.parseCommand(null, l_command);
+            StartUpPhase l_startupPhase = new StartUpPhase();
+            Phase l_gamePhase = l_startupPhase.parseCommand(null, l_command);
 
             // Get commands until initial phase ends.
             while (l_gamePhase != Phase.ISSUE_ORDERS) {
                 l_command = sc.nextLine();
-                l_gamePhase = startupPhase.parseCommand(null, l_command);
+                l_gamePhase = l_startupPhase.parseCommand(null, l_command);
             }
+
+            assignReinforcementToPlayer(l_startupPhase);
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Assign reinforcement to each game player
+     * @param p_startUpPhase Game phase that contains player list 
+     */
+    public static void assignReinforcementToPlayer(StartUpPhase p_startUpPhase) {
+        Iterator<Player> l_iterator = p_startUpPhase.getPlayerList().listIterator();
+
+        while(l_iterator.hasNext()) {
+            Player l_player = l_iterator.next();
+            int l_totalControlValueCount = 0;
+            int l_totalReinforcementArmyCount;
+
+            if(l_player.getOwnedCountries().size() >= 9) {
+                if(l_player.getOwnedContinents().size() > 0) {
+                    for(Continent l_continent : l_player.getOwnedContinents().values()) {
+                        l_totalControlValueCount += l_continent.getControlValue();
+                    }
+                    l_totalReinforcementArmyCount = (int)(l_player.getOwnedCountries().size()/3) + l_totalControlValueCount;
+                } else {
+                    l_totalReinforcementArmyCount = (int)(l_player.getOwnedCountries().size()/3); 
+                }
+            } else {
+                l_totalReinforcementArmyCount = 3;
+            }
+            l_player.setOwnedArmyCount(l_totalReinforcementArmyCount);
         }
     }
 
@@ -46,11 +81,9 @@ public class GameEngine {
     public static void showAvailableMap() {
         File folder = new File(Constant.MAP_PATH);
 
-        // Check if the specified path is a directory
         if (folder.isDirectory()) {
             File[] files = folder.listFiles();
 
-            // Check if there are any files in the directory
             if (files != null) {
                 // Find the maximum length of file names for formatting
                 int maxLength = 0;
@@ -72,13 +105,12 @@ public class GameEngine {
 
                 // Print file names with even distribution
                 for (File file : files) {
-                    // Check if it's a file (not a subdirectory)
                     if (file.isFile()) {
                         String fileName = file.getName();
                         System.out.printf("%-" + (maxLength + 2) + "s", fileName);
                     }
                 }
-                System.out.println("\n"); // Move to the next line after printing
+                System.out.println("\n");
             } else {
                 System.out.println("No files found in the directory.");
             }

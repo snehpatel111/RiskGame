@@ -33,6 +33,15 @@ public class StartUpPhase {
     }
 
     /**
+     * Getter method for player list.
+     * 
+     * @return Returns list of game player.
+     */
+    public ArrayList<Player> getPlayerList() {
+        return this.d_playerList;
+    }
+
+    /**
      * Parses the command received from player during startup phase
      * 
      * @param p_player  Player who is playing.

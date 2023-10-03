@@ -21,3 +21,5 @@ jobs:
         run: mvn install
       - name: RUn Unit Tests
         run: mvn test
+      - name: Generate JavaDoc
+        run: mvn javadoc:javadoc 

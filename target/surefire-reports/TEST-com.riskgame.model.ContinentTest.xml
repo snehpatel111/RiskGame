@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.011" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.ContinentTest" time="0.009" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,5 +57,12 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.001"/>
+  <testcase name="testEditContinentWithInvalidArguments" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testEditContinentRemovingExistingContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testEditContinentEditingNonexistentContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testAddContinent" classname="com.riskgame.model.ContinentTest" time="0.001"/>
+  <testcase name="testEditContinentRemovingNonexistentContinent" classname="com.riskgame.model.ContinentTest" time="0.001"/>
+  <testcase name="testEditContinentAddingExistingContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testEditContinentAddingNonexistentContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testRemoveContinent" classname="com.riskgame.model.ContinentTest" time="0.006"/>
 </testsuite>

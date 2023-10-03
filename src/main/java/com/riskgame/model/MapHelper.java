@@ -73,7 +73,7 @@ public class MapHelper {
     }
 
     /**
-     * Reads <code>.map</code> files and create GameMap object accordingly.
+     * Reads .map files and create GameMap object accordingly.
      * 
      * @param p_mapFileName Name of .map file
      * @return Returns GameMap object of respective map
@@ -132,7 +132,7 @@ public class MapHelper {
     }
 
     /**
-     * Reads countries from <code>.map</code> file.
+     * Reads countries from .map file.
      * 
      * @param p_reader Stream pointing to countries section of .map file
      * @return BufferReader stream pointing end of countries section of .map file.
@@ -166,7 +166,7 @@ public class MapHelper {
     }
 
     /**
-     * Reads borders from <code>.map</code> file.
+     * Reads borders from .map file.
      * 
      * @param p_reader Stream pointing to borders section of .map file
      * @return BufferReader stream pointing end of borders section of .map file.

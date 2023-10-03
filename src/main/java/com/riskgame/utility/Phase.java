@@ -6,14 +6,14 @@ package com.riskgame.utility;
 public enum Phase {
     /**
      * Initialization phase when players join the game using CLI.
-     * Phase ends when <code>editmap<code> or <code>loadmap</code> command is given.
+     * Phase ends when editmap or loadmap command is given.
      */
     NULL,
 
     /**
      * Map editing phase. Allows players to add/remove continents, countries, and
      * neighbors.
-     * Phase ends when <code>loadmap</code> command is encountered.
+     * Phase ends when loadmap command is encountered.
      */
     EDITMAP,
 

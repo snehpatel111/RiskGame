@@ -31,7 +31,7 @@ public class Continent {
 
     /**
      * Creates Continent object with given arguments.
-     * This constructor will be used when loading <code>.map</code> files
+     * This constructor will be used when loading .map files
      * 
      * @param p_continentId    Name of continent
      * @param p_controlValue   Control value for continent

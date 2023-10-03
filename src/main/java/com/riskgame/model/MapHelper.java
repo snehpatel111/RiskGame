@@ -1,9 +1,11 @@
 package com.riskgame.model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -288,10 +290,98 @@ public class MapHelper {
     }
 
     /**
-     * Add new country to continent to display map.
-     * If duplicate country, exits the program and throws error.
+     * Save current game map object into .map file
      * 
-     * @param p_country Country to be added
+     * @param p_gameMap     Current map object to be saved
+     * @param p_mapFileName Name of the file
+     * @return Returns true if successfully saved, otherwise false
      */
+    public boolean saveMap(GameMap p_gameMap, String p_mapFileName) {
+        MapValidator l_mapValidator = new MapValidator();
 
+        if (l_mapValidator.isValidMapName(p_mapFileName)) {
+            if (l_mapValidator.isValidMap(p_gameMap)) {
+                try {
+                    BufferedWriter l_writer = new BufferedWriter(
+                            new FileWriter(Constant.MAP_PATH + p_mapFileName + ".map"));
+                    int l_continentIndex = 1;
+                    int l_countryIndex = 1;
+                    HashMap<Integer, String> l_indexCountryMap = new HashMap<Integer, String>();
+                    HashMap<String, Integer> l_countryIndexMap = new HashMap<String, Integer>();
+
+                    l_writer.write("name " + p_mapFileName + " Map");
+                    l_writer.newLine();
+                    l_writer.newLine();
+                    l_writer.write("[files]");
+                    l_writer.newLine();
+                    l_writer.newLine();
+                    l_writer.flush();
+
+                    l_writer.write("[continents]");
+                    l_writer.newLine();
+                    for (Continent l_continent : p_gameMap.getContinents().values()) {
+
+                        System.out.println("Continent ID:" + l_continent.getContinentId());
+                        System.out.println("Controller Value:" + l_continent.getControlValue());
+                        System.out.println("------------------------");
+
+                        l_writer.write(l_continent.getContinentId() + " " + l_continent.getControlValue()
+                                + " " + l_continent.getContinentColor());
+                        l_writer.newLine();
+                        l_writer.flush();
+                        l_continent.setBelongingMapIndex(l_continentIndex);
+                        l_continentIndex++;
+                    }
+                    l_writer.newLine();
+
+                    l_writer.write("[countries]");
+                    l_writer.newLine();
+
+                    for (Country l_country : p_gameMap.getCountries().values()) {
+                        l_writer.write(Integer.toString(l_countryIndex) + " " + l_country.getCountryId() + " "
+                                + Integer.toString(
+                                        p_gameMap.getContinents().get(l_country.getBelongingContinent().toLowerCase())
+                                                .getBelongingMapIndex())
+                                + " " + l_country.getXCoOrdinate() + " " + l_country.getYCoOrdinate());
+
+                        l_writer.newLine();
+                        l_writer.flush();
+                        l_indexCountryMap.put(l_countryIndex, l_country.getCountryId().toLowerCase());
+                        l_countryIndexMap.put(l_country.getCountryId().toLowerCase(), l_countryIndex);
+                        l_countryIndex++;
+                    }
+                    l_writer.newLine();
+
+                    l_writer.write("[borders]");
+                    l_writer.newLine();
+                    l_writer.flush();
+                    for (int i = 1; i < l_countryIndex; i++) {
+                        String l_countryId = l_indexCountryMap.get(i);
+                        Country l_country = p_gameMap.getCountries().get(l_countryId.toLowerCase());
+                        l_writer.write(Integer.toString(i) + " ");
+                        for (Country l_neighbor : l_country.getNeighbours().values()) {
+                            l_writer.write(
+                                    Integer.toString(l_countryIndexMap.get(l_neighbor.getCountryId().toLowerCase()))
+                                            + " ");
+                            l_writer.flush();
+                        }
+                        l_writer.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                return true;
+            } else {
+                System.out.println(Constant.ERROR_COLOR +
+                        "Map not suitable for game play. Correct the map to continue with the new map or load a map from the existing maps."
+                        + Constant.RESET_COLOR);
+                return false;
+            }
+        } else {
+            System.out.println(Constant.ERROR_COLOR +
+                    "Invalid Map name" + Constant.RESET_COLOR);
+            return false;
+        }
+    }
 }

@@ -83,6 +83,51 @@ public class Country {
     /**
      * Returns neighbors of country.
      * 
+     * @return Returns neighbours of country
+     */
+    public HashMap<String, Country> getNeighbours() {
+        return this.d_neighbors;
+    }
+
+    /**
+     * Returns x-coordinate of the country on map
+     * 
+     * @return Returns x-coordinate of map
+     */
+    public int getXCoOrdinate() {
+        return this.d_xCoOrdinate;
+    }
+
+    /**
+     * Set the x-coordinate of country on map
+     * 
+     * @param p_xCoOrdinate X-coordinate of country
+     */
+    public void setXCoOrdinate(int p_xCoOrdinate) {
+        this.d_xCoOrdinate = p_xCoOrdinate;
+    }
+
+    /**
+     * Returns y-coordinate of the country on map
+     * 
+     * @return Returns x-coordinate of map
+     */
+    public int getYCoOrdinate() {
+        return this.d_yCoOrdinate;
+    }
+
+    /**
+     * Set the y-coordinate of country on map
+     * 
+     * @param p_yCoOrdinate X-coordinate of country
+     */
+    public void setYCoOrdinate(int p_yCoOrdinate) {
+        this.d_yCoOrdinate = p_yCoOrdinate;
+    }
+
+    /**
+     * Returns neighbors of country.
+     * 
      * @return Returns neighbors of country.
      */
     public HashMap<String, Country> getNeighbors() {

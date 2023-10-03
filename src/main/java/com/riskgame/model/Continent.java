@@ -19,6 +19,7 @@ public class Continent {
     private int d_controlValue;
     private String d_continentColor;
     private String d_continentId;
+    private int d_belongingMapIndex;
     private int d_mapIndex;
     private HashMap<String, Country> d_countries;
 
@@ -42,6 +43,42 @@ public class Continent {
         this.d_continentColor = p_continentColor;
         this.d_mapIndex = MapHelper.d_mapIndex;
         this.d_countries = new HashMap<>();
+    }
+
+    /**
+     * Returns the Control Value of the continent.
+     * 
+     * @return Returns the control value of the continent
+     */
+    public int getControlValue() {
+        return this.d_controlValue;
+    }
+
+    /**
+     * Returns the color of the continent.
+     * 
+     * @return returns the color of the continent
+     */
+    public String getContinentColor() {
+        return this.d_continentColor;
+    }
+
+    /**
+     * Sets the Index value of this continent
+     * 
+     * @param p_belongingMapIndex Index value of the continent
+     */
+    public void setBelongingMapIndex(int p_belongingMapIndex) {
+        this.d_belongingMapIndex = p_belongingMapIndex;
+    }
+
+    /**
+     * Returns the index of belonging continent
+     * 
+     * @return Returns index value of the continent
+     */
+    public int getBelongingMapIndex() {
+        return this.d_belongingMapIndex;
     }
 
     /**

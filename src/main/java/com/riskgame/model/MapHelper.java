@@ -18,7 +18,7 @@ import com.riskgame.utility.MapValidator;
  * This class contains helper functions related to Map.
  */
 public class MapHelper {
-    public int d_mapIndex = 1;
+    public static int d_mapIndex = 1;
     public GameMap d_gameMap;
     private HashMap<Integer, Country> d_countryList;
 

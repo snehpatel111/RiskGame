@@ -254,7 +254,7 @@ public class StartUpPhase {
                     default:
                         System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                         System.out.println(Constant.ERROR_COLOR +
-                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap, validatemap"
+                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap"
                                 + Constant.RESET_COLOR);
                         break;
                 }

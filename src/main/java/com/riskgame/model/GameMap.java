@@ -34,6 +34,15 @@ public class GameMap {
     }
 
     /**
+     * Getter method for map name.
+     * 
+     * @return Returns the name of map.
+     */
+    public String getMapName() {
+        return this.d_mapName;
+    }
+
+    /**
      * Returns the map of continents.
      * 
      * @return Returns the map of continents.

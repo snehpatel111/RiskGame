@@ -11,7 +11,8 @@ import java.util.Random;
 
 import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
-import com.riskgame.model.ExecuteOrder;
+import com.riskgame.model.Order;
+import com.riskgame.model.StartUpPhase;
 
 /**
  * Represents a player in the game.
@@ -21,10 +22,10 @@ public class Player {
     private HashMap<String, Continent> d_ownedContinents;
     private HashMap<String, Country> d_ownedCountries;
     private int d_ownedArmyCount;
-    private int d_reinforcementArmyCount;
+    private int d_remainingArmyCount;
     private String d_countryId;
-    private ExecuteOrder d_executeOrder;
-    private Queue<ExecuteOrder> d_executionOrderList;
+    private Order d_order;
+    private Queue<Order> d_executionOrderList;
 
     /**
      * This constructor assigns name to the player.
@@ -119,6 +120,15 @@ public class Player {
      */
     public boolean isValidPlayerName(String p_playerName) {
         return p_playerName != null && p_playerName.matches("[a-zA-Z0-9]+");
+    }
+
+    /**
+     * Add order to execution queue.
+     * 
+     * @param p_order Order to add
+     */
+    public void addOrderToOrderQueue(Order p_order) {
+        this.d_order = p_order;
     }
 
     /**
@@ -244,6 +254,36 @@ public class Player {
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
+        }
+    }
+
+    public void issue_order(String[] p_args) {
+        try {
+            if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
+                System.out.println(Constant.ERROR_COLOR
+                        + "Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);
+                return;
+            }
+            String l_countryId = p_args[1];
+            int l_armyCount = Integer.parseInt(p_args[2]);
+            boolean l_isPlayerOwnCountry = this.getOwnedCountries().containsKey(l_countryId.toLowerCase());
+            boolean l_hasValidArmy = (this.getOwnedArmyCount() >= l_armyCount);
+            if (l_isPlayerOwnCountry && l_hasValidArmy) {
+                Order l_order = new Order(this, l_countryId, l_armyCount);
+                this.d_executionOrderList.add(l_order);
+                this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
+                System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
+                        + " army left in the reinforcement pool");
+            } else {
+                System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName() + " does not own "
+                        + l_countryId + " country" + Constant.RESET_COLOR);
+            }
+
+        } catch (Exception e) {
+            System.out.println(Constant.ERROR_COLOR
+                    + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);
         }
     }
 }

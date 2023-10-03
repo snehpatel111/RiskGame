@@ -38,7 +38,6 @@ public class GameEngine {
                 l_command = sc.nextLine();
                 l_gamePhase = l_startupPhase.parseCommand(null, l_command);
             }
-
             assignReinforcementToPlayer(l_startupPhase);
 
         } catch (Exception e) {
@@ -48,24 +47,26 @@ public class GameEngine {
 
     /**
      * Assign reinforcement to each game player
+     * 
      * @param p_startUpPhase Game phase that contains player list 
      */
     public static void assignReinforcementToPlayer(StartUpPhase p_startUpPhase) {
         Iterator<Player> l_iterator = p_startUpPhase.getPlayerList().listIterator();
 
-        while(l_iterator.hasNext()) {
+        while (l_iterator.hasNext()) {
             Player l_player = l_iterator.next();
             int l_totalControlValueCount = 0;
             int l_totalReinforcementArmyCount;
 
-            if(l_player.getOwnedCountries().size() >= 9) {
-                if(l_player.getOwnedContinents().size() > 0) {
-                    for(Continent l_continent : l_player.getOwnedContinents().values()) {
+            if (l_player.getOwnedCountries().size() >= 9) {
+                if (l_player.getOwnedContinents().size() > 0) {
+                    for (Continent l_continent : l_player.getOwnedContinents().values()) {
                         l_totalControlValueCount += l_continent.getControlValue();
                     }
-                    l_totalReinforcementArmyCount = (int)(l_player.getOwnedCountries().size()/3) + l_totalControlValueCount;
+                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 3)
+                            + l_totalControlValueCount;
                 } else {
-                    l_totalReinforcementArmyCount = (int)(l_player.getOwnedCountries().size()/3); 
+                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 3);
                 }
             } else {
                 l_totalReinforcementArmyCount = 3;

@@ -76,7 +76,6 @@ public class MapHelper {
      * Reads .map files and create GameMap object accordingly.
      * 
      * @param p_mapFileName Name of .map file
-     * @return Returns GameMap object of respective map
      */
     public void readMap(String p_mapFileName) {
         try {

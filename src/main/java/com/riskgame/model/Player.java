@@ -115,7 +115,6 @@ public class Player {
      * Validates player name.
      * 
      * @param p_playerName Player name to validate
-     * @param p_gamPhase   Current game phase
      * @return Return true if name is valid, false otherwise
      */
     public boolean isValidPlayerName(String p_playerName) {

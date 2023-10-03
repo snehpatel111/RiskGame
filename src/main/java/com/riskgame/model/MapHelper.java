@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.riskgame.utility.Constant;
@@ -243,7 +244,7 @@ public class MapHelper {
      * @param p_gameMap GameMap object containing continents and countries
      * 
      */
-    public void showMap(GameMap p_gameMap) {
+    public void displayMap(GameMap p_gameMap) {
         if (p_gameMap == null)
             return;
         System.out.printf("%85s\n",
@@ -288,6 +289,57 @@ public class MapHelper {
             l_printCountryName = true;
         }
     }
+
+    /**
+	 * Shows map with along with Owner and Army units.
+	 * @param p_players List of players in the game
+	 * @param p_mapFileName Game map
+	 */
+	public void showMap(ArrayList<Player> p_players, GameMap p_mapFileName) {
+		if(p_mapFileName==null)
+			return;
+		if(p_players.size()==0 || p_players.get(0).getOwnedCountries().size()==0) {
+			displayMap(p_mapFileName);
+			return;
+		}
+		System.out.format("%25s%25s%35s%25s%10s\n", "Owner", "Country", "Neighbors", "Continent", "#Armies");
+		System.out.format("%85s\n", "---------------------------------------------------------------------------------------------------------------------------");
+		boolean l_printPlayerName = true;
+		boolean l_printContinentId = true;
+		boolean l_printCountryId = true;
+		boolean l_printNumberOfArmies = true;
+
+		for(int i=0; i<p_players.size(); i++){
+			Player l_p = p_players.get(i);
+			for(Country l_country : l_p.getOwnedCountries().values()) {
+				for(Country l_neighbor : l_country.getNeighbours().values()) {
+					if(l_printPlayerName && l_printContinentId && l_printCountryId) {
+						System.out.format("\n%25s%25s%35s%25s%10d\n", l_p.getPlayerName(), l_country.getCountryId(), l_neighbor.getCountryId(), l_country.getBelongingContinent(), l_country.getNumberOfArmies());
+						l_printPlayerName = false;
+						l_printContinentId = false;
+						l_printCountryId = false;
+						l_printNumberOfArmies = false;
+					}
+					else if(l_printContinentId && l_printCountryId && l_printNumberOfArmies) {
+						System.out.format("\n%25s%25s%35s%25s%10d\n", "", l_country.getCountryId(), l_neighbor.getCountryId(), l_country.getBelongingContinent(), l_country.getNumberOfArmies());
+						l_printPlayerName = false;
+						l_printCountryId = false;
+						l_printNumberOfArmies = false;
+					}
+					else {
+						System.out.format("\n%25s%25s%35s%25s%10s\n", "", "", l_neighbor.getCountryId(), "", "");
+					}
+				}
+				l_printContinentId = true;
+				l_printCountryId = true;
+				l_printNumberOfArmies = true;
+			}
+			l_printPlayerName = true;
+			l_printContinentId = true;
+			l_printCountryId = true;
+			l_printNumberOfArmies = true;
+		}
+	}
 
     /**
      * Save current game map object into .map file

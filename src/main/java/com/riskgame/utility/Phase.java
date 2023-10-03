@@ -18,15 +18,22 @@ public enum Phase {
     EDITMAP,
 
     /**
-     * Individual turn of player. Players add orders to the list in their turns.
-     * Phase ends when all players provide orders for their turns.
-     */
-    ISSUE_ORDERS,
-    /**
      * Starting phase of the game. Players will be added in this phase and assigned
      * armies.
      * This phase starts after "loadmap" and ends when all players have been
      * assigned armies which is after "assignedarmies" command.
      */
     STARTUP,
+
+    /**
+     * Individual turn of player. Players add orders to the list in their turns.
+     * Phase ends when all players provide orders for their turns.
+     */
+    ISSUE_ORDERS,
+
+    /**
+     * Executes orders for all the Players from the pool of order's list.
+     * Phase ends when all the num armies are placed on CountryID as per order's list.
+     */
+    EXECUTE_ORDERS,
 }

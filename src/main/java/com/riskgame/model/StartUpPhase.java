@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import static java.lang.System.exit;
 
 import com.riskgame.utility.Phase;
 
@@ -172,7 +173,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         this.d_gamePhase = Phase.EDITMAP;
                         break;
                     case "loadmap":
@@ -273,7 +274,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         break;
                     default:
                         System.out.println(Constant.ERROR_COLOR +
@@ -282,6 +283,8 @@ public class StartUpPhase {
                         break;
                 }
             }
+
+            
             return this.d_gamePhase;
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR +

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class UtilTest{
 
     /**
-     * Test cases for adding continent
+     * Test cases for checking Util Class
      */
     @Test
     public void isAlphabeticTest(){

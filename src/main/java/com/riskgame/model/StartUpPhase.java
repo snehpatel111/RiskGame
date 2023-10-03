@@ -344,48 +344,62 @@ public class StartUpPhase {
                 }
             }
 
-            //execute phase commands : execute, showmap
+            // execute phase commands : execute, showmap
             else if (this.d_gamePhase.equals(Phase.EXECUTE_ORDERS)) {
                 switch (l_commandName) {
                     case "execute":
                         if (!isValidCommandArgument(l_data, 1)) {
                             System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for showmap command"
+                                    + "Invalid number of arguments"
                                     + Constant.RESET_COLOR);
                             break;
                         }
                         int l_count = 0;
-                    for (Player l_p : d_playerList) {
-                        Queue<Order> l_temp = l_p.getD_orderList();
-                            l_count = l_count +l_temp.size();
+                        for (Player l_p : d_playerList) {
+                            Queue<ExecuteOrder> l_temp = l_p.getD_orderList();
+                            l_count = l_count + l_temp.size();
                         }
 
-                    if(l_count == 0){
-                        System.out.println("Orders already executed!");
-                        d_StartUp.showMap(d_Players, d_Map);
-                        d_GamePhase = Phase.ISSUE_ORDERS;
-                        return d_GamePhase;
-                    }
-                    else{
-                        System.out.println("Total Orders  :" + l_count);
-                        while (l_count != 0) {
-                            for (Player l_p : d_Players) {
-
-                                Queue<Order> l_temp = l_p.getD_orderList();
-                                if (l_temp.size() > 0) {
-                                    Order l_toRemove = l_p.next_order();
-                                    System.out.println("Order: " +l_toRemove+ " executed for player: "+l_p.getPlayerName());
-                                    l_toRemove.execute();
-                                }
+                        if (l_count == 0) {
+                            System.out.println("Orders already executed!");
+                            if (!isValidCommandArgument(l_data, 1)) {
+                                System.out.println(Constant.ERROR_COLOR
+                                        + "Invalid number of arguments for showmap command"
+                                        + Constant.RESET_COLOR);
+                                break;
                             }
-                            l_count--;
-                        }
+                            MapHelper l_gameMapHelper = new MapHelper();
+                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
+                            d_gamePhase = Phase.ISSUE_ORDERS;
+                            return d_gamePhase;
+                        } else {
+                            System.out.println("Total Orders  :" + l_count);
+                            while (l_count != 0) {
+                                for (Player l_p : d_playerList) {
 
-                        System.out.println("Orders executed!");
-                        d_StartUp.showMap(d_Players, d_Map);
-                        d_GamePhase = Phase.ISSUE_ORDERS;
-                    }
-                    break;
+                                    Queue<ExecuteOrder> l_temp = l_p.getD_orderList();
+                                    if (l_temp.size() > 0) {
+                                        ExecuteOrder l_toRemove = l_p.next_order();
+                                        System.out.println("Order: " + l_toRemove + " executed for player: "
+                                                + l_p.getPlayerName());
+                                        l_toRemove.execute();
+                                    }
+                                }
+                                l_count--;
+                            }
+
+                            System.out.println("Orders executed!");
+                            if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for showmap command"
+                                    + Constant.RESET_COLOR);
+                            break;
+                            }
+                            MapHelper l_gameMapHelper = new MapHelper();
+                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
+                            d_gamePhase = Phase.ISSUE_ORDERS;
+                        }
+                        break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {
                             System.out.println(Constant.ERROR_COLOR
@@ -397,7 +411,8 @@ public class StartUpPhase {
                         l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         break;
                     case "exit":
-                        System.out.println(Constant.SUCCESS_COLOR + "Build1 Demo Ends Here! Thank You !!" + Constant.RESET_COLOR);
+                        System.out.println(
+                                Constant.SUCCESS_COLOR + "Build1 Demo Ends Here! Thank You !!" + Constant.RESET_COLOR);
                         exit(0);
                         break;
                     default:
@@ -407,7 +422,7 @@ public class StartUpPhase {
                         break;
                 }
             }
-            
+
             return this.d_gamePhase;
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR +

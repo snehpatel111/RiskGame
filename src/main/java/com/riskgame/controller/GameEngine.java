@@ -34,7 +34,7 @@ public class GameEngine {
             Phase l_gamePhase = l_startupPhase.parseCommand(null, l_command);
 
             // Get commands until initial phase ends.
-            while (l_gamePhase != Phase.ISSUE_ORDERS) {
+            while (!l_gamePhase.equals(Phase.ISSUE_ORDERS)) {
                 l_command = sc.nextLine();
                 l_gamePhase = l_startupPhase.parseCommand(null, l_command);
             }

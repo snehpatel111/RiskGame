@@ -183,7 +183,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
+                        l_gameMap.showMap(this.d_gameMap);
                         this.d_gamePhase = Phase.EDITMAP;
                         break;
                     case "loadmap":
@@ -263,9 +263,9 @@ public class StartUpPhase {
                     case "gameplayer":
                         if (!isValidCommandArgument(l_data, 3)) {
                             System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for gamemap command" + Constant.RESET_COLOR);
+                                    + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
                             System.out.println(Constant.ERROR_COLOR
-                                    + "Try gameplayer -add playername or gameplayer -remove playername"
+                                    + "Try gameplayer -add <playername> or gameplayer -remove <playername>"
                                     + Constant.RESET_COLOR);
                             break;
                         }

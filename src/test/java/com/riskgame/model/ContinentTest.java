@@ -15,6 +15,9 @@ public class ContinentTest {
     MapHelper d_mapHelper;
     Continent d_continent;
 
+    /**
+     * Set up the context
+     */
     @Before
     public void before() {
         this.d_gameMap = new GameMap("ameroki.map");

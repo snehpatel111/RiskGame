@@ -18,7 +18,7 @@ public class PlayerTest{
     @Before
     public void before() {
 
-        this.d_playerName = "ViratKohli";
+        this.d_playerName = "TestPlayer";
         this.d_player = new Player(this.d_playerName);
         this.d_playerList = new ArrayList<Player>();
     } 
@@ -28,7 +28,7 @@ public class PlayerTest{
      */
     @Test
     public void isPlayerNameValidTest() {
-        boolean l_check = this.d_player.isValidPlayerName("ViratKohli");
+        boolean l_check = this.d_player.isValidPlayerName("TestPlayer");
         assertTrue(l_check);
 
         l_check = this.d_player.isValidPlayerName("#@*");
@@ -43,7 +43,7 @@ public class PlayerTest{
         boolean l_check = this.d_player.addPlayer(this.d_playerList, "MsDhoni");
         assertTrue(l_check);
 
-        l_check = this.d_player.addPlayer(this.d_playerList, "ViratKohli");
+        l_check = this.d_player.addPlayer(this.d_playerList, "TestPlayer");
         assertTrue(l_check);
     }
 
@@ -53,8 +53,8 @@ public class PlayerTest{
     @Test
     public void removePlayerTest() {
 
-        this.d_player.addPlayer(d_playerList, "ViratKohli");
-        boolean l_check = this.d_player.removePlayer(this.d_playerList, "ViratKohli");
+        this.d_player.addPlayer(d_playerList, "TestPlayer");
+        boolean l_check = this.d_player.removePlayer(this.d_playerList, "TestPlayer");
         assertTrue(l_check);
 
         l_check = this.d_player.removePlayer(this.d_playerList, "Jadeja");
@@ -66,11 +66,11 @@ public class PlayerTest{
      */
     @Test
     public void isPlayerExistsTest() {
-        this.d_player.addPlayer(d_playerList, "ViratKohli");
+        this.d_player.addPlayer(d_playerList, "TestPlayer");
         boolean l_check = this.d_player.isPlayerExist(this.d_playerList, "MsDhoni");
         assertFalse(l_check);
 
-        l_check = this.d_player.isPlayerExist(this.d_playerList, "ViratKohli");
+        l_check = this.d_player.isPlayerExist(this.d_playerList, "TestPlayer");
         assertTrue(l_check);
     }
 

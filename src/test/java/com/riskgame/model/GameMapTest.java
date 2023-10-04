@@ -22,7 +22,6 @@ public class GameMapTest {
     /**
      * Test to edit a new map which doesn't exist and build it from scratch.
      */
-
     @Test
     public void testEditNewMap() {
         this.d_mapName = "practice.map";
@@ -31,7 +30,6 @@ public class GameMapTest {
         assertNotNull(this.d_gameMap);
         assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
     }
-
 
     /**
      * Test to edit an existing map.    

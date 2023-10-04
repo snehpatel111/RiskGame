@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import org.jgrapht.alg.util.VertexDegreeComparator.Order;
 
 import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
@@ -239,8 +238,8 @@ public class Player {
      * It has no parameters.
      */
     public void issue_order() {
-        this.d_executionOrderList.add(this.d_executeOrder);
-        for (ExecuteOrder l_x : d_executionOrderList){
+        this.d_executionOrderList.add(this.d_order);
+        for (Order l_x : d_executionOrderList){
             System.out.println(l_x.getD_player().getPlayerName());
         }
     }
@@ -249,7 +248,7 @@ public class Player {
      * getter for order queue
      * @return d_OrderList
      */
-    public Queue<ExecuteOrder> getD_orderList() {
+    public Queue<Order> getD_orderList() {
         return d_executionOrderList;
     }
 
@@ -258,8 +257,8 @@ public class Player {
      *
      * @param p_order created Order
      */
-    public void addOrder(ExecuteOrder p_order) {
-        this.d_executeOrder = p_order;
+    public void addOrder(Order p_order) {
+        this.d_order = p_order;
     }
 
     /**
@@ -267,7 +266,7 @@ public class Player {
      *
      * @return first Order in the List.
      */
-    public ExecuteOrder next_order() {
+    public Order next_order() {
         return d_executionOrderList.poll();
     }
 

@@ -356,7 +356,7 @@ public class StartUpPhase {
                         }
                         int l_count = 0;
                         for (Player l_p : d_playerList) {
-                            Queue<ExecuteOrder> l_temp = l_p.getD_orderList();
+                            Queue<Order> l_temp = l_p.getD_orderList();
                             l_count = l_count + l_temp.size();
                         }
 
@@ -377,9 +377,9 @@ public class StartUpPhase {
                             while (l_count != 0) {
                                 for (Player l_p : d_playerList) {
 
-                                    Queue<ExecuteOrder> l_temp = l_p.getD_orderList();
+                                    Queue<Order> l_temp = l_p.getD_orderList();
                                     if (l_temp.size() > 0) {
-                                        ExecuteOrder l_toRemove = l_p.next_order();
+                                        Order l_toRemove = l_p.next_order();
                                         System.out.println("Order: " + l_toRemove + " executed for player: "
                                                 + l_p.getPlayerName());
                                         l_toRemove.execute();

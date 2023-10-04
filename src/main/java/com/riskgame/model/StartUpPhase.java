@@ -3,6 +3,7 @@ package com.riskgame.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Iterator;
 
@@ -182,7 +183,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         this.d_gamePhase = Phase.EDITMAP;
                         break;
                     case "loadmap":
@@ -251,7 +252,7 @@ public class StartUpPhase {
                     default:
                         System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                         System.out.println(Constant.ERROR_COLOR +
-                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap, validatemap"
+                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap"
                                 + Constant.RESET_COLOR);
                         break;
                 }
@@ -290,7 +291,7 @@ public class StartUpPhase {
                             break;
                         }
                         MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         break;
                     default:
                         System.out.println(Constant.ERROR_COLOR +
@@ -340,6 +341,74 @@ public class StartUpPhase {
                     this.d_gamePhase = Phase.EXECUTE_ORDERS;
                 }
             }
+
+            // EXECUTE_ORDER phase commands : execute, showmap, exit
+            else if (this.d_gamePhase.equals(Phase.EXECUTE_ORDERS)) {
+                switch (l_commandName) {
+                    case "execute":
+                        if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for execute command"
+                                    + Constant.RESET_COLOR);
+                            break;
+                        }
+                        int l_count = 0;
+                        for (Player l_player : this.d_playerList) {
+                            Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
+                            l_count += l_executionOrderList.size();
+                        }
+                        if (l_count == 0) {
+                            System.out.println(
+                                    Constant.SUCCESS_COLOR + "Orders already executed!" + Constant.RESET_COLOR);
+                            MapHelper l_gameMapHelper = new MapHelper();
+                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
+                            this.d_gamePhase = Phase.ISSUE_ORDERS;
+                            return this.d_gamePhase;
+                        } else {
+                            System.out.println("Total Orders: " + l_count);
+                            while (l_count != 0) {
+                                for (Player l_player : this.d_playerList) {
+                                    Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
+                                    if (l_executionOrderList.size() > 0) {
+                                        Order l_nextOrder = l_player.next_order();
+                                        System.out.println(Constant.SUCCESS_COLOR + "The order " + l_nextOrder
+                                                + " executed for player "
+                                                + l_player.getPlayerName() + Constant.RESET_COLOR);
+                                        l_nextOrder.execute();
+                                    }
+                                }
+                                l_count--;
+                            }
+                            System.out.println(Constant.SUCCESS_COLOR + "All orders executed successfully!"
+                                    + Constant.RESET_COLOR);
+                            MapHelper l_gameMapHelper = new MapHelper();
+                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
+                            this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        }
+                        break;
+                    case "showmap":
+                        if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for showmap command"
+                                    + Constant.RESET_COLOR);
+                            break;
+                        }
+                        MapHelper l_gameMap = new MapHelper();
+                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
+                        break;
+                    case "exit":
+                        System.out.println(
+                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println(Constant.SUCCESS_COLOR +
+                                "EXECUTE_ORDER phase has started. Try -> showmap or execute"
+                                + Constant.RESET_COLOR);
+                        break;
+                }
+            }
+
             return this.d_gamePhase;
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR +

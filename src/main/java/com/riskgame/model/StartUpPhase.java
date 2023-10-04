@@ -120,9 +120,19 @@ public class StartUpPhase {
                                     + Constant.RESET_COLOR);
                         }
                         break;
+                    case "exit":
+                        if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
+                            break;
+                        }
+                        System.out.println(
+                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
+                        System.exit(0);
+                        break;
                     default:
                         System.out.println(Constant.ERROR_COLOR
-                                + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName>"
+                                + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName> or exit"
                                 + Constant.RESET_COLOR);
                         break;
                 }
@@ -249,10 +259,20 @@ public class StartUpPhase {
                                     + Constant.RESET_COLOR);
                         }
                         break;
+                    case "exit":
+                        if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
+                            break;
+                        }
+                        System.out.println(
+                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
+                        System.exit(0);
+                        break;
                     default:
                         System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
                         System.out.println(Constant.ERROR_COLOR +
-                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap"
+                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap, validatemap, or exit"
                                 + Constant.RESET_COLOR);
                         break;
                 }
@@ -293,9 +313,19 @@ public class StartUpPhase {
                         MapHelper l_gameMap = new MapHelper();
                         l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                         break;
+                    case "exit":
+                        if (!isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
+                            break;
+                        }
+                        System.out.println(
+                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
+                        System.exit(0);
+                        break;
                     default:
                         System.out.println(Constant.ERROR_COLOR +
-                                "Invalid command - use gameplayer command or assigncountries command or showmap command in the start up phase!"
+                                "Invalid command - use gameplayer command or assigncountries command or showmap command or exit in the start up phase!"
                                 + Constant.RESET_COLOR);
                         break;
                 }
@@ -330,9 +360,19 @@ public class StartUpPhase {
                             MapHelper l_gameMap = new MapHelper();
                             l_gameMap.showMap(this.d_playerList, this.d_gameMap);
                             break;
+                        case "exit":
+                            if (!isValidCommandArgument(l_data, 1)) {
+                                System.out.println(Constant.ERROR_COLOR
+                                        + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
+                                break;
+                            }
+                            System.out.println(
+                                    Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
+                            System.exit(0);
+                            break;
                         default:
                             System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy>"
+                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy> or pass or showmap or exit"
                                     + Constant.RESET_COLOR);
                             break;
                     }
@@ -399,7 +439,7 @@ public class StartUpPhase {
                         break;
                     default:
                         System.out.println(Constant.SUCCESS_COLOR +
-                                "EXECUTE_ORDER phase has started. Try -> showmap or execute"
+                                "EXECUTE_ORDER phase has started. Try -> showmap or execute or exit"
                                 + Constant.RESET_COLOR);
                         break;
                 }

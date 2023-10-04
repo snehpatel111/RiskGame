@@ -9,11 +9,14 @@ public class MapHelperTest {
 
     MapHelper d_mapHelper;
     GameMap d_gameMap;
-    String d_mapName;
+    String d_gameMapName;
 
+    /**
+     * Setup context
+     */
     @Before
     public void before() {
-        d_mapHelper = new MapHelper();
+        this.d_mapHelper = new MapHelper();
     }
 
     /**
@@ -21,8 +24,8 @@ public class MapHelperTest {
      */
     @Test
     public void testLoadMap() {
-        d_mapName = "world.map";
-        d_gameMap = d_mapHelper.loadMap(d_mapName);
-        assertEquals(d_gameMap.getMapName(), d_mapName);
+        this.d_gameMapName = "world.map";
+        this.d_gameMap = this.d_mapHelper.loadMap(this.d_gameMapName);
+        assertEquals(d_gameMap.getMapName(), this.d_gameMapName);
     }
 }

@@ -1,41 +1,78 @@
-// package com.riskgame.model;
+package com.riskgame.model;
 
-// import static org.junit.Assert.*;
-// import org.junit.Before;
-// import org.junit.Test;
+import static org.junit.Assert.*;
 
-// public class PlayerTest {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Queue;
 
-//     Player player;
+import org.junit.Before;
+import org.junit.Test;
 
-//     @Before
-//     public void setUp() {
-//         player = new Player("Alice");
-//     }
+public class PlayerTest{
 
-//     @Test
-//     public void testPlayerName() {
-//         assertEquals("Alice", player.getPlayerName());
-//     }
+    Player d_player;
+    String d_playerName;
+    ArrayList<Player> d_playerList;
 
-//     @Test
-//     public void testOwnedCountries() {
-//         Country country = new Country();
-//         player.getOwnedCountries().put("Canada", country);
-//     }
+    @Before
+    public void before() {
 
-//     @Test
-//     public void testOwnedContinents() {
-//         assertEquals(0, player.getOwnedContinents().size());
-//         player.getOwnedContinents().put("Europe", continent);
-//         assertEquals(1, player.getOwnedContinents().size());
-//         assertTrue(player.getOwnedContinents().containsKey("Europe"));
-//     }
+        this.d_playerName = "ViratKohli";
+        this.d_player = new Player(this.d_playerName);
+        this.d_playerList = new ArrayList<Player>();
+    } 
 
-//     @Test
-//     public void testOwnedArmies() {
-//         assertEquals(0, player.getOwnedArmies());
-//         player.setOwnedArmies(10);
-//         assertEquals(10, player.getOwnedArmies());
-//     }
-// }
+    /**
+     * Tets for checking if player exists
+     */
+    @Test
+    public void isPlayerNameValidTest() {
+        boolean l_check = this.d_player.isValidPlayerName("ViratKohli");
+        assertTrue(l_check);
+
+        l_check = this.d_player.isValidPlayerName("#@*");
+        assertFalse(l_check);
+    }
+
+    /**
+     * Tets for Set Player Name
+     */
+    @Test
+    public void addPlayerTest() {
+        boolean l_check = this.d_player.addPlayer(this.d_playerList, "MsDhoni");
+        assertTrue(l_check);
+
+        l_check = this.d_player.addPlayer(this.d_playerList, "ViratKohli");
+        assertTrue(l_check);
+    }
+
+    /**
+     * Tets for Set Player Name
+     */
+    @Test
+    public void removePlayerTest() {
+
+        this.d_player.addPlayer(d_playerList, "ViratKohli");
+        boolean l_check = this.d_player.removePlayer(this.d_playerList, "ViratKohli");
+        assertTrue(l_check);
+
+        l_check = this.d_player.removePlayer(this.d_playerList, "Jadeja");
+        assertFalse(l_check);
+    }
+
+    /**
+     * Tets for checking if player exists
+     */
+    @Test
+    public void isPlayerExistsTest() {
+        this.d_player.addPlayer(d_playerList, "ViratKohli");
+        boolean l_check = this.d_player.isPlayerExist(this.d_playerList, "MsDhoni");
+        assertFalse(l_check);
+
+        l_check = this.d_player.isPlayerExist(this.d_playerList, "ViratKohli");
+        assertTrue(l_check);
+    }
+
+    
+}

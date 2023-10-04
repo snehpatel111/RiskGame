@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class UtilTest{
 
     /**
-     * Test cases for checking Util Class
+     * Test cases for checking alphabet letter in name
      */
     @Test
     public void isAlphabeticTest(){

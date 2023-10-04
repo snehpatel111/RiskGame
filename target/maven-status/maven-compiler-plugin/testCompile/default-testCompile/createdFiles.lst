@@ -1,1 +1,6 @@
-com\riskgame\GameEngineTest.class
+com/riskgame/model/ValidateMapTest.class
+com/riskgame/model/CountryTest.class
+com/riskgame/GameEngineTest.class
+com/riskgame/model/ContinentTest.class
+com/riskgame/model/GameMapTest.class
+com/riskgame/model/StartUpPhaseTest.class

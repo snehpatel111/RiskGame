@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.GameEngineTest" time="0.011" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.ValidateMapTest" time="0.004" tests="3" errors="3" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,5 +57,19 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.riskgame.GameEngineTest" time="0.001"/>
+  <testcase name="testEditExistingMap" classname="com.riskgame.model.ValidateMapTest" time="0.004">
+    <error message="Cannot invoke &quot;com.riskgame.model.MapHelper.editMap(String)&quot; because &quot;this.d_mapHelper&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke "com.riskgame.model.MapHelper.editMap(String)" because "this.d_mapHelper" is null
+	at com.riskgame.model.ValidateMapTest.testEditExistingMap(ValidateMapTest.java:53)
+</error>
+  </testcase>
+  <testcase name="testEditNewMap" classname="com.riskgame.model.ValidateMapTest" time="0">
+    <error message="Cannot invoke &quot;com.riskgame.model.MapHelper.editMap(String)&quot; because &quot;this.d_mapHelper&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke "com.riskgame.model.MapHelper.editMap(String)" because "this.d_mapHelper" is null
+	at com.riskgame.model.ValidateMapTest.testEditNewMap(ValidateMapTest.java:43)
+</error>
+  </testcase>
+  <testcase name="validateMapTest" classname="com.riskgame.model.ValidateMapTest" time="0">
+    <error message="Cannot invoke &quot;com.riskgame.model.MapHelper.editMap(String)&quot; because &quot;this.d_mapHelper&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke "com.riskgame.model.MapHelper.editMap(String)" because "this.d_mapHelper" is null
+	at com.riskgame.model.ValidateMapTest.validateMapTest(ValidateMapTest.java:32)
+</error>
+  </testcase>
 </testsuite>

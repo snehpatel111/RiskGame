@@ -263,6 +263,13 @@ public class StartUpPhase {
                         l_player.managePlayer(this.d_playerList, this.d_gamePhase, l_data);
                         break;
                     case "assigncountries":
+                        if (!StartUpPhase.isValidCommandArgument(l_data, 1)) {
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Invalid number of arguments for assigncountries command" + Constant.RESET_COLOR);
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "Try -> assigncountries" + Constant.RESET_COLOR);
+                            break;
+                        }
                         Player.assignCountries(this.d_gameMap, this.d_playerList);
                         this.d_gamePhase = Phase.ISSUE_ORDERS;
                         break;

@@ -22,6 +22,7 @@ public class ValidateMapTest {
     public void before() {
         this.d_mapValidator = new MapValidator();
         this.d_gameMap = new GameMap("ameroki.map");
+        this.d_mapHelper = new MapHelper();
     }
 
     /**

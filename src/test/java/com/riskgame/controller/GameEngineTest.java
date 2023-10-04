@@ -1,4 +1,4 @@
-package com.riskgame;
+package com.riskgame.controller;
 
 import static org.junit.Assert.assertTrue;
 

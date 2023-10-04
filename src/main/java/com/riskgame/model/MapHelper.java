@@ -27,18 +27,20 @@ public class MapHelper {
      * @param p_mapFileName Name of map file.
      * @return Edited game map
      */
+
     public GameMap editMap(String p_mapFileName) {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         this.d_gameMap = new GameMap(p_mapFileName);
         File l_file = new File(l_filePath);
-
+    
         if (l_file.exists()) {
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
             this.readMap(l_filePath);
         } else {
             System.out.println(p_mapFileName + " does not exist.");
-            System.out.println("Creating a new Map named: " + p_mapFileName);
-            this.d_gameMap = new GameMap(p_mapFileName);
+        System.out.println("Creating a new Map named: " + p_mapFileName);
+       
+        this.d_gameMap = new GameMap(p_mapFileName);
         }
         return this.d_gameMap;
     }

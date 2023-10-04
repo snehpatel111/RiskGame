@@ -298,7 +298,7 @@ public class Player {
             Order l_order = new Order(this, l_countryId, l_armyCount);
             this.d_executionOrderList.add(l_order);
             this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
-            this.getOwnedCountries().get(l_countryId.toLowerCase()).setNumberOfArmies(l_armyCount);
+            // this.getOwnedCountries().get(l_countryId.toLowerCase()).setNumberOfArmies(l_armyCount);
             System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
                     + " army left in the reinforcement pool");
         } catch (Exception e) {

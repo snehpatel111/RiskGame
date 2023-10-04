@@ -347,44 +347,40 @@ public class StartUpPhase {
                 switch (l_commandName) {
                     case "execute":
                         if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for execute command"
+                            System.out.println(Constant.ERROR_COLOR + "Invalid number of arguments for execute command"
                                     + Constant.RESET_COLOR);
                             break;
                         }
+
                         int l_count = 0;
+
                         for (Player l_player : this.d_playerList) {
                             Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
                             l_count += l_executionOrderList.size();
                         }
+
                         if (l_count == 0) {
                             System.out.println(
                                     Constant.SUCCESS_COLOR + "Orders already executed!" + Constant.RESET_COLOR);
-                            MapHelper l_gameMapHelper = new MapHelper();
-                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
-                            this.d_gamePhase = Phase.ISSUE_ORDERS;
-                            return this.d_gamePhase;
                         } else {
                             System.out.println("Total Orders: " + l_count);
-                            while (l_count != 0) {
-                                for (Player l_player : this.d_playerList) {
-                                    Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
-                                    if (l_executionOrderList.size() > 0) {
-                                        Order l_nextOrder = l_player.next_order();
-                                        System.out.println(Constant.SUCCESS_COLOR + "The order " + l_nextOrder
-                                                + " executed for player "
-                                                + l_player.getPlayerName() + Constant.RESET_COLOR);
-                                        l_nextOrder.execute();
-                                    }
+                            for (Player l_player : this.d_playerList) {
+                                Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
+                                while (!l_executionOrderList.isEmpty()) {
+                                    Order l_nextOrder = l_executionOrderList.poll();
+                                    l_nextOrder.execute();
+                                    System.out.println(Constant.SUCCESS_COLOR + "The order " + l_nextOrder
+                                            + " executed for player " + l_player.getPlayerName()
+                                            + Constant.RESET_COLOR);
                                 }
-                                l_count--;
                             }
-                            System.out.println(Constant.SUCCESS_COLOR + "All orders executed successfully!"
+                            System.out.println(Constant.SUCCESS_COLOR + "All orders are executed successfully!"
                                     + Constant.RESET_COLOR);
-                            MapHelper l_gameMapHelper = new MapHelper();
-                            l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
-                            this.d_gamePhase = Phase.ISSUE_ORDERS;
                         }
+
+                        MapHelper l_gameMapHelper = new MapHelper();
+                        l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
+                        this.d_gamePhase = Phase.ISSUE_ORDERS;
                         break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {

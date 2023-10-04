@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
@@ -250,41 +251,99 @@ public class MapHelper {
         System.out.printf("%25s%25s%35s\n", "Continent", "Country", "Neighbour Countries");
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
-        boolean l_printContinentName = true;
-        boolean l_printCountryName = true;
+        boolean l_displayContinentName = true;
+        boolean l_displayCountryName = true;
         for (Continent l_continent : p_gameMap.getContinents().values()) {
             if (l_continent.getCountries().size() == 0) {
                 System.out.printf("\n%25s%25s%25s\n", l_continent.getContinentId(), "", "");
             }
             for (Country l_country : l_continent.getCountries().values()) {
                 if (l_country.getNeighbors().size() == 0) {
-                    if (l_printContinentName && l_printCountryName) {
+                    if (l_displayContinentName && l_displayCountryName) {
                         System.out.printf("\n%25s%25s%25s\n", l_continent.getContinentId(), l_country.getCountryId(),
                                 "");
-                        l_printContinentName = false;
-                        l_printCountryName = false;
-                    } else if (l_printCountryName) {
+                        l_displayContinentName = false;
+                        l_displayCountryName = false;
+                    } else if (l_displayCountryName) {
                         System.out.printf("\n%25s%25s%25s\n", "", l_country.getCountryId(), "");
-                        l_printCountryName = false;
+                        l_displayCountryName = false;
                     }
                 }
                 for (Country l_neighbor : l_country.getNeighbors().values()) {
-                    if (l_printContinentName && l_printCountryName) {
+                    if (l_displayContinentName && l_displayCountryName) {
                         System.out.printf("\n%25s%25s%25s\n", l_continent.getContinentId(), l_country.getCountryId(),
                                 l_neighbor.getCountryId());
-                        l_printContinentName = false;
-                        l_printCountryName = false;
-                    } else if (l_printCountryName) {
+                        l_displayContinentName = false;
+                        l_displayCountryName = false;
+                    } else if (l_displayCountryName) {
                         System.out.printf("\n%25s%25s%25s\n", "", l_country.getCountryId(), l_neighbor.getCountryId());
-                        l_printCountryName = false;
+                        l_displayCountryName = false;
                     } else {
                         System.out.printf("%25s%25s%25s\n", "", "", l_neighbor.getCountryId());
                     }
                 }
-                l_printCountryName = true;
+                l_displayCountryName = true;
             }
-            l_printContinentName = true;
-            l_printCountryName = true;
+            l_displayContinentName = true;
+            l_displayCountryName = true;
+        }
+    }
+
+    /**
+     * Display map with all countries, continents, armies on each country, and
+     * ownership.
+     * 
+     * @param p_playerList List of players
+     * @param p_gameMap    GameMap object containing continents and countries
+     */
+    public void showMap(List<Player> p_playerList, GameMap p_gameMap) {
+        if (p_gameMap == null)
+            return;
+        // if (p_playerList.size() == 0 ||
+        // p_playerList.get(0).getOwnedCountries().size() == 0) {
+        // this.showMap(p_gameMap);
+        // return;
+        // }
+        System.out.format("%25s%25s%35s%25s%10s\n", "Owner", "Country", "Neighbors", "Continent", "#Armies");
+        System.out.format("%85s\n",
+                "---------------------------------------------------------------------------------------------------------------------------");
+        boolean l_displayPlayerName = true;
+        boolean l_displayContinentId = true;
+        boolean l_displayCountryId = true;
+        boolean l_displayNumberOfArmies = true;
+
+        for (int i = 0; i < p_playerList.size(); i++) {
+            Player l_player = p_playerList.get(i);
+            for (Country l_country : l_player.getOwnedCountries().values()) {
+                for (Country l_neighbor : l_country.getNeighbors().values()) {
+                    if (l_displayPlayerName && l_displayContinentId && l_displayCountryId) {
+                        System.out.format("\n%25s%25s%35s%25s%10d\n", l_player.getPlayerName(),
+                                l_country.getCountryId(),
+                                l_neighbor.getCountryId(), l_country.getBelongingContinent(),
+                                l_country.getNumberOfArmies());
+                        l_displayPlayerName = false;
+                        l_displayContinentId = false;
+                        l_displayCountryId = false;
+                        l_displayNumberOfArmies = false;
+                    } else if (l_displayContinentId && l_displayCountryId && l_displayNumberOfArmies) {
+                        System.out.format("\n%25s%25s%35s%25s%10d\n", "", l_country.getCountryId(),
+                                l_neighbor.getCountryId(), l_country.getBelongingContinent(),
+                                l_country.getNumberOfArmies());
+                        l_displayPlayerName = false;
+                        l_displayCountryId = false;
+                        l_displayNumberOfArmies = false;
+                    } else {
+                        System.out.format("\n%25s%25s%35s%25s%10s\n", "", "", l_neighbor.getCountryId(), "", "");
+                    }
+                }
+                l_displayContinentId = true;
+                l_displayCountryId = true;
+                l_displayNumberOfArmies = true;
+            }
+            l_displayPlayerName = true;
+            l_displayContinentId = true;
+            l_displayCountryId = true;
+            l_displayNumberOfArmies = true;
         }
     }
 

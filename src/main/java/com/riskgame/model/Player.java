@@ -113,6 +113,15 @@ public class Player {
     }
 
     /**
+     * Getter method to get the list of execution orders
+     * 
+     * @return List of execution order
+     */
+    public Queue<Order> getExecutionOrderList() {
+        return this.d_executionOrderList;
+    }
+
+    /**
      * Validates player name.
      * 
      * @param p_playerName Player name to validate
@@ -120,15 +129,6 @@ public class Player {
      */
     public boolean isValidPlayerName(String p_playerName) {
         return p_playerName != null && p_playerName.matches("[a-zA-Z0-9]+");
-    }
-
-    /**
-     * Add order to execution queue.
-     * 
-     * @param p_order Order to add
-     */
-    public void addOrderToOrderQueue(Order p_order) {
-        this.d_order = p_order;
     }
 
     /**
@@ -230,6 +230,15 @@ public class Player {
             }
         }
         return false;
+    }
+
+    /**
+     * This function returns the order object from queue
+     *
+     * @return Returns first order from the queue
+     */
+    public Order next_order() {
+        return this.d_executionOrderList.poll();
     }
 
     /**

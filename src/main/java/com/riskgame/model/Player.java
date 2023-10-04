@@ -262,6 +262,8 @@ public class Player {
             }
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.SUCCESS_COLOR + "Reinforcement assigned to each player \nBegin to issue order as per turn!" + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
         }
@@ -298,7 +300,6 @@ public class Player {
             Order l_order = new Order(this, l_countryId, l_armyCount);
             this.d_executionOrderList.add(l_order);
             this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
-            // this.getOwnedCountries().get(l_countryId.toLowerCase()).setNumberOfArmies(l_armyCount);
             System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
                     + " army left in the reinforcement pool");
         } catch (Exception e) {

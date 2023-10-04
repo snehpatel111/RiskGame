@@ -113,6 +113,7 @@ public class StartUpPhase {
                             } else {
                                 this.d_gamePhase = Phase.STARTUP;
                                 System.out.println("Proceed to add game player");
+                                System.out.println("Use gameplayer -add <playername>");
                             }
                         } catch (Exception e) {
                             System.out.println(Constant.ERROR_COLOR
@@ -211,6 +212,8 @@ public class StartUpPhase {
                                 this.d_gamePhase = Phase.NULL;
                             } else {
                                 this.d_gamePhase = Phase.STARTUP;
+                                System.out.println("Proceed to add game player");
+                                System.out.println("Use gameplayer -add <playername>");
                             }
                         } catch (Exception e) {
                             System.out.println(Constant.ERROR_COLOR

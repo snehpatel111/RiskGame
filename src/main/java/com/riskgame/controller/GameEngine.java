@@ -46,7 +46,7 @@ public class GameEngine {
                 while (l_playerCounter < l_totalPlayer) {
                     Player l_player = l_startupPhase.getPlayerList().get(l_playerCounter);
                     System.out.println(
-                            l_player.getPlayerName() + "'s turn (Country owns: " + l_player.getOwnedArmyCount() + ")");
+                            l_player.getPlayerName() + "'s turn (Remaining army count: " + l_player.getOwnedArmyCount() + ")");
                     l_gamePhase = Phase.ISSUE_ORDERS;
                     l_startupPhase.setGamePhase(l_gamePhase);
                     while (!l_gamePhase.equals(Phase.SWITCH_TURN)) {
@@ -78,18 +78,18 @@ public class GameEngine {
             int l_totalControlValueCount = 0;
             int l_totalReinforcementArmyCount;
 
-            if (l_player.getOwnedCountries().size() >= 9) {
+            if (l_player.getOwnedCountries().size() >= 10) {
                 if (l_player.getOwnedContinents().size() > 0) {
                     for (Continent l_continent : l_player.getOwnedContinents().values()) {
                         l_totalControlValueCount += l_continent.getControlValue();
                     }
-                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 3)
+                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2)
                             + l_totalControlValueCount;
                 } else {
-                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 3);
+                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2);
                 }
             } else {
-                l_totalReinforcementArmyCount = 3;
+                l_totalReinforcementArmyCount = 5;
             }
             l_player.setOwnedArmyCount(l_totalReinforcementArmyCount);
         }

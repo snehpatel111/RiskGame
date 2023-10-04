@@ -34,7 +34,7 @@ public class GameEngineTest {
 
         GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
 
-        assertEquals(3, this.d_player.getOwnedArmyCount());
+        assertEquals(5, this.d_player.getOwnedArmyCount());
     }
 
     /**
@@ -42,25 +42,6 @@ public class GameEngineTest {
      */
     @Test
     public void testAssignReinforcementToPlayerWithNineCountries() {
-        for (int i = 0; i < 9; i++) {
-            Continent l_continent = new Continent();
-            String l_countryId = "TestCountry " + i;
-            Country l_country = new Country(l_countryId, this.d_continent.getContinentId());
-            this.d_player.getOwnedCountries().put(l_countryId.toLowerCase(), l_country);
-        }
-
-        this.d_startUpPhase.getPlayerList().add(this.d_player);
-
-        GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
-
-        assertEquals(3, this.d_player.getOwnedArmyCount());
-    }
-
-    /**
-     * Test assign reinforcement with 10 countries
-     */
-    @Test
-    public void testAssignReinforcementToPlayerWithTenCountries() {
         for (int i = 0; i < 10; i++) {
             Continent l_continent = new Continent();
             String l_countryId = "TestCountry " + i;
@@ -72,6 +53,25 @@ public class GameEngineTest {
 
         GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
 
-        assertEquals(3, this.d_player.getOwnedArmyCount());
+        assertEquals(5, this.d_player.getOwnedArmyCount());
+    }
+
+    /**
+     * Test assign reinforcement with 10 countries
+     */
+    @Test
+    public void testAssignReinforcementToPlayerWithTenCountries() {
+        for (int i = 0; i < 11; i++) {
+            Continent l_continent = new Continent();
+            String l_countryId = "TestCountry " + i;
+            Country l_country = new Country(l_countryId, this.d_continent.getContinentId());
+            this.d_player.getOwnedCountries().put(l_countryId.toLowerCase(), l_country);
+        }
+
+        this.d_startUpPhase.getPlayerList().add(this.d_player);
+
+        GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
+
+        assertEquals(5, this.d_player.getOwnedArmyCount());
     }
 }

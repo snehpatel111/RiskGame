@@ -302,9 +302,13 @@ public class MapHelper {
     public void showMap(List<Player> p_playerList, GameMap p_gameMap) {
         if (p_gameMap == null)
             return;
-        System.out.format("%25s%25s%35s%25s%10s\n", "Owner", "Country", "Neighbors", "Continent", "#Armies");
+        if (p_playerList.size() == 0 || p_playerList.get(0).getOwnedCountries().size() == 0) {
+            this.showMap(p_gameMap);
+            return;
+        }
+        System.out.format("%25s%25s%35s%25s%20s\n", "Player", "Country", "Neighbors", "Continent", "Deployed Armies");
         System.out.format("%85s\n",
-                "---------------------------------------------------------------------------------------------------------------------------");
+                "------------------------------------------------------------------------------------------------------------------------------------");
         boolean l_displayPlayerName = true;
         boolean l_displayContinentId = true;
         boolean l_displayCountryId = true;
@@ -315,7 +319,7 @@ public class MapHelper {
             for (Country l_country : l_player.getOwnedCountries().values()) {
                 for (Country l_neighbor : l_country.getNeighbors().values()) {
                     if (l_displayPlayerName && l_displayContinentId && l_displayCountryId) {
-                        System.out.format("\n%25s%25s%35s%25s%10d\n", l_player.getPlayerName(),
+                        System.out.format("\n%25s%25s%35s%25s%20d\n", l_player.getPlayerName(),
                                 l_country.getCountryId(),
                                 l_neighbor.getCountryId(), l_country.getBelongingContinent(),
                                 l_country.getNumberOfArmies());
@@ -324,14 +328,14 @@ public class MapHelper {
                         l_displayCountryId = false;
                         l_displayNumberOfArmies = false;
                     } else if (l_displayContinentId && l_displayCountryId && l_displayNumberOfArmies) {
-                        System.out.format("\n%25s%25s%35s%25s%10d\n", "", l_country.getCountryId(),
+                        System.out.format("\n%25s%25s%35s%25s%20d\n", "", l_country.getCountryId(),
                                 l_neighbor.getCountryId(), l_country.getBelongingContinent(),
                                 l_country.getNumberOfArmies());
                         l_displayPlayerName = false;
                         l_displayCountryId = false;
                         l_displayNumberOfArmies = false;
                     } else {
-                        System.out.format("\n%25s%25s%35s%25s%10s\n", "", "", l_neighbor.getCountryId(), "", "");
+                        System.out.format("\n%25s%25s%35s%25s%20s\n", "", "", l_neighbor.getCountryId(), "", "");
                     }
                 }
                 l_displayContinentId = true;

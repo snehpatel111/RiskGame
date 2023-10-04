@@ -146,7 +146,8 @@ public class Player {
                     boolean l_isPlayerAdded = this.addPlayer(p_playerList, l_playerName);
                     if (l_isPlayerAdded) {
                         System.out
-                                .println(Constant.SUCCESS_COLOR + "Player added successfully!" + Constant.RESET_COLOR);
+                                .println(Constant.SUCCESS_COLOR + "Player " + l_playerName + " added successfully!"
+                                        + Constant.RESET_COLOR);
                         p_gamPhase = Phase.STARTUP;
                     }
                     p_gamPhase = Phase.STARTUP;
@@ -257,6 +258,11 @@ public class Player {
         }
     }
 
+    /**
+     * Takes deploy order from user and add it to the execution order list.
+     * 
+     * @param p_args Order from player
+     */
     public void issue_order(String[] p_args) {
         try {
             if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
@@ -270,17 +276,22 @@ public class Player {
             int l_armyCount = Integer.parseInt(p_args[2]);
             boolean l_isPlayerOwnCountry = this.getOwnedCountries().containsKey(l_countryId.toLowerCase());
             boolean l_hasValidArmy = (this.getOwnedArmyCount() >= l_armyCount);
-            if (l_isPlayerOwnCountry && l_hasValidArmy) {
-                Order l_order = new Order(this, l_countryId, l_armyCount);
-                this.d_executionOrderList.add(l_order);
-                this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
-                System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
-                        + " army left in the reinforcement pool");
-            } else {
+            if (!l_isPlayerOwnCountry) {
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName() + " does not own "
                         + l_countryId + " country" + Constant.RESET_COLOR);
+                return;
             }
-
+            if (!l_hasValidArmy) {
+                System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
+                        + " does not have sufficient army" + Constant.RESET_COLOR);
+                return;
+            }
+            Order l_order = new Order(this, l_countryId, l_armyCount);
+            this.d_executionOrderList.add(l_order);
+            this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
+            this.getOwnedCountries().get(l_countryId.toLowerCase()).setNumberOfArmies(l_armyCount);
+            System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
+                    + " army left in the reinforcement pool");
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);

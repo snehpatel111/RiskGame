@@ -139,12 +139,22 @@ public class Country {
     }
 
     /**
-	 * Getter method to get number of armies in the country.
-	 * @return returns d_numberOfArmies
-	 */
-	public int getNumberOfArmies() {
-		return this.d_numberOfArmies;
-	}
+     * Getter method to get number of armies in the country.
+     * 
+     * @return returns d_numberOfArmies
+     */
+    public int getNumberOfArmies() {
+        return this.d_numberOfArmies;
+    }
+
+    /**
+     * Setter method to set number of armies deployed at the country
+     * 
+     * @param p_numberOfArmies Number of armies to be deployed
+     */
+    public void setNumberOfArmies(int p_numberOfArmies) {
+        this.d_numberOfArmies = p_numberOfArmies;
+    }
 
     /**
      * Returns is neighbor removed or not

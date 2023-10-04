@@ -42,6 +42,15 @@ public class StartUpPhase {
     }
 
     /**
+     * Setter method for game phase.
+     * 
+     * @param d_gamePhase GamePhase to set
+     */
+    public void setGamePhase(Phase d_gamePhase) {
+        this.d_gamePhase = d_gamePhase;
+    }
+
+    /**
      * Parses the command received from player during startup phase
      * 
      * @param p_player  Player who is playing.
@@ -292,31 +301,43 @@ public class StartUpPhase {
             }
             // ISSUE_ORDER phase commands: deploy, pass, showmap
             else if (this.d_gamePhase.equals(Phase.ISSUE_ORDERS)) {
-                int l_counter = 0;
+                int l_totalReinforcement = 0;
                 Iterator<Player> l_iterator = this.d_playerList.listIterator();
                 while (l_iterator.hasNext()) {
                     Player l_player = l_iterator.next();
-                    System.out.println(Constant.SUCCESS_COLOR + "Player " + l_player.getPlayerName() + " has "
-                            + l_player.getOwnedArmyCount() + " armies currently!" + Constant.RESET_COLOR);
+                    System.out.println("Player " + l_player.getPlayerName() + " has "
+                            + l_player.getOwnedArmyCount() + " armies currently!");
+                    l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
                 }
-                System.out.println("Total armies left in reinforcement pool: " + l_counter);
-                if (l_counter > 0) {
+                System.out.println("Total armies left in reinforcement pool: " + l_totalReinforcement);
+                if (l_totalReinforcement > 0) {
                     switch (l_commandName) {
                         case "deploy":
                             p_player.issue_order(l_data);
+                            this.d_gamePhase = Phase.SWITCH_TURN;
                             break;
                         case "pass":
                             this.d_gamePhase = Phase.SWITCH_TURN;
                             break;
+                        case "showmap":
+                            if (!isValidCommandArgument(l_data, 1)) {
+                                System.out.println(Constant.ERROR_COLOR
+                                        + "Invalid number of arguments for showmap command"
+                                        + Constant.RESET_COLOR);
+                                break;
+                            }
+                            MapHelper l_gameMap = new MapHelper();
+                            l_gameMap.showMap(this.d_playerList, this.d_gameMap);
+                            break;
                         default:
                             System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy>");
+                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy>"
+                                    + Constant.RESET_COLOR);
                             break;
                     }
                 } else {
                     System.out.println("Press Enter to continue with EXECUTE phase...");
                     this.d_gamePhase = Phase.EXECUTE_ORDERS;
-                    return this.d_gamePhase;
                 }
             }
             return this.d_gamePhase;

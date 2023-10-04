@@ -40,6 +40,26 @@ public class GameEngine {
             }
             assignReinforcementToPlayer(l_startupPhase);
 
+            int l_playerCounter = 0;
+            int l_totalPlayer = l_startupPhase.getPlayerList().size();
+            while (true) {
+                while (l_playerCounter < l_totalPlayer) {
+                    Player l_player = l_startupPhase.getPlayerList().get(l_playerCounter);
+                    System.out.println(
+                            l_player.getPlayerName() + "'s turn (Country owns: " + l_player.getOwnedArmyCount() + ")");
+                    l_gamePhase = Phase.ISSUE_ORDERS;
+                    l_startupPhase.setGamePhase(l_gamePhase);
+                    while (!l_gamePhase.equals(Phase.SWITCH_TURN)) {
+                        l_command = sc.nextLine();
+                        l_gamePhase = l_startupPhase.parseCommand(l_player, l_command);
+                    }
+                    l_playerCounter++;
+                }
+                l_gamePhase = Phase.ISSUE_ORDERS;
+                l_startupPhase.setGamePhase(l_gamePhase);
+                l_playerCounter = 0;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,7 +68,7 @@ public class GameEngine {
     /**
      * Assign reinforcement to each game player
      * 
-     * @param p_startUpPhase Game phase that contains player list 
+     * @param p_startUpPhase Game phase that contains player list
      */
     public static void assignReinforcementToPlayer(StartUpPhase p_startUpPhase) {
         Iterator<Player> l_iterator = p_startUpPhase.getPlayerList().listIterator();

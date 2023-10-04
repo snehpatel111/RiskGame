@@ -32,15 +32,15 @@ public class MapHelper {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         this.d_gameMap = new GameMap(p_mapFileName);
         File l_file = new File(l_filePath);
-    
+
         if (l_file.exists()) {
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
             this.readMap(l_filePath);
         } else {
             System.out.println(p_mapFileName + " does not exist.");
-        System.out.println("Creating a new Map named: " + p_mapFileName);
-       
-        this.d_gameMap = new GameMap(p_mapFileName);
+            System.out.println("Creating a new Map named: " + p_mapFileName);
+
+            this.d_gameMap = new GameMap(p_mapFileName);
         }
         return this.d_gameMap;
     }
@@ -301,11 +301,6 @@ public class MapHelper {
     public void showMap(List<Player> p_playerList, GameMap p_gameMap) {
         if (p_gameMap == null)
             return;
-        // if (p_playerList.size() == 0 ||
-        // p_playerList.get(0).getOwnedCountries().size() == 0) {
-        // this.showMap(p_gameMap);
-        // return;
-        // }
         System.out.format("%25s%25s%35s%25s%10s\n", "Owner", "Country", "Neighbors", "Continent", "#Armies");
         System.out.format("%85s\n",
                 "---------------------------------------------------------------------------------------------------------------------------");

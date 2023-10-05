@@ -42,24 +42,43 @@ public class GameEngine {
 
             int l_playerCounter = 0;
             int l_totalPlayer = l_startupPhase.getPlayerList().size();
+            int l_totalReinforcement = 0;
             while (true) {
                 while (l_playerCounter < l_totalPlayer) {
                     Player l_player = l_startupPhase.getPlayerList().get(l_playerCounter);
                     System.out.println(
-                            l_player.getPlayerName() + "'s turn (Remaining army count: " + l_player.getOwnedArmyCount() + ")");
+                            l_player.getPlayerName() + "'s turn (Remaining army count: " + l_player.getOwnedArmyCount()
+                                    + ")");
                     l_gamePhase = Phase.ISSUE_ORDERS;
                     l_startupPhase.setGamePhase(l_gamePhase);
                     while (!l_gamePhase.equals(Phase.SWITCH_TURN)) {
                         l_command = sc.nextLine();
                         l_gamePhase = l_startupPhase.parseCommand(l_player, l_command);
                     }
+                    Iterator<Player> l_iterator = l_startupPhase.getPlayerList().listIterator();
+                    l_totalReinforcement = 0;
+                    while (l_iterator.hasNext()) {
+                        Player l_gamePlayer = l_iterator.next();
+                        l_totalReinforcement += l_gamePlayer.getOwnedArmyCount() > 0 ? l_gamePlayer.getOwnedArmyCount()
+                                : 0;
+                    }
+                    if (l_totalReinforcement == 0) {
+                        l_gamePhase = Phase.EXECUTE_ORDERS;
+                        l_startupPhase.setGamePhase(l_gamePhase);
+                        break;
+                    }
                     l_playerCounter++;
                 }
-                l_gamePhase = Phase.ISSUE_ORDERS;
+                if (l_totalReinforcement == 0) {
+                    break;
+                }
+                l_gamePhase = l_totalReinforcement > 0 ? Phase.ISSUE_ORDERS : Phase.EXECUTE_ORDERS;
                 l_startupPhase.setGamePhase(l_gamePhase);
                 l_playerCounter = 0;
             }
-
+            System.out.println("Type execute to deploy armies");
+            l_command = sc.nextLine();
+            l_gamePhase = l_startupPhase.parseCommand(null, l_command);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,7 +147,7 @@ public class GameEngine {
                 for (File file : files) {
                     if (file.isFile()) {
                         String fileName = file.getName();
-                        System.out.printf("%-" + (maxLength + 2) + "s", fileName);
+                        System.out.println(fileName);
                     }
                 }
                 System.out.println("\n");

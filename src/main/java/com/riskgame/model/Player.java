@@ -263,7 +263,7 @@ public class Player {
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
             System.out.println(
-                    Constant.SUCCESS_COLOR + "Reinforcement assigned to each player \nBegin to issue order as per turn!" + Constant.RESET_COLOR);
+                    Constant.SUCCESS_COLOR + "Reinforcement assigned to each player! \nBegin to issue order as per turn!" + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
         }

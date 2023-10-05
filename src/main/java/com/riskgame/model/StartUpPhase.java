@@ -112,8 +112,10 @@ public class StartUpPhase {
                                 this.d_gamePhase = Phase.NULL;
                             } else {
                                 this.d_gamePhase = Phase.STARTUP;
-                                System.out.println("Proceed to add game player");
-                                System.out.println("Use gameplayer -add <playername>");
+                                System.out.println(
+                                        Constant.SUCCESS_COLOR + "Proceed to add game player" + Constant.RESET_COLOR);
+                                System.out.println(Constant.SUCCESS_COLOR + "Use gameplayer -add <playername>"
+                                        + Constant.RESET_COLOR);
                             }
                         } catch (Exception e) {
                             System.out.println(Constant.ERROR_COLOR
@@ -212,8 +214,10 @@ public class StartUpPhase {
                                 this.d_gamePhase = Phase.NULL;
                             } else {
                                 this.d_gamePhase = Phase.STARTUP;
-                                System.out.println("Proceed to add game player");
-                                System.out.println("Use gameplayer -add <playername>");
+                                System.out.println(
+                                        Constant.SUCCESS_COLOR + "Proceed to add game player" + Constant.RESET_COLOR);
+                                System.out.println(Constant.SUCCESS_COLOR + "Use gameplayer -add <playername>"
+                                        + Constant.RESET_COLOR);
                             }
                         } catch (Exception e) {
                             System.out.println(Constant.ERROR_COLOR
@@ -343,7 +347,7 @@ public class StartUpPhase {
                             + l_player.getOwnedArmyCount() + " armies currently!");
                     l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
                 }
-                System.out.println("Total armies left in reinforcement pool: " + l_totalReinforcement);
+                System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
                 if (l_totalReinforcement > 0) {
                     switch (l_commandName) {
                         case "deploy":
@@ -424,6 +428,9 @@ public class StartUpPhase {
                         MapHelper l_gameMapHelper = new MapHelper();
                         l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
                         this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        System.out.println(Constant.SUCCESS_COLOR + "Finish! All armies are deployed. \n\n"
+                                + Constant.RESET_COLOR);
+
                         break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {
@@ -442,7 +449,7 @@ public class StartUpPhase {
                         break;
                     default:
                         System.out.println(Constant.SUCCESS_COLOR +
-                                "EXECUTE_ORDER phase has started. Try -> showmap or execute or exit"
+                                "Try -> showmap or execute or exit"
                                 + Constant.RESET_COLOR);
                         break;
                 }

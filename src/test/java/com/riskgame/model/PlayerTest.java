@@ -9,7 +9,9 @@ import java.util.Queue;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlayerTest{
+import com.riskgame.controller.GameEngine;
+
+public class PlayerTest {
 
     Player d_player;
     String d_playerName;
@@ -21,7 +23,9 @@ public class PlayerTest{
         this.d_playerName = "TestPlayer";
         this.d_player = new Player(this.d_playerName);
         this.d_playerList = new ArrayList<Player>();
-    } 
+        String l_command = "deploy TestCountry 5";
+        this.d_player.setArgs(l_command.split("\\s+"));
+    }
 
     /**
      * Tets for checking if player exists
@@ -74,5 +78,30 @@ public class PlayerTest{
         assertTrue(l_check);
     }
 
-    
+    /**
+     * Test calculation of valid reinforcement armies.
+     */
+    @Test
+    public void testIssueOrderValidReinforcement() {
+        this.d_player.setOwnedArmyCount(10);
+        this.d_player.getOwnedCountries().put("testcountry", null);
+
+        this.d_player.issue_order();
+
+        assertEquals(5, this.d_player.getOwnedArmyCount());
+        assertEquals(1, this.d_player.getExecutionOrderList().size());
+    }
+
+    /**
+     * Tests calculation of invalid reinforcement armies.
+     */
+    @Test
+    public void testIssueOrderInvalidReinforcement() {
+        this.d_player.setOwnedArmyCount(10);
+        this.d_player.getOwnedCountries().put("testcountry", null);
+
+        this.d_player.issue_order();
+
+        assertNotEquals(8, this.d_player.getOwnedArmyCount());
+    }
 }

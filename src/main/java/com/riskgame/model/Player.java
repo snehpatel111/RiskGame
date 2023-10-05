@@ -256,13 +256,16 @@ public class Player {
      * 
      * @param p_gameMap    The game map containing countries
      * @param p_playerList The list of players
+     * 
+     * @return Returns true if countries assigned successfully to players, false
+     *         otherwise
      */
-    public static void assignCountries(GameMap p_gameMap, List<Player> p_playerList) {
+    public static boolean assignCountries(GameMap p_gameMap, List<Player> p_playerList) {
         try {
             if (p_playerList.size() < 2) {
                 System.out.println(Constant.ERROR_COLOR + "Minimum two players are required to play the game."
                         + Constant.RESET_COLOR);
-                return;
+                return false;
             }
             Collections.shuffle(p_playerList);
             for (Country l_country : p_gameMap.getCountries().values()) {
@@ -276,8 +279,10 @@ public class Player {
                     Constant.SUCCESS_COLOR
                             + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
                             + Constant.RESET_COLOR);
+            return true;
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
+            return false;
         }
     }
 

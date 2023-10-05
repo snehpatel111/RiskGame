@@ -1,6 +1,9 @@
-com/riskgame/model/ValidateMapTest.class
 com/riskgame/model/CountryTest.class
-com/riskgame/GameEngineTest.class
 com/riskgame/model/ContinentTest.class
 com/riskgame/model/GameMapTest.class
 com/riskgame/model/StartUpPhaseTest.class
+com/riskgame/controller/GameEngineTest.class
+com/riskgame/utility/UtilTest.class
+com/riskgame/utility/MapValidatorTest.class
+com/riskgame/model/MapHelperTest.class
+com/riskgame/model/PlayerTest.class

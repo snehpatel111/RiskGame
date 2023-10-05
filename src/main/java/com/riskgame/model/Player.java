@@ -26,6 +26,7 @@ public class Player {
     private String d_countryId;
     private Order d_order;
     private Queue<Order> d_executionOrderList;
+    public String[] d_args;
 
     /**
      * This constructor assigns name to the player.
@@ -38,6 +39,15 @@ public class Player {
         this.d_ownedCountries = new HashMap<>();
         this.d_ownedArmyCount = 0;
         this.d_executionOrderList = new ArrayDeque<>();
+    }
+
+    /**
+     * Setter method to set command line arguments.
+     * 
+     * @param p_args Command line arguments separated by space
+     */
+    public void setArgs(String[] p_args) {
+        this.d_args = p_args;
     }
 
     /**
@@ -263,7 +273,9 @@ public class Player {
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
             System.out.println(
-                    Constant.SUCCESS_COLOR + "Reinforcement assigned to each player! \nBegin to issue order as per turn!" + Constant.RESET_COLOR);
+                    Constant.SUCCESS_COLOR
+                            + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
+                            + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
         }
@@ -272,19 +284,18 @@ public class Player {
     /**
      * Takes deploy order from user and add it to the execution order list.
      * 
-     * @param p_args Order from player
      */
-    public void issue_order(String[] p_args) {
+    public void issue_order() {
         try {
-            if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+            if (!StartUpPhase.isValidCommandArgument(this.d_args, 3)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
                 System.out.println(Constant.ERROR_COLOR
                         + "Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);
                 return;
             }
-            String l_countryId = p_args[1];
-            int l_armyCount = Integer.parseInt(p_args[2]);
+            String l_countryId = this.d_args[1];
+            int l_armyCount = Integer.parseInt(this.d_args[2]);
             boolean l_isPlayerOwnCountry = this.getOwnedCountries().containsKey(l_countryId.toLowerCase());
             boolean l_hasValidArmy = (this.getOwnedArmyCount() >= l_armyCount);
             if (!l_isPlayerOwnCountry) {

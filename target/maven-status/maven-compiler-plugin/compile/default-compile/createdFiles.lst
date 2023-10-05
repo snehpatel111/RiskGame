@@ -1,12 +1,12 @@
 com/riskgame/controller/GameEngine.class
 com/riskgame/model/Country.class
-com/riskgame/utility/Util.class
 com/riskgame/utility/MapValidator.class
+com/riskgame/utility/Util.class
 com/riskgame/model/GameMap.class
 com/riskgame/model/MapHelper.class
 com/riskgame/model/StartUpPhase.class
-com/riskgame/model/Continent.class
 com/riskgame/model/Player.class
+com/riskgame/model/Continent.class
 com/riskgame/model/Order.class
 com/riskgame/utility/Constant.class
 com/riskgame/utility/Phase.class

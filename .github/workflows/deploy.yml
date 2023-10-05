@@ -19,6 +19,8 @@ jobs:
           distribution: "adopt"
       - name: Installed Dependencies
         run: mvn install
+      - name: Compile project
+        run: mvn compile
       - name: Run Unit Tests
         run: mvn test
       - name: Generate JavaDoc

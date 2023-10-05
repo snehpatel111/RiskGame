@@ -351,7 +351,8 @@ public class StartUpPhase {
                 if (l_totalReinforcement > 0) {
                     switch (l_commandName) {
                         case "deploy":
-                            p_player.issue_order(l_data);
+                            p_player.setArgs(l_data);
+                            p_player.issue_order();
                             this.d_gamePhase = Phase.SWITCH_TURN;
                             break;
                         case "pass":

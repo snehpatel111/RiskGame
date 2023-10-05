@@ -45,10 +45,10 @@ public class StartUpPhase {
     /**
      * Setter method for game phase.
      * 
-     * @param d_gamePhase GamePhase to set
+     * @param p_gamePhase GamePhase to set
      */
-    public void setGamePhase(Phase d_gamePhase) {
-        this.d_gamePhase = d_gamePhase;
+    public void setGamePhase(Phase p_gamePhase) {
+        this.d_gamePhase = p_gamePhase;
     }
 
     /**
@@ -427,7 +427,7 @@ public class StartUpPhase {
 
                         MapHelper l_gameMapHelper = new MapHelper();
                         l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
-                        this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        this.d_gamePhase = Phase.END;
                         System.out.println(Constant.SUCCESS_COLOR + "Finish! All armies are deployed. \n\n"
                                 + Constant.RESET_COLOR);
 
@@ -448,7 +448,7 @@ public class StartUpPhase {
                         System.exit(0);
                         break;
                     default:
-                        System.out.println(Constant.SUCCESS_COLOR +
+                        System.out.println(Constant.ERROR_COLOR +
                                 "Try -> showmap or execute or exit"
                                 + Constant.RESET_COLOR);
                         break;

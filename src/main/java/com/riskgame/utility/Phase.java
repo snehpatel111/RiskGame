@@ -42,5 +42,8 @@ public enum Phase {
      * Phase ends when all players provide orders for their turns.
      */
     ISSUE_ORDERS,
-
+    /**
+     * End of game when all armies are deployed on countries.
+     */
+    END
 }

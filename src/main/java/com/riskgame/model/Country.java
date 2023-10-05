@@ -6,6 +6,10 @@ import java.util.Iterator;
 
 import com.riskgame.utility.Constant;
 
+/**
+ * Contains all details about country like name, belonging continent, neighbors,
+ * and number of armies deployed on them
+ */
 public class Country {
     public int d_index;
     private String d_countryId;

@@ -1,0 +1,31 @@
+name first Map
+
+[files]
+
+[continents]
+abc 5 000
+xyz 7 000
+
+[countries]
+1 nine 2 0 0
+2 six 2 0 0
+3 four 1 0 0
+4 one 1 0 0
+5 seven 2 0 0
+6 ten 2 0 0
+7 two 1 0 0
+8 three 1 0 0
+9 five 1 0 0
+10 eight 2 0 0
+
+[borders]
+1 6 9 
+2 3 6 
+3 2 7 10 
+4 7 
+5 10 
+6 1 2 10 
+7 3 4 8 9 
+8 7 9 
+9 1 7 8 
+10 3 5 6 

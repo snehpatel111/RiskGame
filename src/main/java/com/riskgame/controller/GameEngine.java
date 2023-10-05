@@ -77,8 +77,10 @@ public class GameEngine {
                 l_playerCounter = 0;
             }
             System.out.println("Type execute to deploy armies");
-            l_command = sc.nextLine();
-            l_gamePhase = l_startupPhase.parseCommand(null, l_command);
+            while (l_gamePhase.equals(Phase.EXECUTE_ORDERS)) {
+                l_command = sc.nextLine();
+                l_gamePhase = l_startupPhase.parseCommand(null, l_command);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

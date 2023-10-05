@@ -104,4 +104,17 @@ public class PlayerTest {
 
         assertNotEquals(8, this.d_player.getOwnedArmyCount());
     }
+
+    /**
+     * Tests deployment of invalid reinforcement count.
+     */
+    @Test
+    public void testDeployReinforcement() {
+        this.d_player.setOwnedArmyCount(2);
+        this.d_player.getOwnedCountries().put("testcountry", null);
+
+        this.d_player.issue_order();
+
+        assertEquals(2, this.d_player.getOwnedArmyCount());
+    }
 }

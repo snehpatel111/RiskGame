@@ -1,12 +1,12 @@
 package com.riskgame.utility;
 
 import static org.junit.Assert.*;
-// import static org.junit.Assert.assertFalse;
-// import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import com.riskgame.model.GameMap;
 import com.riskgame.model.MapHelper;
+
+import com.riskgame.utility.MapValidator;
 
 public class MapValidatorTest {
 
@@ -57,13 +57,11 @@ public class MapValidatorTest {
     }
 
     /**
-     * to test the Invalid case of the game map
+     * Test the Invalid case of the game map
      */
     @Test
     public void testMapInValidity() {
         boolean l_invalidMap = this.d_mapValidator.isValidMap(this.d_invalidGameMap);
         assertFalse(l_invalidMap);
-
     }
-
 }

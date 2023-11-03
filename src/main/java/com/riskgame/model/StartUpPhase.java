@@ -343,11 +343,8 @@ public class StartUpPhase {
                 Iterator<Player> l_iterator = this.d_playerList.listIterator();
                 while (l_iterator.hasNext()) {
                     Player l_player = l_iterator.next();
-                    System.out.println("Player " + l_player.getPlayerName() + " has "
-                            + l_player.getOwnedArmyCount() + " armies currently!");
                     l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
                 }
-                System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
                 if (l_totalReinforcement > 0) {
                     switch (l_commandName) {
                         case "deploy":

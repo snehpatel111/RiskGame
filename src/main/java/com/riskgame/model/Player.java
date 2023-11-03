@@ -272,6 +272,8 @@ public class Player {
             }
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
+            MapHelper l_gameMap = new MapHelper();
+            l_gameMap.showMap(p_playerList, p_gameMap);
             System.out.println(
                     Constant.SUCCESS_COLOR
                             + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
@@ -313,6 +315,7 @@ public class Player {
             this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
             System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
                     + " army left in the reinforcement pool");
+            System.out.println("--------------------------------------------------------------------");
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);

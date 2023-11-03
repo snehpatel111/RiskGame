@@ -59,9 +59,12 @@ public class GameEngine {
                     l_totalReinforcement = 0;
                     while (l_iterator.hasNext()) {
                         Player l_gamePlayer = l_iterator.next();
+                        System.out.println("Player " + l_gamePlayer.getPlayerName() + " has "
+                                + l_gamePlayer.getOwnedArmyCount() + " armies currently!");
                         l_totalReinforcement += l_gamePlayer.getOwnedArmyCount() > 0 ? l_gamePlayer.getOwnedArmyCount()
                                 : 0;
                     }
+                    System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
                     if (l_totalReinforcement == 0) {
                         l_gamePhase = Phase.EXECUTE_ORDERS;
                         l_startupPhase.setGamePhase(l_gamePhase);

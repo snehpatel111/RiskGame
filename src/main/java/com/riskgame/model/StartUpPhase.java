@@ -307,8 +307,10 @@ public class StartUpPhase {
                                     + "Try -> assigncountries" + Constant.RESET_COLOR);
                             break;
                         }
-                        Player.assignCountries(this.d_gameMap, this.d_playerList);
-                        this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        boolean l_isCountryAssigned = Player.assignCountries(this.d_gameMap, this.d_playerList);
+                        if (l_isCountryAssigned) {
+                            this.d_gamePhase = Phase.ISSUE_ORDERS;
+                        }
                         break;
                     case "showmap":
                         if (!isValidCommandArgument(l_data, 1)) {

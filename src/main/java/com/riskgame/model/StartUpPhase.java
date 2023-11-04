@@ -347,6 +347,7 @@ public class StartUpPhase {
                     Player l_player = l_iterator.next();
                     l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
                 }
+
                 if (l_totalReinforcement > 0) {
                     switch (l_commandName) {
                         case "deploy":

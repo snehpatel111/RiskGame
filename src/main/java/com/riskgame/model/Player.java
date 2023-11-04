@@ -320,7 +320,7 @@ public class Player {
             this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
             System.out.println("Player " + this.getPlayerName() + " has " + this.getOwnedArmyCount()
                     + " army left in the reinforcement pool");
-            System.out.println("--------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------");
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);

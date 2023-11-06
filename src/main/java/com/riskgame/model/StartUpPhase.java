@@ -51,6 +51,20 @@ public class StartUpPhase {
         this.d_gamePhase = p_gamePhase;
     }
 
+     /**
+     * getter method to get current player by name
+     * @param p_playerName player name
+     * @return player object
+     */
+    public Player getPlayerByName(String p_playerName){
+        for(Player l_p : d_playerList){
+            if (l_p.getPlayerName().equalsIgnoreCase(p_playerName)){
+                return l_p;
+            }
+        }
+        return null;
+    }
+
     /**
      * Parses the command received from player during startup phase
      * 
@@ -352,7 +366,32 @@ public class StartUpPhase {
                     switch (l_commandName) {
                         case "deploy":
                             p_player.setArgs(l_data);
-                            p_player.issue_order();
+                            p_player.issue_deployOrder();
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        case "advance":
+                            p_player.setArgs(l_data);
+                            p_player.issue_advanceOrder(this.d_playerList, this.d_gameMap);
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        case "airlift":
+                            p_player.setArgs(l_data);
+                            p_player.issue_airliftOrder();
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        case "negotiate":
+                            p_player.setArgs(l_data);
+                            p_player.issue_diplomacyOrder();
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        case "blockade":
+                            p_player.setArgs(l_data);
+                            p_player.issue_blockadeOrder();
+                            this.d_gamePhase = Phase.SWITCH_TURN;
+                            break;
+                        case "bomb":
+                            p_player.setArgs(l_data);
+                            p_player.issue_bombOrder(this.d_playerList);
                             this.d_gamePhase = Phase.SWITCH_TURN;
                             break;
                         case "pass":

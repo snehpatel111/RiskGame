@@ -24,12 +24,14 @@ public enum Phase {
      * assigned armies which is after "assignedarmies" command.
      */
     STARTUP,
+
     /**
      * Execution of orders phase. Orders from previous phase are executed
      * sequentially from the pool of orders.
      * Phase ends when all armies are placed on countries after order execution.
      */
     EXECUTE_ORDERS,
+
     /**
      * Ends the turn of current player and give signal to other player to start
      * their turn.
@@ -42,6 +44,7 @@ public enum Phase {
      * Phase ends when all players provide orders for their turns.
      */
     ISSUE_ORDERS,
+    
     /**
      * End of game when all armies are deployed on countries.
      */

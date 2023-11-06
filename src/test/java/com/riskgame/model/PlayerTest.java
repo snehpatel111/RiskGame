@@ -86,7 +86,7 @@ public class PlayerTest {
         this.d_player.setOwnedArmyCount(10);
         this.d_player.getOwnedCountries().put("testcountry", null);
 
-        this.d_player.issue_order();
+        this.d_player.issue_deployOrder();
 
         assertEquals(5, this.d_player.getOwnedArmyCount());
         assertEquals(1, this.d_player.getExecutionOrderList().size());
@@ -100,7 +100,7 @@ public class PlayerTest {
         this.d_player.setOwnedArmyCount(10);
         this.d_player.getOwnedCountries().put("testcountry", null);
 
-        this.d_player.issue_order();
+        this.d_player.issue_deployOrder();
 
         assertNotEquals(8, this.d_player.getOwnedArmyCount());
     }
@@ -113,7 +113,7 @@ public class PlayerTest {
         this.d_player.setOwnedArmyCount(2);
         this.d_player.getOwnedCountries().put("testcountry", null);
 
-        this.d_player.issue_order();
+        this.d_player.issue_deployOrder();
 
         assertEquals(2, this.d_player.getOwnedArmyCount());
     }

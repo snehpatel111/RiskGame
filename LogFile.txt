@@ -1,0 +1,23 @@
+Initializing the Game ......
+
+
+=======Game Startup Phase=======
+
+
+Command Entered: loadmap
+Log: world.map has been loaded.
+
+Command Entered: assigncountries
+Log: At least 2 players are required to play the game
+
+Command Entered: gameplayer
+Log: Player P1 added successfully!
+
+Command Entered: gameplayer
+Log: Player P2 added successfully!
+
+Command Entered: assigncountries
+Log: Countries assigned randomly to all players!
+
+=======Issue Order Phase=======
+

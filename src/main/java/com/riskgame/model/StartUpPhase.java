@@ -1,517 +1,407 @@
 package com.riskgame.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Iterator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+
+import com.riskgame.controller.GameEngine;
 
 import com.riskgame.model.Continent;
-import com.riskgame.model.Country;
-import com.riskgame.model.GameMap;
 import com.riskgame.model.MapHelper;
 import com.riskgame.model.Player;
-import com.riskgame.utility.Phase;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
+import com.riskgame.utility.Util;
 
 /**
- * Implements parsing of initial commands during startup phase.
+ * Implementation of the Start-Up Phase for gameplay using the State Pattern.
  */
-public class StartUpPhase {
-
-    public Phase d_gamePhase;
-    public GameMap d_gameMap;
-    public ArrayList<Player> d_playerList;
+public class StartUpPhase extends Phase {
 
     /**
-     * Initialize StartUpPhase
+     * Constructor that initializes the GameEngine context in the Phase class.
+     *
+     * @param p_gameEngine The GameEngine context.
+     * @param p_gameState  The current game state.
      */
-    public StartUpPhase() {
-        this.d_gamePhase = Phase.NULL;
-        this.d_playerList = new ArrayList<Player>();
+    public StartUpPhase(GameEngine p_gameEngine, GameState p_gameState) {
+        super(p_gameEngine, p_gameState);
     }
 
-    /**
-     * Getter method for player list.
-     * 
-     * @return Returns list of game player.
-     */
-    public ArrayList<Player> getPlayerList() {
-        return this.d_playerList;
-    }
+    // @Override
+    // protected void performCardHandle(String p_enteredCommand, Player p_player)
+    // throws IOException {
+    // printInvalidCommandInState();
+    // }
 
-    /**
-     * Setter method for game phase.
-     * 
-     * @param p_gamePhase GamePhase to set
-     */
-    public void setGamePhase(Phase p_gamePhase) {
-        this.d_gamePhase = p_gamePhase;
-    }
-
-     /**
-     * getter method to get current player by name
-     * @param p_playerName player name
-     * @return player object
-     */
-    public Player getPlayerByName(String p_playerName){
-        for(Player l_p : d_playerList){
-            if (l_p.getPlayerName().equalsIgnoreCase(p_playerName)){
-                return l_p;
-            }
+    @Override
+    protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            p_gameEngine.setGameEngineLog("Cannot show  map, please perform `editmap` or `loadmap` first", "effect");
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Cannot show  map, please perform `editmap` or `loadmap` first"
+                            + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Try command -> editmap sample.map or loadmap sample.map"
+                            + Constant.RESET_COLOR);
+            return;
+        } else if (!Util.isValidCommandArgument(p_args, 1)) {
+            System.out.println(Constant.ERROR_COLOR
+                    + "Invalid command! Try command -> showMap"
+                    + Constant.RESET_COLOR);
+            return;
         }
-        return null;
+        MapHelper l_mapHelper = new MapHelper(p_gameState);
+        l_mapHelper.showMap(p_gameState.getGameMap());
+    }
+
+    // @Override
+    // protected void performAdvance(String p_command, Player p_player) {
+    // printInvalidCommandInState();
+    // }
+
+    @Override
+    protected void deploy(Player p_player, String[] p_args) {
+        this.printInvalidCommandInState();
     }
 
     /**
-     * Parses the command received from player during startup phase
-     * 
-     * @param p_player  Player who is playing.
-     * @param p_command Command to be executed.
-     * @return Returns next game phase.
+     * {@inheritDoc}
      */
-    public Phase parseCommand(Player p_player, String p_command) {
+    public void editMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
-            String[] l_data = p_command.split("\\s+");
-            String l_commandName = l_data[0];
-
-            // Parse initial command
-            if (this.d_gamePhase.equals(Phase.NULL)) {
-                switch (l_commandName) {
-                    case "editmap":
-                        try {
-                            if (!isValidCommandArgument(l_data, 2)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid command! Try command -> editmap sample.map" + Constant.RESET_COLOR);
-                                break;
-                            }
-                            String l_mapFileName = l_data[1];
-                            MapHelper l_gameMap = new MapHelper();
-                            this.d_gameMap = l_gameMap.editMap(l_mapFileName);
-                            System.out.println("Editing for Map: " + l_mapFileName + "\n");
-                            System.out.println("See the selected map using " + Constant.SUCCESS_COLOR
-                                    + "showmap"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit continent using " + Constant.SUCCESS_COLOR
-                                    + "editcontinent -add <continentId> <continentValue> or editcontinent -remove <continentId>"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit country using " + Constant.SUCCESS_COLOR
-                                    + "editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit neighbor using " + Constant.SUCCESS_COLOR
-                                    + "editneighbor -add <countryId> <neighborCountryId> or editneighbor -remove <countryId> <neighborCountryId>"
-                                    + Constant.RESET_COLOR + "\n");
-
-                            this.d_gamePhase = Phase.EDITMAP;
-                            break;
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out
-                                    .println(Constant.ERROR_COLOR + "Invalid command! Try command -> editmap sample.map"
-                                            + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "loadmap":
-                        try {
-                            if (!isValidCommandArgument(l_data, 2)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid number of arguments for loadmap command" + Constant.RESET_COLOR);
-                                break;
-                            }
-                            String l_mapFileName = l_data[1];
-                            MapHelper l_gameMapHelper = new MapHelper();
-                            this.d_gameMap = l_gameMapHelper.loadMap(l_mapFileName);
-                            if (this.d_gameMap == null) {
-                                this.d_gamePhase = Phase.NULL;
-                            } else {
-                                this.d_gamePhase = Phase.STARTUP;
-                                System.out.println(
-                                        Constant.SUCCESS_COLOR + "Proceed to add game player" + Constant.RESET_COLOR);
-                                System.out.println(Constant.SUCCESS_COLOR + "Use gameplayer -add <playername>"
-                                        + Constant.RESET_COLOR);
-                            }
-                        } catch (Exception e) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid command! Try command -> loadmap <mapName>"
-                                    + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "exit":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
-                            break;
-                        }
-                        System.out.println(
-                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println(Constant.ERROR_COLOR
-                                + "Invalid command! Try command -> editmap <mapName> or loadmap <mapName> or exit"
-                                + Constant.RESET_COLOR);
-                        break;
-                }
+            if (p_gameState.isGameMapLoaded()) {
+                System.out.println(Constant.ERROR_COLOR + "Map already loaded."
+                        + Constant.RESET_COLOR);
+                System.out.println(Constant.ERROR_COLOR +
+                        "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit"
+                        + Constant.RESET_COLOR);
+                return;
+            } else if (!Util.isValidCommandArgument(p_args, 2)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Invalid command! Try command -> editmap sample.map" + Constant.RESET_COLOR);
+                return;
             }
+            String l_mapFileName = p_args[1];
+            MapHelper l_mapHelper = new MapHelper();
+            l_mapHelper.editMap(p_gameEngine, p_gameState, l_mapFileName);
+            System.out.println("Editing for Map: " + l_mapFileName + "\n");
+            System.out.println("See the selected map using " + Constant.SUCCESS_COLOR
+                    + "showmap"
+                    + Constant.RESET_COLOR);
+            System.out.println("Edit continent using " + Constant.SUCCESS_COLOR
+                    + "editcontinent -add <continentId> <continentValue> or editcontinent -remove <continentId>"
+                    + Constant.RESET_COLOR);
+            System.out.println("Edit country using " + Constant.SUCCESS_COLOR
+                    + "editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
+                    + Constant.RESET_COLOR);
+            System.out.println("Edit neighbor using " + Constant.SUCCESS_COLOR
+                    + "editneighbor -add <countryId> <neighborCountryId> or editneighbor -remove <countryId> <neighborCountryId>"
+                    + Constant.RESET_COLOR + "\n");
 
-            // Edit phase.
-            // Edit phase commands: editcontinent, editcountry, editneighbor, savemap,
-            // showmap, editmap, loadmap, validatemap
-            else if (this.d_gamePhase.equals(Phase.EDITMAP)) {
-                Continent continent = new Continent();
-                switch (l_commandName) {
-                    case "editcontinent":
-                        continent.editContinent(this.d_gameMap, this.d_gamePhase, l_data);
-                        break;
-                    case "editcountry":
-                        continent.editCountry(this.d_gameMap, this.d_gamePhase, l_data);
-                        break;
-                    case "editneighbor":
-                        continent.editNeighborCountry(this.d_gameMap, this.d_gamePhase, l_data);
-                        break;
-                    case "editmap":
-                        try {
-                            if (!isValidCommandArgument(l_data, 2)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid command! Try command -> editmap sample.map" + Constant.RESET_COLOR);
-                                break;
-                            }
-                            String l_mapFileName = l_data[1];
-                            MapHelper l_gameMap = new MapHelper();
-                            this.d_gameMap = l_gameMap.editMap(l_mapFileName);
-                            System.out.println("Editing for Map: " + l_mapFileName + "\n");
-                            System.out.println("See the selected map using " + Constant.SUCCESS_COLOR
-                                    + "showmap"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit continent using " + Constant.SUCCESS_COLOR
-                                    + "editcontinent -add <continentId> <continentValue> or editcontinent -remove <continentId>"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit country using " + Constant.SUCCESS_COLOR
-                                    + "editcountry -add <countryId> <continentId> or editcountry -remove <countryId>"
-                                    + Constant.RESET_COLOR);
-                            System.out.println("Edit neighbor using " + Constant.SUCCESS_COLOR
-                                    + "editneighbor -add <countryId> <neighborCountryId> or editneighbor -remove <countryId> <neighborCountryId>"
-                                    + Constant.RESET_COLOR + "\n");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out
+                    .println(Constant.ERROR_COLOR + "Invalid command! Try command -> editmap sample.map"
+                            + Constant.RESET_COLOR);
+        }
+    }
 
-                            this.d_gamePhase = Phase.EDITMAP;
-                            break;
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out
-                                    .println(Constant.ERROR_COLOR + "Invalid command! Try command -> editmap sample.map"
-                                            + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "showmap":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for showmap command"
-                                    + Constant.RESET_COLOR);
-                            break;
-                        }
-                        MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_gameMap);
-                        this.d_gamePhase = Phase.EDITMAP;
-                        break;
-                    case "loadmap":
-                        try {
-                            if (!isValidCommandArgument(l_data, 2)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid command! Try command -> loadmap <mapName>"
-                                        + Constant.RESET_COLOR);
-                                break;
-                            }
-                            String l_mapFileName = l_data[1];
-                            MapHelper l_gameMapHelper = new MapHelper();
-                            this.d_gameMap = l_gameMapHelper.loadMap(l_mapFileName);
-                            if (this.d_gameMap == null) {
-                                this.d_gamePhase = Phase.NULL;
-                            } else {
-                                this.d_gamePhase = Phase.STARTUP;
-                                System.out.println(
-                                        Constant.SUCCESS_COLOR + "Proceed to add game player" + Constant.RESET_COLOR);
-                                System.out.println(Constant.SUCCESS_COLOR + "Use gameplayer -add <playername>"
-                                        + Constant.RESET_COLOR);
-                            }
-                        } catch (Exception e) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid command! Try command -> loadmap <mapName>"
-                                    + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "validatemap":
-                        try {
-                            if (!isValidCommandArgument(l_data, 1)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid number of arguments for validatemap command"
-                                        + Constant.RESET_COLOR);
-                                break;
-                            }
-                            MapValidator l_mapValidator = new MapValidator();
-                            if (l_mapValidator.isValidMap(this.d_gameMap)) {
-                                System.out.println(
-                                        Constant.SUCCESS_COLOR + "Map is validated successfully!"
-                                                + Constant.RESET_COLOR);
-                            }
-                        } catch (Exception e) {
-                            System.out.println(Constant.ERROR_COLOR + "Invalid Map!"
-                                    + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "savemap":
-                        MapHelper l_mapHelper = new MapHelper();
-                        try {
-                            boolean l_isMapSaved = l_mapHelper.saveMap(d_gameMap, l_data[1]);
-                            if (l_isMapSaved) {
-                                System.out.println(
-                                        Constant.SUCCESS_COLOR + "Map saved successfully" + Constant.RESET_COLOR);
-                                this.d_gamePhase = Phase.EDITMAP;
-                            } else
-                                System.out.println(
-                                        Constant.ERROR_COLOR + "Error while saving - invalid map"
-                                                + Constant.RESET_COLOR);
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println(Constant.ERROR_COLOR +
-                                    "Invalid command - It should be of the form(without extension) savemap filename"
-                                    + Constant.RESET_COLOR);
-                        } catch (Exception e) {
-                            System.out.println(Constant.ERROR_COLOR +
-                                    "Invalid command - It should be of the form(without extension) savemap filename"
-                                    + Constant.RESET_COLOR);
-                        }
-                        break;
-                    case "exit":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
-                            break;
-                        }
-                        System.out.println(
-                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println(Constant.ERROR_COLOR + "Invalid command!" + Constant.RESET_COLOR);
-                        System.out.println(Constant.ERROR_COLOR +
-                                "Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, editmap, loadmap, validatemap, or exit"
+    /**
+     * {@inheritDoc}
+     */
+    public void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Can not edit continent, please perform `editmap` first"
+                            + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Try command -> editmap sample.map"
+                            + Constant.RESET_COLOR);
+            p_gameEngine.setGameEngineLog("Can not edit continent, please perform `editmap` first", "effect");
+            return;
+        }
+        Continent l_continent = new Continent();
+        l_continent.editContinent(p_gameEngine, p_gameState, p_args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void saveMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        try {
+            if (!p_gameState.isGameMapLoaded()) {
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Map is not selected yet, please perform `editmap` first"
                                 + Constant.RESET_COLOR);
-                        break;
-                }
-            }
-            // Staup phase commands: gameplayer, assigncountries, showmap
-            else if (this.d_gamePhase.equals(Phase.STARTUP)) {
-                switch (l_commandName) {
-                    case "gameplayer":
-                        if (!isValidCommandArgument(l_data, 3)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Try gameplayer -add <playername> or gameplayer -remove <playername>"
-                                    + Constant.RESET_COLOR);
-                            break;
-                        }
-                        Player l_player = new Player(l_data[1]);
-                        l_player.managePlayer(this.d_playerList, this.d_gamePhase, l_data);
-                        break;
-                    case "assigncountries":
-                        if (!StartUpPhase.isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for assigncountries command" + Constant.RESET_COLOR);
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Try -> assigncountries" + Constant.RESET_COLOR);
-                            break;
-                        }
-                        boolean l_isCountryAssigned = Player.assignCountries(this.d_gameMap, this.d_playerList);
-                        if (l_isCountryAssigned) {
-                            this.d_gamePhase = Phase.ISSUE_ORDERS;
-                        }
-                        break;
-                    case "showmap":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for showmap command"
-                                    + Constant.RESET_COLOR);
-                            break;
-                        }
-                        MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
-                        break;
-                    case "exit":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
-                            break;
-                        }
-                        System.out.println(
-                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println(Constant.ERROR_COLOR +
-                                "Invalid command - use gameplayer command or assigncountries command or showmap command or exit in the start up phase!"
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Try command -> editmap sample.map"
                                 + Constant.RESET_COLOR);
-                        break;
-                }
+                p_gameEngine.setGameEngineLog("Map is not selected yet, please perform `editmap` first", "effect");
+                return;
+            } else if (!Util.isValidCommandArgument(p_args, 2)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Invalid command! Try command -> savemap sample.map" + Constant.RESET_COLOR);
+                return;
             }
-            // ISSUE_ORDER phase commands: deploy, pass, showmap
-            else if (this.d_gamePhase.equals(Phase.ISSUE_ORDERS)) {
-                int l_totalReinforcement = 0;
-                Iterator<Player> l_iterator = this.d_playerList.listIterator();
-                while (l_iterator.hasNext()) {
-                    Player l_player = l_iterator.next();
-                    l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
-                }
-
-                if (l_totalReinforcement > 0) {
-                    switch (l_commandName) {
-                        case "deploy":
-                            p_player.setArgs(l_data);
-                            p_player.issue_deployOrder();
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "advance":
-                            p_player.setArgs(l_data);
-                            p_player.issue_advanceOrder(this.d_playerList, this.d_gameMap);
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "airlift":
-                            p_player.setArgs(l_data);
-                            p_player.issue_airliftOrder();
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "negotiate":
-                            p_player.setArgs(l_data);
-                            p_player.issue_diplomacyOrder();
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "blockade":
-                            p_player.setArgs(l_data);
-                            p_player.issue_blockadeOrder();
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "bomb":
-                            p_player.setArgs(l_data);
-                            p_player.issue_bombOrder(this.d_playerList);
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "pass":
-                            this.d_gamePhase = Phase.SWITCH_TURN;
-                            break;
-                        case "showmap":
-                            if (!isValidCommandArgument(l_data, 1)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid number of arguments for showmap command"
-                                        + Constant.RESET_COLOR);
-                                break;
-                            }
-                            MapHelper l_gameMap = new MapHelper();
-                            l_gameMap.showMap(this.d_playerList, this.d_gameMap);
-                            break;
-                        case "exit":
-                            if (!isValidCommandArgument(l_data, 1)) {
-                                System.out.println(Constant.ERROR_COLOR
-                                        + "Invalid number of arguments for exit command" + Constant.RESET_COLOR);
-                                break;
-                            }
-                            System.out.println(
-                                    Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
-                            System.exit(0);
-                            break;
-                        default:
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid command: Try any of these command: deploy <countryId> <numberOfArmy> or pass or showmap or exit"
-                                    + Constant.RESET_COLOR);
-                            break;
-                    }
-                } else {
-                    System.out.println("Press Enter to continue with EXECUTE phase...");
-                    this.d_gamePhase = Phase.EXECUTE_ORDERS;
-                }
-            }
-
-            // EXECUTE_ORDER phase commands : execute, showmap, exit
-            else if (this.d_gamePhase.equals(Phase.EXECUTE_ORDERS)) {
-                switch (l_commandName) {
-                    case "execute":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR + "Invalid number of arguments for execute command"
-                                    + Constant.RESET_COLOR);
-                            break;
-                        }
-
-                        int l_count = 0;
-
-                        for (Player l_player : this.d_playerList) {
-                            Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
-                            l_count += l_executionOrderList.size();
-                        }
-
-                        if (l_count == 0) {
-                            System.out.println(
-                                    Constant.SUCCESS_COLOR + "Orders already executed!" + Constant.RESET_COLOR);
-                        } else {
-                            System.out.println("Total Orders: " + l_count);
-                            for (Player l_player : this.d_playerList) {
-                                Queue<Order> l_executionOrderList = l_player.getExecutionOrderList();
-                                while (!l_executionOrderList.isEmpty()) {
-                                    Order l_nextOrder = l_executionOrderList.poll();
-                                    l_nextOrder.execute();
-                                    System.out.println(Constant.SUCCESS_COLOR + "The order " + l_nextOrder
-                                            + " executed for player " + l_player.getPlayerName()
-                                            + Constant.RESET_COLOR);
-                                }
-                            }
-                            System.out.println(Constant.SUCCESS_COLOR + "All orders are executed successfully!"
-                                    + Constant.RESET_COLOR);
-                        }
-
-                        MapHelper l_gameMapHelper = new MapHelper();
-                        l_gameMapHelper.showMap(this.d_playerList, this.d_gameMap);
-                        this.d_gamePhase = Phase.END;
-                        System.out.println(Constant.SUCCESS_COLOR + "Finish! All armies are deployed. \n\n"
+            MapHelper l_mapHelper = new MapHelper();
+            boolean l_isMapSaved = l_mapHelper.saveMap(p_gameState, p_args[1]);
+            if (l_isMapSaved) {
+                p_gameEngine.setGameEngineLog("File have been saved.", "effect");
+                System.out.println(
+                        Constant.SUCCESS_COLOR + "Map saved successfully" + Constant.RESET_COLOR);
+            } else
+                System.out.println(
+                        Constant.ERROR_COLOR + "Error while saving - invalid map"
                                 + Constant.RESET_COLOR);
-
-                        break;
-                    case "showmap":
-                        if (!isValidCommandArgument(l_data, 1)) {
-                            System.out.println(Constant.ERROR_COLOR
-                                    + "Invalid number of arguments for showmap command"
-                                    + Constant.RESET_COLOR);
-                            break;
-                        }
-                        MapHelper l_gameMap = new MapHelper();
-                        l_gameMap.showMap(this.d_playerList, this.d_gameMap);
-                        break;
-                    case "exit":
-                        System.out.println(
-                                Constant.SUCCESS_COLOR + "Finish!" + Constant.RESET_COLOR);
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println(Constant.ERROR_COLOR +
-                                "Try -> showmap or execute or exit"
-                                + Constant.RESET_COLOR);
-                        break;
-                }
-            }
-
-            return this.d_gamePhase;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(Constant.ERROR_COLOR +
+                    "Invalid command - It should be of the form(without extension) savemap filename"
+                    + Constant.RESET_COLOR);
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR +
-                    "Invalid command!"
+                    "Invalid command - It should be of the form(without extension) savemap filename"
                     + Constant.RESET_COLOR);
-            return Phase.NULL;
         }
     }
 
     /**
-     * Checks if the command arguments are valid for the command
-     * 
-     * @param p_commandArgs        Command line arguments
-     * @param p_expectedArgsLength Expected number of arguments
-     * @return Returns true if number of arguments is valid, false otherwise
+     * {@inheritDoc}
      */
-    public static boolean isValidCommandArgument(String[] p_commandArgs, int p_expectedArgsLength) {
-        return p_commandArgs != null && p_commandArgs.length == p_expectedArgsLength;
+    public void loadMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        try {
+            if (!Util.isValidCommandArgument(p_args, 2)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Invalid command! Try command -> loadmap <mapName>"
+                        + Constant.RESET_COLOR);
+                return;
+            }
+            String l_mapFileName = p_args[1];
+            MapHelper l_gameMapHelper = new MapHelper();
+            l_gameMapHelper.loadMap(p_gameEngine, p_gameState, l_mapFileName);
+        } catch (Exception e) {
+            System.out.println(Constant.ERROR_COLOR
+                    + "Invalid command! Try command -> loadmap <mapName>"
+                    + Constant.RESET_COLOR);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void validateMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        try {
+            if (!p_gameState.isGameMapLoaded()) {
+                p_gameEngine.setGameEngineLog("No map found to validate, please `loadmap` & `editmap` first", "effect");
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Map is not found to validate,please `loadmap` & `editmap` first"
+                                + Constant.RESET_COLOR);
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Try command -> editmap sample.map or loadmap sample.map"
+                                + Constant.RESET_COLOR);
+                return;
+            } else if (!Util.isValidCommandArgument(p_args, 1)) {
+                System.out.println(Constant.ERROR_COLOR
+                        + "Invalid number of arguments for validatemap command"
+                        + Constant.RESET_COLOR);
+                System.out.println(
+                        Constant.ERROR_COLOR
+                                + "Try command -> validatemap"
+                                + Constant.RESET_COLOR);
+                return;
+            }
+            MapValidator l_mapValidator = new MapValidator();
+            if (l_mapValidator.isValidMap(p_gameState.getGameMap())) {
+                System.out.println(
+                        Constant.SUCCESS_COLOR + "Map is validated successfully!"
+                                + Constant.RESET_COLOR);
+            }
+        } catch (Exception e) {
+            System.out.println(Constant.ERROR_COLOR + "Invalid Map!"
+                    + Constant.RESET_COLOR);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void editCountry(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            p_gameEngine.setGameEngineLog("Cannot edit country, please perform `editmap` first", "effect");
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Cannot edit country, please perform `editmap` first"
+                            + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Try command -> editmap sample.map"
+                            + Constant.RESET_COLOR);
+            return;
+        }
+        Continent continent = new Continent();
+        continent.editCountry(p_gameEngine, p_gameState, p_args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void editNeighbor(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            p_gameEngine.setGameEngineLog("Cannot edit neighbors, please perform `editmap` first", "effect");
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Cannot edit neighbors, please perform `editmap` first"
+                            + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Try command -> editmap sample.map"
+                            + Constant.RESET_COLOR);
+            return;
+        }
+        Continent l_continent = new Continent();
+        l_continent.editNeighborCountry(p_gameEngine, p_gameState, p_args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            p_gameEngine.setGameEngineLog(
+                    "No map found, please execute `editmap` or `loadmap` before adding game players", "effect");
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "No map found, please execute `editmap` or `loadmap` before adding game players"
+                            + Constant.RESET_COLOR);
+            System.out.println(
+                    Constant.ERROR_COLOR
+                            + "Try command -> editmap sample.map or loadmap sample.map"
+                            + Constant.RESET_COLOR);
+            return;
+        } else if (!Util.isValidCommandArgument(p_args, 3)) {
+            p_gameEngine.setGameEngineLog("Invalid number of arguments for gameplayer command", "effect");
+            System.out.println(Constant.ERROR_COLOR
+                    + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR
+                    + "Try command -> gameplayer -add <player_name>" + Constant.RESET_COLOR);
+            return;
+        }
+        Player l_player = new Player(p_args[2]);
+        l_player.managePlayer(p_gameEngine, p_gameState, p_args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void initPhase() {
+        System.out.println("\nWelcome to RiskGame!\n");
+        System.out.println("You can start by creating/editing existing map or loading existing map.\n");
+        this.showAvailableMap();
+        System.out.println(
+                "To create/edit map, use " + Constant.SUCCESS_COLOR + "editmap <map_name>"
+                        + Constant.RESET_COLOR
+                        + " command. e.x. " + Constant.SUCCESS_COLOR + "editmap sample.map"
+                        + Constant.RESET_COLOR);
+        System.out.println("To load existing map, use " + Constant.SUCCESS_COLOR + "loadmap <map_name>"
+                + Constant.RESET_COLOR + " command. e.x. " + Constant.SUCCESS_COLOR + "loadmap sample.map"
+                + Constant.RESET_COLOR);
+        System.out
+                .println("To exit, use " + Constant.SUCCESS_COLOR + "exit" + Constant.RESET_COLOR + " to quit\n");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        while (this.d_gameEngine.getCurrentGamePhase() instanceof StartUpPhase) {
+            try {
+                String l_command = reader.readLine();
+                this.handleCommand(l_command);
+            } catch (Exception e) {
+                this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void assignCountries(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+        if (!p_gameState.isGameMapLoaded()) {
+            p_gameEngine.setGameEngineLog(
+                    "No map found, please execute `editmap` or `loadmap` before assigning countries",
+                    "effect");
+            System.out.println(Constant.ERROR_COLOR
+                    + "No map found, please execute `editmap` or `loadmap` before assigning countries"
+                    + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR
+                    + "Try command -> editmap sample.map or loadmap sample.map" + Constant.RESET_COLOR);
+            return;
+        } else if (p_gameState.getPlayerList().size() < 2) {
+            p_gameEngine.setGameEngineLog("At least 2 players are required to play the game", "effect");
+            System.out.println(Constant.ERROR_COLOR
+                    + "At least 2 players are required to play the game" + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR
+                    + "Try command -> gameplayer -add <player_name>" + Constant.RESET_COLOR);
+            return;
+        } else if (!Util.isValidCommandArgument(p_args, 1)) {
+            System.out.println(Constant.ERROR_COLOR
+                    + "Invalid number of arguments for assigncountries command" + Constant.RESET_COLOR);
+            System.out.println(Constant.ERROR_COLOR
+                    + "Try -> assigncountries" + Constant.RESET_COLOR);
+            return;
+        }
+        boolean l_isCountryAssigned = Player.assignCountries(p_gameEngine, p_gameState);
+        if (l_isCountryAssigned) {
+            p_gameEngine.setIssueOrderPhase();
+        }
+    }
+
+    /**
+     * Lists the names of files in the specified folder.
+     *
+     */
+    public void showAvailableMap() {
+        File folder = new File(Constant.MAP_PATH);
+
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+
+            if (files != null) {
+                // Find the maximum length of file names for formatting
+                int maxLength = 0;
+                for (File file : files) {
+                    if (file.isFile()) {
+                        int length = file.getName().length();
+                        if (length > maxLength) {
+                            maxLength = length;
+                        }
+                    }
+                }
+
+                System.out.printf("%85s\n",
+                        "-------------------------------------------------------------------------------------------");
+                System.out.printf("%55s\n", "Existing Maps");
+
+                System.out.printf("%85s\n",
+                        "-------------------------------------------------------------------------------------------");
+
+                // Print file names with even distribution
+                for (File file : files) {
+                    if (file.isFile()) {
+                        String fileName = file.getName();
+                        System.out.println(fileName);
+                    }
+                }
+                System.out.println("\n");
+            } else {
+                System.out.println("No files found in the directory.");
+            }
+        } else {
+            System.out.println("Specified path is not a directory.");
+        }
     }
 }

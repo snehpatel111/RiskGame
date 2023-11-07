@@ -9,10 +9,17 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import com.riskgame.utility.Phase;
-import com.riskgame.utility.Constant;
+import com.riskgame.model.Phase;
+import com.riskgame.model.Advance;
+import com.riskgame.model.Airlift;
+import com.riskgame.model.Blockade;
+import com.riskgame.model.Deploy;
+import com.riskgame.model.GameState;
+import com.riskgame.model.MapHelper;
 import com.riskgame.model.Order;
-import com.riskgame.model.StartUpPhase;
+import com.riskgame.utility.Constant;
+import com.riskgame.utility.Util;
+import com.riskgame.controller.GameEngine;
 
 /**
  * Represents a player in the game.
@@ -51,10 +58,10 @@ public class Player {
     public void setArgs(String[] p_args) {
         this.d_args = p_args;
     }
-    
 
-     /**
+    /**
      * Getter method for Negotiators
+     * 
      * @return d_NegotiateList
      */
     public ArrayList<Player> getD_NegotiateList() {
@@ -63,6 +70,7 @@ public class Player {
 
     /**
      * Adds Player to Negotiator list
+     * 
      * @param p_player target player to be added
      */
     void addPlayerToNegotiateList(Player p_player) {
@@ -166,7 +174,6 @@ public class Player {
         return this.d_executionOrderList;
     }
 
-
     /**
      * If a player conquers a territory,a card will be added to that player
      */
@@ -178,9 +185,10 @@ public class Player {
 
     /**
      * Added a clone of addCard inorder to test custom cards
+     * 
      * @param test custom card
      */
-    public void addCard(String test){
+    public void addCard(String test) {
         Card l_card = new Card();
         l_card.createCard(test);
         d_ownedCards.add(l_card);
@@ -188,11 +196,11 @@ public class Player {
 
     /**
      * If a player uses a card,it will be removed from deck of cards.
+     * 
      * @param p_card String representation of card to be used
      */
-    public void removeCard(String p_card)
-    {
-        //remove card from deck
+    public void removeCard(String p_card) {
+        // remove card from deck
         Iterator l_iter = d_ownedCards.iterator();
         while (l_iter.hasNext()) {
             Card l_card = (Card) l_iter.next();
@@ -205,6 +213,7 @@ public class Player {
 
     /**
      * Before using a card, we can check if player has that card
+     * 
      * @param p_card String representation of card to be used
      * @return true if card exists else false
      */
@@ -217,7 +226,7 @@ public class Player {
             if (l_card.getCardType() == p_card)
                 l_existsCount++;
         }
-        if(l_existsCount>0)
+        if (l_existsCount > 0)
             return true;
         else
             return false;
@@ -226,10 +235,9 @@ public class Player {
     /**
      * show the particular card owned by player
      */
-    public void showCards()
-    {
+    public void showCards() {
         Iterator l_iter = d_ownedCards.iterator();
-        System.out.println("Player "+this.getPlayerName()+" owns:");
+        System.out.println("Player " + this.getPlayerName() + " owns:");
         while (l_iter.hasNext()) {
             Card l_card = (Card) l_iter.next();
             System.out.print(l_card.getCardType() + ",");
@@ -239,6 +247,7 @@ public class Player {
 
     /**
      * Getter for Player's Cards Deck
+     * 
      * @return d_ownedCards
      */
     public ArrayList<Card> getD_Deck() {
@@ -258,43 +267,63 @@ public class Player {
     /**
      * Manage player related operations based on input arguments.
      * 
-     * @param p_playerList List of all players
-     * @param p_gamPhase   Current game phase
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object
      * @param p_args       Command line arguments
      */
-    public void managePlayer(ArrayList<Player> p_playerList, Phase p_gamPhase, String[] p_args) {
+    public void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
+            System.out.println("lol 0 " + p_args[0]);
+            System.out.println("lol 1 " + p_args[1]);
+            System.out.println("lol 2 " + p_args[2]);
+
+            ArrayList<Player> l_playerList = p_gameState.getPlayerList();
             String l_playerName = p_args[2];
             if (p_args[1].equals("-add")) {
+                System.out.println("lol player if 1");
                 if (this.isValidPlayerName(l_playerName)) {
-                    boolean l_isPlayerAdded = this.addPlayer(p_playerList, l_playerName);
+                    System.out.println("lol player if 2");
+                    boolean l_isPlayerAdded = this.addPlayer(l_playerList, l_playerName);
+                    System.out.println("lol player added " + l_isPlayerAdded);
                     if (l_isPlayerAdded) {
                         System.out
                                 .println(Constant.SUCCESS_COLOR + "Player " + l_playerName + " added successfully!"
                                         + Constant.RESET_COLOR);
-                        p_gamPhase = Phase.STARTUP;
+                        p_gameState.updateLog("Player " + l_playerName + " added successfully!", "effect");
                     }
-                    p_gamPhase = Phase.STARTUP;
                 } else {
+                    p_gameState.updateLog("Invalid player name", "effect");
                     System.out.println(Constant.ERROR_COLOR + "Invalid player name" + Constant.RESET_COLOR);
                 }
             } else if (p_args[1].equals("-remove")) {
                 if (this.isValidPlayerName(l_playerName)) {
-                    boolean l_isPlayerRemoved = this.removePlayer(p_playerList, l_playerName);
-                    if (l_isPlayerRemoved)
+                    boolean l_isPlayerRemoved = this.removePlayer(l_playerList, l_playerName);
+                    if (l_isPlayerRemoved) {
+                        p_gameState.updateLog("Player removed successfully!", "effect");
                         System.out.println(
                                 Constant.SUCCESS_COLOR + "Player removed successfully!" + Constant.RESET_COLOR);
-                    else
+                    } else {
+                        p_gameState.updateLog("Player doesn't exist", "effect");
                         System.out.println(Constant.ERROR_COLOR + "Player doesn't exist" + Constant.RESET_COLOR);
-                    p_gamPhase = Phase.STARTUP;
-                } else
+                    }
+                } else {
+                    p_gameState.updateLog("Invalid player name", "effect");
                     System.out.println(Constant.ERROR_COLOR + "Invalid player name" + Constant.RESET_COLOR);
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("lol error array " + e.getMessage());
+            p_gameState.updateLog(
+                    "Invalid command - it should be of the form gameplayer -add playername or gameplayer -remove playername",
+                    "effect");
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command - it should be of the form gameplayer -add playername or gameplayer -remove playername"
                     + Constant.RESET_COLOR);
         } catch (Exception e) {
+            System.out.println("lol error Exception " + e.getMessage());
+            p_gameState.updateLog(
+                    "Invalid command - it should be of the form gameplayer -add playername or gameplayer -remove playername",
+                    "effect");
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command - it should be of the form gameplayer -add playername or gameplayer -remove playername"
                     + Constant.RESET_COLOR);
@@ -309,6 +338,7 @@ public class Player {
      * @return Return true if player added successfully, false otherwise
      */
     public boolean addPlayer(ArrayList<Player> p_playerList, String p_playerName) {
+        System.out.println("lol addPlayer " + p_playerList.size() + " " + p_playerName);
         if (p_playerList.size() == 6) {
             System.out.println(Constant.ERROR_COLOR + "Max number of players (6) reached!" + Constant.RESET_COLOR);
             return false;
@@ -317,6 +347,7 @@ public class Player {
             System.out.println(Constant.ERROR_COLOR + "Player already exists!" + Constant.RESET_COLOR);
             return false;
         }
+        System.out.println("lol addPlayer");
         p_playerList.add(new Player(p_playerName));
         return true;
     }
@@ -348,11 +379,14 @@ public class Player {
      * @return Returns true if player exists, false otherwise
      */
     public boolean isPlayerExist(ArrayList<Player> p_playerList, String p_playerName) {
+        System.out.println("lol isPlayerExist");
         for (Player player : p_playerList) {
             if (player.getPlayerName().equals(p_playerName)) {
+                System.out.println("lol isPlayerExist true");
                 return true;
             }
         }
+        System.out.println("lol isPlayerExist false");
         return false;
     }
 
@@ -368,35 +402,40 @@ public class Player {
     /**
      * Randomly assigns countries to players from the game map and player list
      * 
-     * @param p_gameMap    The game map containing countries
-     * @param p_playerList The list of players
+     * @param p_gameEngine The game engine object
+     * @param p_gameState  The game state object
      * 
      * @return Returns true if countries assigned successfully to players, false
      *         otherwise
      */
-    public static boolean assignCountries(GameMap p_gameMap, List<Player> p_playerList) {
+    public static boolean assignCountries(GameEngine p_gameEngine, GameState p_gameState) {
         try {
-            if (p_playerList.size() < 2) {
+            GameMap l_gameMap = p_gameState.getGameMap();
+            ArrayList<Player> l_playerList = p_gameState.getPlayerList();
+            if (l_playerList.size() < 2) {
+                p_gameState.updateLog("Minimum two players are required to play the game.", "effect");
                 System.out.println(Constant.ERROR_COLOR + "Minimum two players are required to play the game."
                         + Constant.RESET_COLOR);
                 return false;
             }
-            Collections.shuffle(p_playerList);
-            for (Country l_country : p_gameMap.getCountries().values()) {
-                int l_randomIndex = new Random().nextInt(p_playerList.size());
-                Player l_randomPlayer = p_playerList.get(l_randomIndex);
+            Collections.shuffle(l_playerList);
+            for (Country l_country : l_gameMap.getCountries().values()) {
+                int l_randomIndex = new Random().nextInt(l_playerList.size());
+                Player l_randomPlayer = l_playerList.get(l_randomIndex);
                 l_randomPlayer.getOwnedCountries().put(l_country.getCountryId().toLowerCase(), l_country);
             }
+            p_gameState.updateLog("Countries assigned randomly to all players!", "effect");
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
-            MapHelper l_gameMap = new MapHelper();
-            l_gameMap.showMap(p_playerList, p_gameMap);
+            MapHelper l_mapHelper = new MapHelper();
+            l_mapHelper.showMap(l_playerList, l_gameMap);
             System.out.println(
                     Constant.SUCCESS_COLOR
                             + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
                             + Constant.RESET_COLOR);
             return true;
         } catch (Exception e) {
+            p_gameState.updateLog("Error assigning countries!", "effect");
             System.out.println(Constant.ERROR_COLOR + "Error assigning countries!" + Constant.RESET_COLOR);
             return false;
         }
@@ -408,7 +447,7 @@ public class Player {
      */
     public void issue_deployOrder() {
         try {
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 3)) {
+            if (!Util.isValidCommandArgument(this.d_args, 3)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
                 System.out.println(Constant.ERROR_COLOR
@@ -429,7 +468,7 @@ public class Player {
                         + " does not have sufficient army" + Constant.RESET_COLOR);
                 return;
             }
-            
+
             this.addOrder(new Deploy(this, l_countryId, l_armyCount));
             this.d_executionOrderList.add(this.d_order);
             this.setOwnedArmyCount(this.getOwnedArmyCount() - l_armyCount);
@@ -446,9 +485,9 @@ public class Player {
      * Takes Advance order from user and add it to the execution order list.
      * 
      */
-    public void issue_advanceOrder(ArrayList<Player> p_players, GameMap p_map){
-        try{
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 4)) {
+    public void issue_advanceOrder(ArrayList<Player> p_players, GameMap p_map) {
+        try {
+            if (!Util.isValidCommandArgument(this.d_args, 4)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
                 System.out.println(Constant.ERROR_COLOR
@@ -460,50 +499,52 @@ public class Player {
             String l_targetCountry = this.d_args[2];
             int l_moveArmies = Integer.parseInt(this.d_args[3]);
             Player l_targetPlayer = null;
-            for(Player p : p_players){
-                //checking which player contains targetCountry
-                if(p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())){
-                    l_targetPlayer=p;
+            for (Player p : p_players) {
+                // checking which player contains targetCountry
+                if (p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())) {
+                    l_targetPlayer = p;
                     break;
+                }
             }
-        }
-        boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
-        boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase()).getNumberOfArmies() - l_moveArmies)>=1;
-        boolean l_areBothCountriesNeighbors = new Country().isNeighbor(p_map, l_sourceCountry, l_targetCountry);
+            boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
+            boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
+                    .getNumberOfArmies() - l_moveArmies) >= 1;
+            boolean l_areBothCountriesNeighbors = new Country().isNeighbor(p_map, l_sourceCountry, l_targetCountry);
 
-        if (!l_isPlayerOwnsSourceCountry) {
+            if (!l_isPlayerOwnsSourceCountry) {
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName() + " does not own "
                         + l_sourceCountry + " country" + Constant.RESET_COLOR);
                 return;
             }
-        if (!l_hasSufficientArmy) {
-            System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
-                    + " does not have sufficient army to advance." + Constant.RESET_COLOR);
-            return;
-        }
-        if (!l_areBothCountriesNeighbors) {
-            System.out.println(Constant.ERROR_COLOR + l_sourceCountry + " and "  + l_targetCountry 
-                    + " are not neighbours." + Constant.RESET_COLOR);
-            return;
-        }
-        this.addOrder(new Advance(this, l_sourceCountry, l_targetCountry, l_moveArmies, l_targetPlayer));
-        this.d_executionOrderList.add(this.d_order);
-        System.out.println(Constant.SUCCESS_COLOR + "Advance order successfully issued by " + this.getPlayerName() 
-                    +" and added to execution list"+ Constant.RESET_COLOR);
-        System.out.println("-------------------------------------------------------------------");
+            if (!l_hasSufficientArmy) {
+                System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
+                        + " does not have sufficient army to advance." + Constant.RESET_COLOR);
+                return;
+            }
+            if (!l_areBothCountriesNeighbors) {
+                System.out.println(Constant.ERROR_COLOR + l_sourceCountry + " and " + l_targetCountry
+                        + " are not neighbours." + Constant.RESET_COLOR);
+                return;
+            }
+            this.addOrder(new Advance(this, l_sourceCountry, l_targetCountry, l_moveArmies, l_targetPlayer));
+            this.d_executionOrderList.add(this.d_order);
+            System.out.println(Constant.SUCCESS_COLOR + "Advance order successfully issued by " + this.getPlayerName()
+                    + " and added to execution list" + Constant.RESET_COLOR);
+            System.out.println("-------------------------------------------------------------------");
 
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR
-                    + "Invalid command. Try -> advance <sourceCountryId> <targetCountryId> <numberOfArmy>" + Constant.RESET_COLOR);
+                    + "Invalid command. Try -> advance <sourceCountryId> <targetCountryId> <numberOfArmy>"
+                    + Constant.RESET_COLOR);
         }
     }
 
     /**
      * Takes Airlift order from user and add it to the execution order list.
      */
-    public void issue_airliftOrder(){
-        try{
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 4)) {
+    public void issue_airliftOrder() {
+        try {
+            if (!Util.isValidCommandArgument(this.d_args, 4)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
                 System.out.println(Constant.ERROR_COLOR
@@ -514,10 +555,11 @@ public class Player {
             String l_sourceCountry = this.d_args[1];
             String l_targetCountry = this.d_args[2];
             int l_moveArmies = Integer.parseInt(this.d_args[3]);
-            
+
             boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
             boolean l_isPlayerOwnsTargetCountry = this.getOwnedCountries().containsKey(l_targetCountry.toLowerCase());
-            boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase()).getNumberOfArmies() > l_moveArmies);
+            boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
+                    .getNumberOfArmies() > l_moveArmies);
             boolean l_hasCard = this.doesCardExists("Airlift");
 
             if (!l_isPlayerOwnsSourceCountry) {
@@ -543,118 +585,123 @@ public class Player {
 
             this.addOrder(new Airlift(this, l_sourceCountry, l_targetCountry, l_moveArmies));
             this.d_executionOrderList.add(this.d_order);
-            System.out.println(Constant.SUCCESS_COLOR + "Airlift order successfully issued by " + this.getPlayerName() 
-                        +" and added to execution list"+ Constant.RESET_COLOR);
+            System.out.println(Constant.SUCCESS_COLOR + "Airlift order successfully issued by " + this.getPlayerName()
+                    + " and added to execution list" + Constant.RESET_COLOR);
             this.removeCard("Airlift");
             System.out.println("-------------------------------------------------------------------");
 
-
-        }catch(Exception e){
-            System.out.println(Constant.ERROR_COLOR
-                    + "Invalid command. Try -> airlift <sourceCountryId> <targetCountryId> <numberOfArmy>" + Constant.RESET_COLOR);
-        }
-    }
-
-    /**
-     * Takes Diplomacy order from user and add it to the execution order list.
-     */
-    public void issue_diplomacyOrder(){
-        try {
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 2)) {
-                System.out.println(Constant.ERROR_COLOR
-                        + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
-                System.out.println(Constant.ERROR_COLOR
-                        + "Try -> negotiate <PlayerID>" + Constant.RESET_COLOR);
-                return;
-            }
-            Player l_targetPlayer = new StartUpPhase().getPlayerByName(this.d_args[1]);
-            if (this.doesCardExists("Diplomacy")) {
-                this.addOrder(new Diplomacy(this, l_targetPlayer));
-                this.d_executionOrderList.add(this.d_order);
-                System.out.println(Constant.SUCCESS_COLOR + "Diplomacy order successfully issued by " + this.getPlayerName() 
-                        +" and added to execution list"+ Constant.RESET_COLOR);
-                this.removeCard("Diplomacy");
-                System.out.println("-------------------------------------------------------------------");
-            } else {
-                System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
-                        + " does not have Diplomacy card OR invalid target player name" + Constant.RESET_COLOR);
-            }
-            
-        } catch (Exception e) {
-           System.out.println(Constant.ERROR_COLOR
-                    + "Invalid command. Try -> negotiate <PlayerID>" + Constant.RESET_COLOR);
-        }
-    }
-
-    /**
-     * Takes Bomb order from user and add it to the execution order list.
-     */
-    public void issue_bombOrder(ArrayList<Player> p_playerList){
-        try {
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 2)) {
-                System.out.println(Constant.ERROR_COLOR
-                        + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
-                System.out.println(Constant.ERROR_COLOR
-                        + "Try -> bomb <countryID>" + Constant.RESET_COLOR);
-                return;
-            }
-
-            String l_targetCountry = this.d_args[1];
-            boolean l_isTargetCountryOwnedByCurPlayer = this.getOwnedCountries().containsKey(l_targetCountry.toLowerCase());
-            if(l_isTargetCountryOwnedByCurPlayer){
-                System.out.println(Constant.ERROR_COLOR
-                    + "Country owned by current player" + Constant.RESET_COLOR);
-                return;
-            }
-
-            boolean l_hasCard = this.doesCardExists("Bomb");
-            if (!l_hasCard) {
-                System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
-                        + " does not have Bomb card." + Constant.RESET_COLOR);
-                return;
-            }
-
-            boolean l_isTargetCountryNeighbor = false;
-            for(Country l_c : this.getOwnedCountries().values()){
-                if( l_c.getNeighbours().containsKey(l_targetCountry.toLowerCase())){
-                    l_isTargetCountryNeighbor = true;
-                    break;
-                }
-            }
-            if (!l_isTargetCountryNeighbor) {
-                System.out.println(Constant.ERROR_COLOR
-                        + " target country not adjacent to any country owned by current player" + Constant.RESET_COLOR);
-                return;
-            }
-
-            Player l_targetPlayer = null;
-            for(Player p : p_playerList){
-                //checking which player contains targetCountry
-                if(p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())){
-                    l_targetPlayer = p;
-                    break;
-                }
-            }
-
-            this.addOrder(new Bomb(this, l_targetPlayer, l_targetCountry));
-            this.d_executionOrderList.add(this.d_order);
-            System.out.println(Constant.SUCCESS_COLOR + "Bomb order successfully issued by " + this.getPlayerName() 
-                        +" and added to execution list"+ Constant.RESET_COLOR);
-            this.removeCard("Bomb");
-            System.out.println("-------------------------------------------------------------------");
-
         } catch (Exception e) {
             System.out.println(Constant.ERROR_COLOR
-                    + "Invalid command. Try -> bomb <countryID>" + Constant.RESET_COLOR);
+                    + "Invalid command. Try -> airlift <sourceCountryId> <targetCountryId> <numberOfArmy>"
+                    + Constant.RESET_COLOR);
         }
     }
+
+    // /**
+    // * Takes Diplomacy order from user and add it to the execution order list.
+    // */
+    // public void issue_diplomacyOrder(){
+    // try {
+    // if (!Util.isValidCommandArgument(this.d_args, 2)) {
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Try -> negotiate <PlayerID>" + Constant.RESET_COLOR);
+    // return;
+    // }
+    // Player l_targetPlayer = new StartUpPhase().getPlayerByName(this.d_args[1]);
+    // if (this.doesCardExists("Diplomacy")) {
+    // this.addOrder(new Diplomacy(this, l_targetPlayer));
+    // this.d_executionOrderList.add(this.d_order);
+    // System.out.println(Constant.SUCCESS_COLOR + "Diplomacy order successfully
+    // issued by " + this.getPlayerName()
+    // +" and added to execution list"+ Constant.RESET_COLOR);
+    // this.removeCard("Diplomacy");
+    // System.out.println("-------------------------------------------------------------------");
+    // } else {
+    // System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
+    // + " does not have Diplomacy card OR invalid target player name" +
+    // Constant.RESET_COLOR);
+    // }
+
+    // } catch (Exception e) {
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Invalid command. Try -> negotiate <PlayerID>" + Constant.RESET_COLOR);
+    // }
+    // }
+
+    // /**
+    // * Takes Bomb order from user and add it to the execution order list.
+    // */
+    // public void issue_bombOrder(ArrayList<Player> p_playerList){
+    // try {
+    // if (!Util.isValidCommandArgument(this.d_args, 2)) {
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Try -> bomb <countryID>" + Constant.RESET_COLOR);
+    // return;
+    // }
+
+    // String l_targetCountry = this.d_args[1];
+    // boolean l_isTargetCountryOwnedByCurPlayer =
+    // this.getOwnedCountries().containsKey(l_targetCountry.toLowerCase());
+    // if(l_isTargetCountryOwnedByCurPlayer){
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Country owned by current player" + Constant.RESET_COLOR);
+    // return;
+    // }
+
+    // boolean l_hasCard = this.doesCardExists("Bomb");
+    // if (!l_hasCard) {
+    // System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
+    // + " does not have Bomb card." + Constant.RESET_COLOR);
+    // return;
+    // }
+
+    // boolean l_isTargetCountryNeighbor = false;
+    // for(Country l_c : this.getOwnedCountries().values()){
+    // if( l_c.getNeighbours().containsKey(l_targetCountry.toLowerCase())){
+    // l_isTargetCountryNeighbor = true;
+    // break;
+    // }
+    // }
+    // if (!l_isTargetCountryNeighbor) {
+    // System.out.println(Constant.ERROR_COLOR
+    // + " target country not adjacent to any country owned by current player" +
+    // Constant.RESET_COLOR);
+    // return;
+    // }
+
+    // Player l_targetPlayer = null;
+    // for(Player p : p_playerList){
+    // //checking which player contains targetCountry
+    // if(p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())){
+    // l_targetPlayer = p;
+    // break;
+    // }
+    // }
+
+    // this.addOrder(new Bomb(this, l_targetPlayer, l_targetCountry));
+    // this.d_executionOrderList.add(this.d_order);
+    // System.out.println(Constant.SUCCESS_COLOR + "Bomb order successfully issued
+    // by " + this.getPlayerName()
+    // +" and added to execution list"+ Constant.RESET_COLOR);
+    // this.removeCard("Bomb");
+    // System.out.println("-------------------------------------------------------------------");
+
+    // } catch (Exception e) {
+    // System.out.println(Constant.ERROR_COLOR
+    // + "Invalid command. Try -> bomb <countryID>" + Constant.RESET_COLOR);
+    // }
+    // }
 
     /**
      * Takes Blockade order from user and add it to the execution order list.
      */
-    public void issue_blockadeOrder(){
+    public void issue_blockadeOrder() {
         try {
-            if (!StartUpPhase.isValidCommandArgument(this.d_args, 2)) {
+            if (!Util.isValidCommandArgument(this.d_args, 2)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Invalid number of arguments for deploy command" + Constant.RESET_COLOR);
                 System.out.println(Constant.ERROR_COLOR
@@ -670,7 +717,7 @@ public class Player {
                         + l_country + " country" + Constant.RESET_COLOR);
                 return;
             }
-            
+
             if (!l_hasCard) {
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
                         + " does not have Blockade card." + Constant.RESET_COLOR);
@@ -679,8 +726,8 @@ public class Player {
 
             this.addOrder(new Blockade(this, l_country));
             this.d_executionOrderList.add(this.d_order);
-            System.out.println(Constant.SUCCESS_COLOR + "Blockade order successfully issued by " + this.getPlayerName() 
-                        +" and added to execution list"+ Constant.RESET_COLOR);
+            System.out.println(Constant.SUCCESS_COLOR + "Blockade order successfully issued by " + this.getPlayerName()
+                    + " and added to execution list" + Constant.RESET_COLOR);
             this.removeCard("Blockade");
             System.out.println("-------------------------------------------------------------------");
 

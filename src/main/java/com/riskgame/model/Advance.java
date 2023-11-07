@@ -1,15 +1,17 @@
 package com.riskgame.model;
+
 /**
  * Class containing logic for implementation of advance order
  *
  */
 public class Advance implements Order {
 
-    private int d_armyCount;
+	private int d_armyCount;
 	private String d_sourceCountryId, d_targetCountryId;
 	private Player d_attackPlayer, d_targetPlayer;
 
-	/**Advance.java
+	/**
+	 * Advance.java
 	 * Constructor of advance class
 	 *
 	 * @param p_player          source player who is advancing armies
@@ -18,75 +20,83 @@ public class Advance implements Order {
 	 * @param p_numArmies       number of armies
 	 * @param p_targetPlayer    target player on whom advance is to be performed
 	 */
-	public Advance(Player p_player, String p_sourceCountryId, String p_targetCountryId, int p_armyCount, Player p_targetPlayer) {
+	public Advance(Player p_player, String p_sourceCountryId, String p_targetCountryId, int p_armyCount,
+			Player p_targetPlayer) {
 		d_attackPlayer = p_player;
 		d_sourceCountryId = p_sourceCountryId;
 		d_targetCountryId = p_targetCountryId;
 		d_armyCount = p_armyCount;
 		d_targetPlayer = p_targetPlayer;
 	}
-    
-    /**
+
+	/**
 	 * Contain the implementation logic of advance order
+	 * 
 	 * @return true if executed successfully else false if it fails
 	 */
-    @Override
-    public boolean execute() {
-        if (d_attackPlayer.getOwnedCountries().containsKey(d_targetCountryId.toLowerCase())) {
-            
-            //advance logic
-            int fromArmies = d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies();
-            fromArmies -= d_armyCount;
-            d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).setNumberOfArmies(fromArmies);
-            int toArmies = d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).getNumberOfArmies();
-            toArmies += d_armyCount;
-            d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).setNumberOfArmies(toArmies);
-            return true;
-            
-        }else {
-            //System.out.println(d_targetCountryId + " is not owned by the player");
-            
-            if(d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
-                //skip execute
-                return false;
-            }else {
-                //attack logic
-                System.out.println("Attack Occur between: " + d_targetCountryId + " and " + d_sourceCountryId);
-                
-                //fetching the countries and its armies
-                Country attackingCountry = d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
-                Country defendingCountry = attackingCountry.getNeighbours().get(d_targetCountryId.toLowerCase());
-                
-                int defendArmy = defendingCountry.getNumberOfArmies();
+	@Override
+	public boolean execute() {
+		// if (d_attackPlayer.getOwnedCountries().containsKey(d_targetCountryId.toLowerCase())) {
 
+		// 	// advance logic
+		// 	int fromArmies = d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies();
+		// 	fromArmies -= d_armyCount;
+		// 	d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).setNumberOfArmies(fromArmies);
+		// 	int toArmies = d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).getNumberOfArmies();
+		// 	toArmies += d_armyCount;
+		// 	d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).setNumberOfArmies(toArmies);
+		// 	return true;
 
-                //if defending country has less armies
-                if (defendArmy < d_armyCount) {
-                    d_attackPlayer.getOwnedCountries().put(d_targetCountryId, defendingCountry);
-                    d_targetPlayer.getOwnedCountries().remove(d_targetCountryId);
-                    defendingCountry.setNumberOfArmies(d_armyCount - defendArmy);
-                    attackingCountry.setNumberOfArmies(((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())- d_armyCount));
-                    //If Attack Successful and new territory added to Player
-                    //Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
-                    d_attackPlayer.addCard();
+		// } else {
+		// 	// System.out.println(d_targetCountryId + " is not owned by the player");
 
-                } else if (defendArmy == d_armyCount) {
-					d_targetPlayer.getOwnedCountries().remove(d_targetCountryId);
-                    defendingCountry.setNumberOfArmies(0);
-                    attackingCountry.setNumberOfArmies(((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())- d_armyCount));
-                } 
-                //if defending coutry has more armies
-                else {
-                    defendingCountry.setNumberOfArmies(defendArmy - d_armyCount);
-                    attackingCountry.setNumberOfArmies(((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())- d_armyCount));
+		// 	if (d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+		// 		// skip execute
+		// 		return false;
+		// 	} else {
+		// 		// attack logic
+		// 		System.out.println("Attack Occur between: " + d_targetCountryId + " and " + d_sourceCountryId);
 
-                }
-                return true;
-            }
-        }
+		// 		// fetching the countries and its armies
+		// 		Country attackingCountry = d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
+		// 		Country defendingCountry = attackingCountry.getNeighbours().get(d_targetCountryId.toLowerCase());
+
+		// 		int defendArmy = defendingCountry.getNumberOfArmies();
+
+		// 		// if defending country has less armies
+		// 		if (defendArmy < d_armyCount) {
+		// 			d_attackPlayer.getOwnedCountries().put(d_targetCountryId, defendingCountry);
+		// 			d_targetPlayer.getOwnedCountries().remove(d_targetCountryId);
+		// 			defendingCountry.setNumberOfArmies(d_armyCount - defendArmy);
+		// 			attackingCountry.setNumberOfArmies(
+		// 					((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+		// 							- d_armyCount));
+		// 			// If Attack Successful and new territory added to Player
+		// 			// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
+		// 			d_attackPlayer.addCard();
+
+		// 		} else if (defendArmy == d_armyCount) {
+		// 			d_targetPlayer.getOwnedCountries().remove(d_targetCountryId);
+		// 			defendingCountry.setNumberOfArmies(0);
+		// 			attackingCountry.setNumberOfArmies(
+		// 					((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+		// 							- d_armyCount));
+		// 		}
+		// 		// if defending coutry has more armies
+		// 		else {
+		// 			defendingCountry.setNumberOfArmies(defendArmy - d_armyCount);
+		// 			attackingCountry.setNumberOfArmies(
+		// 					((d_attackPlayer.getOwnedCountries().get(d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+		// 							- d_armyCount));
+
+		// 		}
+		// 		return true;
+		// 	}
+		// }
+		return false;
 	}
 
-    /**
+	/**
 	 * Getter for current player
 	 *
 	 * @return d_player
@@ -157,5 +167,5 @@ public class Advance implements Order {
 	public void setD_numArmies(int p_armyCount) {
 		this.d_armyCount = p_armyCount;
 	}
-    
+
 }

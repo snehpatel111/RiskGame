@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.PlayerTest" time="0" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.PlayerTest" time="0.003" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/test-classes:/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/classes:/Users/yashchhelaiya/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/yashchhelaiya/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/yashchhelaiya/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/Users/yashchhelaiya/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
+    <property name="java.class.path" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/test-classes:/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/classes:/Users/parmarmayanknilkanthbhai/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="os.name" value="Mac OS X"/>
     <property name="java.vm.specification.version" value="21"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="CA"/>
+    <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/surefire/surefirebooter5031804323162681198.jar /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/surefire 2023-11-05T14-04-28_147-jvmRun1 surefire17053424231420451550tmp surefire_010115485027480070781tmp"/>
+    <property name="sun.java.command" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/surefire/surefirebooter6013235095994004511.jar /Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/surefire 2023-11-06T21-33-11_677-jvmRun1 surefire15526121165378714361tmp surefire_017906138183895939970tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/test-classes:/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/classes:/Users/yashchhelaiya/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/yashchhelaiya/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/yashchhelaiya/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/Users/yashchhelaiya/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/test-classes:/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/classes:/Users/parmarmayanknilkanthbhai/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/Users/parmarmayanknilkanthbhai/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/Users/yashchhelaiya"/>
+    <property name="user.home" value="/Users/parmarmayanknilkanthbhai"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2023-09-19"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame"/>
+    <property name="basedir" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/target/surefire/surefirebooter5031804323162681198.jar"/>
+    <property name="surefire.real.class.path" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame/target/surefire/surefirebooter6013235095994004511.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21+35-LTS-2513"/>
-    <property name="user.name" value="yashchhelaiya"/>
+    <property name="user.name" value="parmarmayanknilkanthbhai"/>
     <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="14.0"/>
+    <property name="os.version" value="14.1"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="/Users/yashchhelaiya/.m2/repository"/>
+    <property name="localRepository" value="/Users/parmarmayanknilkanthbhai/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="/var/folders/5t/877g5k896vxf01ysppngk_f00000gn/T/"/>
+    <property name="java.io.tmpdir" value="/var/folders/r3/l9135p_925v9xcbbn7w6q1vm0000gn/T/"/>
     <property name="java.version" value="21"/>
-    <property name="user.dir" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame"/>
+    <property name="user.dir" value="/Users/parmarmayanknilkanthbhai/Documents/RiskGame"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="native.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/Users/yashchhelaiya/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.library.path" value="/Users/parmarmayanknilkanthbhai/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="UTF-8"/>
     <property name="java.vendor" value="Oracle Corporation"/>
@@ -58,10 +58,10 @@
     <property name="java.class.version" value="65.0"/>
   </properties>
   <testcase name="removePlayerTest" classname="com.riskgame.model.PlayerTest" time="0"/>
-  <testcase name="testIssueOrderInvalidReinforcement" classname="com.riskgame.model.PlayerTest" time="0"/>
+  <testcase name="testIssueOrderInvalidReinforcement" classname="com.riskgame.model.PlayerTest" time="0.002"/>
   <testcase name="isPlayerNameValidTest" classname="com.riskgame.model.PlayerTest" time="0"/>
   <testcase name="isPlayerExistsTest" classname="com.riskgame.model.PlayerTest" time="0"/>
-  <testcase name="testIssueOrderValidReinforcement" classname="com.riskgame.model.PlayerTest" time="0"/>
+  <testcase name="testIssueOrderValidReinforcement" classname="com.riskgame.model.PlayerTest" time="0.001"/>
   <testcase name="testDeployReinforcement" classname="com.riskgame.model.PlayerTest" time="0"/>
   <testcase name="addPlayerTest" classname="com.riskgame.model.PlayerTest" time="0"/>
 </testsuite>

@@ -25,7 +25,12 @@ public class Advance implements Order {
 		d_armyCount = p_armyCount;
 		d_targetPlayer = p_targetPlayer;
 	}
-    
+
+	public Player getD_targetPlayer() {
+		return d_targetPlayer;
+	}
+
+	
     /**
 	 * Contain the implementation logic of advance order
 	 * @return true if executed successfully else false if it fails

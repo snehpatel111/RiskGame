@@ -94,6 +94,10 @@ public class Player {
         this.d_playerName = p_playerName;
     }
 
+    public void addOwnedCountry(Country country) {
+        d_ownedCountries.put(country.getCountryId(), country);
+    }
+
     /**
      * Getter method to return the countries owned by a player.
      * 

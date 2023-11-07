@@ -26,6 +26,11 @@ public class Blockade implements Order{
     @Override
     public boolean execute() {
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
+
+        if (l_c == null) {
+            return false; // Return false if the country doesn't exist
+        }
+        
         int l_existingArmies = l_c.getNumberOfArmies();
         l_existingArmies *= 3;
         l_c.setNumberOfArmies(l_existingArmies);

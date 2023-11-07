@@ -4,6 +4,8 @@ com/riskgame/controller/GameEngineTest.class
 com/riskgame/model/GameMapTest.class
 com/riskgame/model/StartUpPhaseTest.class
 com/riskgame/utility/UtilTest.class
+com/riskgame/model/BlockadeTest.class
 com/riskgame/utility/MapValidatorTest.class
+com/riskgame/model/AdvanceTest.class
 com/riskgame/model/MapHelperTest.class
 com/riskgame/model/PlayerTest.class

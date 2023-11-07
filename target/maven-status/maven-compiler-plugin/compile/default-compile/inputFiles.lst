@@ -1,13 +1,19 @@
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/GameMap.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/Order.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/utility/Util.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/controller/GameEngine.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/Deploy.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/Player.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/StartUpPhase.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/utility/Phase.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/Country.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/Continent.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/utility/Constant.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/model/MapHelper.java
-/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build2/RiskGame/src/main/java/com/riskgame/utility/MapValidator.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/utility/Phase.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Bomb.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Airlift.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/utility/Constant.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Country.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Continent.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/utility/MapValidator.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/GameMap.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/utility/Util.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Advance.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Player.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/controller/GameEngine.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Deploy.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Blockade.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Order.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/MapHelper.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/StartUpPhase.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Card.java
+/Users/parmarmayanknilkanthbhai/Documents/RiskGame/src/main/java/com/riskgame/model/Diplomacy.java

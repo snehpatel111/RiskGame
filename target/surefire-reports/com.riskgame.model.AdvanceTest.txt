@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.riskgame.model.AdvanceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in com.riskgame.model.AdvanceTest
+testExecuteAttackWithDefenderWin(com.riskgame.model.AdvanceTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.contains(Object)" because "this.d_attackPlayer.d_negotiatePlayers" is null
+	at com.riskgame.model.AdvanceTest.testExecuteAttackWithDefenderWin(AdvanceTest.java:71)
+
+testExecuteAttackInvalidSourceCountry(com.riskgame.model.AdvanceTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.contains(Object)" because "this.d_attackPlayer.d_negotiatePlayers" is null
+	at com.riskgame.model.AdvanceTest.testExecuteAttackInvalidSourceCountry(AdvanceTest.java:86)
+
+testExecuteAdvanceSuccess(com.riskgame.model.AdvanceTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.contains(Object)" because "this.d_attackPlayer.d_negotiatePlayers" is null
+	at com.riskgame.model.AdvanceTest.testExecuteAdvanceSuccess(AdvanceTest.java:49)
+
+testExecuteAttackInvalidTargetCountry(com.riskgame.model.AdvanceTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.contains(Object)" because "this.d_attackPlayer.d_negotiatePlayers" is null
+	at com.riskgame.model.AdvanceTest.testExecuteAttackInvalidTargetCountry(AdvanceTest.java:97)
+

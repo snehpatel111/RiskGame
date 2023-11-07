@@ -3,7 +3,7 @@ package com.riskgame.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.riskgame.utility.Phase;
+import com.riskgame.model.Phase;
 
 import static org.junit.Assert.*;
 

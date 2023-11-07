@@ -1,166 +1,90 @@
 package com.riskgame.controller;
 
-import java.io.File;
-import java.util.Scanner;
-
-import java.util.Iterator;
-
+import com.riskgame.model.GameState;
+import com.riskgame.model.IssueOrderPhase;
+import com.riskgame.model.OrderExecutionPhase;
+import com.riskgame.model.Phase;
 import com.riskgame.model.StartUpPhase;
-import com.riskgame.utility.Phase;
-
-import com.riskgame.model.Continent;
-import com.riskgame.model.Player;
-import com.riskgame.utility.Constant;
 
 /**
- * This is the entry point of the game. It initializes the game state and keeps
- * track of current game state.
- *
+ * This is the entry point of the Game and keeps the track of current Game
+ * State.
  */
 public class GameEngine {
-    public static void main(String[] p_args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("\nWelcome to RiskGame!\n");
-            System.out.println("You can start by creating/editing existing map or loading existing map.\n");
-            showAvailableMap();
-            System.out.println(
-                    "To create/edit map, use " + Constant.SUCCESS_COLOR + "editmap <map_name>" + Constant.RESET_COLOR
-                            + " command. e.x. " + Constant.SUCCESS_COLOR + "editmap sample.map" + Constant.RESET_COLOR);
-            System.out.println("To load existing map, use " + Constant.SUCCESS_COLOR + "loadmap <map_name>"
-                    + Constant.RESET_COLOR + " command. e.x. " + Constant.SUCCESS_COLOR + "loadmap sample.map"
-                    + Constant.RESET_COLOR + "\n");
-            String l_command = sc.nextLine();
-            StartUpPhase l_startupPhase = new StartUpPhase();
-            Phase l_gamePhase = l_startupPhase.parseCommand(null, l_command);
+	/**
+	 * d_gameState stores the information about current GamePlay.
+	 */
+	GameState d_gameState = new GameState();
 
-            // Get commands until initial phase ends.
-            while (!l_gamePhase.equals(Phase.ISSUE_ORDERS)) {
-                l_command = sc.nextLine();
-                l_gamePhase = l_startupPhase.parseCommand(null, l_command);
-            }
-            assignReinforcementToPlayer(l_startupPhase);
+	/**
+	 * It is the current game play phase as per state pattern.
+	 */
+	Phase d_currentGamePhase = new StartUpPhase(this, this.d_gameState);
 
-            int l_playerCounter = 0;
-            int l_totalPlayer = l_startupPhase.getPlayerList().size();
-            int l_totalReinforcement = 0;
-            while (true) {
-                while (l_playerCounter < l_totalPlayer) {
-                    Player l_player = l_startupPhase.getPlayerList().get(l_playerCounter);
-                    System.out.println(
-                            l_player.getPlayerName() + "'s turn (Remaining army count: " + l_player.getOwnedArmyCount()
-                                    + ")");
-                    l_gamePhase = Phase.ISSUE_ORDERS;
-                    l_startupPhase.setGamePhase(l_gamePhase);
-                    while (!l_gamePhase.equals(Phase.SWITCH_TURN)) {
-                        l_command = sc.nextLine();
-                        l_gamePhase = l_startupPhase.parseCommand(l_player, l_command);
-                    }
-                    Iterator<Player> l_iterator = l_startupPhase.getPlayerList().listIterator();
-                    l_totalReinforcement = 0;
-                    while (l_iterator.hasNext()) {
-                        Player l_gamePlayer = l_iterator.next();
-                        System.out.println("Player " + l_gamePlayer.getPlayerName() + " has "
-                                + l_gamePlayer.getOwnedArmyCount() + " armies currently!");
-                        l_totalReinforcement += l_gamePlayer.getOwnedArmyCount() > 0 ? l_gamePlayer.getOwnedArmyCount()
-                                : 0;
-                    }
-                    System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
-                    if (l_totalReinforcement == 0) {
-                        l_gamePhase = Phase.EXECUTE_ORDERS;
-                        l_startupPhase.setGamePhase(l_gamePhase);
-                        break;
-                    }
-                    l_playerCounter++;
-                }
-                if (l_totalReinforcement == 0) {
-                    break;
-                }
-                l_gamePhase = l_totalReinforcement > 0 ? Phase.ISSUE_ORDERS : Phase.EXECUTE_ORDERS;
-                l_startupPhase.setGamePhase(l_gamePhase);
-                l_playerCounter = 0;
-            }
-            System.out.println("Type execute to deploy armies");
-            while (l_gamePhase.equals(Phase.EXECUTE_ORDERS)) {
-                l_command = sc.nextLine();
-                l_gamePhase = l_startupPhase.parseCommand(null, l_command);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * It's used to update context.
+	 *
+	 * @param p_phase new Phase to set in Game context
+	 */
+	private void setCurrentGamePhase(Phase p_phase) {
+		this.d_currentGamePhase = p_phase;
+	}
 
-    /**
-     * Assign reinforcement to each game player
-     * 
-     * @param p_startUpPhase Game phase that contains player list
-     */
-    public static void assignReinforcementToPlayer(StartUpPhase p_startUpPhase) {
-        Iterator<Player> l_iterator = p_startUpPhase.getPlayerList().listIterator();
+	/**
+	 * Updates the current phase to Issue Order Phase as per State Pattern.
+	 */
+	public void setIssueOrderPhase() {
+		System.out.println("lol playerList size is " + this.d_gameState.getPlayerList().size());
+		this.setGameEngineLog("Issue Order Phase", "phase");
+		this.setCurrentGamePhase(new IssueOrderPhase(this, this.d_gameState));
+		this.getCurrentGamePhase().initPhase();
+	}
 
-        while (l_iterator.hasNext()) {
-            Player l_player = l_iterator.next();
-            int l_totalControlValueCount = 0;
-            int l_totalReinforcementArmyCount;
+	// /**
+	//  * this methods updates the current phase to Order Execution Phase as per State
+	//  * Pattern.
+	//  */
+	// public void setOrderExecutionPhase() {
+	// 	this.setGameEngineLog("Order Execution Phase", "phase");
+	// 	this.setCurrentGamePhase(new OrderExecutionPhase(this, d_gameState));
+	// 	this.getCurrentGamePhase().initPhase();
+	// }
 
-            if (l_player.getOwnedCountries().size() >= 10) {
-                if (l_player.getOwnedContinents().size() > 0) {
-                    for (Continent l_continent : l_player.getOwnedContinents().values()) {
-                        l_totalControlValueCount += l_continent.getControlValue();
-                    }
-                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2)
-                            + l_totalControlValueCount;
-                } else {
-                    l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2);
-                }
-            } else {
-                l_totalReinforcementArmyCount = 5;
-            }
-            l_player.setOwnedArmyCount(l_totalReinforcementArmyCount);
-        }
-    }
+	/**
+	 * This method is getter for current Phase of Game Context.
+	 *
+	 * @return current Phase of Game Context
+	 */
+	public Phase getCurrentGamePhase() {
+		return this.d_currentGamePhase;
+	}
 
-    /**
-     * Lists the names of files in the specified folder.
-     *
-     */
-    public static void showAvailableMap() {
-        File folder = new File(Constant.MAP_PATH);
+	/**
+	 * Shows and Writes GameEngine Logs.
+	 *
+	 * @param p_gameEngineLog String of Log message.
+	 * @param p_logType       Type of Log.
+	 */
+	public void setGameEngineLog(String p_gameEngineLog, String p_logType) {
+		this.d_currentGamePhase.getGameState().updateLog(p_gameEngineLog, p_logType);
+		// String l_consoleLogger = p_logType.toLowerCase().equals("phase")
+		// 		? "\n************ " + p_gameEngineLog + " ************\n"
+		// 		: p_gameEngineLog;
+		// System.out.println(l_consoleLogger);
+	}
 
-        if (folder.isDirectory()) {
-            File[] files = folder.listFiles();
+	/**
+	 * The main method responsible for accepting command from users and redirecting
+	 * those to corresponding logical flows.
+	 *
+	 * @param p_args the program doesn't use default command line arguments
+	 */
+	public static void main(String[] p_args) {
+		GameEngine l_game = new GameEngine();
 
-            if (files != null) {
-                // Find the maximum length of file names for formatting
-                int maxLength = 0;
-                for (File file : files) {
-                    if (file.isFile()) {
-                        int length = file.getName().length();
-                        if (length > maxLength) {
-                            maxLength = length;
-                        }
-                    }
-                }
-
-                System.out.printf("%85s\n",
-                        "-------------------------------------------------------------------------------------------");
-                System.out.printf("%55s\n", "Existing Maps");
-
-                System.out.printf("%85s\n",
-                        "-------------------------------------------------------------------------------------------");
-
-                // Print file names with even distribution
-                for (File file : files) {
-                    if (file.isFile()) {
-                        String fileName = file.getName();
-                        System.out.println(fileName);
-                    }
-                }
-                System.out.println("\n");
-            } else {
-                System.out.println("No files found in the directory.");
-            }
-        } else {
-            System.out.println("Specified path is not a directory.");
-        }
-    }
+		l_game.getCurrentGamePhase().getGameState().updateLog("Initializing the Game ......" + System.lineSeparator(),
+				"start");
+		l_game.setGameEngineLog("Game Startup Phase", "phase");
+		l_game.getCurrentGamePhase().initPhase();
+	}
 }

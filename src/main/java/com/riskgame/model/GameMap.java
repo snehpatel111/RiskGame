@@ -43,6 +43,15 @@ public class GameMap {
     }
 
     /**
+     * Setter method for map name.
+     * 
+     * @param p_mapName Name of map.
+     */
+    public void setMapName(String p_mapName) {
+        this.d_mapName = p_mapName;
+    }
+
+    /**
      * Returns the map of continents.
      * 
      * @return Returns the map of continents.

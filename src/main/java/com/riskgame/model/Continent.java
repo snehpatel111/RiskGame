@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.riskgame.controller.GameEngine;
 import com.riskgame.model.StartUpPhase;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.Util;
-import com.riskgame.utility.Phase;
+import com.riskgame.model.GameState;
+import com.riskgame.model.Phase;
 
 /**
  * Contains details about continents like control value, color, countries,
@@ -141,14 +143,14 @@ public class Continent {
     /**
      * Edit an existing continent.
      * 
-     * @param p_gameMap   GameMap object to add/remove continent to.
-     * @param p_gamePhase GamePhase object to edit continent in.
-     * @param p_args      Command line arguments to edit continent.
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object
+     * @param p_args       Command line arguments to edit continent.
      */
-    public void editContinent(GameMap p_gameMap, Phase p_gamePhase, String[] p_args) {
+    public void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
             if (p_args[1].equals("-add")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                if (!Util.isValidCommandArgument(p_args, 4)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue>"
                             +
@@ -163,34 +165,32 @@ public class Continent {
                 this.d_continentId = p_args[2];
                 this.d_controlValue = Integer.parseInt(p_args[3]);
 
-                boolean l_isContinentAdded = this.isContinentAdded(p_gameMap, this.d_continentId,
+                boolean l_isContinentAdded = this.isContinentAdded(p_gameState.getGameMap(), this.d_continentId,
                         this.d_controlValue);
                 if (l_isContinentAdded) {
                     System.out.println(Constant.SUCCESS_COLOR + this.d_continentId + " added to the map"
                             + Constant.RESET_COLOR);
-                    p_gamePhase = Phase.EDITMAP;
                 } else {
                     System.out.println(Constant.ERROR_COLOR + this.d_continentId
                             + " already exists - Please add valid Continent Id" + Constant.RESET_COLOR);
                 }
             } else if (p_args[1].equals("-remove")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+                if (!Util.isValidCommandArgument(p_args, 3)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editcontinent -remove <continentId>"
                             + Constant.RESET_COLOR);
                     return;
                 }
-                if (!this.isContinentExist(p_gameMap, p_args[2])) {
+                if (!this.isContinentExist(p_gameState.getGameMap(), p_args[2])) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid Continent Id."
                             + Constant.RESET_COLOR);
                     return;
                 }
                 this.d_continentId = p_args[2];
-                boolean l_isContinentRemoved = this.removeContinent(p_gameMap);
+                boolean l_isContinentRemoved = this.removeContinent(p_gameState.getGameMap());
                 if (l_isContinentRemoved) {
                     System.out.println(
                             Constant.SUCCESS_COLOR + this.d_continentId + " removed from map" + Constant.RESET_COLOR);
-                    p_gamePhase = Phase.EDITMAP;
                 } else
                     System.out.println(this.d_continentId + " doesn't exist - Please enter valid Continent Id");
             } else {
@@ -274,23 +274,23 @@ public class Continent {
     /**
      * Edit the country with given params.
      * 
-     * @param p_gameMap   GameMap object to which changes occur.
-     * @param p_gamePhase Current game phase.
-     * @param p_args      CLI argument from user.
+     * @param p_gameEngine GameEngine object.
+     * @param p_gameState  GameState object.
+     * @param p_args       CLI argument from user.
      */
-    public void editCountry(GameMap p_gameMap, Phase p_gamePhase, String[] p_args) {
+    public void editCountry(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
             Country country = new Country();
             String l_countryId = null;
             String l_continentId = null;
             if (p_args[1].equals("-add")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                if (!Util.isValidCommandArgument(p_args, 4)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editcountry -add <countryId> <continentId>"
                             + Constant.RESET_COLOR);
                     return;
                 }
-                if (!Util.isAlphabetic(p_args[2]) || !this.isContinentExist(p_gameMap, p_args[3])) {
+                if (!Util.isAlphabetic(p_args[2]) || !this.isContinentExist(p_gameState.getGameMap(), p_args[3])) {
                     System.out.println(
                             Constant.ERROR_COLOR + "Invalid country/continent name."
                                     + Constant.RESET_COLOR);
@@ -298,34 +298,32 @@ public class Continent {
                 }
                 l_countryId = p_args[2];
                 l_continentId = p_args[3];
-                boolean l_isCountryAdded = country.isCountryAdded(p_gameMap, l_countryId, l_continentId);
+                boolean l_isCountryAdded = country.isCountryAdded(p_gameState.getGameMap(), l_countryId, l_continentId);
                 if (l_isCountryAdded) {
                     System.out.println(Constant.SUCCESS_COLOR + l_countryId + " added to " + l_continentId
                             + Constant.RESET_COLOR);
-                    p_gamePhase = Phase.EDITMAP;
                 } else {
                     System.out.println(Constant.ERROR_COLOR + l_countryId
                             + " already exists - Please add valid Country Id" + Constant.RESET_COLOR);
                 }
             } else if (p_args[1].equals("-remove")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 3)) {
+                if (!Util.isValidCommandArgument(p_args, 3)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editcountry -remove <countryId>"
                             + Constant.RESET_COLOR);
                     return;
                 }
-                if (!this.isCountryExist(p_gameMap, p_args[2])) {
+                if (!this.isCountryExist(p_gameState.getGameMap(), p_args[2])) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country name."
                             + Constant.RESET_COLOR);
                     return;
                 }
                 l_countryId = p_args[2];
-                boolean l_isCountryRemoved = country.removeCountry(p_gameMap, l_countryId);
+                boolean l_isCountryRemoved = country.removeCountry(p_gameState.getGameMap(), l_countryId);
                 if (l_isCountryRemoved) {
                     System.out
                             .println(Constant.SUCCESS_COLOR + l_countryId + " removed"
                                     + Constant.RESET_COLOR);
-                    p_gamePhase = Phase.EDITMAP;
                 } else {
                     System.out.println(l_countryId + " does not exist - Please enter valid country name");
                 }
@@ -394,46 +392,52 @@ public class Continent {
         }
     }
 
-    public void editNeighborCountry(GameMap p_gameMap, Phase p_gamePhase, String[] p_args) {
+    /**
+     * Edit the neighbor with given params.
+     * 
+     * @param p_gameEngine GameEngine object.
+     * @param p_gameState  GameState object.
+     * @param p_args       CLI argument from user.
+     */
+    public void editNeighborCountry(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
             Country country = new Country();
             String l_countryId = p_args[2];
             String l_neighborCountryId = p_args[3];
             if (p_args[1].equals("-add")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                if (!Util.isValidCommandArgument(p_args, 4)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editneighbor -add <countryId> <neighborCountryId>"
                             + Constant.RESET_COLOR);
                     return;
                 }
-                if (!country.isCountryExist(p_gameMap, l_countryId)
-                        || !country.isCountryExist(p_gameMap, l_neighborCountryId)) {
+                if (!country.isCountryExist(p_gameState.getGameMap(), l_countryId)
+                        || !country.isCountryExist(p_gameState.getGameMap(), l_neighborCountryId)) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country Id."
                             + Constant.RESET_COLOR);
                     return;
                 }
-                boolean l_isNeighborAdded = country.isNeighborCountryAdded(p_gameMap, l_countryId, l_neighborCountryId);
+                boolean l_isNeighborAdded = country.isNeighborCountryAdded(p_gameState.getGameMap(), l_countryId,
+                        l_neighborCountryId);
                 if (l_isNeighborAdded) {
-                    p_gamePhase = Phase.EDITMAP;
                 } else {
                     System.out.println("Country does not exist - Please enter valid countryId/neighborcountryId");
                 }
             } else if (p_args[1].equals("-remove")) {
-                if (!StartUpPhase.isValidCommandArgument(p_args, 4)) {
+                if (!Util.isValidCommandArgument(p_args, 4)) {
                     System.out.println(Constant.ERROR_COLOR
                             + "Invalid command - It should be of the form: editneighbor -add <countryId> <neighborCountryId>"
                             + Constant.RESET_COLOR);
                     return;
                 }
-                if (!country.isNeighbor(p_gameMap, l_countryId, l_neighborCountryId)) {
+                if (!country.isNeighbor(p_gameState.getGameMap(), l_countryId, l_neighborCountryId)) {
                     System.out.println(Constant.ERROR_COLOR + "Invalid country Id."
                             + Constant.RESET_COLOR);
                     return;
                 }
-                boolean l_isNeighborRemoved = country.removeCountryNeighbor(p_gameMap, l_countryId,
+                boolean l_isNeighborRemoved = country.removeCountryNeighbor(p_gameState.getGameMap(), l_countryId,
                         l_neighborCountryId);
                 if (l_isNeighborRemoved) {
-                    p_gamePhase = Phase.EDITMAP;
                 } else
                     System.out.println("Country does not exist - Please enter valid countryId/neighborcountryId");
             }

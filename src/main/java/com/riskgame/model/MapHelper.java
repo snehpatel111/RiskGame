@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.riskgame.controller.GameEngine;
+import com.riskgame.model.GameState;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
 
@@ -23,13 +25,32 @@ public class MapHelper {
     private HashMap<Integer, Country> d_countryList;
 
     /**
+     * Default constructor for MapHelper.
+     */
+    public MapHelper() {
+        this.d_countryList = new HashMap<Integer, Country>();
+        this.d_gameMap = new GameMap();
+    }
+
+    /**
+     * This constructor is used to create MapHelper object.
+     * 
+     * @param p_gameState Current game state
+     */
+    public MapHelper(GameState p_gameState) {
+        this.d_gameMap = p_gameState.getGameMap();
+    }
+
+    /**
      * Helper method to add/remove a new continent to the game map.
      * 
+     * @param p_gameEngine  Current game engine
+     * @param p_gameState   Current game state
      * @param p_mapFileName Name of map file.
      * @return Edited game map
      */
 
-    public GameMap editMap(String p_mapFileName) {
+    public void editMap(GameEngine p_gameEngine, GameState p_gameState, String p_mapFileName) {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         this.d_gameMap = new GameMap(p_mapFileName);
         File l_file = new File(l_filePath);
@@ -37,22 +58,25 @@ public class MapHelper {
         if (l_file.exists()) {
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
             this.readMap(l_filePath);
+            p_gameState.updateLog(p_mapFileName + " already exists and is loaded for editing", "effect");
         } else {
             System.out.println(p_mapFileName + " does not exist.");
             System.out.println("Creating a new Map named: " + p_mapFileName);
-
+            p_gameState.updateLog(p_mapFileName + " File has been created to edit", "effect");
             this.d_gameMap = new GameMap(p_mapFileName);
         }
-        return this.d_gameMap;
+        p_gameState.setGameMap(this.d_gameMap);
+        p_gameState.setIsGameMapLoaded();
     }
 
     /**
      * Loads map data from file and populates GameMap object.
      * 
+     * @param p_gameEngine  Current game engine
+     * @param p_gameState   Current game state
      * @param p_mapFileName Name of map file
-     * @return Returns GameMap object constructed from map file
      */
-    public GameMap loadMap(String p_mapFileName) {
+    public void loadMap(GameEngine p_gameEngine, GameState p_gameState, String p_mapFileName) {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         File l_file = new File(l_filePath);
         if (l_file.exists()) {
@@ -64,16 +88,20 @@ public class MapHelper {
                 System.out.println(Constant.ERROR_COLOR
                         + "Map is not valid for playing. Try to correct map or choose from existing one"
                         + Constant.RESET_COLOR);
-                return null;
+                return;
             }
+            p_gameState.setGameMap(this.d_gameMap);
+            p_gameEngine.setGameEngineLog(
+                    p_mapFileName + " has been loaded.", "effect");
             System.out.println(
                     Constant.SUCCESS_COLOR + "Map is valid and loaded successfully." + Constant.RESET_COLOR);
-            return this.d_gameMap;
+            p_gameState.setIsGameMapLoaded();
+            return;
         }
         System.out.println(Constant.ERROR_COLOR + p_mapFileName
                 + " does not exist. Please check file path or create new map using editmap <mapName> command."
                 + Constant.RESET_COLOR);
-        return null;
+        return;
     }
 
     /**
@@ -184,11 +212,8 @@ public class MapHelper {
                     l_country = this.d_countryList.get(Integer.parseInt(l_borderList[0]));
                     for (int l_neighborCount = 1; l_neighborCount < l_borderList.length; l_neighborCount++) {
                         this.addNeighbor(l_country, l_borderList[l_neighborCount]);
-
                     }
-
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -251,7 +276,7 @@ public class MapHelper {
             return;
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
-        System.out.printf("%25s%25s%35s\n", "Continent", "Country", "Neighbour Countries");
+        System.out.printf("%25s%25s%35s\n", "Continent", "Country", "Neighbor Countries");
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
         boolean l_displayContinentName = true;
@@ -299,7 +324,7 @@ public class MapHelper {
      * @param p_playerList List of players
      * @param p_gameMap    GameMap object containing continents and countries
      */
-    public void showMap(List<Player> p_playerList, GameMap p_gameMap) {
+    public void showMap(ArrayList<Player> p_playerList, GameMap p_gameMap) {
         if (p_gameMap == null)
             return;
         if (p_playerList.size() == 0 || p_playerList.get(0).getOwnedCountries().size() == 0) {
@@ -352,15 +377,16 @@ public class MapHelper {
     /**
      * Save current game map object into .map file
      * 
-     * @param p_gameMap     Current map object to be saved
+     * @param p_gameState   Game state object
      * @param p_mapFileName Name of the file
      * @return Returns true if successfully saved, otherwise false
      */
-    public boolean saveMap(GameMap p_gameMap, String p_mapFileName) {
+    public boolean saveMap(GameState p_gameState, String p_mapFileName) {
         MapValidator l_mapValidator = new MapValidator();
+        GameMap l_gameMap = p_gameState.getGameMap();
 
         if (l_mapValidator.isValidMapName(p_mapFileName)) {
-            if (l_mapValidator.isValidMap(p_gameMap)) {
+            if (l_mapValidator.isValidMap(l_gameMap)) {
                 try {
                     BufferedWriter l_writer = new BufferedWriter(
                             new FileWriter(Constant.MAP_PATH + p_mapFileName + ".map"));
@@ -379,7 +405,7 @@ public class MapHelper {
 
                     l_writer.write("[continents]");
                     l_writer.newLine();
-                    for (Continent l_continent : p_gameMap.getContinents().values()) {
+                    for (Continent l_continent : l_gameMap.getContinents().values()) {
 
                         System.out.println("Continent ID:" + l_continent.getContinentId());
                         System.out.println("Controller Value:" + l_continent.getControlValue());
@@ -397,10 +423,10 @@ public class MapHelper {
                     l_writer.write("[countries]");
                     l_writer.newLine();
 
-                    for (Country l_country : p_gameMap.getCountries().values()) {
+                    for (Country l_country : l_gameMap.getCountries().values()) {
                         l_writer.write(Integer.toString(l_countryIndex) + " " + l_country.getCountryId() + " "
                                 + Integer.toString(
-                                        p_gameMap.getContinents().get(l_country.getBelongingContinent().toLowerCase())
+                                        l_gameMap.getContinents().get(l_country.getBelongingContinent().toLowerCase())
                                                 .getBelongingMapIndex())
                                 + " " + l_country.getXCoOrdinate() + " " + l_country.getYCoOrdinate());
 
@@ -417,9 +443,9 @@ public class MapHelper {
                     l_writer.flush();
                     for (int i = 1; i < l_countryIndex; i++) {
                         String l_countryId = l_indexCountryMap.get(i);
-                        Country l_country = p_gameMap.getCountries().get(l_countryId.toLowerCase());
+                        Country l_country = l_gameMap.getCountries().get(l_countryId.toLowerCase());
                         l_writer.write(Integer.toString(i) + " ");
-                        for (Country l_neighbor : l_country.getNeighbours().values()) {
+                        for (Country l_neighbor : l_country.getNeighbors().values()) {
                             l_writer.write(
                                     Integer.toString(l_countryIndexMap.get(l_neighbor.getCountryId().toLowerCase()))
                                             + " ");

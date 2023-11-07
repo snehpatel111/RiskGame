@@ -85,15 +85,6 @@ public class Country {
     }
 
     /**
-     * Returns neighbors of country.
-     * 
-     * @return Returns neighbours of country
-     */
-    public HashMap<String, Country> getNeighbours() {
-        return this.d_neighbors;
-    }
-
-    /**
      * Returns x-coordinate of the country on map
      * 
      * @return Returns x-coordinate of map

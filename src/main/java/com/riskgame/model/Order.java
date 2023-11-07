@@ -8,7 +8,8 @@ public interface Order {
 
     /**
      * execution method to implement specific orders
+     * 
      * @return true is order executed successfully, or false if it fails
      */
-    public boolean execute();
+    public boolean execute(GameState p_gameState);
 }

@@ -1,7 +1,6 @@
 package com.riskgame.model;
 
-public class Deploy implements Order{
-
+public class Deploy implements Order {
 
     private int d_armyCount;
     private String d_countryId;
@@ -26,7 +25,7 @@ public class Deploy implements Order{
      * @return Returns true if order is executed successfully, otherwise false
      */
     @Override
-    public boolean execute() {
+    public boolean execute(GameState p_gameState) {
         Country l_country = d_player.getOwnedCountries().get(this.d_countryId.toLowerCase());
         int l_existingArmies = l_country.getNumberOfArmies();
         l_existingArmies += d_armyCount;
@@ -72,6 +71,7 @@ public class Deploy implements Order{
 
     /**
      * Getter method to get army count
+     * 
      * @return d_armyCount
      */
     public int getD_numArmies() {
@@ -80,6 +80,7 @@ public class Deploy implements Order{
 
     /**
      * Setter method to set army count
+     * 
      * @param p_armyCount number of armies
      */
     public void setD_numArmies(int p_armyCount) {

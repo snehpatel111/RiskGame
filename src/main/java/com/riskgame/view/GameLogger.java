@@ -11,10 +11,10 @@ import java.util.Observer;
 import com.riskgame.model.LogEntryBuffer;
 
 /**
- * The `LogWriter` class is responsible for updating a log file based on logs
+ * The `GameLogger` class is responsible for updating a log file based on logs
  * provided by the `LogEntryBuffer` class.
  */
-public class LogWriter implements Observer {
+public class GameLogger implements Observer {
 
   /**
    * The `LogEntryBuffer` object that provides updated log entries.
@@ -30,7 +30,7 @@ public class LogWriter implements Observer {
   @Override
   public void update(Observable p_observable, Object p_object) {
     this.d_logEntryBuffer = (LogEntryBuffer) p_observable;
-    File l_logfile = new File("LogFile.txt");
+    // File l_logfile = new File("LogFile.txt");
     String l_logMessage = this.d_logEntryBuffer.getD_logMessage();
 
     try {

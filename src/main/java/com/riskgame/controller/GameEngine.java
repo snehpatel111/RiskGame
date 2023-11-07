@@ -34,20 +34,21 @@ public class GameEngine {
 	 * Updates the current phase to Issue Order Phase as per State Pattern.
 	 */
 	public void setIssueOrderPhase() {
-		System.out.println("lol playerList size is " + this.d_gameState.getPlayerList().size());
+
 		this.setGameEngineLog("Issue Order Phase", "phase");
 		this.setCurrentGamePhase(new IssueOrderPhase(this, this.d_gameState));
 		this.getCurrentGamePhase().initPhase();
 	}
 
 	// /**
-	//  * this methods updates the current phase to Order Execution Phase as per State
-	//  * Pattern.
-	//  */
+	// * this methods updates the current phase to Order Execution Phase as per
+	// State
+	// * Pattern.
+	// */
 	// public void setOrderExecutionPhase() {
-	// 	this.setGameEngineLog("Order Execution Phase", "phase");
-	// 	this.setCurrentGamePhase(new OrderExecutionPhase(this, d_gameState));
-	// 	this.getCurrentGamePhase().initPhase();
+	// this.setGameEngineLog("Order Execution Phase", "phase");
+	// this.setCurrentGamePhase(new OrderExecutionPhase(this, d_gameState));
+	// this.getCurrentGamePhase().initPhase();
 	// }
 
 	/**
@@ -68,8 +69,8 @@ public class GameEngine {
 	public void setGameEngineLog(String p_gameEngineLog, String p_logType) {
 		this.d_currentGamePhase.getGameState().updateLog(p_gameEngineLog, p_logType);
 		// String l_consoleLogger = p_logType.toLowerCase().equals("phase")
-		// 		? "\n************ " + p_gameEngineLog + " ************\n"
-		// 		: p_gameEngineLog;
+		// ? "\n************ " + p_gameEngineLog + " ************\n"
+		// : p_gameEngineLog;
 		// System.out.println(l_consoleLogger);
 	}
 

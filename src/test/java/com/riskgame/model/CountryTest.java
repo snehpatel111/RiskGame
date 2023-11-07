@@ -11,6 +11,7 @@ public class CountryTest {
     String d_countryId;
     String d_belongingContinent;
     Country d_country;
+    GameState d_gameState;
 
     /**
      * Set up the context
@@ -28,7 +29,7 @@ public class CountryTest {
      */
     @Test
     public void testRemoveNonExistentCountry() {
-        boolean l_isCountryRemoved = this.d_country.removeCountry(this.d_gameMap, "nonExistentCountry");
+        boolean l_isCountryRemoved = this.d_country.removeCountry(this.d_gameMap, "nonExistentCountry", d_gameState);
         assertFalse(l_isCountryRemoved);
     }
 
@@ -38,7 +39,7 @@ public class CountryTest {
     @Test
     public void testRemoveNonExistentNeighborCountry() {
         boolean l_isCountryRemoved = this.d_country.removeCountryNeighbor(this.d_gameMap, this.d_countryId,
-                "nonExistentNeighborCountry");
+                "nonExistentNeighborCountry", d_gameState);
         assertFalse(l_isCountryRemoved);
     }
 

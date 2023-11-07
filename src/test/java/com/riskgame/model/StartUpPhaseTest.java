@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.riskgame.model.Phase;
+import com.riskgame.utility.Util;
 
 import static org.junit.Assert.*;
 

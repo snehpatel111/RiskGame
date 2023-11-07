@@ -3,6 +3,7 @@ package com.riskgame.model;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.riskgame.controller.GameEngine;
 import com.riskgame.model.Phase;
 
 import static org.junit.Assert.*;
@@ -14,6 +15,8 @@ public class ContinentTest {
     int d_controlValue;
     MapHelper d_mapHelper;
     Continent d_continent;
+    GameState d_gamestate;
+    GameEngine d_gameEngine;
 
     /**
      * Set up the context
@@ -46,10 +49,10 @@ public class ContinentTest {
      */
     @Test
     public void testRemoveContinent() {
-        this.d_gameMap = this.d_mapHelper.editMap("ameroki.map");
+        this.d_gameMap = this.d_mapHelper.editMap("ameroki.map", d_gamestate);
         Continent l_continent = new Continent("azio", 5);
 
-        boolean l_check = l_continent.removeContinent(this.d_gameMap);
+        boolean l_check = l_continent.removeContinent(this.d_gameMap, d_gamestate);
         assertTrue(l_check);
     }
 

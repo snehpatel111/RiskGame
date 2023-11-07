@@ -57,7 +57,7 @@ public class MapHelper {
 
         if (l_file.exists()) {
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
-            this.readMap(l_filePath);
+            this.readMap(l_filePath, p_gameState);
             p_gameState.updateLog(p_mapFileName + " already exists and is loaded for editing", "effect");
         } else {
             System.out.println(p_mapFileName + " does not exist.");
@@ -82,25 +82,33 @@ public class MapHelper {
         if (l_file.exists()) {
             this.d_gameMap = new GameMap(p_mapFileName);
             System.out.println("Loading map from " + p_mapFileName + "...");
-            this.readMap(l_filePath);
+            this.readMap(l_filePath, p_gameState);
             MapValidator l_mapValidator = new MapValidator();
             if (!l_mapValidator.isValidMap(this.d_gameMap)) {
                 System.out.println(Constant.ERROR_COLOR
                         + "Map is not valid for playing. Try to correct map or choose from existing one"
                         + Constant.RESET_COLOR);
+                p_gameState.updateLog(
+                        p_mapFileName + " map is not valid for playing. Try to correct map or choose from existing one",
+                        "effect");
                 return;
             }
             p_gameState.setGameMap(this.d_gameMap);
-            p_gameEngine.setGameEngineLog(
-                    p_mapFileName + " has been loaded.", "effect");
             System.out.println(
                     Constant.SUCCESS_COLOR + "Map is valid and loaded successfully." + Constant.RESET_COLOR);
+            p_gameState.updateLog(
+                    p_mapFileName + " map is valid and loaded successfully.",
+                    "effect");
             p_gameState.setIsGameMapLoaded();
             return;
         }
         System.out.println(Constant.ERROR_COLOR + p_mapFileName
                 + " does not exist. Please check file path or create new map using editmap <mapName> command."
                 + Constant.RESET_COLOR);
+        p_gameState.updateLog(
+                p_mapFileName
+                        + " does not exist. Please check file path or create new map using editmap <mapName>command",
+                "effect");
         return;
     }
 
@@ -109,7 +117,7 @@ public class MapHelper {
      * 
      * @param p_mapFileName Name of .map file
      */
-    public void readMap(String p_mapFileName) {
+    public void readMap(String p_mapFileName, GameState p_gameState) {
         try {
             this.d_countryList = new HashMap<Integer, Country>();
             BufferedReader l_reader = new BufferedReader(new FileReader(p_mapFileName));
@@ -118,9 +126,9 @@ public class MapHelper {
                 if (l_line.equals("[continents]"))
                     l_reader = this.readContinent(l_reader);
                 else if (l_line.equals("[countries]"))
-                    l_reader = this.readCountries(l_reader);
+                    l_reader = this.readCountries(l_reader, p_gameState);
                 else if (l_line.equals("[borders]"))
-                    l_reader = this.readBorders(l_reader);
+                    l_reader = this.readBorders(l_reader, p_gameState);
             }
             l_reader.close();
         } catch (FileNotFoundException e) {
@@ -168,7 +176,7 @@ public class MapHelper {
      * @param p_reader Stream pointing to countries section of .map file
      * @return BufferReader stream pointing end of countries section of .map file.
      */
-    private BufferedReader readCountries(BufferedReader p_reader) {
+    private BufferedReader readCountries(BufferedReader p_reader, GameState p_gameState) {
         try {
             String l_line;
             while (!((l_line = p_reader.readLine()).equals(""))) {
@@ -184,7 +192,7 @@ public class MapHelper {
                     }
                     // Add country to the appropriate continent in the map. Terminate if duplicate
                     // entry.
-                    this.addCountryToContinent(l_country);
+                    this.addCountryToContinent(l_country, p_gameState);
                     this.d_countryList.put(l_country.getIndex(), l_country);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -202,7 +210,7 @@ public class MapHelper {
      * @param p_reader Stream pointing to borders section of .map file
      * @return BufferReader stream pointing end of borders section of .map file.
      */
-    private BufferedReader readBorders(BufferedReader p_reader) {
+    private BufferedReader readBorders(BufferedReader p_reader, GameState p_gameState) {
         try {
             String l_line;
             while ((l_line = p_reader.readLine()) != null) {
@@ -211,7 +219,7 @@ public class MapHelper {
                     Country l_country = new Country();
                     l_country = this.d_countryList.get(Integer.parseInt(l_borderList[0]));
                     for (int l_neighborCount = 1; l_neighborCount < l_borderList.length; l_neighborCount++) {
-                        this.addNeighbor(l_country, l_borderList[l_neighborCount]);
+                        this.addNeighbor(l_country, l_borderList[l_neighborCount], p_gameState);
                     }
                 }
             }
@@ -229,13 +237,18 @@ public class MapHelper {
      * @param p_countryIndex Index of the country to be added as a neighbor to the
      *                       argument country
      */
-    private void addNeighbor(Country p_country, String p_countryIndex) {
+    private void addNeighbor(Country p_country, String p_countryIndex, GameState p_gameState) {
         int l_borderIndex = Integer.parseInt(p_countryIndex);
         Country l_neighborCountry = new Country();
         try {
             l_neighborCountry = this.d_countryList.get(l_borderIndex);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(Constant.ERROR_COLOR + "Found error reading the .map file" + Constant.RESET_COLOR);
+            p_gameState.updateLog(
+                    "Found error reading the .map file",
+                    "effect");
+            p_gameState.updateLog(
+                    "The neighbor " + l_borderIndex + " does not exist.",
+                    "effect");
             System.out.println(Constant.ERROR_COLOR + "The neighbor " + l_borderIndex + " does not exist."
                     + Constant.RESET_COLOR);
             System.exit(-1);
@@ -250,7 +263,7 @@ public class MapHelper {
      * 
      * @param p_country
      */
-    private void addCountryToContinent(Country p_country) {
+    private void addCountryToContinent(Country p_country, GameState p_gameState) {
         Country country = new Country();
         if (!country.isCountryExist(this.d_gameMap, p_country.getCountryId())) {
             Continent l_belongingContinent = this.d_gameMap.getContinents()
@@ -258,6 +271,7 @@ public class MapHelper {
             l_belongingContinent.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
             this.d_gameMap.getCountries().put(p_country.getCountryId().toLowerCase(), p_country);
         } else {
+            p_gameState.updateLog("Two countries of same name exists in the same continent.", null);
             System.out.println(Constant.ERROR_COLOR + "Error reading the file." + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + "Two countries of same name exists in the same continent."
                     + Constant.RESET_COLOR);
@@ -268,12 +282,13 @@ public class MapHelper {
     /**
      * Display Map as a text
      * 
-     * @param p_gameMap GameMap object containing continents and countries
-     * 
+     * @param p_gameMap   GameMap object containing continents and countries
+     * @param p_gameState
      */
-    public void showMap(GameMap p_gameMap) {
+    public void showMap(GameMap p_gameMap, GameState p_gameState) {
         if (p_gameMap == null)
             return;
+        p_gameState.updateLog("Map shown successfully", "effect");
         System.out.printf("%85s\n",
                 "-------------------------------------------------------------------------------------------");
         System.out.printf("%25s%25s%35s\n", "Continent", "Country", "Neighbor Countries");
@@ -324,11 +339,11 @@ public class MapHelper {
      * @param p_playerList List of players
      * @param p_gameMap    GameMap object containing continents and countries
      */
-    public void showMap(ArrayList<Player> p_playerList, GameMap p_gameMap) {
+    public void showMap(ArrayList<Player> p_playerList, GameMap p_gameMap, GameState p_gameState) {
         if (p_gameMap == null)
             return;
         if (p_playerList.size() == 0 || p_playerList.get(0).getOwnedCountries().size() == 0) {
-            this.showMap(p_gameMap);
+            this.showMap(p_gameMap, p_gameState);
             return;
         }
         System.out.format("%25s%25s%35s%25s%20s\n", "Player", "Country", "Neighbors", "Continent", "Deployed Armies");
@@ -459,12 +474,18 @@ public class MapHelper {
                 }
                 return true;
             } else {
+                p_gameState.updateLog(
+                        "Map not suitable for game play. Correct the map to continue with the new map or load a map from the existing maps.",
+                        "effect");
                 System.out.println(Constant.ERROR_COLOR +
                         "Map not suitable for game play. Correct the map to continue with the new map or load a map from the existing maps."
                         + Constant.RESET_COLOR);
                 return false;
             }
         } else {
+            p_gameState.updateLog(
+                    "Invalid Map name",
+                    "effect");
             System.out.println(Constant.ERROR_COLOR +
                     "Invalid Map name" + Constant.RESET_COLOR);
             return false;

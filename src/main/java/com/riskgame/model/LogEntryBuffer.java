@@ -1,7 +1,7 @@
 package com.riskgame.model;
 
 import java.util.Observable;
-import com.riskgame.view.LogWriter;
+import com.riskgame.view.GameLogger;
 
 /**
  * Records logs for different stages of the game.
@@ -14,10 +14,11 @@ public class LogEntryBuffer extends Observable {
   String d_logMessage;
 
   /**
-   * Initializes an instance of the class by adding a `LogWriter` observer object.
+   * Initializes an instance of the class by adding a `GameLogger` observer
+   * object.
    */
   public LogEntryBuffer() {
-    LogWriter l_logWriter = new LogWriter();
+    GameLogger l_logWriter = new GameLogger();
     this.addObserver(l_logWriter);
   }
 

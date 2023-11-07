@@ -134,7 +134,7 @@ public abstract class Phase {
                 this.showMap(this.d_gameEngine, this.d_gameState, l_data);
                 break;
             case "deploy":
-                this.deploy(p_player, l_data);
+                this.deploy(p_player, l_data, this.d_gameState);
                 break;
             // case "advance":
             // this.advance(this.d_gameEngine, this.d_gameState, l_data);
@@ -193,11 +193,13 @@ public abstract class Phase {
     /**
      * This method handles the deploy order in gameplay.
      *
-     * @param p_player Instance of Player object
-     * @param p_args   Command line arguments to edit continent.
+     * @param p_player    Instance of Player object
+     * @param p_args      Command line arguments to edit continent.
+     * @param p_gameState GameState object containing current game state
+     *                    state.
      * 
      */
-    protected abstract void deploy(Player p_player, String[] p_args);
+    protected abstract void deploy(Player p_player, String[] p_args, GameState p_gameState);
 
     /**
      * Method to Log and Print if the command can't be executed in current phase.

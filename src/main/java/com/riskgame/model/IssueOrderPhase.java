@@ -44,13 +44,14 @@ public class IssueOrderPhase extends Phase {
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 2)) {
+      p_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> showMap"
           + Constant.RESET_COLOR);
       return;
     }
     MapHelper l_mapHelper = new MapHelper(p_gameState);
-    l_mapHelper.showMap(p_gameState.getGameMap());
+    l_mapHelper.showMap(p_gameState.getGameMap(), p_gameState);
 
     // getOrder(p_player);
   }
@@ -65,29 +66,29 @@ public class IssueOrderPhase extends Phase {
 
   @Override
   public void initPhase() {
-    System.out.println("lol issueOrder initPhase");
+
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
     while (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
       try {
         int l_totalReinforcement = 0;
         Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();
-        System.out.println("lol issueOrder player list size is " + this.d_gameState.getPlayerList().size());
+
         while (l_iterator.hasNext()) {
           Player l_player = l_iterator.next();
           l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
         }
-        System.out.println("lol total reinforcement is " + l_totalReinforcement);
+
         if (l_totalReinforcement <= 0) {
           break;
         }
         // if (l_totalReinforcement > 0) {
-          l_iterator = this.d_gameState.getPlayerList().listIterator();
-          while (l_iterator.hasNext()) {
-            Player l_player = l_iterator.next();
-            System.out.println("Player " + l_player.getPlayerName() + "'s turn");
-            String l_command = l_reader.readLine();
-            this.handleCommand(l_command, l_player);
-          }
+        l_iterator = this.d_gameState.getPlayerList().listIterator();
+        while (l_iterator.hasNext()) {
+          Player l_player = l_iterator.next();
+          System.out.println("Player " + l_player.getPlayerName() + "'s turn");
+          String l_command = l_reader.readLine();
+          this.handleCommand(l_command, l_player);
+        }
         // }
         break;
       } catch (Exception e) {
@@ -98,14 +99,14 @@ public class IssueOrderPhase extends Phase {
   }
 
   @Override
-  protected void deploy(Player p_player, String[] p_args) {
-    System.out.println("lol issueOrder deploy");
+  protected void deploy(Player p_player, String[] p_args, GameState p_gameState) {
+
     // p_player.createDeployOrder(p_command);
     // p_gameState.updateLog(p_player.getD_playerLog(), "effect");
     // p_player.checkForMoreOrders();
 
     p_player.setArgs(p_args);
-    p_player.issue_deployOrder();
+    p_player.issue_deployOrder(p_gameState);
   }
 
   // /**

@@ -44,7 +44,7 @@ public class Card {
      */
     public void createCard()
     {
-        d_cardType = randomCard();
+        d_cardType = this.getRandomCard();
     }
 
     /**
@@ -59,11 +59,11 @@ public class Card {
      * Picks a random card from the Cards List using random generator
      * @return The index of the Cards List
      */
-    public String randomCard()
+    public String getRandomCard()
     {
         Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(d_cardsList.length);
-        return d_cardsList[index];
+        int index = randomGenerator.nextInt(this.d_cardsList.length);
+        return this.d_cardsList[index];
     }
 
 

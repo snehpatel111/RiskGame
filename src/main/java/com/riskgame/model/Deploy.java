@@ -32,7 +32,7 @@ public class Deploy implements Order{
 		// }
 		// this.status = true;
         System.out.println("-----------diploy Order Execution inside---------");
-        Country l_country = d_player.getOwnedCountries().get(this.d_countryId.toLowerCase());
+        Country l_country = this.d_player.getOwnedCountries().get(this.d_countryId.toLowerCase());
         int l_existingArmies = l_country.getNumberOfArmies();
         l_existingArmies += d_armyCount;
         l_country.setNumberOfArmies(l_existingArmies);

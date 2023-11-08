@@ -31,16 +31,6 @@ public class IssueOrderPhase extends Phase {
     super(p_gameEngine, p_gameState);
   }
 
-  // @Override
-  // protected void performCardHandle(String p_enteredCommand, Player p_player)
-  // throws IOException {
-  // if (p_player.getD_ownedCards().contains(p_enteredCommand.split(" ")[0])) {
-  // p_player.handleCardCommands(p_enteredCommand, p_gameState);
-  // p_gameEngine.setD_gameEngineLog(p_player.getD_playerLog(), "effect");
-  // }
-  // p_player.checkForMoreOrders();
-  // }
-
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {
@@ -52,17 +42,7 @@ public class IssueOrderPhase extends Phase {
     }
     MapHelper l_mapHelper = new MapHelper(p_gameState);
     l_mapHelper.showMap(p_gameState.getPlayerList(), p_gameState.getGameMap(), p_gameState);
-
-    // getOrder(p_player);
   }
-
-  // @Override
-  // protected void performAdvance(String p_command, Player p_player) throws
-  // IOException {
-  // p_player.createAdvanceOrder(p_command, this.d_gameState);
-  // p_gameState.updateLog(p_player.getPlayerLog(), "effect");
-  // p_player.checkForMoreOrders();
-  // }
 
   @Override
   public void initPhase() {
@@ -75,7 +55,7 @@ public class IssueOrderPhase extends Phase {
             + Constant.RESET_COLOR);
     while (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
       try {
-        
+
         int l_totalReinforcement = this.d_gameState.getTotalArmyOfAllPlayers();
         System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
         if (l_totalReinforcement == 0) {
@@ -85,7 +65,7 @@ public class IssueOrderPhase extends Phase {
         for (Player l_player : this.d_gameState.getPlayerList()) {
           printPlayerArmies(this.d_gameState);
           System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count : "
-              + l_player.getOwnedArmyCount() + " )");
+              + l_player.getOwnedArmyCount() + ")");
           String l_command = l_reader.readLine();
           System.out.println(l_command);
           this.handleCommand(l_command, l_player);
@@ -103,9 +83,6 @@ public class IssueOrderPhase extends Phase {
       System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmyCount() + " armies currently.");
     }
   }
-
-  
- 
 
   /**
    * {@inheritDoc}
@@ -248,7 +225,6 @@ public class IssueOrderPhase extends Phase {
     p_player.issue_blockadeOrder();
   }
 
-
   @Override
   protected void airLift(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
@@ -256,5 +232,3 @@ public class IssueOrderPhase extends Phase {
     p_player.issue_airliftOrder();
   }
 }
-
-

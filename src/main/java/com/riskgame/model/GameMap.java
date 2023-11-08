@@ -8,9 +8,21 @@ import java.util.HashMap;
  * @author Sneh
  */
 public class GameMap {
+    /**
+     * d_map_name is the name of the map
+     */
     private String d_mapName;
+    /**
+     * d_isValid is true if the map is valid
+     */
     private boolean d_isValid;
+    /**
+     * d_continents is the Hashmap of continents
+     */
     private HashMap<String, Continent> d_continents;
+    /**
+     * d_countries is the Hashmap of countries
+     */
     private HashMap<String, Country> d_countries;
 
     /**
@@ -25,6 +37,8 @@ public class GameMap {
 
     /**
      * Initialize GameMap object with given map name and default values.
+     * 
+     * @param p_mapName The name of the map.
      */
     public GameMap(String p_mapName) {
         this.d_mapName = p_mapName;

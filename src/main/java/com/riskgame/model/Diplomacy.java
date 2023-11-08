@@ -22,6 +22,7 @@ public class Diplomacy implements Order{
     /**
      * execution logic of Diplomacy order
      * 
+     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override

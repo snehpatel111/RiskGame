@@ -43,12 +43,20 @@ public class Blockade implements Order {
         if (this.status) {
             return true;
         }
+
+        
         this.status = true;
         System.out.println("-----------blockade Order Execution inside---------");
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
+        if(l_c == null)
+        {
+            return false;
+        }
         int l_existingArmies = l_c.getNumberOfArmies();
         l_existingArmies *= 3;
         l_c.setNumberOfArmies(l_existingArmies);
+
+        
 
         // Making territory neutral
         d_player.getOwnedCountries().remove(l_c.getCountryId().toLowerCase());

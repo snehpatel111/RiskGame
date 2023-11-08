@@ -50,7 +50,73 @@ public class Advance implements Order {
 	 */
 	@Override
 	public boolean execute() {
+		// if(this.status){
+		// return true;
+		// }
+		// this.status = true;
+		if (this.d_attackPlayer == null || this.d_targetPlayer == null) {
+			System.out.println("Invalid players specified.");
+			return false;
+		}
+
+		Country sourceCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase());
+		Country targetCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_targetCountryId.toLowerCase());
+		Country defendingCountry = this.d_targetPlayer.getOwnedCountries().get(this.d_targetCountryId.toLowerCase());
+		
+		 // Check if the source and target countries exist
+		 if (sourceCountry == null || targetCountry == null || defendingCountry == null) {
+			System.out.println("Invalid source, target, or defending country specified.");
+			return false;
+		}
+	
+		// Check if the source country is owned by the player
+		if (!this.d_attackPlayer.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase())) {
+			System.out.println("Source country is not owned by the player.");
+			return false;
+		}
+	
+		// Check if the target player is in the negotiate list
+		if (this.d_attackPlayer.getNegotiatePlayerList().contains(this.d_targetPlayer)) {
+			System.out.println("Negotiate order. Skipping execution.");
+			return false;
+		}
+
 		System.out.println("-----------Advance Order Execution inside---------");
+
+		if (this.d_attackPlayer == null || this.d_targetPlayer == null) {
+			System.out.println("Invalid players specified.");
+			return false;
+		}
+
+		if (this.d_sourceCountryId == null || this.d_targetCountryId == null) {
+			System.out.println("Invalid source or target country specified.");
+			return false;
+		}
+
+		if (this.d_attackPlayer == null || this.d_targetPlayer == null) {
+			System.out.println("Invalid players specified.");
+			return false;
+		}
+
+		
+
+		if (sourceCountry == null || targetCountry == null) {
+			System.out.println("Source or target country not found.");
+			return false;
+		}
+	
+		// Check if the source country is owned by the player
+		if (!this.d_attackPlayer.getOwnedCountries().containsKey(d_targetCountryId.toLowerCase())) {
+			System.out.println("Source country is not owned by the player.");
+			return false;
+		}
+	
+		if (targetCountry == null || defendingCountry == null) {
+			System.out.println("Invalid source or target country specified.");
+			return false;
+		}
+
+		
 		System.out.println("lol d_attackPlayer owns country: "
 				+ this.d_attackPlayer.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase()));
 		if (this.d_attackPlayer.getOwnedCountries().size() == 0) {
@@ -115,7 +181,6 @@ public class Advance implements Order {
 				// fetching the countries and its armies
 				Country attackingCountry = this.d_attackPlayer.getOwnedCountries()
 						.get(this.d_sourceCountryId.toLowerCase());
-				Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
 
 				int l_defendArmy = defendingCountry.getNumberOfArmies();
 				System.out.println("lol - defend " + l_defendArmy + " - d_army " +

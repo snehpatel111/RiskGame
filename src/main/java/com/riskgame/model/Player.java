@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
@@ -37,8 +38,15 @@ public class Player {
     public ArrayList<Player> d_negotiatePlayers;
     public ArrayList<Card> d_ownedCards;
     public String[] d_args;
+    private Map<String, Country> ownedCountries = new HashMap<>();
 
     public GameState d_gameState = new GameState();
+
+    public void addOwnedCountry(Country country) {
+        ownedCountries.put(country.getCountryId(), country);
+    }
+
+   
 
     /**
      * This constructor assigns name to the player.

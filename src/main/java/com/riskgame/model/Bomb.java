@@ -4,8 +4,8 @@ package com.riskgame.model;
  * Class containing logic for implementation of Bomb order
  *
  */
-public class Bomb implements Order {
-
+public class Bomb implements Order{
+    private boolean status = false;
     private String d_countryId;
     private Player d_targetPlayer;
     private Player d_attackPlayer;
@@ -18,7 +18,7 @@ public class Bomb implements Order {
      *                       effect
      * @param p_attackPlayer attack player who will bomb
      */
-    public Bomb(Player p_attackPlayer, Player p_targetPlayer, String p_countryId, GameState p_gameState) {
+    public Bomb(Player p_attackPlayer, Player p_targetPlayer, String p_countryId) {
         d_targetPlayer = p_targetPlayer;
         d_attackPlayer = p_attackPlayer;
         d_countryId = p_countryId;
@@ -27,17 +27,19 @@ public class Bomb implements Order {
     /**
      * execution logic of Bomb order
      * 
-     * @param p_gameState The instance of the current game state in the GameEngine.
      * @return true if executed successfully else false if it fails
      */
     @Override
-    public boolean execute(GameState p_gameState) {
-        // Check if Source player negotiating target Player
-        if (d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
-            p_gameState.updateLog(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
-                    "effect");
-            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
-            // skip execute
+    public boolean execute() {
+        if(this.status){
+			return true;
+		}
+		this.status = true;
+        System.out.println("-----------bomb Order Execution inside---------");
+        //Check if Source player negotiating target Player
+        if(d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)){
+            System.out.println(d_attackPlayer.getPlayerName()+" has negotiated "+d_targetPlayer.getPlayerName());
+            //skip execute
             return false;
         }
         Country l_c = d_targetPlayer.getOwnedCountries().get(d_countryId.toLowerCase());

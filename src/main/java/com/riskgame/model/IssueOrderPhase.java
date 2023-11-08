@@ -43,7 +43,7 @@ public class IssueOrderPhase extends Phase {
 
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    if (!Util.isValidCommandArgument(p_args, 2)) {
+    if (!Util.isValidCommandArgument(p_args, 1)) {
       p_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> showMap"
@@ -51,7 +51,7 @@ public class IssueOrderPhase extends Phase {
       return;
     }
     MapHelper l_mapHelper = new MapHelper(p_gameState);
-    l_mapHelper.showMap(p_gameState.getGameMap(), p_gameState);
+    l_mapHelper.showMap(p_gameState.getPlayerList(), p_gameState.getGameMap(), p_gameState);
 
     // getOrder(p_player);
   }
@@ -68,97 +68,61 @@ public class IssueOrderPhase extends Phase {
   public void initPhase() {
 
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+    this.assignReinforcementToPlayer(this.d_gameState);
+    System.out.println(
+        Constant.SUCCESS_COLOR
+            + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
+            + Constant.RESET_COLOR);
     while (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
       try {
-        int l_totalReinforcement = 0;
-        Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();
-
-        while (l_iterator.hasNext()) {
-          Player l_player = l_iterator.next();
-          l_totalReinforcement += l_player.getOwnedArmyCount() > 0 ? l_player.getOwnedArmyCount() : 0;
-        }
-
-        if (l_totalReinforcement <= 0) {
+        
+        int l_totalReinforcement = this.d_gameState.getTotalArmyOfAllPlayers();
+        System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
+        if (l_totalReinforcement == 0) {
+          this.d_gameEngine.setOrderExecutionPhase();
           break;
         }
-        // if (l_totalReinforcement > 0) {
-        l_iterator = this.d_gameState.getPlayerList().listIterator();
-        while (l_iterator.hasNext()) {
-          Player l_player = l_iterator.next();
-          System.out.println("Player " + l_player.getPlayerName() + "'s turn");
+        for (Player l_player : this.d_gameState.getPlayerList()) {
+          printPlayerArmies(this.d_gameState);
+          System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count : "
+              + l_player.getOwnedArmyCount() + " )");
           String l_command = l_reader.readLine();
+          System.out.println(l_command);
           this.handleCommand(l_command, l_player);
         }
-        // }
-        break;
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
       }
-      // this.issueOrders();
     }
   }
 
-  @Override
-  protected void deploy(Player p_player, String[] p_args, GameState p_gameState) {
-
-    // p_player.createDeployOrder(p_command);
-    // p_gameState.updateLog(p_player.getD_playerLog(), "effect");
-    // p_player.checkForMoreOrders();
-
-    p_player.setArgs(p_args);
-    p_player.issue_deployOrder(p_gameState);
+  public void printPlayerArmies(GameState p_gs) {
+    Iterator<Player> l_itr = p_gs.getPlayerList().listIterator();
+    while (l_itr.hasNext()) {
+      Player l_p = l_itr.next();
+      System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmyCount() + " armies currently.");
+    }
   }
 
-  // /**
-  // * Accepts orders from players.
-  // */
-  // protected void issueOrders() {
-  // do {
-  // for (Player p_player : this.d_gameState.getPlayerList()) {
-  // if (p_player.getD_moreOrders() &&
-  // !p_player.getD_playerName().equals("Neutral")) {
-  // try {
-  // p_player.issueOrder(this);
-  // } catch (InvalidCommand | IOException | InvalidMap p_exception) {
-  // p_gameEngine.setD_gameEngineLog(p_exception.getMessage(), "effect");
-  // }
-  // }
-  // }
-  // } while
-  // (p_playerService.checkForMoreOrders(this.d_gameState.getPlayerList()));
+  
+ 
 
-  // p_gameEngine.setOrderExecutionPhase();
-  // }
-
-  // /**
-  // * Get order commands from the user.
-  // *
-  // * @param p_player The player for which commands are to be issued.
-  // * @throws InvalidCommand Exception if the command is invalid.
-  // * @throws IOException Indicates a failure in an I/O operation.
-  // * @throws InvalidMap Indicates a failure in using an invalid map.
-  // */
-  // public void getOrder(Player p_player) throws InvalidCommand, IOException,
-  // InvalidMap {
-  // BufferedReader l_reader = new BufferedReader(new
-  // InputStreamReader(System.in));
-  // System.out.println("\nPlease enter a command to issue an order for player: "
-  // + p_player.getD_playerName()
-  // + " or give the 'showmap' command to view the current state of the game.");
-  // String l_commandEntered = l_reader.readLine();
-
-  // p_gameState.updateLog("(Player: " + p_player.getD_playerName() + ") " +
-  // l_commandEntered, "order");
-
-  // handleCommand(l_commandEntered, p_player);
-  // }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void deploy(GameState p_gameState, Player p_player, String[] p_args) {
+    p_player.setArgs(p_args);
+    p_player.setGameState(p_gameState);
+    p_player.issue_deployOrder();
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
   public void assignCountries(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -166,7 +130,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -174,7 +138,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void editNeighbor(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -182,7 +146,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void editCountry(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -190,7 +154,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void validateMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -198,7 +162,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void loadMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -206,7 +170,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void saveMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -214,7 +178,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
   }
 
   /**
@@ -222,6 +186,75 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void editMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    printInvalidCommandInState();
+    this.printInvalidCommandInState();
+  }
+
+  /**
+   * method to assign reignforcement to each player
+   * 
+   * @param p_gameState game state
+   */
+  @Override
+  public void assignReinforcementToPlayer(GameState p_gameState) {
+    Iterator<Player> l_iterator = p_gameState.getPlayerList().listIterator();
+
+    while (l_iterator.hasNext()) {
+      Player l_player = l_iterator.next();
+      int l_totalControlValueCount = 0;
+      int l_totalReinforcementArmyCount;
+
+      if (l_player.getOwnedCountries().size() >= 10) {
+        if (l_player.getOwnedContinents().size() > 0) {
+          for (Continent l_continent : l_player.getOwnedContinents().values()) {
+            l_totalControlValueCount += l_continent.getControlValue();
+          }
+          l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2)
+              + l_totalControlValueCount;
+        } else {
+          l_totalReinforcementArmyCount = (int) (l_player.getOwnedCountries().size() / 2);
+        }
+      } else {
+        l_totalReinforcementArmyCount = 5;
+      }
+      l_player.setOwnedArmyCount(l_player.getOwnedArmyCount() + l_totalReinforcementArmyCount);
+    }
+  }
+
+  @Override
+  protected void advance(GameState p_gameState, Player p_player, String[] l_data) {
+    p_player.setArgs(l_data);
+    p_player.setGameState(p_gameState);
+    p_player.issue_advanceOrder();
+  }
+
+  @Override
+  protected void bomb(GameState p_gameState, Player p_player, String[] l_data) {
+    p_player.setArgs(l_data);
+    p_player.setGameState(p_gameState);
+    p_player.issue_bombOrder();
+  }
+
+  @Override
+  protected void negotiate(GameState p_gameState, Player p_player, String[] l_data) {
+    p_player.setArgs(l_data);
+    p_player.setGameState(p_gameState);
+    p_player.issue_diplomacyOrder();
+  }
+
+  @Override
+  protected void blockade(GameState p_gameState, Player p_player, String[] l_data) {
+    p_player.setArgs(l_data);
+    p_player.setGameState(p_gameState);
+    p_player.issue_blockadeOrder();
+  }
+
+
+  @Override
+  protected void airLift(GameState p_gameState, Player p_player, String[] l_data) {
+    p_player.setArgs(l_data);
+    p_player.setGameState(p_gameState);
+    p_player.issue_airliftOrder();
   }
 }
+
+

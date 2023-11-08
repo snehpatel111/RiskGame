@@ -34,22 +34,21 @@ public class GameEngine {
 	 * Updates the current phase to Issue Order Phase as per State Pattern.
 	 */
 	public void setIssueOrderPhase() {
-
+		System.out.println("Total players in the game are " + this.d_gameState.getPlayerList().size());
 		this.setGameEngineLog("Issue Order Phase", "phase");
 		this.setCurrentGamePhase(new IssueOrderPhase(this, this.d_gameState));
 		this.getCurrentGamePhase().initPhase();
 	}
 
-	// /**
-	// * this methods updates the current phase to Order Execution Phase as per
-	// State
-	// * Pattern.
-	// */
-	// public void setOrderExecutionPhase() {
-	// this.setGameEngineLog("Order Execution Phase", "phase");
-	// this.setCurrentGamePhase(new OrderExecutionPhase(this, d_gameState));
-	// this.getCurrentGamePhase().initPhase();
-	// }
+	/**
+	 * this methods updates the current phase to Order Execution Phase as per State
+	 * Pattern.
+	 */
+	public void setOrderExecutionPhase() {
+		this.setGameEngineLog("Order Execution Phase", "phase");
+		this.setCurrentGamePhase(new OrderExecutionPhase(this, d_gameState));
+		this.getCurrentGamePhase().initPhase();
+	}
 
 	/**
 	 * This method is getter for current Phase of Game Context.

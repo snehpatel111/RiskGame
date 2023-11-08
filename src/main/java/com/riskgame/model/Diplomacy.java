@@ -4,8 +4,8 @@ package com.riskgame.model;
  * Class containing logic for implementation of Diplomacy order
  *
  */
-public class Diplomacy implements Order {
-
+public class Diplomacy implements Order{
+    private boolean status = false;
     private Player d_currentPlayer, d_targetPlayer;
 
     /**
@@ -25,7 +25,12 @@ public class Diplomacy implements Order {
      * @return true if executed successfully else false if it fails
      */
     @Override
-    public boolean execute(GameState p_gameState) {
+    public boolean execute() {
+        if(this.status){
+			return true;
+		}
+		this.status = true;
+        System.out.println("-----------diplomacy Order Execution inside---------");
         this.d_currentPlayer.addPlayerToNegotiateList(d_currentPlayer);
         this.d_targetPlayer.addPlayerToNegotiateList(d_currentPlayer);
 

@@ -4,8 +4,8 @@ package com.riskgame.model;
  * Class containing logic for implementation of Blockade order
  *
  */
-public class Blockade implements Order {
-
+public class Blockade implements Order{
+    private boolean status = false;
     private String d_countryId;
     private Player d_player;
 
@@ -26,7 +26,12 @@ public class Blockade implements Order {
      * @return true if executed successfully else false if it fails
      */
     @Override
-    public boolean execute(GameState p_gameState) {
+    public boolean execute() {
+        if(this.status){
+			return true;
+		}
+		this.status = true;
+        System.out.println("-----------blockade Order Execution inside---------");
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
         int l_existingArmies = l_c.getNumberOfArmies();
         l_existingArmies *= 3;

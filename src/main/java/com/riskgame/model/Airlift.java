@@ -4,8 +4,8 @@ package com.riskgame.model;
  * Class containing logic for implementation of airlift order
  *
  */
-public class Airlift implements Order {
-
+public class Airlift implements Order{
+    private boolean status = false;
     private int d_armyCount;
     private String d_sourceCountryId;
     private String d_targetCountryId;
@@ -32,8 +32,13 @@ public class Airlift implements Order {
      * @return true if executed successfully else false if it fails
      */
     @Override
-    public boolean execute(GameState p_gameState) {
-        Country l_source = d_player.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
+    public boolean execute() {
+        if(this.status){
+			return true;
+		}
+		this.status = true;
+        System.out.println("-----------Airlift Order Execution inside---------");
+        Country l_source= d_player.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
         int l_existingSourceArmies = l_source.getNumberOfArmies();
         l_existingSourceArmies -= d_armyCount;
         l_source.setNumberOfArmies(l_existingSourceArmies);

@@ -17,7 +17,7 @@ public class Country {
     private HashMap<String, Country> d_neighbors;
     private int d_xCoOrdinate;
     private int d_yCoOrdinate;
-    private int d_numberOfArmies;
+    private int d_numberOfArmies = 0;
 
     /**
      * Initialize Country object with default values.

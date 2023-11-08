@@ -1,6 +1,8 @@
 package com.riskgame.model;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Queue;
 
 
 /**
@@ -26,7 +28,7 @@ public class GameState {
     /**
      * List of unexecuted orders.
      */
-    private ArrayList<Order> d_unexecutedOrderList;;
+    private Queue<Order> d_unexecutedOrderList = new ArrayDeque<>();
 
     /**
      * Error message.
@@ -79,7 +81,7 @@ public class GameState {
      *
      * @return List of unexecuted orders.
      */
-    public ArrayList<Order> getUnexecutedOrders() {
+    public Queue<Order> getUnexecutedOrders() {
         return this.d_unexecutedOrderList;
     }
 
@@ -88,7 +90,7 @@ public class GameState {
      *
      * @param p_unexecutedOrderList List of unexecuted orders.
      */
-    public void setUnexecutedOrders(ArrayList<Order> p_unexecutedOrderList) {
+    public void setUnexecutedOrders(Queue<Order> p_unexecutedOrderList) {
         this.d_unexecutedOrderList = p_unexecutedOrderList;
     }
 
@@ -143,5 +145,13 @@ public class GameState {
      */
     public boolean isGameMapLoaded() {
         return this.d_isGameMapLoaded;
+    }
+
+    public int getTotalArmyOfAllPlayers() {
+        int total = 0;
+        for(Player player: this.d_playerList){
+            total += player.getOwnedArmyCount();
+        }
+        return total;
     }
 }

@@ -100,7 +100,7 @@ public abstract class Phase {
 
         String[] l_data = p_command.split("\\s+");
         String l_commandName = l_data[0];
-        this.d_gameState.updateLog(l_commandName, "command");
+        this.d_gameState.updateLog(p_command, "command");
 
         switch (l_commandName) {
             case "editmap":

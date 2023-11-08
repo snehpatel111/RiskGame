@@ -31,7 +31,7 @@ public class GameLogger implements Observer {
   public void update(Observable p_observable, Object p_object) {
     this.d_logEntryBuffer = (LogEntryBuffer) p_observable;
     // File l_logfile = new File("LogFile.txt");
-    String l_logMessage = this.d_logEntryBuffer.getD_logMessage();
+    String l_logMessage = this.d_logEntryBuffer.getLogMessage();
 
     try {
       if (l_logMessage.equals("Initializing the Game ......" + System.lineSeparator() + System.lineSeparator())) {

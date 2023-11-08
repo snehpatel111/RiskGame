@@ -115,6 +115,7 @@ public class MapHelper {
     /**
      * Reads .map files and create GameMap object accordingly.
      * 
+     * @param p_gameState   The current game state.
      * @param p_mapFileName Name of .map file
      */
     public void readMap(String p_mapFileName, GameState p_gameState) {
@@ -173,7 +174,8 @@ public class MapHelper {
     /**
      * Reads countries from .map file.
      * 
-     * @param p_reader Stream pointing to countries section of .map file
+     * @param p_gameState The current game state.
+     * @param p_reader    Stream pointing to countries section of .map file
      * @return BufferReader stream pointing end of countries section of .map file.
      */
     private BufferedReader readCountries(BufferedReader p_reader, GameState p_gameState) {
@@ -207,7 +209,8 @@ public class MapHelper {
     /**
      * Reads borders from .map file.
      * 
-     * @param p_reader Stream pointing to borders section of .map file
+     * @param p_gameState The current game state.
+     * @param p_reader    Stream pointing to borders section of .map file
      * @return BufferReader stream pointing end of borders section of .map file.
      */
     private BufferedReader readBorders(BufferedReader p_reader, GameState p_gameState) {
@@ -233,6 +236,7 @@ public class MapHelper {
      * Add country at given index as neighbor to given country.
      * Throw error if invalid neighbor is found and terminate the program.
      * 
+     * @param p_gameState    The current game state.
      * @param p_country      Country to which neighbor is to be added.
      * @param p_countryIndex Index of the country to be added as a neighbor to the
      *                       argument country
@@ -262,6 +266,7 @@ public class MapHelper {
      * If duplicate country exits the program throwing error.
      * 
      * @param p_country
+     * @param p_gameState The current game state.
      */
     private void addCountryToContinent(Country p_country, GameState p_gameState) {
         Country country = new Country();
@@ -338,6 +343,7 @@ public class MapHelper {
      * 
      * @param p_playerList List of players
      * @param p_gameMap    GameMap object containing continents and countries
+     * @param p_gameState  The current game state.
      */
     public void showMap(ArrayList<Player> p_playerList, GameMap p_gameMap, GameState p_gameState) {
         if (p_gameMap == null)

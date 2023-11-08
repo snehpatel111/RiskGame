@@ -33,8 +33,8 @@ public class Player {
     private String d_countryId;
     private Order d_order;
     private Queue<Order> d_executionOrderList;
-    ArrayList<Player> d_negotiatePlayers;
-    ArrayList<Card> d_ownedCards;
+    public ArrayList<Player> d_negotiatePlayers;
+    public ArrayList<Card> d_ownedCards;
     public String[] d_args;
 
     public GameState d_gameState = new GameState();
@@ -269,7 +269,7 @@ public class Player {
      * 
      * @return d_ownedCards
      */
-    public ArrayList<Card> getD_Deck() {
+    public ArrayList<Card> getCardDeck() {
         return this.d_ownedCards;
     }
 
@@ -366,6 +366,7 @@ public class Player {
      * 
      * @param p_playerList List of existing players
      * @param p_playerName Name of player to add
+     * @param p_gameState  The current game state.
      * @return Return true if player added successfully, false otherwise
      */
     public boolean addPlayer(ArrayList<Player> p_playerList, String p_playerName, GameState p_gameState) {
@@ -481,6 +482,7 @@ public class Player {
     /**
      * Takes deploy order from user and add it to the execution order list.
      * 
+     * @param p_gameState The current game state.
      */
     public void issue_deployOrder() {
         try {
@@ -540,6 +542,7 @@ public class Player {
     /**
      * Takes Advance order from user and add it to the execution order list.
      * 
+     * @param p_gameState The current game state.
      */
     public void issue_advanceOrder() {
         try {
@@ -619,6 +622,8 @@ public class Player {
 
     /**
      * Takes Airlift order from user and add it to the execution order list.
+     * 
+     * @param p_gameState The current game state.
      */
     public void issue_airliftOrder() {
         try {
@@ -800,6 +805,8 @@ public class Player {
 
     /**
      * Takes Blockade order from user and add it to the execution order list.
+     * 
+     * @param p_gameState The current game state.
      */
     public void issue_blockadeOrder() {
         try {

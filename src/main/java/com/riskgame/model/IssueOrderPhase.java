@@ -31,6 +31,11 @@ public class IssueOrderPhase extends Phase {
     super(p_gameEngine, p_gameState);
   }
 
+  /**
+   * @param p_gameEngine The GameEngine context.
+   * @param p_gameState  The current game state.
+   * @param p_args       The arguments
+   */
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {

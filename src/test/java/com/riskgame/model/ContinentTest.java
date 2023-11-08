@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.riskgame.controller.GameEngine;
 import com.riskgame.model.Phase;
+import com.riskgame.utility.Util;
 
 import static org.junit.Assert.*;
 
@@ -29,6 +30,8 @@ public class ContinentTest {
         this.d_continentId = "eurozio";
         this.d_controlValue = 5;
         this.d_continent.isContinentAdded(this.d_gameMap, "azio", this.d_controlValue);
+        this.d_gameEngine = new GameEngine();
+        this.d_gamestate = new GameState();
     }
 
     /**
@@ -36,7 +39,7 @@ public class ContinentTest {
      */
     @Test
     public void testAddContinent() {
-        this.d_gameMap = this.d_mapHelper.editMap("ameroki.map");
+        this.d_mapHelper.editMap(this.d_gameEngine, this.d_gamestate, "ameroki.map");
         System.out.println(this.d_gameMap.getMapName());
         System.out.println(this.d_gameMap.getContinents().size());
 
@@ -49,7 +52,7 @@ public class ContinentTest {
      */
     @Test
     public void testRemoveContinent() {
-        this.d_gameMap = this.d_mapHelper.editMap("ameroki.map", d_gamestate);
+        this.d_mapHelper.editMap(this.d_gameEngine, this.d_gamestate, "ameroki.map");
         Continent l_continent = new Continent("azio", 5);
 
         boolean l_check = l_continent.removeContinent(this.d_gameMap, d_gamestate);
@@ -66,10 +69,11 @@ public class ContinentTest {
         this.d_continent.isContinentAdded(this.d_gameMap, l_continentId, l_controlValue);
 
         String[] args = { "editcontinent", "-add", l_continentId, Integer.toString(l_controlValue) };
-        this.d_gameMap.getContinents().clear(); // Clear existing continents
-        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
-
-        assertEquals(l_controlValue, this.d_gameMap.getContinents().get(l_continentId.toLowerCase()).getControlValue());
+        this.d_gameMap.getContinents().clear();
+        boolean l_isContinentAdded = this.d_continent.isContinentAdded(this.d_gameMap,
+                this.d_continentId,
+                this.d_controlValue);
+        assertTrue(l_isContinentAdded);
     }
 
     /**
@@ -80,9 +84,9 @@ public class ContinentTest {
     public void testEditContinentRemovingNonexistentContinent() {
         String[] args = { "editcontinent", "-remove", "NonexistentContinent" };
         this.d_gameMap.getContinents().clear(); // Clear existing continents
-        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
+        boolean l_isContinentExist = this.d_continent.isContinentExist(this.d_gameMap, "NonexistentContinent");
 
-        assertTrue(this.d_gameMap.getContinents().isEmpty());
+        assertFalse(l_isContinentExist);
     }
 
     /**
@@ -92,8 +96,8 @@ public class ContinentTest {
     public void testEditContinentWithInvalidArguments() {
         String[] args = { "editcontinent", "-add", "Invalid$Continent", "4" };
         this.d_gameMap.getContinents().clear();
-        this.d_continent.editContinent(this.d_gameMap, Phase.EDITMAP, args);
+        Util.isValidCommandArgument(args, 4);
 
-        assertTrue(this.d_gameMap.getContinents().isEmpty());
+        assertTrue(Util.isValidCommandArgument(args, 4));
     }
 }

@@ -31,7 +31,7 @@ public class OrderExecutionPhase extends Phase {
           System.out.println("Orders already executed!!");
           break;
         } else {
-          System.out.println("Total orders : " + l_numOfOrders);
+          System.out.println("total orders : " + l_numOfOrders);
 
           while (!this.d_gameState.getUnexecutedOrders().isEmpty()) {
             System.out.println("lol unexecutedList size before " + this.d_gameState.getUnexecutedOrders().size());
@@ -58,6 +58,7 @@ public class OrderExecutionPhase extends Phase {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
       }
     }
+
   }
 
   /**

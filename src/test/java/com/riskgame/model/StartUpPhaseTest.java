@@ -12,14 +12,18 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Unit test for StartUpPhase.
+ */
 public class StartUpPhaseTest {
 
     private GameEngine gameEngine;
     private GameState gameState;
     private StartUpPhase startUpPhase;
 
-
-
+    /**
+     * Set up the context
+     */
     @Before
     public void setUp() {
         gameEngine = new GameEngine(); // Instantiate GameEngine
@@ -32,13 +36,10 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testShowMapWhenGameMapNotLoaded() {
-        // Simulate that the game map is not loaded
         gameState.setIsGameMapLoaded();
 
-        // Capture the output of the showMap method
         String capturedOutput = captureShowMapOutput("");
 
-        // Verify the output contains the expected error message
         assertFalse(capturedOutput.contains("Cannot show  map, please perform `editmap` or `loadmap` first"));
     }
 
@@ -47,13 +48,10 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testShowMapWithInvalidCommandArgument() {
-        // Simulate that the game map is loaded
         gameState.setIsGameMapLoaded();
 
-        // Capture the output of the showMap method
         String capturedOutput = captureShowMapOutput("showMap extraArgument");
 
-        // Verify the output contains the expected error message
         assertTrue(capturedOutput.contains("Invalid command! Try command -> showMap"));
     }
 
@@ -62,18 +60,13 @@ public class StartUpPhaseTest {
      * @return Output of the input command
      */
     private String captureShowMapOutput(String command) {
-        // Redirect the standard output to capture the printed output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        // Execute the showMap method with the provided command
         startUpPhase.showMap(gameEngine, gameState, command.split(" "));
-
-        // Restore the standard output
         System.setOut(originalOut);
 
-        // Return the captured output as a string
         return outputStream.toString();
     }
 
@@ -132,9 +125,8 @@ public class StartUpPhaseTest {
     public void testSaveMapWhenMapNotLoaded() {
         assertFalse(gameState.isGameMapLoaded());
 
-        startUpPhase.saveMap(gameEngine, gameState, new String[]{"savemap", "sample.map"});
+        startUpPhase.saveMap(gameEngine, gameState, new String[] { "savemap", "sample.map" });
 
-        // Check the error message in GameState
         assertNull(gameState.getError());
     }
 
@@ -145,15 +137,12 @@ public class StartUpPhaseTest {
     public void testSaveMapInvalidCommand() {
         GameEngine gameEngine = new GameEngine();
         GameState gameState = new GameState();
-        String[] args = {"savemap"};
-    
+        String[] args = { "savemap" };
+
         StartUpPhase startUpPhase = new StartUpPhase(gameEngine, gameState);
         startUpPhase.saveMap(gameEngine, gameState, args);
-    
-        // Add assertions to check that the log message indicates an invalid command
-        // and the map is still not marked as loaded in the GameState
+
         assertFalse(gameState.isGameMapLoaded());
-        // Add assertions for the log message in GameEngine if the required method is available
     }
 
     /**
@@ -163,15 +152,12 @@ public class StartUpPhaseTest {
     public void testSaveMapMapNotSelected() {
         GameEngine gameEngine = new GameEngine();
         GameState gameState = new GameState();
-        String[] args = {"savemap"};
-    
+        String[] args = { "savemap" };
+
         StartUpPhase startUpPhase = new StartUpPhase(gameEngine, gameState);
         startUpPhase.saveMap(gameEngine, gameState, args);
-    
-        // Add assertions to check that the log message indicates the map is not selected
-        // and the map is still not marked as loaded in the GameState
+
         assertFalse(gameState.isGameMapLoaded());
-        // Add assertions for the log message in GameEngine if the required method is available
     }
 
     /**

@@ -3,19 +3,19 @@ package com.riskgame.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Queue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.riskgame.controller.GameEngine;
-
+/**
+ * Unit test for Player
+ */
 public class PlayerTest {
 
     Player d_player;
     String d_playerName;
     ArrayList<Player> d_playerList;
+    GameState d_gameState;
 
     @Before
     public void before() {
@@ -25,6 +25,7 @@ public class PlayerTest {
         this.d_playerList = new ArrayList<Player>();
         String l_command = "deploy TestCountry 5";
         this.d_player.setArgs(l_command.split("\\s+"));
+        this.d_gameState = new GameState();
     }
 
     /**
@@ -44,10 +45,10 @@ public class PlayerTest {
      */
     @Test
     public void addPlayerTest() {
-        boolean l_check = this.d_player.addPlayer(this.d_playerList, "MsDhoni");
+        boolean l_check = this.d_player.addPlayer(this.d_playerList, "MsDhoni", this.d_gameState);
         assertTrue(l_check);
 
-        l_check = this.d_player.addPlayer(this.d_playerList, "TestPlayer");
+        l_check = this.d_player.addPlayer(this.d_playerList, "TestPlayer", this.d_gameState);
         assertTrue(l_check);
     }
 
@@ -57,7 +58,7 @@ public class PlayerTest {
     @Test
     public void removePlayerTest() {
 
-        this.d_player.addPlayer(d_playerList, "TestPlayer");
+        this.d_player.addPlayer(d_playerList, "TestPlayer", this.d_gameState);
         boolean l_check = this.d_player.removePlayer(this.d_playerList, "TestPlayer");
         assertTrue(l_check);
 
@@ -70,7 +71,7 @@ public class PlayerTest {
      */
     @Test
     public void isPlayerExistsTest() {
-        this.d_player.addPlayer(d_playerList, "TestPlayer");
+        this.d_player.addPlayer(d_playerList, "TestPlayer", this.d_gameState);
         boolean l_check = this.d_player.isPlayerExist(this.d_playerList, "MsDhoni");
         assertFalse(l_check);
 

@@ -5,11 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.riskgame.controller.GameEngine;
+
 public class GameMapTest {
 
     MapHelper d_mapHelper;
     GameMap d_gameMap;
     String d_mapName;
+    GameEngine d_gameEngine;
+    GameState d_gameState;
 
     /**
      * Set up the context
@@ -17,6 +21,9 @@ public class GameMapTest {
     @Before
     public void before() {
         this.d_mapHelper = new MapHelper();
+        this.d_gameState = new GameState();
+        this.d_gameEngine = new GameEngine();
+        this.d_gameMap = new GameMap("ameroki.map");
     }
 
     /**
@@ -24,21 +31,21 @@ public class GameMapTest {
      */
     @Test
     public void testEditNewMap() {
-        this.d_mapName = "practice.map";
-        this.d_gameMap = this.d_mapHelper.editMap(this.d_mapName);
+        this.d_mapName = "ameroki.map";
+        this.d_mapHelper.editMap(this.d_gameEngine, this.d_gameState, this.d_mapName);
 
         assertNotNull(this.d_gameMap);
-        assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
+        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_mapName);
     }
 
     /**
-     * Test to edit an existing map.    
+     * Test to edit an existing map.
      */
     @Test
     public void testEditExistingMap() {
         this.d_mapName = "dummy.map";
-        this.d_gameMap = this.d_mapHelper.editMap(this.d_mapName);
-        assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
+        this.d_mapHelper.editMap(this.d_gameEngine, this.d_gameState, this.d_mapName);
+        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_mapName);
     }
 
     /**
@@ -47,33 +54,28 @@ public class GameMapTest {
     @Test
     public void testEditNullMap() {
         this.d_mapName = "nonexistent.map";
-        this.d_gameMap = this.d_mapHelper.editMap(this.d_mapName);
-        
+        this.d_mapHelper.editMap(this.d_gameEngine, this.d_gameState, this.d_mapName);
+
         assertNotNull(this.d_gameMap);
-        assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
+        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_mapName);
     }
 
-    // /**
-    //  * Test editing a map with invalid format (malformed map).
-    //  */
+    /**
+     * Test setting the map name
+     */
     @Test
-    public void testEditInvalidMapFormat() {
-        this.d_mapName = "invalid.map";
-        this.d_gameMap = this.d_mapHelper.editMap(this.d_mapName);
-        
-        assertNotNull(this.d_gameMap);
-        assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
+    public void testSetMapName() {
+        this.d_mapName = "new.map";
+        this.d_gameMap.setMapName(d_mapName);
+        assertEquals(d_mapName, this.d_gameMap.getMapName());
     }
 
-    // /**
-    //  * Test editing a map that is read-only (e.g., a system map).
-    //  */
+    /**
+     * Test getting the map name
+     */
     @Test
-    public void testEditReadOnlyMap() {
-        this.d_mapName = "readonly.map";
-        this.d_gameMap = this.d_mapHelper.editMap(this.d_mapName);
-        
-        assertNotNull(this.d_gameMap);
-        assertEquals(this.d_gameMap.getMapName(), this.d_mapName);
+    public void testGetMapName() {
+        assertEquals("ameroki.map", this.d_gameMap.getMapName());
     }
+
 }

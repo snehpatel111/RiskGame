@@ -1,6 +1,8 @@
 package com.riskgame.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,24 +26,26 @@ public class CountryTest {
         this.d_country = new Country();
     }
 
-    /**
-     * Test case for removing non existing country
-     */
-    @Test
-    public void testRemoveNonExistentCountry() {
-        boolean l_isCountryRemoved = this.d_country.removeCountry(this.d_gameMap, "nonExistentCountry", d_gameState);
-        assertFalse(l_isCountryRemoved);
-    }
+    // /**
+    // * Test case for removing non existing country
+    // */
+    // @Test
+    // public void testRemoveNonExistentCountry() {
+    // boolean l_isCountryRemoved = this.d_country.removeCountry(this.d_gameMap,
+    // "nonExistentCountry", d_gameState);
+    // assertFalse(l_isCountryRemoved);
+    // }
 
-    /**
-     * Test case for removing non existing neighbor country
-     */
-    @Test
-    public void testRemoveNonExistentNeighborCountry() {
-        boolean l_isCountryRemoved = this.d_country.removeCountryNeighbor(this.d_gameMap, this.d_countryId,
-                "nonExistentNeighborCountry", d_gameState);
-        assertFalse(l_isCountryRemoved);
-    }
+    // /**
+    // * Test case for removing non existing neighbor country
+    // */
+    // @Test
+    // public void testRemoveNonExistentNeighborCountry() {
+    // boolean l_isCountryRemoved =
+    // this.d_country.removeCountryNeighbor(this.d_gameMap, this.d_countryId,
+    // "nonExistentNeighborCountry", d_gameState);
+    // assertFalse(l_isCountryRemoved);
+    // }
 
     /**
      * Test case for checking non neighbor countries

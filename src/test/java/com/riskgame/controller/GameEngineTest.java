@@ -14,15 +14,19 @@ public class GameEngineTest {
     Player d_player;
     StartUpPhase d_startUpPhase;
     Continent d_continent;
+    GameEngine d_gameEngine;
+    GameState d_gameState;
 
     /**
      * Set up the context
      */
     @Before
     public void before() {
-        this.d_startUpPhase = new StartUpPhase();
+        this.d_startUpPhase = new StartUpPhase(this.d_gameEngine, this.d_gameState);
         this.d_player = new Player("TestPlayer");
         this.d_continent = new Continent("TestContinent", 6);
+        this.d_gameState = new GameState();
+        this.d_gameEngine = new GameEngine();
     }
 
     /**
@@ -30,9 +34,9 @@ public class GameEngineTest {
      */
     @Test
     public void testAssignReinforcementToPlayerBasic() {
-        this.d_startUpPhase.getPlayerList().add(this.d_player);
+        this.d_gameState.getPlayerList().add(this.d_player);
 
-        GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
+        this.d_startUpPhase.assignReinforcementToPlayer(this.d_gameState);
 
         assertEquals(5, this.d_player.getOwnedArmyCount());
     }
@@ -43,16 +47,14 @@ public class GameEngineTest {
     @Test
     public void testAssignReinforcementToPlayerWithNineCountries() {
         for (int i = 0; i < 10; i++) {
-            Continent l_continent = new Continent();
             String l_countryId = "TestCountry " + i;
             Country l_country = new Country(l_countryId, this.d_continent.getContinentId());
             this.d_player.getOwnedCountries().put(l_countryId.toLowerCase(), l_country);
         }
 
-        this.d_startUpPhase.getPlayerList().add(this.d_player);
+        this.d_gameState.getPlayerList().add(this.d_player);
 
-        GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
-
+        this.d_startUpPhase.assignReinforcementToPlayer(this.d_gameState);
         assertEquals(5, this.d_player.getOwnedArmyCount());
     }
 
@@ -62,16 +64,27 @@ public class GameEngineTest {
     @Test
     public void testAssignReinforcementToPlayerWithTenCountries() {
         for (int i = 0; i < 11; i++) {
-            Continent l_continent = new Continent();
             String l_countryId = "TestCountry " + i;
             Country l_country = new Country(l_countryId, this.d_continent.getContinentId());
             this.d_player.getOwnedCountries().put(l_countryId.toLowerCase(), l_country);
         }
 
-        this.d_startUpPhase.getPlayerList().add(this.d_player);
+        this.d_gameState.getPlayerList().add(this.d_player);
 
-        GameEngine.assignReinforcementToPlayer(this.d_startUpPhase);
+        this.d_startUpPhase.assignReinforcementToPlayer(this.d_gameState);
 
         assertEquals(5, this.d_player.getOwnedArmyCount());
+    }
+
+    // @Test
+    // public void testSetIssueOrderPhase() {
+    // this.d_gameEngine.setIssueOrderPhase();
+    // assertTrue(this.d_gameEngine.getCurrentGamePhase() instanceof
+    // IssueOrderPhase);
+    // }
+
+    @Test
+    public void testInitialGamePhase() {
+        assertTrue(this.d_gameEngine.getCurrentGamePhase() instanceof StartUpPhase);
     }
 }

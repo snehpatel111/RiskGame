@@ -4,7 +4,7 @@ package com.riskgame.model;
  * Class containing logic for implementation of airlift order
  *
  */
-public class Airlift implements Order{
+public class Airlift implements Order {
     private boolean status = false;
     private int d_armyCount;
     private String d_sourceCountryId;
@@ -29,16 +29,17 @@ public class Airlift implements Order{
     /**
      * execution logic of Airlift order
      * 
+     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override
     public boolean execute() {
-        if(this.status){
-			return true;
-		}
-		this.status = true;
+        if (this.status) {
+            return true;
+        }
+        this.status = true;
         System.out.println("-----------Airlift Order Execution inside---------");
-        Country l_source= d_player.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
+        Country l_source = d_player.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
         int l_existingSourceArmies = l_source.getNumberOfArmies();
         l_existingSourceArmies -= d_armyCount;
         l_source.setNumberOfArmies(l_existingSourceArmies);
@@ -56,7 +57,7 @@ public class Airlift implements Order{
      * 
      * @return d_player
      */
-    public Player getD_player() {
+    public Player getPlayer() {
         return d_player;
     }
 
@@ -65,7 +66,7 @@ public class Airlift implements Order{
      * 
      * @param p_player player
      */
-    public void setD_player(Player p_player) {
+    public void setAttackPlayer(Player p_player) {
         this.d_player = p_player;
     }
 
@@ -74,7 +75,7 @@ public class Airlift implements Order{
      * 
      * @return d_SourceCountryId
      */
-    public String getD_SourceCountryId() {
+    public String getSourceCountryId() {
         return d_sourceCountryId;
     }
 
@@ -83,7 +84,7 @@ public class Airlift implements Order{
      * 
      * @param d_SourceCountryId country ID
      */
-    public void setD_SourceCountryId(String p_sourceCountryId) {
+    public void setSourceCountryId(String p_sourceCountryId) {
         this.d_sourceCountryId = p_sourceCountryId;
     }
 
@@ -92,7 +93,7 @@ public class Airlift implements Order{
      * 
      * @return d_SourceCountryId
      */
-    public String getD_TargetCountryId() {
+    public String getTargetCountryId() {
         return d_targetCountryId;
     }
 
@@ -101,7 +102,7 @@ public class Airlift implements Order{
      * 
      * @param d_TargetCountryId country ID
      */
-    public void setD_TargetCountryId(String p_targetCountryId) {
+    public void setTargetCountryId(String p_targetCountryId) {
         this.d_targetCountryId = p_targetCountryId;
     }
 
@@ -110,7 +111,7 @@ public class Airlift implements Order{
      * 
      * @return d_numArmies
      */
-    public int getD_numArmies() {
+    public int getNumArmies() {
         return d_armyCount;
     }
 
@@ -119,7 +120,7 @@ public class Airlift implements Order{
      * 
      * @param d_numArmies number of armies
      */
-    public void setD_numArmies(int p_numArmies) {
+    public void setNumArmies(int p_numArmies) {
         this.d_armyCount = p_numArmies;
     }
 }

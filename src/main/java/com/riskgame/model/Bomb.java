@@ -4,7 +4,7 @@ package com.riskgame.model;
  * Class containing logic for implementation of Bomb order
  *
  */
-public class Bomb implements Order{
+public class Bomb implements Order {
     private boolean status = false;
     private String d_countryId;
     private Player d_targetPlayer;
@@ -17,6 +17,7 @@ public class Bomb implements Order{
      * @param p_countryId    adjacent opponent country where bomb card will take
      *                       effect
      * @param p_attackPlayer attack player who will bomb
+     * @param p_gameState    The current game state.
      */
     public Bomb(Player p_attackPlayer, Player p_targetPlayer, String p_countryId) {
         d_targetPlayer = p_targetPlayer;
@@ -31,15 +32,15 @@ public class Bomb implements Order{
      */
     @Override
     public boolean execute() {
-        if(this.status){
-			return true;
-		}
-		this.status = true;
+        if (this.status) {
+            return true;
+        }
+        this.status = true;
         System.out.println("-----------bomb Order Execution inside---------");
-        //Check if Source player negotiating target Player
-        if(d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)){
-            System.out.println(d_attackPlayer.getPlayerName()+" has negotiated "+d_targetPlayer.getPlayerName());
-            //skip execute
+        // Check if Source player negotiating target Player
+        if (d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
+            // skip execute
             return false;
         }
         Country l_c = d_targetPlayer.getOwnedCountries().get(d_countryId.toLowerCase());
@@ -54,7 +55,7 @@ public class Bomb implements Order{
      * 
      * @return d_player
      */
-    public Player getD_player() {
+    public Player getPlayer() {
         return d_targetPlayer;
     }
 
@@ -63,7 +64,7 @@ public class Bomb implements Order{
      * 
      * @param d_player player
      */
-    public void setD_player(Player d_player) {
+    public void setAttackPlayer(Player d_player) {
         this.d_targetPlayer = d_player;
     }
 
@@ -72,7 +73,7 @@ public class Bomb implements Order{
      * 
      * @return d_countryId
      */
-    public String getD_countryId() {
+    public String getCountryId() {
         return d_countryId;
     }
 
@@ -81,7 +82,7 @@ public class Bomb implements Order{
      * 
      * @param d_countryId country ID
      */
-    public void setD_countryId(String d_countryId) {
+    public void setCountryId(String d_countryId) {
         this.d_countryId = d_countryId;
     }
 

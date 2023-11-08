@@ -157,6 +157,7 @@ public class Country {
      * @param p_gameMap           GameMap object containing countries and
      *                            corresponding neighbors.
      * @param p_neighborCountryId Name of neighbor country to be removed from map.
+     * @param p_gameState         The current game state.
      * @return Return true if neighbor is removed, otherwise false.
      */
     public boolean isNeighborRemoved(GameMap p_gameMap, String p_neighborCountryId, GameState p_gameState) {
@@ -206,6 +207,7 @@ public class Country {
      * @param p_countryId   Name of country to be checked.
      * @param p_continentId Name of continent in which given country is being
      *                      checked.
+     * @param p_gameState   The current game state.
      * @return Returns true if country is added, otherwise false.
      */
     public boolean isCountryAdded(GameMap p_gameMap, String p_countryId, String p_continentId, GameState p_gameState) {
@@ -241,6 +243,7 @@ public class Country {
      * 
      * @param p_gameMap   GameMap object containing continents and countries.
      * @param p_countryId Name of country to be removed.
+     * @param p_gameState The current game state.
      * @return Return true, if country is deleted otherwise false.
      */
     public boolean removeCountry(GameMap p_gameMap, String p_countryId, GameState p_gameState) {
@@ -333,6 +336,7 @@ public class Country {
      *                            their respective neighbors.
      * @param p_countryId         Name of country whose neighbors are being checked.
      * @param p_neighborCountryId Name of neighbor country.
+     * @param p_gameState         The current game state.
      * @return Return true, if country is added as neighbor, otherwise false.
      */
     public boolean isNeighborCountryAdded(GameMap p_gameMap, String p_countryId, String p_neighborCountryId,

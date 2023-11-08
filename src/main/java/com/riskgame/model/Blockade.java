@@ -4,7 +4,7 @@ package com.riskgame.model;
  * Class containing logic for implementation of Blockade order
  *
  */
-public class Blockade implements Order{
+public class Blockade implements Order {
     private boolean status = false;
     private String d_countryId;
     private Player d_player;
@@ -23,14 +23,15 @@ public class Blockade implements Order{
     /**
      * execution logic of Blockade order
      * 
+     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override
     public boolean execute() {
-        if(this.status){
-			return true;
-		}
-		this.status = true;
+        if (this.status) {
+            return true;
+        }
+        this.status = true;
         System.out.println("-----------blockade Order Execution inside---------");
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
         int l_existingArmies = l_c.getNumberOfArmies();
@@ -47,7 +48,7 @@ public class Blockade implements Order{
      * 
      * @return d_player
      */
-    public Player getD_player() {
+    public Player getPlayer() {
         return d_player;
     }
 
@@ -56,7 +57,7 @@ public class Blockade implements Order{
      * 
      * @param p_player player
      */
-    public void setD_player(Player p_player) {
+    public void setAttackPlayer(Player p_player) {
         this.d_player = p_player;
     }
 
@@ -65,7 +66,7 @@ public class Blockade implements Order{
      * 
      * @return d_countryId
      */
-    public String getD_countryId() {
+    public String getCountryId() {
         return d_countryId;
     }
 
@@ -74,7 +75,7 @@ public class Blockade implements Order{
      * 
      * @param p_countryId country ID
      */
-    public void setD_countryId(String p_countryId) {
+    public void setCountryId(String p_countryId) {
         this.d_countryId = p_countryId;
     }
 

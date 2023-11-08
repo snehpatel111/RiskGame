@@ -36,6 +36,7 @@ public class Advance implements Order {
 	/**
 	 * Contain the implementation logic of advance order
 	 * 
+	 * @param p_gameState The current game state.
 	 * @return true if executed successfully else false if it fails
 	 */
 	@Override
@@ -52,7 +53,8 @@ public class Advance implements Order {
 		System.out.println("lol player: " + this.d_attackPlayer.getPlayerName());
 		for (Country country : this.d_attackPlayer.getOwnedCountries().values()) {
 			System.out
-					.println("lol Country: " + country.getCountryId() + " Number of armies: " + country.getNumberOfArmies());
+					.println("lol Country: " + country.getCountryId() + " Number of armies: "
+							+ country.getNumberOfArmies());
 		}
 
 		boolean l_test = this.d_attackPlayer.getOwnedCountries().containsKey(d_targetCountryId.toLowerCase());
@@ -66,8 +68,10 @@ public class Advance implements Order {
 			int fromArmies = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
 					.getNumberOfArmies();
 			fromArmies -= this.d_armyCount;
-			this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase()).setNumberOfArmies(fromArmies);
-			int toArmies = this.d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).getNumberOfArmies();
+			this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+					.setNumberOfArmies(fromArmies);
+			int toArmies = this.d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase())
+					.getNumberOfArmies();
 			toArmies += this.d_armyCount;
 			this.d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase()).setNumberOfArmies(toArmies);
 			System.out.println("lol return if 1-");
@@ -87,7 +91,8 @@ public class Advance implements Order {
 						+ this.d_sourceCountryId);
 
 				// fetching the countries and its armies
-				Country attackingCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase());
+				Country attackingCountry = this.d_attackPlayer.getOwnedCountries()
+						.get(this.d_sourceCountryId.toLowerCase());
 				Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
 
 				int l_defendArmy = defendingCountry.getNumberOfArmies();
@@ -109,13 +114,13 @@ public class Advance implements Order {
 					System.out.println(defendingCountry.getNumberOfArmies());
 					System.out.println(attackingCountry.getNumberOfArmies());
 					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+									.getNumberOfArmies())
 									- this.d_armyCount));
 					System.out.println(attackingCountry.getNumberOfArmies());
 					// If Attack Successful and new territory added to Player
 					// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
 					this.d_attackPlayer.addCard();
-					
 
 				} else if (l_defendArmy == this.d_armyCount) {
 					System.out.println("lol---if equal army");
@@ -123,7 +128,8 @@ public class Advance implements Order {
 					// this.d_targetPlayer.getOwnedCountries().remove(d_targetCountryId);
 					defendingCountry.setNumberOfArmies(0);
 					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+									.getNumberOfArmies())
 									- this.d_armyCount));
 				}
 				// if defending coutry has more armies
@@ -132,7 +138,8 @@ public class Advance implements Order {
 
 					defendingCountry.setNumberOfArmies(l_defendArmy - this.d_armyCount);
 					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase()).getNumberOfArmies())
+							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+									.getNumberOfArmies())
 									- this.d_armyCount));
 
 				}
@@ -219,7 +226,7 @@ public class Advance implements Order {
 	 *
 	 * @return d_player
 	 */
-	public Player getD_player() {
+	public Player getPlayer() {
 		return this.d_attackPlayer;
 	}
 
@@ -228,7 +235,7 @@ public class Advance implements Order {
 	 *
 	 * @param p_player player
 	 */
-	public void setD_player(Player p_player) {
+	public void setAttackPlayer(Player p_player) {
 		this.d_attackPlayer = p_player;
 	}
 
@@ -237,7 +244,7 @@ public class Advance implements Order {
 	 *
 	 * @return d_sourceCountryId
 	 */
-	public String getD_sourceCountryId() {
+	public String getSourceCountryId() {
 		return this.d_sourceCountryId;
 	}
 
@@ -246,7 +253,7 @@ public class Advance implements Order {
 	 *
 	 * @param p_sourceCountryId source country ID
 	 */
-	public void setD_sourceCountryId(String p_sourceCountryId) {
+	public void setSourceCountryId(String p_sourceCountryId) {
 		this.d_sourceCountryId = p_sourceCountryId;
 	}
 
@@ -255,7 +262,7 @@ public class Advance implements Order {
 	 *
 	 * @return d_targetCountryId
 	 */
-	public String getD_targetCountryId() {
+	public String getTargetCountryId() {
 		return d_targetCountryId;
 	}
 
@@ -264,7 +271,7 @@ public class Advance implements Order {
 	 *
 	 * @param p_targetCountryId country ID
 	 */
-	public void setD_targetCountryId(String p_targetCountryId) {
+	public void setTargetCountryId(String p_targetCountryId) {
 		this.d_sourceCountryId = p_targetCountryId;
 	}
 
@@ -273,7 +280,7 @@ public class Advance implements Order {
 	 *
 	 * @return d_armyCount
 	 */
-	public int getD_numArmies() {
+	public int getNumArmies() {
 		return this.d_armyCount;
 	}
 
@@ -282,7 +289,7 @@ public class Advance implements Order {
 	 *
 	 * @param p_armyCount number of armies
 	 */
-	public void setD_numArmies(int p_armyCount) {
+	public void setNumArmies(int p_armyCount) {
 		this.d_armyCount = p_armyCount;
 	}
 

@@ -50,10 +50,14 @@ public class Bomb implements Order {
         }
         this.status = true;
         System.out.println("-----------bomb Order Execution inside---------");
-        // Check if Source player negotiating target Player
-        if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
-            System.out.println(
-                    this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
+        // // Check if Source player negotiating target Player
+        // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
+        //     System.out.println(
+        //             this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
+        if (d_attackPlayer.d_negotiatePlayers != null && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+            this.d_gameState.updateLog(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
+                    "effect");
+            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
             // skip execute
             return false;
         }

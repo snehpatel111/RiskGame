@@ -32,7 +32,7 @@ public class LogEntryBufferTest {
     public void testCurrentLogCommand() {
         d_logEntryBuffer.currentLog("Move armies to Europe", "Command");
         String expectedOutput = System.lineSeparator() + "Command Entered: Move armies to Europe" + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
     /**
@@ -42,7 +42,7 @@ public class LogEntryBufferTest {
     public void testCurrentLogOrder() {
         d_logEntryBuffer.currentLog("Attack North America", "Order");
         String expectedOutput = System.lineSeparator() + "Order Issued: Attack North America" + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
 
@@ -54,7 +54,7 @@ public class LogEntryBufferTest {
         d_logEntryBuffer.currentLog("Reinforcement Phase", "Phase");
         String expectedOutput = System.lineSeparator() + "=======Reinforcement Phase=======" + System.lineSeparator()
                 + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
     
@@ -65,7 +65,7 @@ public class LogEntryBufferTest {
     public void testCurrentLogEffect() {
         d_logEntryBuffer.currentLog("Player received reinforcement", "Effect");
         String expectedOutput = "Log: Player received reinforcement" + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
     /**
@@ -75,7 +75,7 @@ public class LogEntryBufferTest {
     public void testCurrentLogStart() {
         d_logEntryBuffer.currentLog("Game started", "Start");
         String expectedOutput = "Game started" + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
     /**
@@ -85,7 +85,7 @@ public class LogEntryBufferTest {
     public void testCurrentLogEnd() {
         d_logEntryBuffer.currentLog("Game ended", "End");
         String expectedOutput = "Game ended" + System.lineSeparator();
-        assertEquals(expectedOutput, d_logEntryBuffer.getD_logMessage());
+        assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
    

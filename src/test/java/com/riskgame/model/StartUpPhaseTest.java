@@ -17,18 +17,42 @@ import java.io.PrintStream;
  */
 public class StartUpPhaseTest {
 
-    private GameEngine gameEngine;
-    private GameState gameState;
-    private StartUpPhase startUpPhase;
-
     /**
      * Set up the context
      */
+    private GameEngine d_gameEngine;
+    private GameState d_gameState;
+    private StartUpPhase d_startUpPhase;
+    private IssueOrderPhase d_issueOrderPhase;
+
     @Before
     public void setUp() {
-        gameEngine = new GameEngine(); // Instantiate GameEngine
-        gameState = new GameState(); // Instantiate GameState
-        startUpPhase = new StartUpPhase(gameEngine, gameState);
+        d_gameEngine = new GameEngine(); // Instantiate GameEngine
+        d_gameState = new GameState(); // Instantiate GameState
+        d_startUpPhase = new StartUpPhase(d_gameEngine, d_gameState);
+        d_issueOrderPhase = new IssueOrderPhase(d_gameEngine, d_gameState);
+    }
+
+    /**
+     * Validates the StartUpPhase.
+     */
+    @Test
+    public void validateStartUpPhase() {
+        d_gameState.setIsGameMapLoaded();
+        String[] l_args = "editmap world.map".split(" ");
+        this.d_startUpPhase.editMap(this.d_gameEngine, this.d_gameState, l_args);
+        assertTrue(this.d_gameEngine.getCurrentGamePhase() instanceof StartUpPhase);
+    }
+
+    /**
+     * Validates the Issue Order Phase.
+     */
+    @Test
+    public void validateIssueOrderPhase() {
+        d_gameState.setIsGameMapLoaded();
+        String[] l_args = "assigncountries 12".split(" ");
+        this.d_issueOrderPhase.assignCountries(d_gameEngine, d_gameState, l_args);
+        assertFalse(this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase);
     }
 
     /**
@@ -36,7 +60,7 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testShowMapWhenGameMapNotLoaded() {
-        gameState.setIsGameMapLoaded();
+        this.d_gameState.setIsGameMapLoaded();
 
         String capturedOutput = captureShowMapOutput("");
 
@@ -48,7 +72,7 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testShowMapWithInvalidCommandArgument() {
-        gameState.setIsGameMapLoaded();
+        this.d_gameState.setIsGameMapLoaded();
 
         String capturedOutput = captureShowMapOutput("showMap extraArgument");
 
@@ -64,7 +88,7 @@ public class StartUpPhaseTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        startUpPhase.showMap(gameEngine, gameState, command.split(" "));
+        this.d_startUpPhase.showMap(this.d_gameEngine, this.d_gameState, command.split(" "));
         System.setOut(originalOut);
 
         return outputStream.toString();
@@ -75,11 +99,11 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testEditMapWhenMapNotLoaded() {
-        assertFalse(gameState.isGameMapLoaded());
+        assertFalse(d_gameState.isGameMapLoaded());
 
-        startUpPhase.editMap(gameEngine, gameState, null);
+        d_startUpPhase.editMap(d_gameEngine, d_gameState, null);
 
-        assertFalse(gameState.isGameMapLoaded());
+        assertFalse(d_gameState.isGameMapLoaded());
     }
 
     /**
@@ -87,11 +111,11 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testEditMapWhenMapLoaded() {
-        gameState.setIsGameMapLoaded();
+        d_gameState.setIsGameMapLoaded();
 
-        startUpPhase.editMap(gameEngine, gameState, null);
+        d_startUpPhase.editMap(d_gameEngine, d_gameState, null);
 
-        assertTrue(gameState.isGameMapLoaded());
+        assertTrue(d_gameState.isGameMapLoaded());
     }
 
     /**
@@ -99,11 +123,11 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testEditContinentWhenMapNotLoaded() {
-        assertFalse(gameState.isGameMapLoaded());
+        assertFalse(d_gameState.isGameMapLoaded());
 
-        startUpPhase.editContinent(gameEngine, gameState, null);
+        d_startUpPhase.editContinent(d_gameEngine, d_gameState, null);
 
-        assertFalse(gameState.isGameMapLoaded());
+        assertFalse(d_gameState.isGameMapLoaded());
     }
 
     /**
@@ -111,11 +135,11 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testEditContinentWhenMapLoaded() {
-        gameState.setIsGameMapLoaded();
+        d_gameState.setIsGameMapLoaded();
 
-        startUpPhase.editContinent(gameEngine, gameState, null);
+        d_startUpPhase.editContinent(d_gameEngine, d_gameState, null);
 
-        assertTrue(gameState.isGameMapLoaded());
+        assertTrue(d_gameState.isGameMapLoaded());
     }
 
     /**
@@ -123,11 +147,11 @@ public class StartUpPhaseTest {
      */
     @Test
     public void testSaveMapWhenMapNotLoaded() {
-        assertFalse(gameState.isGameMapLoaded());
+        assertFalse(d_gameState.isGameMapLoaded());
 
-        startUpPhase.saveMap(gameEngine, gameState, new String[] { "savemap", "sample.map" });
+        this.d_startUpPhase.saveMap(this.d_gameEngine, this.d_gameState, new String[] { "savemap", "sample.map" });
 
-        assertNull(gameState.getError());
+        assertNull(this.d_gameState.getError());
     }
 
     /**

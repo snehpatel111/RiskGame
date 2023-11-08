@@ -1,5 +1,10 @@
 package com.riskgame.model;
 
+import com.riskgame.model.Country;
+import com.riskgame.model.Player;
+
+import com.riskgame.utility.Constant;
+
 /**
  * Class containing logic for implementation of airlift order
  *
@@ -10,6 +15,7 @@ public class Airlift implements Order {
     private String d_sourceCountryId;
     private String d_targetCountryId;
     private Player d_player;
+    public GameState d_gameState;
 
     /**
      * This constructor will initialize the order object with deploy details.
@@ -24,6 +30,14 @@ public class Airlift implements Order {
         d_sourceCountryId = p_sourceCountryId;
         d_targetCountryId = p_targetCountryId;
         d_armyCount = p_armyCount;
+        this.d_gameState = new GameState();
+    }
+
+    /**
+     * Set game state.
+     */
+    public void setGameState(GameState p_gameState) {
+        this.d_gameState = p_gameState;
     }
 
     /**
@@ -39,17 +53,30 @@ public class Airlift implements Order {
         }
         this.status = true;
         System.out.println("-----------Airlift Order Execution inside---------");
-        Country l_source = d_player.getOwnedCountries().get(d_sourceCountryId.toLowerCase());
-        int l_existingSourceArmies = l_source.getNumberOfArmies();
-        l_existingSourceArmies -= d_armyCount;
-        l_source.setNumberOfArmies(l_existingSourceArmies);
+        if (this.d_player.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase()) &&
+                this.d_player.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase())) {
 
-        Country l_target = d_player.getOwnedCountries().get(d_targetCountryId.toLowerCase());
-        int l_existingTargetArmies = l_target.getNumberOfArmies();
-        l_existingTargetArmies += d_armyCount;
-        l_target.setNumberOfArmies(l_existingTargetArmies);
+            Country l_source = d_player.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase());
+            int l_existingSourceArmies = l_source.getNumberOfArmies();
+            l_existingSourceArmies -= d_armyCount;
+            l_source.setNumberOfArmies(l_existingSourceArmies);
 
-        return true;
+            Country l_target = d_player.getOwnedCountries().get(this.d_targetCountryId.toLowerCase());
+            int l_existingTargetArmies = l_target.getNumberOfArmies();
+            l_existingTargetArmies += d_armyCount;
+            l_target.setNumberOfArmies(l_existingTargetArmies);
+
+            return true;
+        } else {
+            this.d_gameState.updateLog(
+                    this.d_player.getPlayerName() + " does not own either " + this.d_sourceCountryId + " or "
+                            + this.d_targetCountryId + " country",
+                    "effect");
+            System.out.println(Constant.ERROR_COLOR
+                    + this.d_player.getPlayerName() + " does not own either " + this.d_sourceCountryId + " or "
+                    + this.d_targetCountryId + " country" + Constant.RESET_COLOR);
+            return false;
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 package com.riskgame.model;
 
+import com.riskgame.model.Country;
+import com.riskgame.model.Player;
+
 /**
  * Class containing logic for implementation of Blockade order
  *
@@ -8,6 +11,7 @@ public class Blockade implements Order {
     private boolean status = false;
     private String d_countryId;
     private Player d_player;
+    public GameState d_gameState;
 
     /**
      * This constructor will initialize the order object with deploy details.
@@ -18,6 +22,14 @@ public class Blockade implements Order {
     public Blockade(Player p_player, String p_countryId) {
         d_player = p_player;
         d_countryId = p_countryId;
+        this.d_gameState = new GameState();
+    }
+
+    /**
+     * Set game state.
+     */
+    public void setGameState(GameState p_gameState) {
+        this.d_gameState = p_gameState;
     }
 
     /**

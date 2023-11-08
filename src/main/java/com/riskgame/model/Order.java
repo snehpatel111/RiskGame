@@ -6,9 +6,11 @@ package com.riskgame.model;
  */
 public interface Order {
     /**
-     * execution method to implement specific orders
+     * Execution method to implement specific orders
      * 
-     * @return true is order executed successfully, or false if it fails
+     * @return true if order executed successfully, false otherwise
      */
     public boolean execute();
+
+    public void setGameState(GameState gameState);
 }

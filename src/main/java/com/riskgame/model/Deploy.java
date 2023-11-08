@@ -1,11 +1,15 @@
 package com.riskgame.model;
 
+import com.riskgame.model.Country;
+import com.riskgame.model.Player;
+
 public class Deploy implements Order {
 
     private boolean status = false;
     private int d_armyCount;
     private String d_countryId;
     private Player d_player;
+    public GameState d_gameState;
 
     /**
      * Initializes the player's deploy order with deploy details
@@ -18,6 +22,14 @@ public class Deploy implements Order {
         this.d_player = p_player;
         this.d_countryId = p_countryId;
         this.d_armyCount = p_armyCount;
+        this.d_gameState = new GameState();
+    }
+
+    /**
+     * Set game state.
+     */
+    public void setGameState(GameState p_gameState) {
+        this.d_gameState = p_gameState;
     }
 
     /**

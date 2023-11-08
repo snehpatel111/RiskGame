@@ -14,6 +14,8 @@ import com.riskgame.model.Player;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.Util;
 
+import com.riskgame.model.Continent;
+
 import com.riskgame.controller.GameEngine;
 
 /**
@@ -49,9 +51,11 @@ public class IssueOrderPhase extends Phase {
     l_mapHelper.showMap(p_gameState.getPlayerList(), p_gameState.getGameMap(), p_gameState);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void initPhase() {
-
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
     this.assignReinforcementToPlayer(this.d_gameState);
     System.out.println(
@@ -60,7 +64,6 @@ public class IssueOrderPhase extends Phase {
             + Constant.RESET_COLOR);
     while (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
       try {
-
         int l_totalReinforcement = this.d_gameState.getTotalArmyOfAllPlayers();
         System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
         if (l_totalReinforcement == 0) {
@@ -68,11 +71,14 @@ public class IssueOrderPhase extends Phase {
           break;
         }
         for (Player l_player : this.d_gameState.getPlayerList()) {
-          printPlayerArmies(this.d_gameState);
-          System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count : "
+          if (this.d_gameState.getTotalArmyOfAllPlayers() == 0) {
+            break;
+          }
+          this.printPlayerArmies(this.d_gameState);
+          System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
               + l_player.getOwnedArmyCount() + ")");
+          l_player.showCards();
           String l_command = l_reader.readLine();
-          System.out.println(l_command);
           this.handleCommand(l_command, l_player);
         }
       } catch (Exception e) {
@@ -81,8 +87,28 @@ public class IssueOrderPhase extends Phase {
     }
   }
 
-  public void printPlayerArmies(GameState p_gs) {
-    Iterator<Player> l_itr = p_gs.getPlayerList().listIterator();
+  /**
+   * {@inheritDoc}
+   */
+  public void execute(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    if (!Util.isValidCommandArgument(p_args, 1)) {
+      p_gameState.updateLog("Invalid command! Try command -> execute", "effect");
+      System.out.println(Constant.ERROR_COLOR
+          + "Invalid command! Try command -> execute"
+          + Constant.RESET_COLOR);
+      return;
+    }
+    System.out.println("lol execute issue order phase");
+    this.d_gameEngine.setOrderExecutionPhase();
+  }
+
+  /**
+   * Prints the armies of all the players.
+   * 
+   * @param p_gameState GameState object containing current game state
+   */
+  public void printPlayerArmies(GameState p_gameState) {
+    Iterator<Player> l_itr = p_gameState.getPlayerList().listIterator();
     while (l_itr.hasNext()) {
       Player l_p = l_itr.next();
       System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmyCount() + " armies currently.");

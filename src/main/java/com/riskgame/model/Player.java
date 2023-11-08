@@ -13,6 +13,7 @@ import com.riskgame.model.Phase;
 import com.riskgame.model.Advance;
 import com.riskgame.model.Airlift;
 import com.riskgame.model.Blockade;
+import com.riskgame.model.Card;
 import com.riskgame.model.Deploy;
 import com.riskgame.model.GameState;
 import com.riskgame.model.MapHelper;
@@ -73,11 +74,11 @@ public class Player {
     }
 
     /**
-     * Getter method for Negotiators
+     * Getter method for negotiators
      * 
-     * @return d_NegotiateList
+     * @return List of negotiators
      */
-    public ArrayList<Player> getNegotiateList() {
+    public ArrayList<Player> getNegotiatePlayerList() {
         return this.d_negotiatePlayers;
     }
 
@@ -249,19 +250,18 @@ public class Player {
      * show the particular card owned by player
      */
     public void showCards() {
-
         if (this.d_ownedCards.isEmpty()) {
             System.out.println("Player " + this.getPlayerName() + " owns no cards!");
 
         } else {
             Iterator<Card> l_iter = this.d_ownedCards.iterator();
-            System.out.println("Player " + this.getPlayerName() + " owns:");
+            System.out.print("Player " + this.getPlayerName() + "'s cards: ");
             while (l_iter.hasNext()) {
                 Card l_card = (Card) l_iter.next();
-                System.out.print(l_card.getCardType() + ",");
+                String l_endString = l_iter.hasNext() ? ", " : "";
+                System.out.println(l_card.getCardType() + l_endString);
             }
         }
-
     }
 
     /**
@@ -416,14 +416,11 @@ public class Player {
      * @return Returns true if player exists, false otherwise
      */
     public boolean isPlayerExist(ArrayList<Player> p_playerList, String p_playerName) {
-
         for (Player player : p_playerList) {
             if (player.getPlayerName().equals(p_playerName)) {
-
                 return true;
             }
         }
-
         return false;
     }
 
@@ -466,11 +463,6 @@ public class Player {
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
             MapHelper l_mapHelper = new MapHelper();
             l_mapHelper.showMap(l_gameMap, p_gameState);
-            // System.out.println(
-            // Constant.SUCCESS_COLOR
-            // + "Reinforcement assigned to each player! \nBegin to issue order as per
-            // turn!"
-            // + Constant.RESET_COLOR);
             return true;
         } catch (Exception e) {
             p_gameState.updateLog("Error assigning countries!", "effect");
@@ -568,17 +560,6 @@ public class Player {
                 }
             }
             boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
-            boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
-                    .getNumberOfArmies() - l_moveArmies) >= 1;
-            boolean l_areBothCountriesNeighbors = new Country().isNeighbor(this.d_gameState.getGameMap(),
-                    l_sourceCountry, l_targetCountry);
-
-            System.out
-                    .println("lol player owned country: " + this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
-                            .getNumberOfArmies());
-            System.out
-                    .println("lol player l_moveArmies: " + l_moveArmies);
-
             if (!l_isPlayerOwnsSourceCountry) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName() + " does not own "
                         + l_sourceCountry + " country", "effect");
@@ -586,18 +567,33 @@ public class Player {
                         + l_sourceCountry + " country" + Constant.RESET_COLOR);
                 return;
             }
+            boolean l_isNeighBorCountry = this.getOwnedCountries().get(l_sourceCountry.toLowerCase()).getNeighbors()
+                    .containsKey(l_targetCountry.toLowerCase());
+            boolean l_isTargetCountryExist = this.validateTargetCountry(l_targetCountry);
+            if (!l_isNeighBorCountry && !l_isTargetCountryExist) {
+                this.d_gameState.updateLog("No player owns " + l_targetCountry + " country", "effect");
+                System.out.println(
+                        Constant.ERROR_COLOR + "No player owns " + l_targetCountry + " country" + Constant.RESET_COLOR);
+                return;
+            }
+
+            boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
+                    .getNumberOfArmies() - l_moveArmies) >= 1;
+            boolean l_areBothCountriesNeighbors = new Country().isNeighbor(this.d_gameState.getGameMap(),
+                    l_sourceCountry, l_targetCountry);
+
+            if (!l_areBothCountriesNeighbors) {
+                this.d_gameState.updateLog(l_sourceCountry + " and " + l_targetCountry
+                        + " are not neighbors.", "effect");
+                System.out.println(Constant.ERROR_COLOR + l_sourceCountry + " and " + l_targetCountry
+                        + " are not neighbors." + Constant.RESET_COLOR);
+                return;
+            }
             if (!l_hasSufficientArmy) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName()
                         + " does not have sufficient army to advance.", "effect");
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
                         + " does not have sufficient army to advance." + Constant.RESET_COLOR);
-                return;
-            }
-            if (!l_areBothCountriesNeighbors) {
-                this.d_gameState.updateLog(l_sourceCountry + " and " + l_targetCountry
-                        + " are not neighbours.", "effect");
-                System.out.println(Constant.ERROR_COLOR + l_sourceCountry + " and " + l_targetCountry
-                        + " are not neighbours." + Constant.RESET_COLOR);
                 return;
             }
             this.addOrder(new Advance(this, l_sourceCountry, l_targetCountry, l_moveArmies, l_targetPlayer));
@@ -766,15 +762,15 @@ public class Player {
             }
 
             boolean l_isTargetCountryNeighbor = false;
-            for (Country l_c : this.getOwnedCountries().values()) {
-                if (l_c.getNeighbors().containsKey(l_targetCountry.toLowerCase())) {
+            for (Country l_country : this.getOwnedCountries().values()) {
+                if (l_country.getNeighbors().containsKey(l_targetCountry.toLowerCase())) {
                     l_isTargetCountryNeighbor = true;
                     break;
                 }
             }
             if (!l_isTargetCountryNeighbor) {
                 System.out.println(Constant.ERROR_COLOR
-                        + " target country not adjacent to any country owned by current player" +
+                        + "Target country not adjacent to any country owned by current player" +
                         Constant.RESET_COLOR);
                 return;
             }
@@ -787,7 +783,12 @@ public class Player {
                     break;
                 }
             }
-
+            boolean l_isTargetCountryExist = this.validateTargetCountry(l_targetCountry);
+            if (!l_isTargetCountryExist) {
+                System.out.println(Constant.ERROR_COLOR
+                        + l_targetCountry + " country does not exist on map" + Constant.RESET_COLOR);
+                return;
+            }
             this.addOrder(new Bomb(this, l_targetPlayer, l_targetCountry));
             this.d_executionOrderList.add(this.d_order);
             this.d_gameState.getUnexecutedOrders().add(this.d_order);
@@ -854,5 +855,19 @@ public class Player {
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> blockade <countryID>" + Constant.RESET_COLOR);
         }
+    }
+
+    public boolean validateTargetCountry(String p_targetCountry) {
+        Iterator<Player> l_iterator = this.d_gameState.getPlayerList().iterator();
+        while (l_iterator.hasNext()) {
+            Player l_player = l_iterator.next();
+            if (l_player.getPlayerName().equals(this.getPlayerName())) {
+                continue;
+            }
+            if (l_player.getOwnedCountries().containsKey(p_targetCountry.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

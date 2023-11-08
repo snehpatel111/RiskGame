@@ -4,20 +4,93 @@ Initializing the Game ......
 =======Game Startup Phase=======
 
 
-Command Entered: loadmap
-Log: world.map has been loaded.
+Command Entered: loadmap first.map
+Log: first.map map is valid and loaded successfully.
 
-Command Entered: assigncountries
-Log: At least 2 players are required to play the game
+Command Entered: gameplayer -add p1
+Log: Player p1 added successfully!
 
-Command Entered: gameplayer
-Log: Player P1 added successfully!
-
-Command Entered: gameplayer
-Log: Player P2 added successfully!
+Command Entered: gameplayer -add p2
+Log: Player p2 added successfully!
 
 Command Entered: assigncountries
 Log: Countries assigned randomly to all players!
+Log: Map shown successfully
 
 =======Issue Order Phase=======
 
+
+Command Entered: showmap
+
+Command Entered: deploy two 5
+Log: Player p1 has 0 army left in the reinforcement pool
+
+Command Entered: deploy ten 5
+Log: Player p2 has 0 army left in the reinforcement pool
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: showmap
+
+Command Entered: advance two four 4
+Log: Advance order successfully issued by p1 and added to execution list
+
+Command Entered: advance ten nine 4
+Log: Advance order successfully issued by p2 and added to execution list
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: showmap
+
+Command Entered: pass
+
+Command Entered: bomb nine
+
+Command Entered: pass
+
+Command Entered: bomb four
+
+Command Entered: pass
+
+Command Entered: showmap
+
+Command Entered: pass
+
+Command Entered: bomb four
+
+Command Entered: pass
+
+Command Entered: bomb two
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: showmap
+
+Command Entered: blockade six
+Log: Blockade order successfully issued by p1 and added to execution list
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: showmap

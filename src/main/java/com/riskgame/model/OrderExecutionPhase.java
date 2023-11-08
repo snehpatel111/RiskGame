@@ -9,9 +9,11 @@ import java.util.Scanner;
 import com.riskgame.controller.GameEngine;
 import com.riskgame.utility.Constant;
 
+import com.riskgame.model.Player;
+
 public class OrderExecutionPhase extends Phase {
-  public OrderExecutionPhase(GameEngine p_gameEngine, GameState p_GgmeState) {
-    super(p_gameEngine, p_GgmeState);
+  public OrderExecutionPhase(GameEngine p_gameEngine, GameState p_gameState) {
+    super(p_gameEngine, p_gameState);
   }
 
   @Override
@@ -21,15 +23,10 @@ public class OrderExecutionPhase extends Phase {
 
   @Override
   public void initPhase() {
-
     System.out.println("lol orderExecution initPhase");
     while (this.d_gameEngine.getCurrentGamePhase() instanceof OrderExecutionPhase) {
       try {
         int l_numOfOrders = this.d_gameState.getUnexecutedOrders().size();
-        // for(Player l_p : this.d_gameState.getPlayerList()){
-        // Queue<Order> l_orders = l_p.getExecutionOrderList();
-        // l_numOfOrders += l_orders.size();
-        // }
         if (l_numOfOrders == 0) {
           System.out.println("Orders already executed!!");
           break;
@@ -38,10 +35,11 @@ public class OrderExecutionPhase extends Phase {
 
           while (!this.d_gameState.getUnexecutedOrders().isEmpty()) {
             System.out.println("lol unexecutedList size before " + this.d_gameState.getUnexecutedOrders().size());
-            Order l_o = this.d_gameState.getUnexecutedOrders().poll();
-            System.out.println("lol l_o: " + l_o);
+            Order l_order = this.d_gameState.getUnexecutedOrders().poll();
+            System.out.println("lol l_order: " + l_order);
             System.out.println("lol unexecutedList size after " + this.d_gameState.getUnexecutedOrders().size());
-            boolean l_executed = l_o.execute();
+            boolean l_executed = l_order.execute();
+            l_order.setGameState(this.d_gameState);
             System.out.println("lol l_executed: " + l_executed);
           }
 
@@ -62,85 +60,141 @@ public class OrderExecutionPhase extends Phase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public void execute(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    System.out.println("lol execute order execution phase");
+    this.printInvalidCommandInState();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void deploy(GameState p_gameState, Player p_player, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void assignCountries(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void editNeighbor(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void editCountry(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void validateMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void loadMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void saveMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void editMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_mapFileName) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void assignReinforcementToPlayer(GameState p_gameState) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_mapFileName) {
     this.printInvalidCommandInState();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void bomb(GameState d_gameState, Player p_player, String[] l_data) {
     this.printInvalidCommandInState();
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void negotiate(GameState d_gameState, Player p_player, String[] l_data) {
     this.printInvalidCommandInState();
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void blockade(GameState p_gameState, Player p_player, String[] l_data) {
     this.printInvalidCommandInState();
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void airLift(GameState p_gameState, Player p_player, String[] l_data) {
     this.printInvalidCommandInState();
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void advance(GameState p_gameState, Player p_player, String[] l_data) {
     this.printInvalidCommandInState();

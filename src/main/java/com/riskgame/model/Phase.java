@@ -153,6 +153,9 @@ public abstract class Phase {
             case "bomb":
                 this.bomb(this.d_gameState, p_player, l_data);
                 break;
+            case "execute":
+                this.execute(this.d_gameEngine, this.d_gameState, l_data);
+                break;
             case "exit":
                 this.d_gameEngine.setGameEngineLog("Exit Command Entered, Game Ends!", "effect");
                 System.exit(0);
@@ -165,46 +168,50 @@ public abstract class Phase {
         }
     }
 
-    
     /**
      * handles bomb command
+     * 
      * @param p_gameState game state
-     * @param p_player invoker player
-     * @param l_data user command
+     * @param p_player    invoker player
+     * @param l_data      user command
      */
     protected abstract void bomb(GameState p_gameState, Player p_player, String[] l_data);
 
     /**
      * handles diplomacy command
+     * 
      * @param p_gameState game state
-     * @param p_player invoker player
-     * @param l_data user command
+     * @param p_player    invoker player
+     * @param l_data      user command
      */
     protected abstract void negotiate(GameState p_gameState, Player p_player, String[] l_data);
 
     /**
      * handles blockade command
-     * @param p_gameState  GameState object containing current game state
-     *                     state.
-     * @param p_player invoker player
-     * @param l_data user command
+     * 
+     * @param p_gameState GameState object containing current game state
+     *                    state.
+     * @param p_player    invoker player
+     * @param l_data      user command
      */
     protected abstract void blockade(GameState p_gameState, Player p_player, String[] l_data);
 
     /**
      * handles airlift command
-     * @param p_gameState  GameState object containing current game state
-     *                     state.
-     * @param p_player invoker player
-     * @param l_data passed command
+     * 
+     * @param p_gameState GameState object containing current game state
+     *                    state.
+     * @param p_player    invoker player
+     * @param l_data      passed command
      */
     protected abstract void airLift(GameState p_gameState, Player p_player, String[] l_data);
 
     /**
      * handle advance command
-     * @param p_gameState game state
+     * 
+     * @param p_gameState  game state
      * @param p_gameEngine game engine
-     * @param l_data user command
+     * @param l_data       user command
      */
     protected abstract void advance(GameState p_gameState, Player p_player, String[] l_data);
 
@@ -217,16 +224,6 @@ public abstract class Phase {
      */
     protected abstract void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 
-    // /**
-    // * this method handles the advance order in game play.
-    // *
-    // * @param p_command command entered by user
-    // * @param p_player instance of player object
-    // *
-    // */
-    // // protected abstract void performAdvance(String p_command, Player p_player)
-    // // throws IOException;
-
     /**
      * This is the main method executed on phase change.
      */
@@ -235,10 +232,10 @@ public abstract class Phase {
     /**
      * This method handles the deploy order in gameplay.
      *
-     * @param p_player Instance of Player object
-     * @param p_gameState  GameState object containing current game state
-     *                     state.
-     * @param p_args   Command line arguments to edit continent.
+     * @param p_player    Instance of Player object
+     * @param p_gameState GameState object containing current game state
+     *                    state.
+     * @param p_args      Command line arguments to edit continent.
      * 
      */
     protected abstract void deploy(GameState p_gameState, Player p_player, String[] p_args);
@@ -332,10 +329,11 @@ public abstract class Phase {
      *                     state.
      * @param p_args       Command line arguments to edit continent.
      */
-    protected abstract void editMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_mapFileName);
+    protected abstract void editMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 
     /**
      * reignforcement assignment
+     * 
      * @param p_gameState state of the game
      */
     public abstract void assignReinforcementToPlayer(GameState p_gameState);
@@ -348,5 +346,15 @@ public abstract class Phase {
      *                     state.
      * @param p_args       Command line arguments to edit continent.
      */
-    protected abstract void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_mapFileName);
+    protected abstract void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
+
+    /**
+     * Manage the game player.
+     *
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object containing current game state
+     *                     state.
+     * @param p_args       Command line arguments to edit continent.
+     */
+    protected abstract void execute(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 }

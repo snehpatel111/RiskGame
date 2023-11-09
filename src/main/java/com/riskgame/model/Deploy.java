@@ -48,11 +48,6 @@ public class Deploy implements Order {
      */
     @Override
     public boolean execute() {
-        // if(this.status){
-        // return true;
-        // }
-        // this.status = true;
-        System.out.println("-----------diploy Order Execution inside---------");
         Country l_country = this.d_player.getOwnedCountries().get(this.d_countryId.toLowerCase());
         int l_existingArmies = l_country.getNumberOfArmies();
         l_existingArmies += d_armyCount;

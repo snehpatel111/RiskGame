@@ -103,7 +103,6 @@ public class IssueOrderPhase extends Phase {
           + Constant.RESET_COLOR);
       return;
     }
-    System.out.println("lol execute issue order phase");
     this.d_gameEngine.setOrderExecutionPhase();
   }
 

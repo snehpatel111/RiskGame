@@ -33,7 +33,6 @@ public class OrderExecutionPhase extends Phase {
 
   @Override
   public void initPhase() {
-    System.out.println("lol orderExecution initPhase");
     while (this.d_gameEngine.getCurrentGamePhase() instanceof OrderExecutionPhase) {
       try {
         int l_numOfOrders = this.d_gameState.getUnexecutedOrders().size();
@@ -46,28 +45,30 @@ public class OrderExecutionPhase extends Phase {
           System.out.println("total orders : " + l_numOfOrders);
 
           while (!this.d_gameState.getUnexecutedOrders().isEmpty()) {
-            System.out.println("lol unexecutedList size before " + this.d_gameState.getUnexecutedOrders().size());
             Order l_order = this.d_gameState.getUnexecutedOrders().poll();
-            System.out.println("lol l_order: " + l_order);
-            System.out.println("lol unexecutedList size after " + this.d_gameState.getUnexecutedOrders().size());
+            l_order.setGameState(this.d_gameState);
             boolean l_executed = l_order.execute();
             l_order.setGameState(this.d_gameState);
-            System.out.println("lol l_executed: " + l_executed);
           }
 
           this.d_gameEngine.setGameEngineLog("All orders are executed successfully." + l_numOfOrders, "effect");
           System.out.println(Constant.SUCCESS_COLOR + "All orders are executed successfully." + Constant.RESET_COLOR);
 
           Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();
+          for (Player l_p : this.d_gameState.getPlayerList()) {
+            if (l_p.isWinner()) {
+              this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
+              System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+              System.exit(0);
+            }
+          }
           while (l_iterator.hasNext()) {
-            System.out.println("lol while");
             Player l_player = l_iterator.next();
             l_player.showCards();
           }
           this.d_gameEngine.setIssueOrderPhase();
         }
       } catch (Exception e) {
-        System.out.println("lol execute error: " + e.getMessage());
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
       }
     }
@@ -78,7 +79,6 @@ public class OrderExecutionPhase extends Phase {
    * {@inheritDoc}
    */
   public void execute(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    System.out.println("lol execute order execution phase");
     this.printInvalidCommandInState();
   }
 

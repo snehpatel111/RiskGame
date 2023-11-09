@@ -49,6 +49,7 @@ public class Card {
 
     /**
      * Set game state.
+     * 
      * @param p_gameState Game state object
      */
     public void setGameState(GameState p_gameState) {
@@ -78,7 +79,7 @@ public class Card {
      */
     public String getRandomCard() {
         Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(this.d_cardsList.length);
+        int index = randomGenerator.nextInt(this.d_cardsList.length - 1);
         return this.d_cardsList[index];
     }
 

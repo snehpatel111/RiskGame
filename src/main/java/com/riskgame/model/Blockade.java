@@ -48,7 +48,6 @@ public class Blockade implements Order {
         }
 
         this.status = true;
-        System.out.println("-----------blockade Order Execution inside---------");
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
         if (l_c == null) {
             return false;

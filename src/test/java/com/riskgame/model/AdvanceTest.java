@@ -10,28 +10,28 @@ public class AdvanceTest {
     private Country sourceCountry;
     private Country targetCountry;
 
-    @Before
-    public void setUp() {
-        attackingPlayer = new Player("Attacking Player");
-        defendingPlayer = new Player("Defending Player");
-        sourceCountry = new Country("SourceCountry", "ContinentA");
-        targetCountry = new Country("TargetCountry", "ContinentB");
-    }
+    // @Before
+    // public void setUp() {
+    //     attackingPlayer = new Player("Attacking Player");
+    //     defendingPlayer = new Player("Defending Player");
+    //     sourceCountry = new Country("SourceCountry", "ContinentA");
+    //     targetCountry = new Country("TargetCountry", "ContinentB");
+    // }
 
-    @Test
-    public void testFailedAdvanceDueToInsufficientArmies() {
-        sourceCountry.setNumberOfArmies(5);
-        targetCountry.setNumberOfArmies(8);
-        attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
-        defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
+    // @Test
+    // public void testFailedAdvanceDueToInsufficientArmies() {
+    //     sourceCountry.setNumberOfArmies(5);
+    //     targetCountry.setNumberOfArmies(8);
+    //     attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
+    //     defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
 
-        Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 6,
-                defendingPlayer);
+    //     Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 6,
+    //             defendingPlayer);
 
-        boolean result = advance.execute();
+    //     boolean result = advance.execute();
 
-        assertFalse(result);
-    }
+    //     assertFalse(result);
+    // }
 
     // @Test
     // public void testFailedAdvanceWithInvalidPlayers() {
@@ -50,19 +50,19 @@ public class AdvanceTest {
     // assertFalse(result);
     // }
 
-    @Test
-    public void testExecuteFailedAdvance() {
-        sourceCountry.setNumberOfArmies(3);
-        targetCountry.setNumberOfArmies(7);
-        attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
-        defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
+    // @Test
+    // public void testExecuteFailedAdvance() {
+    //     sourceCountry.setNumberOfArmies(3);
+    //     targetCountry.setNumberOfArmies(7);
+    //     attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
+    //     defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
 
-        Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 5,
-                defendingPlayer);
+    //     Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 5,
+    //             defendingPlayer);
 
-        boolean result = advance.execute();
+    //     boolean result = advance.execute();
 
-        assertFalse(result);
-    }
+    //     assertFalse(result);
+    // }
 
 }

@@ -4,6 +4,8 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 import com.riskgame.utility.Constant;
 
+import com.riskgame.model.Player;
+
 /**
  * Class containing logic for implementation of Diplomacy order
  *
@@ -47,11 +49,10 @@ public class Diplomacy implements Order {
             return true;
         }
         this.status = true;
-        System.out.println("-----------diplomacy Order Execution inside---------");
         if (!this.d_gameState.getPlayerList().contains(this.d_targetPlayer)) {
             return false;
         }
-        this.d_currentPlayer.addPlayerToNegotiateList(this.d_currentPlayer);
+        this.d_currentPlayer.addPlayerToNegotiateList(this.d_targetPlayer);
         this.d_targetPlayer.addPlayerToNegotiateList(this.d_currentPlayer);
         return true;
     }

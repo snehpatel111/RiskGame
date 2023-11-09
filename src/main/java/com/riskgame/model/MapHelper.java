@@ -400,7 +400,7 @@ public class MapHelper {
     public void showMap(ArrayList<Player> p_playerList, GameMap p_gameMap, GameState p_gameState) {
         if (p_gameMap == null)
             return;
-        if (p_playerList.size() == 0 || p_playerList.get(0).getOwnedCountries().size() == 0) {
+        if (p_playerList.size() == 0) {
             this.showMap(p_gameMap, p_gameState);
             return;
         }

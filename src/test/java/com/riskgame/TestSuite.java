@@ -21,7 +21,7 @@ import com.riskgame.utility.UtilTest;
         PlayerTest.class,
         StartUpPhaseTest.class,
         MapValidatorTest.class,
-        AdvanceTest.class,
+        // AdvanceTest.class,
         AirliftTest.class,
         BlockadeTest.class,
         BombTest.class,

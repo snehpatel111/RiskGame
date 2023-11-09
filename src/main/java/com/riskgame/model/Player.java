@@ -14,8 +14,10 @@ import com.riskgame.model.Phase;
 import com.riskgame.model.Advance;
 import com.riskgame.model.Airlift;
 import com.riskgame.model.Blockade;
+import com.riskgame.model.Bomb;
 import com.riskgame.model.Card;
 import com.riskgame.model.Deploy;
+import com.riskgame.model.Diplomacy;
 import com.riskgame.model.GameState;
 import com.riskgame.model.MapHelper;
 import com.riskgame.model.Order;
@@ -514,10 +516,6 @@ public class Player {
             int l_armyCount = Integer.parseInt(this.d_args[2]);
             boolean l_isPlayerOwnCountry = this.getOwnedCountries().containsKey(l_countryId.toLowerCase());
             boolean l_hasValidArmy = (this.getOwnedArmyCount() >= l_armyCount);
-            System.out.println("lol l_isPlayerOwnCountry: " + l_isPlayerOwnCountry);
-            System.out.println("lol getOwnedArmyCount: " + this.getOwnedArmyCount() + " l_armyCount: " + l_armyCount);
-            System.out.println("lol l_hasValidArmy: " + l_hasValidArmy);
-
             if (!l_isPlayerOwnCountry) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName() + " does not own "
                         + l_countryId + " country", "effect");
@@ -548,8 +546,6 @@ public class Player {
             this.d_gameState.updateLog("Invalid command. Try -> deploy <countryId> <numberOfArmy>", "effect");
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);
-            System.out.println(Constant.ERROR_COLOR
-                    + "lol " + e.getMessage() + Constant.RESET_COLOR);
         }
     }
 
@@ -572,7 +568,7 @@ public class Player {
             String l_sourceCountry = this.d_args[1];
             String l_targetCountry = this.d_args[2];
             int l_moveArmies = Integer.parseInt(this.d_args[3]);
-            
+
             boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
             if (!l_isPlayerOwnsSourceCountry) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName() + " does not own "
@@ -628,7 +624,6 @@ public class Player {
             System.out.println("-------------------------------------------------------------------");
 
         } catch (Exception e) {
-            System.out.println("lol player error: " + e.getMessage());
             this.d_gameState.updateLog(
                     "Invalid command. Try -> advance <sourceCountryId> <targetCountryId> <numberOfArmy>",
                     "effect");
@@ -816,7 +811,6 @@ public class Player {
             System.out.println("-------------------------------------------------------------------");
 
         } catch (Exception e) {
-            System.out.println("lol bomb error: " + e.getMessage());
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> bomb <countryID>" + Constant.RESET_COLOR);
         }
@@ -881,11 +875,21 @@ public class Player {
      * @return True if target country exist on map.
      */
     public boolean validateTargetCountry(String p_targetCountry) {
-    for(Country l_c: this.d_gameState.getGameMap().getCountries().values()){
-        if(l_c.getCountryId().equalsIgnoreCase(p_targetCountry)){
-            return true;
+        for (Country l_c : this.d_gameState.getGameMap().getCountries().values()) {
+            if (l_c.getCountryId().equalsIgnoreCase(p_targetCountry)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+
+    public boolean isWinner() {
+        boolean l_winner = true;
+        for (String l_countryName : this.d_gameState.getGameMap().getCountries().keySet()) {
+            if (this.getOwnedCountries().getOrDefault(l_countryName, null) == null) {
+                l_winner = false;
+            }
+        }
+        return l_winner;
+    }
 }

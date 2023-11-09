@@ -62,7 +62,7 @@ public class DiplomacyTest {
         d_diplomacyOrder.execute();
 
         assertTrue("Current player should be in the negotiate list of current player",
-                d_currentPlayer.getNegotiatePlayerList().contains(d_currentPlayer));
+                d_currentPlayer.getNegotiatePlayerList().contains(d_targetPlayer));
         assertTrue("Current player should be in the negotiate list of target player",
                 d_targetPlayer.getNegotiatePlayerList().contains(d_currentPlayer));
     }

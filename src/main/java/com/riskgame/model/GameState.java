@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 
+import com.riskgame.model.GameMap;
+import com.riskgame.model.Player;
 
 /**
  * Represents the state of the game.
@@ -41,6 +43,12 @@ public class GameState {
     private boolean d_isGameMapLoaded = false;
 
     /**
+     * Default GameState constructor
+     */
+    public GameState() {
+    }
+
+    /**
      * Gets the game map.
      *
      * @return The game map.
@@ -48,8 +56,6 @@ public class GameState {
     public GameMap getGameMap() {
         return this.d_gameMap;
     }
-
-    
 
     /**
      * Sets the game map.
@@ -72,7 +78,7 @@ public class GameState {
     /**
      * Sets the list of players.
      *
-     * @param players List of players.
+     * @param p_playerList List of players.
      */
     public void setPlayers(ArrayList<Player> p_playerList) {
         this.d_playerList = p_playerList;
@@ -125,12 +131,12 @@ public class GameState {
     }
 
     // /**
-    //  * Gets the most recent log entry in the current game state.
-    //  *
-    //  * @return The recent log message.
-    //  */
+    // * Gets the most recent log entry in the current game state.
+    // *
+    // * @return The recent log message.
+    // */
     // public String getRecentLog() {
-    //     return this.d_logEntryBuffer.getLogMessage();
+    // return this.d_logEntryBuffer.getLogMessage();
     // }
 
     /**
@@ -149,9 +155,14 @@ public class GameState {
         return this.d_isGameMapLoaded;
     }
 
+    /**
+     * Gets the total army count of all players.
+     * 
+     * @return Total army count of all players
+     */
     public int getTotalArmyOfAllPlayers() {
         int total = 0;
-        for(Player player: this.d_playerList){
+        for (Player player : this.d_playerList) {
             total += player.getOwnedArmyCount();
         }
         return total;

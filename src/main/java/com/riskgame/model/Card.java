@@ -49,6 +49,7 @@ public class Card {
 
     /**
      * Set game state.
+     * @param p_gameState Game state object
      */
     public void setGameState(GameState p_gameState) {
         this.d_gameState = p_gameState;
@@ -58,16 +59,16 @@ public class Card {
      * Stores the random card picked in the CardType String
      */
     public void createCard() {
-        d_cardType = this.getRandomCard();
+        this.d_cardType = this.getRandomCard();
     }
 
     /**
      * Stores the temp card picked in the CardType String
      * 
-     * @param temp specific card
+     * @param p_cardType specific card
      */
     public void createCard(String p_cardType) {
-        d_cardType = p_cardType;
+        this.d_cardType = p_cardType;
     }
 
     /**

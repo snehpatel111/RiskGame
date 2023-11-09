@@ -22,6 +22,12 @@ public class GameLogger implements Observer {
   LogEntryBuffer d_logEntryBuffer;
 
   /**
+   * Default GameLogger constructor
+   */
+  public GameLogger() {
+  }
+
+  /**
    * Writes log entries from the `LogEntryBuffer` object to the log file.
    *
    * @param p_observable The `LogEntryBuffer` object that is observed.

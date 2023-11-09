@@ -11,6 +11,10 @@ public class Blockade implements Order {
     private boolean status = false;
     private String d_countryId;
     private Player d_player;
+
+    /**
+     * Game state object which will be used to store game state.
+     */
     public GameState d_gameState;
 
     /**
@@ -35,7 +39,6 @@ public class Blockade implements Order {
     /**
      * execution logic of Blockade order
      * 
-     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override
@@ -44,19 +47,15 @@ public class Blockade implements Order {
             return true;
         }
 
-        
         this.status = true;
         System.out.println("-----------blockade Order Execution inside---------");
         Country l_c = d_player.getOwnedCountries().get(d_countryId.toLowerCase());
-        if(l_c == null)
-        {
+        if (l_c == null) {
             return false;
         }
         int l_existingArmies = l_c.getNumberOfArmies();
         l_existingArmies *= 3;
         l_c.setNumberOfArmies(l_existingArmies);
-
-        
 
         // Making territory neutral
         d_player.getOwnedCountries().remove(l_c.getCountryId().toLowerCase());

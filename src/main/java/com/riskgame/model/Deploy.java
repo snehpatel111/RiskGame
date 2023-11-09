@@ -3,12 +3,19 @@ package com.riskgame.model;
 import com.riskgame.model.Country;
 import com.riskgame.model.Player;
 
+/**
+ * Class containing logic for implementation of Deploy order
+ */
 public class Deploy implements Order {
 
     private boolean status = false;
     private int d_armyCount;
     private String d_countryId;
     private Player d_player;
+
+    /**
+     * Game state object which will be used to store game state.
+     */
     public GameState d_gameState;
 
     /**
@@ -27,6 +34,8 @@ public class Deploy implements Order {
 
     /**
      * Set game state.
+     * 
+     * @param p_gameState Game state object
      */
     public void setGameState(GameState p_gameState) {
         this.d_gameState = p_gameState;
@@ -35,7 +44,6 @@ public class Deploy implements Order {
     /**
      * This method execute the order
      * 
-     * @param p_gameState The current game state.
      * @return Returns true if order is executed successfully, otherwise false
      */
     @Override
@@ -51,7 +59,6 @@ public class Deploy implements Order {
         l_country.setNumberOfArmies(l_existingArmies);
         return true;
     }
-    
 
     /**
      * Getter method to get player

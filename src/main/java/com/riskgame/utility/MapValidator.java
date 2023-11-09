@@ -19,6 +19,9 @@ public class MapValidator {
     // Represents game map according to JGraphT format.
     private Graph<Country, DefaultEdge> d_mapGraph;
 
+    /**
+     * Default constructor for MapValidator.
+     */
     public MapValidator() {
         this.d_mapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
     }

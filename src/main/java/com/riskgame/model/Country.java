@@ -11,6 +11,9 @@ import com.riskgame.utility.Constant;
  * and number of armies deployed on them
  */
 public class Country {
+    /**
+     * Represents map index in thr map
+     */
     public int d_index;
     private String d_countryId;
     private String d_belongingContinent;
@@ -129,6 +132,11 @@ public class Country {
         return this.d_neighbors;
     }
 
+    /**
+     * Returns name of continent to which this country belongs.
+     * 
+     * @return Returns name of continent to which this country belongs.
+     */
     public String getBelongingContinent() {
         return this.d_belongingContinent;
     }

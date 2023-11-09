@@ -22,6 +22,12 @@ public class GameEngine {
 	Phase d_currentGamePhase = new StartUpPhase(this, this.d_gameState);
 
 	/**
+	 * Default GameEngine constructor
+	 */
+	public GameEngine() {
+	}
+
+	/**
 	 * It's used to update context.
 	 *
 	 * @param p_phase new Phase to set in Game context

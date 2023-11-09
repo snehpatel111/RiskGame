@@ -20,7 +20,15 @@ import com.riskgame.utility.MapValidator;
  * This class contains helper functions related to Map.
  */
 public class MapHelper {
+
+    /**
+     * Map index is used to identify the map file.
+     */
     public static int d_mapIndex = 1;
+
+    /**
+     * Stores the information about the current game map.
+     */
     public GameMap d_gameMap;
     private HashMap<Integer, Country> d_countryList;
 
@@ -47,7 +55,6 @@ public class MapHelper {
      * @param p_gameEngine  Current game engine
      * @param p_gameState   Current game state
      * @param p_mapFileName Name of map file.
-     * @return Edited game map
      */
 
     public void editMap(GameEngine p_gameEngine, GameState p_gameState, String p_mapFileName) {
@@ -288,7 +295,7 @@ public class MapHelper {
      * Display Map as a text
      * 
      * @param p_gameMap   GameMap object containing continents and countries
-     * @param p_gameState
+     * @param p_gameState GameState object containing log and map
      */
     public void showMap(GameMap p_gameMap, GameState p_gameState) {
         if (p_gameMap == null)

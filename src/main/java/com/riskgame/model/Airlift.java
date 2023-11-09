@@ -15,6 +15,10 @@ public class Airlift implements Order {
     private String d_sourceCountryId;
     private String d_targetCountryId;
     private Player d_player;
+
+    /**
+     * Game state object which will be used to store game state.
+     */
     public GameState d_gameState;
 
     /**
@@ -43,7 +47,6 @@ public class Airlift implements Order {
     /**
      * execution logic of Airlift order
      * 
-     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override
@@ -109,7 +112,7 @@ public class Airlift implements Order {
     /**
      * Setter for ID of Source Country
      * 
-     * @param d_SourceCountryId country ID
+     * @param p_sourceCountryId country ID
      */
     public void setSourceCountryId(String p_sourceCountryId) {
         this.d_sourceCountryId = p_sourceCountryId;
@@ -121,13 +124,13 @@ public class Airlift implements Order {
      * @return d_SourceCountryId
      */
     public String getTargetCountryId() {
-        return d_targetCountryId;
+        return this.d_targetCountryId;
     }
 
     /**
      * Setter for ID of Target Country
      * 
-     * @param d_TargetCountryId country ID
+     * @param p_targetCountryId country ID
      */
     public void setTargetCountryId(String p_targetCountryId) {
         this.d_targetCountryId = p_targetCountryId;
@@ -145,7 +148,7 @@ public class Airlift implements Order {
     /**
      * Setter for number of armies
      * 
-     * @param d_numArmies number of armies
+     * @param p_numArmies number of armies
      */
     public void setNumArmies(int p_numArmies) {
         this.d_armyCount = p_numArmies;

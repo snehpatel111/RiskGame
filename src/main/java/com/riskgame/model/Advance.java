@@ -13,6 +13,10 @@ public class Advance implements Order {
 	private int d_armyCount;
 	private String d_sourceCountryId, d_targetCountryId;
 	private Player d_attackPlayer, d_targetPlayer;
+
+	/**
+	 * Game state object which will be used to store game state.
+	 */
 	public GameState d_gameState;
 
 	/**
@@ -22,7 +26,7 @@ public class Advance implements Order {
 	 * @param p_player          source player who is advancing armies
 	 * @param p_sourceCountryId source country Id
 	 * @param p_targetCountryId target country Id
-	 * @param p_numArmies       number of armies
+	 * @param p_armyCount       number of armies
 	 * @param p_targetPlayer    target player on whom advance is to be performed
 	 */
 	public Advance(Player p_player, String p_sourceCountryId, String p_targetCountryId, int p_armyCount,
@@ -45,7 +49,6 @@ public class Advance implements Order {
 	/**
 	 * Contain the implementation logic of advance order
 	 * 
-	 * @param p_gameState The current game state.
 	 * @return true if executed successfully else false if it fails
 	 */
 	@Override

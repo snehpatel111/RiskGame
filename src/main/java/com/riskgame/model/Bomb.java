@@ -13,16 +13,19 @@ public class Bomb implements Order {
     private String d_countryId;
     private Player d_targetPlayer;
     private Player d_attackPlayer;
+
+    /**
+     * Game state object which will be used to store game state.
+     */
     public GameState d_gameState;
 
     /**
      * This constructor will initialize the order object with deploy details.
      * 
+     * @param p_attackPlayer attack player who will bomb
      * @param p_targetPlayer target player where bomb will effect
      * @param p_countryId    adjacent opponent country where bomb card will take
      *                       effect
-     * @param p_attackPlayer attack player who will bomb
-     * @param p_gameState    The current game state.
      */
     public Bomb(Player p_attackPlayer, Player p_targetPlayer, String p_countryId) {
         this.d_targetPlayer = p_targetPlayer;
@@ -50,43 +53,34 @@ public class Bomb implements Order {
         }
         this.status = true;
         System.out.println("-----------bomb Order Execution inside---------");
-        // // Check if Source player negotiating target Player
-        // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
-        //     System.out.println(
-        //             this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
-        
-       if (this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")) {
-        return false;
-       }else{
-         // Check if Source player negotiating target Player
-        // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
-        //     System.out.println(
-        //             this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
-        //     // skip execute
-        //     return false;
-        // }
-        if (d_attackPlayer.d_negotiatePlayers != null && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
-            this.d_gameState.updateLog(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
-                    "effect");
-            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
+        if (this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")) {
             return false;
+        } else {
+            if (d_attackPlayer.d_negotiatePlayers != null
+                    && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+                this.d_gameState.updateLog(
+                        d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
+                        "effect");
+                System.out
+                        .println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
+                return false;
+            }
+            // Check if Source player owns the country
+            if (this.d_attackPlayer.getOwnedCountries().containsKey(this.d_countryId.toLowerCase())) {
+                System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
+                        + " cannot deploy bomb on owned " + this.d_countryId + " country" + Constant.RESET_COLOR);
+                return false;
+            }
+            if (!this.d_attackPlayer.validateTargetCountry(this.d_countryId)) {
+                System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
+                        + this.d_countryId + " country does not exist on map" + Constant.RESET_COLOR);
+                return false;
+            }
+            Country l_c = this.d_targetPlayer.getOwnedCountries().get(this.d_countryId.toLowerCase());
+            int l_existingArmies = l_c.getNumberOfArmies();
+            l_c.setNumberOfArmies((l_existingArmies / 2));
+            return true;
         }
-        // Check if Source player owns the country
-        if (this.d_attackPlayer.getOwnedCountries().containsKey(this.d_countryId.toLowerCase())) {
-            System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
-                    + " cannot deploy bomb on owned " + this.d_countryId + " country" + Constant.RESET_COLOR);
-            return false;
-        }
-        if (!this.d_attackPlayer.validateTargetCountry(this.d_countryId)) {
-            System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
-                    + this.d_countryId + " country does not exist on map" + Constant.RESET_COLOR);
-            return false;
-        }
-        Country l_c = this.d_targetPlayer.getOwnedCountries().get(this.d_countryId.toLowerCase());
-        int l_existingArmies = l_c.getNumberOfArmies();
-        l_c.setNumberOfArmies((l_existingArmies / 2));
-        return true;
-       }
     }
 
     /**

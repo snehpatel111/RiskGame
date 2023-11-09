@@ -11,6 +11,10 @@ import com.riskgame.utility.Constant;
 public class Diplomacy implements Order {
     private boolean status = false;
     private Player d_currentPlayer, d_targetPlayer;
+
+    /**
+     * Game state object representing current game state
+     */
     public GameState d_gameState;
 
     /**
@@ -35,7 +39,6 @@ public class Diplomacy implements Order {
     /**
      * execution logic of Diplomacy order
      * 
-     * @param p_gameState The current game state.
      * @return true if executed successfully else false if it fails
      */
     @Override

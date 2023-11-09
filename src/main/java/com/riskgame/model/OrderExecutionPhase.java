@@ -11,7 +11,17 @@ import com.riskgame.utility.Constant;
 
 import com.riskgame.model.Player;
 
+/**
+ * Represents the order execution phase.
+ */
 public class OrderExecutionPhase extends Phase {
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @param p_gameEngine
+   * @param p_gameState
+   */
   public OrderExecutionPhase(GameEngine p_gameEngine, GameState p_gameState) {
     super(p_gameEngine, p_gameState);
   }

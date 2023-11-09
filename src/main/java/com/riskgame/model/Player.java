@@ -35,18 +35,32 @@ public class Player {
     private String d_countryId;
     private Order d_order;
     private Queue<Order> d_executionOrderList;
+
+    /**
+     * List of players who are going to negotiate with the current player.
+     */
     public ArrayList<Player> d_negotiatePlayers;
+
+    /**
+     * List of cards owned by the player.
+     */
     public ArrayList<Card> d_ownedCards;
+
+    /**
+     * Command line input from user
+     */
     public String[] d_args;
+
+    /**
+     * Countries owned by player
+     */
     private Map<String, Country> ownedCountries = new HashMap<>();
 
     public GameState d_gameState = new GameState();
 
     public void addOwnedCountry(Country country) {
-        ownedCountries.put(country.getCountryId(), country);
+        this.ownedCountries.put(country.getCountryId(), country);
     }
-
-   
 
     /**
      * This constructor assigns name to the player.
@@ -295,6 +309,7 @@ public class Player {
      * getter method to get current player by name
      * 
      * @param p_playerName player name
+     * @param p_gs         game state
      * @return player object
      */
     public Player getPlayerByName(String p_playerName, GameState p_gs) {
@@ -482,7 +497,6 @@ public class Player {
     /**
      * Takes deploy order from user and add it to the execution order list.
      * 
-     * @param p_gameState The current game state.
      */
     public void issue_deployOrder() {
         try {
@@ -542,7 +556,6 @@ public class Player {
     /**
      * Takes Advance order from user and add it to the execution order list.
      * 
-     * @param p_gameState The current game state.
      */
     public void issue_advanceOrder() {
         try {
@@ -628,7 +641,6 @@ public class Player {
     /**
      * Takes Airlift order from user and add it to the execution order list.
      * 
-     * @param p_gameState The current game state.
      */
     public void issue_airliftOrder() {
         try {
@@ -816,7 +828,6 @@ public class Player {
     /**
      * Takes Blockade order from user and add it to the execution order list.
      * 
-     * @param p_gameState The current game state.
      */
     public void issue_blockadeOrder() {
         try {
@@ -866,6 +877,12 @@ public class Player {
         }
     }
 
+    /**
+     * Validate if target country exist on map.
+     * 
+     * @param p_targetCountry Target country name.
+     * @return True if target country exist on map.
+     */
     public boolean validateTargetCountry(String p_targetCountry) {
     for(Country l_c: this.d_gameState.getGameMap().getCountries().values()){
         if(l_c.getCountryId().equalsIgnoreCase(p_targetCountry)){

@@ -209,9 +209,9 @@ public abstract class Phase {
     /**
      * handle advance command
      * 
-     * @param p_gameState  game state
-     * @param p_gameEngine game engine
-     * @param l_data       user command
+     * @param p_gameState game state
+     * @param p_player    Player object
+     * @param l_data      user command
      */
     protected abstract void advance(GameState p_gameState, Player p_player, String[] l_data);
 
@@ -288,7 +288,6 @@ public abstract class Phase {
      * @param p_gameState  GameState object containing current game state
      *                     state.
      * @param p_args       Command line arguments to edit continent.
-     * @return Returns true if map is valid, otherwise false
      */
     protected abstract void validateMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 
@@ -305,9 +304,9 @@ public abstract class Phase {
     /**
      * Save current game map object into .map file
      * 
-     * @param p_gameEngine  GameEngine object
-     * @param p_gameState   GameState object containing current game state
-     * @param p_mapFileName Name of the file
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object containing current game state
+     * @param p_args       Command line arguments to edit continent.
      */
     protected abstract void saveMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 

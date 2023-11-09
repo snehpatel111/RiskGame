@@ -559,14 +559,7 @@ public class Player {
             String l_sourceCountry = this.d_args[1];
             String l_targetCountry = this.d_args[2];
             int l_moveArmies = Integer.parseInt(this.d_args[3]);
-            Player l_targetPlayer = null;
-            for (Player l_p : this.d_gameState.getPlayerList()) {
-                // checking which player contains targetCountry
-                if (l_p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())) {
-                    l_targetPlayer = l_p;
-                    break;
-                }
-            }
+            
             boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
             if (!l_isPlayerOwnsSourceCountry) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName() + " does not own "
@@ -586,7 +579,7 @@ public class Player {
             }
 
             boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
-                    .getNumberOfArmies() - l_moveArmies) >= 1;
+                    .getNumberOfArmies() - l_moveArmies) >= 0;
             boolean l_areBothCountriesNeighbors = new Country().isNeighbor(this.d_gameState.getGameMap(),
                     l_sourceCountry, l_targetCountry);
 
@@ -603,6 +596,14 @@ public class Player {
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
                         + " does not have sufficient army to advance." + Constant.RESET_COLOR);
                 return;
+            }
+            Player l_targetPlayer = new Player("neutral");
+            for (Player l_p : this.d_gameState.getPlayerList()) {
+                // checking which player contains targetCountry
+                if (l_p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())) {
+                    l_targetPlayer = l_p;
+                    break;
+                }
             }
             this.addOrder(new Advance(this, l_sourceCountry, l_targetCountry, l_moveArmies, l_targetPlayer));
             this.d_gameState.getUnexecutedOrders().add(this.d_order);
@@ -783,7 +784,7 @@ public class Player {
                 return;
             }
 
-            Player l_targetPlayer = null;
+            Player l_targetPlayer = new Player("neutral");
             for (Player p : this.d_gameState.getPlayerList()) {
                 // checking which player contains targetCountry
                 if (p.getOwnedCountries().containsKey(l_targetCountry.toLowerCase())) {
@@ -866,16 +867,11 @@ public class Player {
     }
 
     public boolean validateTargetCountry(String p_targetCountry) {
-        Iterator<Player> l_iterator = this.d_gameState.getPlayerList().iterator();
-        while (l_iterator.hasNext()) {
-            Player l_player = l_iterator.next();
-            if (l_player.getPlayerName().equals(this.getPlayerName())) {
-                continue;
-            }
-            if (l_player.getOwnedCountries().containsKey(p_targetCountry.toLowerCase())) {
-                return true;
-            }
+    for(Country l_c: this.d_gameState.getGameMap().getCountries().values()){
+        if(l_c.getCountryId().equalsIgnoreCase(p_targetCountry)){
+            return true;
         }
-        return false;
     }
+    return false;
+}
 }

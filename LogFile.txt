@@ -7,6 +7,9 @@ Initializing the Game ......
 Command Entered: loadmap first.map
 Log: first.map map is valid and loaded successfully.
 
+Command Entered: showmap
+Log: Map shown successfully
+
 Command Entered: gameplayer -add p1
 Log: Player p1 added successfully!
 
@@ -22,11 +25,11 @@ Log: Map shown successfully
 
 Command Entered: showmap
 
-Command Entered: deploy two 5
-Log: Player p1 has 0 army left in the reinforcement pool
-
-Command Entered: deploy ten 5
+Command Entered: deploy six 5
 Log: Player p2 has 0 army left in the reinforcement pool
+
+Command Entered: deploy three 5
+Log: Player p1 has 0 army left in the reinforcement pool
 
 =======Order Execution Phase=======
 
@@ -36,10 +39,7 @@ Log: Player p2 has 0 army left in the reinforcement pool
 
 Command Entered: showmap
 
-Command Entered: advance two four 4
-Log: Advance order successfully issued by p1 and added to execution list
-
-Command Entered: advance ten nine 4
+Command Entered: advance six ten 1
 Log: Advance order successfully issued by p2 and added to execution list
 
 Command Entered: execute
@@ -52,25 +52,8 @@ Command Entered: execute
 
 Command Entered: showmap
 
-Command Entered: pass
-
-Command Entered: bomb nine
-
-Command Entered: pass
-
-Command Entered: bomb four
-
-Command Entered: pass
-
-Command Entered: showmap
-
-Command Entered: pass
-
-Command Entered: bomb four
-
-Command Entered: pass
-
-Command Entered: bomb two
+Command Entered: blockade ten
+Log: Blockade order successfully issued by p2 and added to execution list
 
 Command Entered: execute
 
@@ -82,8 +65,25 @@ Command Entered: execute
 
 Command Entered: showmap
 
-Command Entered: blockade six
-Log: Blockade order successfully issued by p1 and added to execution list
+Command Entered: deploy six 10
+Log: Player p2 has 5 army left in the reinforcement pool
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: pass
+
+Command Entered: showmap
+
+Command Entered: pass
+
+Command Entered: advance six ten 4
+Log: Advance order successfully issued by p2 and added to execution list
 
 Command Entered: execute
 
@@ -94,3 +94,17 @@ Command Entered: execute
 
 
 Command Entered: showmap
+
+Command Entered: bomb three
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+
+=======Issue Order Phase=======
+
+
+Command Entered: showmap
+
+Command Entered: pass

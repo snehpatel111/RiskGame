@@ -338,6 +338,35 @@ public class MapHelper {
     }
 
     /**
+     * displays neutral countries from the gamemap
+     * @param p_gameMap GameMap object containing continents and countries
+     * @param p_playerList List of players
+     */
+    public void displayNeutralCountries(GameMap p_gameMap, ArrayList<Player> p_playerList){
+        
+        for(Country l_c: p_gameMap.getCountries().values()){
+            boolean isOwned = false;
+            for(Player l_p : p_playerList){
+                if(l_p.getOwnedCountries().containsKey(l_c.getCountryId().toLowerCase())){
+                    isOwned = true;
+                }
+            }
+            if(!isOwned){
+                boolean l_isDisplayed = false;
+                for(Country l_con: l_c.getNeighbors().values()){
+                    if (!l_isDisplayed) {
+                    System.out.format("%25s%25s%35s%25s%20s\n", "Neutral", l_c.getCountryId(), 
+                                            l_con.getCountryId(), l_c.getBelongingContinent(), l_c.getNumberOfArmies());
+                    l_isDisplayed = true;
+                    }else{
+                        System.out.format("%25s%25s%35s%25s%20s\n", "", "", l_con.getCountryId(), "", "");
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Display map with all countries, continents, armies on each country, and
      * ownership.
      * 
@@ -393,6 +422,8 @@ public class MapHelper {
             l_displayCountryId = true;
             l_displayNumberOfArmies = true;
         }
+        this.displayNeutralCountries(p_gameMap, p_playerList);
+
     }
 
     /**

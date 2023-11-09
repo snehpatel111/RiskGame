@@ -54,11 +54,21 @@ public class Bomb implements Order {
         // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
         //     System.out.println(
         //             this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
+        
+       if (this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")) {
+        return false;
+       }else{
+         // Check if Source player negotiating target Player
+        // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
+        //     System.out.println(
+        //             this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
+        //     // skip execute
+        //     return false;
+        // }
         if (d_attackPlayer.d_negotiatePlayers != null && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
             this.d_gameState.updateLog(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
                     "effect");
             System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
-            // skip execute
             return false;
         }
         // Check if Source player owns the country
@@ -76,6 +86,7 @@ public class Bomb implements Order {
         int l_existingArmies = l_c.getNumberOfArmies();
         l_c.setNumberOfArmies((l_existingArmies / 2));
         return true;
+       }
     }
 
     /**

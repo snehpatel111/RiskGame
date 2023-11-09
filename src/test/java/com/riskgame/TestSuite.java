@@ -7,6 +7,7 @@ import com.riskgame.controller.*;
 import com.riskgame.model.*;
 import com.riskgame.utility.MapValidatorTest;
 import com.riskgame.utility.UtilTest;
+// import com.riskgame.view.GameLoggerTest;
 
 @RunWith(Suite.class)
 
@@ -20,7 +21,17 @@ import com.riskgame.utility.UtilTest;
         PlayerTest.class,
         StartUpPhaseTest.class,
         MapValidatorTest.class,
+        AdvanceTest.class,
+        AirliftTest.class,
+        BlockadeTest.class,
+        BombTest.class,
+        DeployTest.class,
+        DiplomacyTest.class,
+        GameStateTest.class,
+        LogEntryBufferTest.class,
+        OrderExecutionPhaseTest.class,
         UtilTest.class,
+// GameLoggerTest.class,
 })
 
 /**

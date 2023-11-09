@@ -41,7 +41,9 @@ public class IssueOrderPhase extends Phase {
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {
+
       p_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
+
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> showMap"
           + Constant.RESET_COLOR);
@@ -58,6 +60,7 @@ public class IssueOrderPhase extends Phase {
   public void initPhase() {
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
     this.assignReinforcementToPlayer(this.d_gameState);
+    this.d_gameState.updateLog("Reinforcement assigned to each player! \nBegin to issue order as per turn!", "effect");
     System.out.println(
         Constant.SUCCESS_COLOR
             + "Reinforcement assigned to each player! \nBegin to issue order as per turn!"
@@ -65,6 +68,7 @@ public class IssueOrderPhase extends Phase {
     while (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
       try {
         int l_totalReinforcement = this.d_gameState.getTotalArmyOfAllPlayers();
+        this.d_gameEngine.setGameEngineLog("Total armies in the reinforcement pool: " + l_totalReinforcement, "effect");
         System.out.println("Total armies in the reinforcement pool: " + l_totalReinforcement);
         if (l_totalReinforcement == 0) {
           this.d_gameEngine.setOrderExecutionPhase();
@@ -75,6 +79,7 @@ public class IssueOrderPhase extends Phase {
             break;
           }
           this.printPlayerArmies(this.d_gameState);
+          this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");
           System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
               + l_player.getOwnedArmyCount() + ")");
           l_player.showCards();
@@ -111,6 +116,8 @@ public class IssueOrderPhase extends Phase {
     Iterator<Player> l_itr = p_gameState.getPlayerList().listIterator();
     while (l_itr.hasNext()) {
       Player l_p = l_itr.next();
+      this.d_gameEngine.setGameEngineLog(
+          "Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmyCount() + " armies currently.", "effect");
       System.out.println("Player " + l_p.getPlayerName() + " has " + l_p.getOwnedArmyCount() + " armies currently.");
     }
   }

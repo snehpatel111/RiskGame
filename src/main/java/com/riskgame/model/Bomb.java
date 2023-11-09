@@ -53,7 +53,32 @@ public class Bomb implements Order {
         }
         this.status = true;
         System.out.println("-----------bomb Order Execution inside---------");
-        if (this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")) {
+        // // Check if Source player negotiating target Player
+        // if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
+        // System.out.println(
+        // this.d_attackPlayer.getPlayerName() + " has negotiated " +
+        // this.d_targetPlayer.getPlayerName());
+        if (d_attackPlayer.d_negotiatePlayers != null && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+            this.d_gameState.updateLog(
+                    d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
+                    "effect");
+            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
+            // skip execute
+            return false;
+        }
+        // Check if Source player owns the country
+        if (this.d_attackPlayer.getOwnedCountries().containsKey(this.d_countryId.toLowerCase())) {
+            this.d_gameState.updateLog(this.d_attackPlayer.getPlayerName()
+                    + " cannot deploy bomb on owned " + this.d_countryId + " country", "effect");
+            System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
+                    + " cannot deploy bomb on owned " + this.d_countryId + " country" + Constant.RESET_COLOR);
+            return false;
+        }
+        if (!this.d_attackPlayer.validateTargetCountry(this.d_countryId)) {
+            this.d_gameState.updateLog(this.d_attackPlayer.getPlayerName()
+                    + this.d_countryId + " country does not exist on map", "effect");
+            System.out.println(Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName()
+                    + this.d_countryId + " country does not exist on map" + Constant.RESET_COLOR);
             return false;
         } else {
             if (d_attackPlayer.d_negotiatePlayers != null

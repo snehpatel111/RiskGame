@@ -690,9 +690,6 @@ public class Player {
                 return;
             }
             if (!l_hasSufficientArmy) {
-                this.d_gameState.updateLog("Player " + this.getPlayerName()
-                        + " does not have sufficient army to advance.",
-                        "effect");
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
                         + " does not have sufficient army to advance." + Constant.RESET_COLOR);
                 return;

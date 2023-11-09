@@ -38,9 +38,11 @@ public class OrderExecutionPhase extends Phase {
       try {
         int l_numOfOrders = this.d_gameState.getUnexecutedOrders().size();
         if (l_numOfOrders == 0) {
+          this.d_gameEngine.setGameEngineLog("Orders already executed!!", "effect");
           System.out.println("Orders already executed!!");
           break;
         } else {
+          this.d_gameEngine.setGameEngineLog("total orders : " + l_numOfOrders, "effect");
           System.out.println("total orders : " + l_numOfOrders);
 
           while (!this.d_gameState.getUnexecutedOrders().isEmpty()) {
@@ -53,6 +55,7 @@ public class OrderExecutionPhase extends Phase {
             System.out.println("lol l_executed: " + l_executed);
           }
 
+          this.d_gameEngine.setGameEngineLog("All orders are executed successfully." + l_numOfOrders, "effect");
           System.out.println(Constant.SUCCESS_COLOR + "All orders are executed successfully." + Constant.RESET_COLOR);
 
           Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();

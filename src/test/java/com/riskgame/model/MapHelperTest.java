@@ -34,7 +34,8 @@ public class MapHelperTest {
      */
     @Test
     public void testLoadMap() {
-        this.d_gameMapName = "world.map";
+        this.d_gameMapName = "";
+
         this.d_mapHelper.loadMap(this.d_gameEngine, this.d_gameState, this.d_gameMapName);
         assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_gameMapName);
     }

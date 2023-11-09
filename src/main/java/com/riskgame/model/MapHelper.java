@@ -63,10 +63,13 @@ public class MapHelper {
         File l_file = new File(l_filePath);
 
         if (l_file.exists()) {
+            p_gameEngine.setGameEngineLog(p_mapFileName + " map file exists. You can edit it.", "effect");
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
             this.readMap(l_filePath, p_gameState);
             p_gameState.updateLog(p_mapFileName + " already exists and is loaded for editing", "effect");
         } else {
+            p_gameEngine.setGameEngineLog(p_mapFileName + " does not exist.", "effect");
+            p_gameEngine.setGameEngineLog("Creating a new Map named: " + p_mapFileName, "effect");
             System.out.println(p_mapFileName + " does not exist.");
             System.out.println("Creating a new Map named: " + p_mapFileName);
             p_gameState.updateLog(p_mapFileName + " File has been created to edit", "effect");
@@ -87,11 +90,13 @@ public class MapHelper {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         File l_file = new File(l_filePath);
         if (l_file.exists()) {
-            this.d_gameMap = new GameMap(p_mapFileName);
+            p_gameEngine.setGameEngineLog("Loading map from " + p_mapFileName + "...", "effect");
             System.out.println("Loading map from " + p_mapFileName + "...");
             this.readMap(l_filePath, p_gameState);
             MapValidator l_mapValidator = new MapValidator();
             if (!l_mapValidator.isValidMap(this.d_gameMap)) {
+                p_gameEngine.setGameEngineLog(
+                        "Map is not valid for playing. Try to correct map or choose from existing one", "effect");
                 System.out.println(Constant.ERROR_COLOR
                         + "Map is not valid for playing. Try to correct map or choose from existing one"
                         + Constant.RESET_COLOR);
@@ -101,6 +106,7 @@ public class MapHelper {
                 return;
             }
             p_gameState.setGameMap(this.d_gameMap);
+            p_gameEngine.setGameEngineLog("Map is valid and loaded successfully.", "effect");
             System.out.println(
                     Constant.SUCCESS_COLOR + "Map is valid and loaded successfully." + Constant.RESET_COLOR);
             p_gameState.updateLog(
@@ -109,6 +115,10 @@ public class MapHelper {
             p_gameState.setIsGameMapLoaded();
             return;
         }
+
+        p_gameEngine.setGameEngineLog(p_mapFileName
+                + " does not exist. Please check file path or create new map using editmap <mapName> command.",
+                "effect");
         System.out.println(Constant.ERROR_COLOR + p_mapFileName
                 + " does not exist. Please check file path or create new map using editmap <mapName> command."
                 + Constant.RESET_COLOR);
@@ -140,9 +150,13 @@ public class MapHelper {
             }
             l_reader.close();
         } catch (FileNotFoundException e) {
+            p_gameState.updateLog("FileNotFoundException", "effect");
             System.out.println(Constant.ERROR_COLOR + "FileNotFoundException" + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + e.getMessage() + Constant.RESET_COLOR);
         } catch (IOException e) {
+
+            p_gameState.updateLog("IOException", "effect");
+
             System.out.println(Constant.ERROR_COLOR + "IOException" + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + e.getMessage() + Constant.RESET_COLOR);
         }
@@ -195,6 +209,7 @@ public class MapHelper {
                         this.d_gameMap);
                 try {
                     if (l_country.getBelongingContinent() == null) {
+                        this.d_gameMap = new GameMap("Error reading country from the file.");
                         System.out.println(
                                 Constant.ERROR_COLOR + "Error reading country from the file." + Constant.RESET_COLOR);
                         System.exit(-1);
@@ -260,6 +275,7 @@ public class MapHelper {
             p_gameState.updateLog(
                     "The neighbor " + l_borderIndex + " does not exist.",
                     "effect");
+
             System.out.println(Constant.ERROR_COLOR + "The neighbor " + l_borderIndex + " does not exist."
                     + Constant.RESET_COLOR);
             System.exit(-1);
@@ -521,6 +537,7 @@ public class MapHelper {
                 p_gameState.updateLog(
                         "Map not suitable for game play. Correct the map to continue with the new map or load a map from the existing maps.",
                         "effect");
+
                 System.out.println(Constant.ERROR_COLOR +
                         "Map not suitable for game play. Correct the map to continue with the new map or load a map from the existing maps."
                         + Constant.RESET_COLOR);
@@ -530,6 +547,7 @@ public class MapHelper {
             p_gameState.updateLog(
                     "Invalid Map name",
                     "effect");
+
             System.out.println(Constant.ERROR_COLOR +
                     "Invalid Map name" + Constant.RESET_COLOR);
             return false;

@@ -53,33 +53,6 @@ public class Advance implements Order {
 	 */
 	@Override
 	public boolean execute() {
-		if (this.d_attackPlayer == null || this.d_targetPlayer == null) {
-			System.out.println("Invalid players specified.");
-			return false;
-		}
-
-		Country sourceCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId != null ? this.d_sourceCountryId.toLowerCase() : "");
-		Country targetCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_targetCountryId != null ? this.d_targetCountryId.toLowerCase() : "");
-		Country defendingCountry = this.d_targetPlayer.getOwnedCountries().get(this.d_targetCountryId != null ? this.d_targetCountryId.toLowerCase() : "");
-		
-		 // Check if the source and target countries exist
-		 if (sourceCountry == null || targetCountry == null || defendingCountry == null) {
-			System.out.println("Invalid source, target, or defending country specified.");
-			return false;
-		}
-	
-		// Check if the source country is owned by the player
-		if (!this.d_attackPlayer.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase())) {
-			System.out.println("Source country is not owned by the player.");
-			return false;
-		}
-	
-		// Check if the target player is in the negotiate list
-		if (this.d_attackPlayer.getNegotiatePlayerList().contains(this.d_targetPlayer)) {
-			System.out.println("Negotiate order. Skipping execution.");
-			return false;
-		}
-
 		System.out.println("-----------Advance Order Execution inside---------");
 		System.out.println("lol d_attackPlayer owns country: "
 				+ this.d_attackPlayer.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase()));
@@ -88,12 +61,14 @@ public class Advance implements Order {
 					this.d_attackPlayer.getPlayerName() + " does not have any country to advance armies",
 					"effect");
 			System.out.println(Constant.ERROR_COLOR
-					+ this.d_attackPlayer.getPlayerName() + " does not have any country to advance armies" + Constant.RESET_COLOR);
+					+ this.d_attackPlayer.getPlayerName() + " does not any country to advance armies"
+					+ Constant.RESET_COLOR);
 			return false;
 		}
 		if (!this.d_attackPlayer.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase())) {
 			this.d_gameState.updateLog(
-					this.d_attackPlayer.getPlayerName() + " does not own" + this.d_sourceCountryId + " country to advance armies",
+					this.d_attackPlayer.getPlayerName() + " does not own" + this.d_sourceCountryId
+							+ " country to advance armies",
 					"effect");
 			System.out.println(Constant.ERROR_COLOR
 					+ this.d_attackPlayer.getPlayerName() + " does not own" + this.d_sourceCountryId
@@ -110,14 +85,15 @@ public class Advance implements Order {
 					+ this.d_targetCountryId + " country does not exist on map" + Constant.RESET_COLOR);
 			return false;
 		}
-		if(this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")){
-			Country attackingCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase());
+		if (this.d_targetPlayer.getPlayerName().equalsIgnoreCase("neutral")) {
+			Country attackingCountry = this.d_attackPlayer.getOwnedCountries()
+					.get(this.d_sourceCountryId.toLowerCase());
 			Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
-			this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),defendingCountry);
+			this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(), defendingCountry);
 			int l_defendArmy = defendingCountry.getNumberOfArmies();
-			if(this.d_armyCount > l_defendArmy){
+			if (this.d_armyCount > l_defendArmy) {
 				this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),
-							defendingCountry);
+						defendingCountry);
 				// System.out.println(this.d_attackPlayer.getOwnedCountries().values());
 				// System.out.println("lol-----");
 				// System.out.println(this.d_targetPlayer.getOwnedCountries().values());
@@ -135,13 +111,13 @@ public class Advance implements Order {
 				// If Attack Successful and new territory added to Player
 				// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
 				this.d_attackPlayer.addCard();
-			}else if(this.d_armyCount == l_defendArmy){
+			} else if (this.d_armyCount == l_defendArmy) {
 				defendingCountry.setNumberOfArmies(0);
 				attackingCountry.setNumberOfArmies(
 						((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
 								.getNumberOfArmies())
 								- this.d_armyCount));
-			}else{
+			} else {
 				defendingCountry.setNumberOfArmies(l_defendArmy - this.d_armyCount);
 				attackingCountry.setNumberOfArmies(
 						((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
@@ -149,95 +125,97 @@ public class Advance implements Order {
 								- this.d_armyCount));
 			}
 			return true;
-		}else{
+		} else {
 			if (this.d_attackPlayer.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase())) {
 
-			System.out.println("lol-in if 1-" +
-					this.d_attackPlayer.getOwnedCountries().values());
+				System.out.println("lol-in if 1-" +
+						this.d_attackPlayer.getOwnedCountries().values());
 
-			// advance logic
-			int fromArmies = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
-					.getNumberOfArmies();
-			fromArmies -= this.d_armyCount;
-			this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
-					.setNumberOfArmies(fromArmies);
-			int toArmies = this.d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase())
-					.getNumberOfArmies();
-			toArmies += this.d_armyCount;
-			this.d_attackPlayer.getOwnedCountries().get(this.d_targetCountryId.toLowerCase()).setNumberOfArmies(toArmies);
-			System.out.println("lol return if 1-");
-			return true;
-		} else {
-			System.out.println(
-					"lol-- is not owned by the player " +
-							this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer));
-
-			if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
-				this.d_gameState.updateLog("You cannot negotiate with yourself", "effect");
-				System.out.println(Constant.ERROR_COLOR + "You cannot negotiate with yourself" + Constant.RESET_COLOR);
-				return false;
-			} else {
-				// attack logic
-				System.out.println("lol Attack Occur between: " + this.d_targetCountryId + " and "
-						+ this.d_sourceCountryId);
-
-				// fetching the countries and its armies
-				Country attackingCountry = this.d_attackPlayer.getOwnedCountries()
-						.get(this.d_sourceCountryId.toLowerCase());
-				Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
-
-				int l_defendArmy = defendingCountry.getNumberOfArmies();
-				System.out.println("lol - defend " + l_defendArmy + " - d_army " +
-						this.d_armyCount);
-
-				// if defending country has less armies
-				if (l_defendArmy < this.d_armyCount) {
-
-					this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),
-							defendingCountry);
-					System.out.println(this.d_attackPlayer.getOwnedCountries().values());
-					System.out.println("lol-----");
-					System.out.println(this.d_targetPlayer.getOwnedCountries().values());
-					this.d_targetPlayer.getOwnedCountries().remove(this.d_targetCountryId.toLowerCase());
-					System.out.println(this.d_targetPlayer.getOwnedCountries().values());
-					System.out.println(defendingCountry.getNumberOfArmies());
-					defendingCountry.setNumberOfArmies(this.d_armyCount - l_defendArmy);
-					System.out.println(defendingCountry.getNumberOfArmies());
-					System.out.println(attackingCountry.getNumberOfArmies());
-					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
-									.getNumberOfArmies())
-									- this.d_armyCount));
-					System.out.println(attackingCountry.getNumberOfArmies());
-					// If Attack Successful and new territory added to Player
-					// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
-					this.d_attackPlayer.addCard();
-
-				} else if (l_defendArmy == this.d_armyCount) {
-					System.out.println("lol---if equal army");
-
-					this.d_targetPlayer.getOwnedCountries().remove(this.d_targetCountryId.toLowerCase());
-					defendingCountry.setNumberOfArmies(0);
-					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
-									.getNumberOfArmies())
-									- this.d_armyCount));
-				}
-				// if defending coutry has more armies
-				else {
-					System.out.println("lol--defend army win");
-
-					defendingCountry.setNumberOfArmies(l_defendArmy - this.d_armyCount);
-					attackingCountry.setNumberOfArmies(
-							((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
-									.getNumberOfArmies())
-									- this.d_armyCount));
-
-				}
-				System.out.println("lol final return");
+				// advance logic
+				int fromArmies = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+						.getNumberOfArmies();
+				fromArmies -= this.d_armyCount;
+				this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+						.setNumberOfArmies(fromArmies);
+				int toArmies = this.d_attackPlayer.getOwnedCountries().get(d_targetCountryId.toLowerCase())
+						.getNumberOfArmies();
+				toArmies += this.d_armyCount;
+				this.d_attackPlayer.getOwnedCountries().get(this.d_targetCountryId.toLowerCase())
+						.setNumberOfArmies(toArmies);
+				System.out.println("lol return if 1-");
 				return true;
+			} else {
+				System.out.println(
+						"lol-- is not owned by the player " +
+								this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer));
+
+				if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
+					this.d_gameState.updateLog("You cannot negotiate with yourself", "effect");
+					System.out.println(
+							Constant.ERROR_COLOR + "You cannot negotiate with yourself" + Constant.RESET_COLOR);
+					return false;
+				} else {
+					// attack logic
+					System.out.println("lol Attack Occur between: " + this.d_targetCountryId + " and "
+							+ this.d_sourceCountryId);
+
+					// fetching the countries and its armies
+					Country attackingCountry = this.d_attackPlayer.getOwnedCountries()
+							.get(this.d_sourceCountryId.toLowerCase());
+					Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
+
+					int l_defendArmy = defendingCountry.getNumberOfArmies();
+					System.out.println("lol - defend " + l_defendArmy + " - d_army " +
+							this.d_armyCount);
+
+					// if defending country has less armies
+					if (l_defendArmy < this.d_armyCount) {
+
+						this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),
+								defendingCountry);
+						System.out.println(this.d_attackPlayer.getOwnedCountries().values());
+						System.out.println("lol-----");
+						System.out.println(this.d_targetPlayer.getOwnedCountries().values());
+						this.d_targetPlayer.getOwnedCountries().remove(this.d_targetCountryId.toLowerCase());
+						System.out.println(this.d_targetPlayer.getOwnedCountries().values());
+						System.out.println(defendingCountry.getNumberOfArmies());
+						defendingCountry.setNumberOfArmies(this.d_armyCount - l_defendArmy);
+						System.out.println(defendingCountry.getNumberOfArmies());
+						System.out.println(attackingCountry.getNumberOfArmies());
+						attackingCountry.setNumberOfArmies(
+								((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+										.getNumberOfArmies())
+										- this.d_armyCount));
+						System.out.println(attackingCountry.getNumberOfArmies());
+						// If Attack Successful and new territory added to Player
+						// Generate a random Card from {'BOMB', 'AIRLIFT', 'BLOCKADE', 'DIPLOMACY'}
+						this.d_attackPlayer.addCard();
+
+					} else if (l_defendArmy == this.d_armyCount) {
+						System.out.println("lol---if equal army");
+
+						this.d_targetPlayer.getOwnedCountries().remove(this.d_targetCountryId.toLowerCase());
+						defendingCountry.setNumberOfArmies(0);
+						attackingCountry.setNumberOfArmies(
+								((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+										.getNumberOfArmies())
+										- this.d_armyCount));
+					}
+					// if defending coutry has more armies
+					else {
+						System.out.println("lol--defend army win");
+
+						defendingCountry.setNumberOfArmies(l_defendArmy - this.d_armyCount);
+						attackingCountry.setNumberOfArmies(
+								((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
+										.getNumberOfArmies())
+										- this.d_armyCount));
+
+					}
+					System.out.println("lol final return");
+					return true;
+				}
 			}
-		}
 		}
 
 	}

@@ -53,6 +53,33 @@ public class Advance implements Order {
 	 */
 	@Override
 	public boolean execute() {
+		if (this.d_attackPlayer == null || this.d_targetPlayer == null) {
+			System.out.println("Invalid players specified.");
+			return false;
+		}
+
+		Country sourceCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId != null ? this.d_sourceCountryId.toLowerCase() : "");
+		Country targetCountry = this.d_attackPlayer.getOwnedCountries().get(this.d_targetCountryId != null ? this.d_targetCountryId.toLowerCase() : "");
+		Country defendingCountry = this.d_targetPlayer.getOwnedCountries().get(this.d_targetCountryId != null ? this.d_targetCountryId.toLowerCase() : "");
+		
+		 // Check if the source and target countries exist
+		 if (sourceCountry == null || targetCountry == null || defendingCountry == null) {
+			System.out.println("Invalid source, target, or defending country specified.");
+			return false;
+		}
+	
+		// Check if the source country is owned by the player
+		if (!this.d_attackPlayer.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase())) {
+			System.out.println("Source country is not owned by the player.");
+			return false;
+		}
+	
+		// Check if the target player is in the negotiate list
+		if (this.d_attackPlayer.getNegotiatePlayerList().contains(this.d_targetPlayer)) {
+			System.out.println("Negotiate order. Skipping execution.");
+			return false;
+		}
+
 		System.out.println("-----------Advance Order Execution inside---------");
 		System.out.println("lol d_attackPlayer owns country: "
 				+ this.d_attackPlayer.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase()));

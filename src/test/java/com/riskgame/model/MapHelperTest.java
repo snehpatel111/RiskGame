@@ -7,6 +7,9 @@ import com.riskgame.controller.GameEngine;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for MapHelperTest class
+ */
 public class MapHelperTest {
 
     MapHelper d_mapHelper;

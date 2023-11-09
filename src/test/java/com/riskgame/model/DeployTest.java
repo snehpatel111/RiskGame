@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import com.riskgame.controller.GameEngine;
 
+/**
+ * Test class for DeployTest class
+ */
 public class DeployTest {
 
     private Player d_player;

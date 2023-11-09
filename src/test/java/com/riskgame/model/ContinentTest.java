@@ -9,6 +9,9 @@ import com.riskgame.utility.Util;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for ContinentTest class
+ */
 public class ContinentTest {
 
     GameMap d_gameMap;

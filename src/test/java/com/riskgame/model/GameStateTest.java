@@ -9,25 +9,26 @@ import java.util.Queue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for GameStateTest class
+ */
 public class GameStateTest {
-    
+
     private GameState d_gameState;
     private GameMap d_gameMap;
     private Queue<Order> d_unexecutedOrderList;
-     private ArrayList<Player> d_playerList; 
-
+    private ArrayList<Player> d_playerList;
 
     /**
      * Set up the context
      */
     @Before
-    public void setUp()
-    {
-        d_gameState =new GameState();
-        d_gameMap =new GameMap();
+    public void setUp() {
+        d_gameState = new GameState();
+        d_gameMap = new GameMap();
         d_unexecutedOrderList = new ArrayDeque<>();
         d_playerList = new ArrayList<>();
-        
+
     }
 
     /**
@@ -37,7 +38,8 @@ public class GameStateTest {
     public void testGetSetGameMap() {
         d_gameState.setGameMap(d_gameMap);
         assertEquals(d_gameMap, d_gameState.getGameMap());
-    }   
+    }
+
     /**
      * Test to check get and set UnexecutedOrders functionalities
      */
@@ -57,7 +59,7 @@ public class GameStateTest {
     }
 
     /**
-     *  Test to validate isGameMapLoaded functionality
+     * Test to validate isGameMapLoaded functionality
      */
     @Test
     public void testIsGameMapLoaded() {
@@ -81,11 +83,5 @@ public class GameStateTest {
         int totalArmy = d_gameState.getTotalArmyOfAllPlayers();
         assertEquals(25, totalArmy);
     }
-
-      
-   
-
-
-
 
 }

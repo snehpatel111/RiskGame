@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for CardTest class
+ */
 public class CardTest {
 
     private Card card;

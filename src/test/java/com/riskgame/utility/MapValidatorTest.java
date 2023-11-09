@@ -11,6 +11,9 @@ import com.riskgame.model.MapHelper;
 
 import com.riskgame.utility.MapValidator;
 
+/**
+ * Test class for MapValidatorTest class
+ */
 public class MapValidatorTest {
 
     GameMap d_gameMap;

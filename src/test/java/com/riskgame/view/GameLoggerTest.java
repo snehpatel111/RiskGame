@@ -13,6 +13,9 @@ import org.junit.Test;
 
 import com.riskgame.model.LogEntryBuffer;
 
+/**
+ * Unit test for GameLoggerTest.
+ */
 public class GameLoggerTest {
 
     private GameLogger gameLogger;
@@ -28,21 +31,23 @@ public class GameLoggerTest {
     }
 
     // /**
-    //  * Test method to verify if the GameLogger updates the log file properly based on LogEntryBuffer logs.
-    //  */
+    // * Test method to verify if the GameLogger updates the log file properly based
+    // on LogEntryBuffer logs.
+    // */
     // @Test
     // public void testGameLoggerUpdatesLogFile() {
-    //     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    // LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
 
-    //     String logMessage = "This is a log entry.";
+    // String logMessage = "This is a log entry.";
 
-    //     gameLogger.update(logEntryBuffer, null);
+    // gameLogger.update(logEntryBuffer, null);
 
-    //     try {
-    //         String content = new String(Files.readAllBytes(Paths.get("LogFile.txt")), StandardCharsets.US_ASCII);
-    //         assertEquals(logMessage, content.trim());
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+    // try {
+    // String content = new String(Files.readAllBytes(Paths.get("LogFile.txt")),
+    // StandardCharsets.US_ASCII);
+    // assertEquals(logMessage, content.trim());
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     // }
 }

@@ -3,6 +3,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for AdvanceTest class
+ */
 public class AdvanceTest {
     private Player attackingPlayer;
     private Player defendingPlayer;

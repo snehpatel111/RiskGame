@@ -1,4 +1,5 @@
 package com.riskgame.model;
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.LinkedList;
 
+/**
+ * Test class for OrderExecutionPhaseTest class
+ */
 public class OrderExecutionPhaseTest {
 
     private OrderExecutionPhase orderExecutionPhase;
@@ -24,25 +28,19 @@ public class OrderExecutionPhaseTest {
 
     @Test
     public void testInitPhaseWithNoUnexecutedOrders() {
-        gameState.setUnexecutedOrders(new LinkedList<>());  
-        orderExecutionPhase.initPhase();    
-        assertTrue(true); 
+        gameState.setUnexecutedOrders(new LinkedList<>());
+        orderExecutionPhase.initPhase();
+        assertTrue(true);
     }
 
-  
     @Test
     public void testInitPhaseWithNoPlayers() {
-        gameState.setUnexecutedOrders(new LinkedList<>()); 
-        gameState.getPlayerList().clear(); 
-        orderExecutionPhase.initPhase();    
+        gameState.setUnexecutedOrders(new LinkedList<>());
+        gameState.getPlayerList().clear();
+        orderExecutionPhase.initPhase();
 
         assertTrue(gameState.getUnexecutedOrders().isEmpty());
         assertTrue(gameState.getPlayerList().isEmpty());
     }
-   
-    
+
 }
-
-
-    
-

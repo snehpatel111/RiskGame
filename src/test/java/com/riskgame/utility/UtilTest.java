@@ -4,13 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UtilTest{
+/**
+ * Unit test for UtilTest.
+ */
+public class UtilTest {
 
     /**
      * Test cases for checking alphabet letter in name
      */
     @Test
-    public void isAlphabeticTest(){
+    public void isAlphabeticTest() {
         boolean l_check = Util.isAlphabetic("abc");
         assertTrue(l_check);
 

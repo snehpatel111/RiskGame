@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for DiplomacyTest class
+ */
 public class DiplomacyTest {
 
     private Player d_currentPlayer;
@@ -15,7 +18,6 @@ public class DiplomacyTest {
     private Diplomacy d_diplomacyOrder;
     private GameState d_gameState;
 
-    
     /**
      * Setting up the initial state for Diplomacy test cases.
      */
@@ -32,7 +34,6 @@ public class DiplomacyTest {
         d_diplomacyOrder.setGameState(d_gameState);
     }
 
-    
     /**
      * Test to ensure the successful execution of Diplomacy.
      */

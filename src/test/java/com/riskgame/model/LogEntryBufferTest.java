@@ -8,11 +8,13 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for LogEntryBufferTest class
+ */
 public class LogEntryBufferTest {
-    
+
     private LogEntryBuffer d_logEntryBuffer;
     private ByteArrayOutputStream d_outputStream;
-
 
     /**
      * set up the context
@@ -24,14 +26,14 @@ public class LogEntryBufferTest {
         System.setOut(new PrintStream(d_outputStream));
     }
 
-
     /**
      * To test Current Log: Command
      */
     @Test
     public void testCurrentLogCommand() {
         d_logEntryBuffer.currentLog("Move armies to Europe", "Command");
-        String expectedOutput = System.lineSeparator() + "Command Entered: Move armies to Europe" + System.lineSeparator();
+        String expectedOutput = System.lineSeparator() + "Command Entered: Move armies to Europe"
+                + System.lineSeparator();
         assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
@@ -45,7 +47,6 @@ public class LogEntryBufferTest {
         assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
-
     /**
      * To Test Current Log: Phase
      */
@@ -57,7 +58,6 @@ public class LogEntryBufferTest {
         assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
 
-    
     /**
      * To Test CurrentLog: Effect
      */
@@ -87,7 +87,5 @@ public class LogEntryBufferTest {
         String expectedOutput = "Game ended" + System.lineSeparator();
         assertEquals(expectedOutput, d_logEntryBuffer.getLogMessage());
     }
-
-   
 
 }

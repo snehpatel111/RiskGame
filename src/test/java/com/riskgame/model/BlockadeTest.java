@@ -6,6 +6,9 @@ import com.riskgame.model.Country;
 import org.junit.Test;
 import com.riskgame.model.Blockade; // Import the Blockade cla
 
+/**
+ * Test class for BlockadeTest class
+ */
 public class BlockadeTest {
 
     @Test

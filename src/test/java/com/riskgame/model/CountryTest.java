@@ -7,6 +7,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for Country class
+ */
 public class CountryTest {
 
     GameMap d_gameMap;

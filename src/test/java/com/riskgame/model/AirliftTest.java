@@ -5,18 +5,21 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for AirliftTest class
+ */
 public class AirliftTest {
 
     private GameState d_gameState;
     private Airlift d_airliftOrder;
 
-
     /**
-     * Set up method executed before each test case to initialize common data for the Airlift tests.
+     * Set up method executed before each test case to initialize common data for
+     * the Airlift tests.
      */
     @Before
     public void setup() {
-        d_gameState = new GameState(); 
+        d_gameState = new GameState();
         Player d_player = new Player("PlayerName");
         String d_sourceCountryId = "SourceCountry";
         String d_targetCountryId = "TargetCountry";
@@ -25,11 +28,13 @@ public class AirliftTest {
     }
 
     /**
-     * Test case to simulate executing the Airlift order and validate its functionality.
-     * Verifies the execute method, checking the transfer of armies between source and target countries.
+     * Test case to simulate executing the Airlift order and validate its
+     * functionality.
+     * Verifies the execute method, checking the transfer of armies between source
+     * and target countries.
      */
     @Test
-    public void testExecuteAirliftOrder() { 
+    public void testExecuteAirliftOrder() {
         Country d_sourceCountry = new Country("a", "abc");
         Country d_targetCountry = new Country("b", "abc");
         d_sourceCountry.setNumberOfArmies(10);

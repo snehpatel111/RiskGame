@@ -514,10 +514,6 @@ public class Player {
             int l_armyCount = Integer.parseInt(this.d_args[2]);
             boolean l_isPlayerOwnCountry = this.getOwnedCountries().containsKey(l_countryId.toLowerCase());
             boolean l_hasValidArmy = (this.getOwnedArmyCount() >= l_armyCount);
-            System.out.println("lol l_isPlayerOwnCountry: " + l_isPlayerOwnCountry);
-            System.out.println("lol getOwnedArmyCount: " + this.getOwnedArmyCount() + " l_armyCount: " + l_armyCount);
-            System.out.println("lol l_hasValidArmy: " + l_hasValidArmy);
-
             if (!l_isPlayerOwnCountry) {
                 this.d_gameState.updateLog("Player " + this.getPlayerName() + " does not own "
                         + l_countryId + " country", "effect");
@@ -548,8 +544,6 @@ public class Player {
             this.d_gameState.updateLog("Invalid command. Try -> deploy <countryId> <numberOfArmy>", "effect");
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> deploy <countryId> <numberOfArmy>" + Constant.RESET_COLOR);
-            System.out.println(Constant.ERROR_COLOR
-                    + "lol " + e.getMessage() + Constant.RESET_COLOR);
         }
     }
 
@@ -628,7 +622,6 @@ public class Player {
             System.out.println("-------------------------------------------------------------------");
 
         } catch (Exception e) {
-            System.out.println("lol player error: " + e.getMessage());
             this.d_gameState.updateLog(
                     "Invalid command. Try -> advance <sourceCountryId> <targetCountryId> <numberOfArmy>",
                     "effect");
@@ -816,7 +809,6 @@ public class Player {
             System.out.println("-------------------------------------------------------------------");
 
         } catch (Exception e) {
-            System.out.println("lol bomb error: " + e.getMessage());
             System.out.println(Constant.ERROR_COLOR
                     + "Invalid command. Try -> bomb <countryID>" + Constant.RESET_COLOR);
         }

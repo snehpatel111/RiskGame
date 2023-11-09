@@ -55,7 +55,6 @@ public class Airlift implements Order {
             return true;
         }
         this.status = true;
-        System.out.println("-----------Airlift Order Execution inside---------");
         if (this.d_player.getOwnedCountries().containsKey(this.d_sourceCountryId.toLowerCase()) &&
                 this.d_player.getOwnedCountries().containsKey(this.d_targetCountryId.toLowerCase())) {
 

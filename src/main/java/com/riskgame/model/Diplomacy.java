@@ -47,7 +47,6 @@ public class Diplomacy implements Order {
             return true;
         }
         this.status = true;
-        System.out.println("-----------diplomacy Order Execution inside---------");
         if (!this.d_gameState.getPlayerList().contains(this.d_targetPlayer)) {
             return false;
         }

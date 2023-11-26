@@ -5,6 +5,8 @@ Initializing the Game ......
 
 
 Command Entered: loadmap first.map
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
 Log: first.map map is valid and loaded successfully.
 
 Command Entered: showmap
@@ -22,89 +24,376 @@ Log: Map shown successfully
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 10
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p1
 
 Command Entered: showmap
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p2
 
-Command Entered: deploy six 5
+Command Entered: deploy one 5
 Log: Player p2 has 0 army left in the reinforcement pool
+Log: Total armies in the reinforcement pool: 5
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 0 armies currently.
+Log: Player p1
 
-Command Entered: deploy three 5
+Command Entered: deploy eight 5
 Log: Player p1 has 0 army left in the reinforcement pool
+Log: Total armies in the reinforcement pool: 0
 
 =======Order Execution Phase=======
 
+Log: total orders : 2
+Log: All orders are executed successfully.2
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 10
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p1
 
 Command Entered: showmap
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p2
 
-Command Entered: advance six ten 1
+Command Entered: advance one two 2
 Log: Advance order successfully issued by p2 and added to execution list
+Log: Total armies in the reinforcement pool: 10
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p1
+
+Command Entered: advance eight seven 3
+Log: Advance order successfully issued by p1 and added to execution list
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 5 armies currently.
+Log: Player p2
 
 Command Entered: execute
 
 =======Order Execution Phase=======
 
+Log: total orders : 2
+Log: All orders are executed successfully.2
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 20
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 10 armies currently.
+Log: Player p1
 
 Command Entered: showmap
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 10 armies currently.
+Log: Player p2
 
-Command Entered: blockade ten
-Log: Blockade order successfully issued by p2 and added to execution list
+Command Entered: negotiate p1
+Log: Total armies in the reinforcement pool: 20
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 10 armies currently.
+Log: Player p1
 
 Command Entered: execute
 
 =======Order Execution Phase=======
 
+Log: total orders : 1
+Log: All orders are executed successfully.1
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 30
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 15 armies currently.
+Log: Player p1
 
 Command Entered: showmap
-
-Command Entered: deploy six 10
-Log: Player p2 has 5 army left in the reinforcement pool
-
-Command Entered: execute
-
-=======Order Execution Phase=======
-
-
-=======Issue Order Phase=======
-
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 15 armies currently.
+Log: Player p2
 
 Command Entered: pass
+Log: Total armies in the reinforcement pool: 30
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 15 armies currently.
+Log: Player p1
 
-Command Entered: showmap
-
-Command Entered: pass
-
-Command Entered: advance six ten 4
-Log: Advance order successfully issued by p2 and added to execution list
+Command Entered: deploy three 10
+Log: Player p1 has 5 army left in the reinforcement pool
+Log: Player p1 has 5 armies currently.
+Log: Player p2 has 15 armies currently.
+Log: Player p2
 
 Command Entered: execute
 
 =======Order Execution Phase=======
 
+Log: total orders : 1
+Log: All orders are executed successfully.1
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 30
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 20 armies currently.
+Log: Player p1
 
 Command Entered: showmap
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 20 armies currently.
+Log: Player p2
+
+Command Entered: pass
+Log: Total armies in the reinforcement pool: 30
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 20 armies currently.
+Log: Player p1
+
+Command Entered: advance three two 5
+Log: Advance order successfully issued by p1 and added to execution list
+Log: Player p1 has 10 armies currently.
+Log: Player p2 has 20 armies currently.
+Log: Player p2
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: p1 has negotiated with p2
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 40
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 25 armies currently.
+Log: Player p1
+
+Command Entered: showmap
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 25 armies currently.
+Log: Player p2
+
+Command Entered: pass
+Log: Total armies in the reinforcement pool: 40
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 25 armies currently.
+Log: Player p1
+
+Command Entered: advance three two 3
+Log: Advance order successfully issued by p1 and added to execution list
+Log: Player p1 has 15 armies currently.
+Log: Player p2 has 25 armies currently.
+Log: Player p2
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 50
+Log: Player p1 has 20 armies currently.
+Log: Player p2 has 30 armies currently.
+Log: Player p1
+
+Command Entered: showmap
+Log: Player p1 has 20 armies currently.
+Log: Player p2 has 30 armies currently.
+Log: Player p2
+
+Command Entered: advance one two 2
+Log: Advance order successfully issued by p2 and added to execution list
+Log: Total armies in the reinforcement pool: 50
+Log: Player p1 has 20 armies currently.
+Log: Player p2 has 30 armies currently.
+Log: Player p1
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: p2 has negotiated with p1
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 60
+Log: Player p1 has 25 armies currently.
+Log: Player p2 has 35 armies currently.
+Log: Player p1
+
+Command Entered: showmap
+Log: Player p1 has 25 armies currently.
+Log: Player p2 has 35 armies currently.
+Log: Player p2
+
+Command Entered: advance one two 2
+Log: Advance order successfully issued by p2 and added to execution list
+Log: Total armies in the reinforcement pool: 60
+Log: Player p1 has 25 armies currently.
+Log: Player p2 has 35 armies currently.
+Log: Player p1
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 70
+Log: Player p1 has 30 armies currently.
+Log: Player p2 has 40 armies currently.
+Log: Player p1
+
+Command Entered: showmap
+Log: Player p1 has 30 armies currently.
+Log: Player p2 has 40 armies currently.
+Log: Player p2
 
 Command Entered: bomb three
+Log: Total armies in the reinforcement pool: 70
+Log: Player p1 has 30 armies currently.
+Log: Player p2 has 40 armies currently.
+Log: Player p1
 
 Command Entered: execute
 
 =======Order Execution Phase=======
 
+Log: total orders : 1
+Log: All orders are executed successfully.1
 
 =======Issue Order Phase=======
 
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 80
+Log: Player p1 has 35 armies currently.
+Log: Player p2 has 45 armies currently.
+Log: Player p1
 
 Command Entered: showmap
+Log: Player p1 has 35 armies currently.
+Log: Player p2 has 45 armies currently.
+Log: Player p2
 
 Command Entered: pass
+Log: Total armies in the reinforcement pool: 80
+Log: Player p1 has 35 armies currently.
+Log: Player p2 has 45 armies currently.
+Log: Player p1
+
+Command Entered: deploy three 4
+Log: Player p1 has 31 army left in the reinforcement pool
+Log: Player p1 has 31 armies currently.
+Log: Player p2 has 45 armies currently.
+Log: Player p2
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 86
+Log: Player p1 has 36 armies currently.
+Log: Player p2 has 50 armies currently.
+Log: Player p1
+
+Command Entered: shownap
+Log: Invalid Command
+Log: Player p1 has 36 armies currently.
+Log: Player p2 has 50 armies currently.
+Log: Player p2
+
+Command Entered: showmap
+Log: Total armies in the reinforcement pool: 86
+Log: Player p1 has 36 armies currently.
+Log: Player p2 has 50 armies currently.
+Log: Player p1
+
+Command Entered: advance three two 5
+Log: Advance order successfully issued by p1 and added to execution list
+Log: Player p1 has 36 armies currently.
+Log: Player p2 has 50 armies currently.
+Log: Player p2
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: All orders are executed successfully.1
+
+=======Issue Order Phase=======
+
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Total armies in the reinforcement pool: 96
+Log: Player p1 has 41 armies currently.
+Log: Player p2 has 55 armies currently.
+Log: Player p1
+
+Command Entered: showmap
+Log: Player p1 has 41 armies currently.
+Log: Player p2 has 55 armies currently.
+Log: Player p2
+
+Command Entered: pass
+Log: Total armies in the reinforcement pool: 96
+Log: Player p1 has 41 armies currently.
+Log: Player p2 has 55 armies currently.
+Log: Player p1
+
+Command Entered: advance two one 2
+Log: Advance order successfully issued by p1 and added to execution list
+Log: Player p1 has 41 armies currently.
+Log: Player p2 has 55 armies currently.
+Log: Player p2
+
+Command Entered: execute
+
+=======Order Execution Phase=======
+
+Log: total orders : 1
+Log: All orders are executed successfully.1
+Log: p1 wins!

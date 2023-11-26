@@ -79,7 +79,7 @@ public class Card {
      */
     public String getRandomCard() {
         Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(this.d_cardsList.length - 1);
+        int index = randomGenerator.nextInt(this.d_cardsList.length);
         return this.d_cardsList[index];
     }
 

@@ -124,11 +124,12 @@ public class Advance implements Order {
 						.setNumberOfArmies(toArmies);
 				return true;
 			} else {
-				if (this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
-					this.d_gameState.updateLog("You have negotiated with " + this.d_targetPlayer.getPlayerName(), "effect");
+				if (this.d_attackPlayer.d_negotiatePlayers != null && this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
+					this.d_gameState.updateLog(this.d_attackPlayer.getPlayerName() + " has negotiated with " + this.d_targetPlayer.getPlayerName(), "effect");
 					System.out.println(
-							Constant.ERROR_COLOR + "You have negotiated with " + this.d_targetPlayer.getPlayerName()
+							Constant.ERROR_COLOR + this.d_attackPlayer.getPlayerName() + " has negotiated with " + this.d_targetPlayer.getPlayerName()
 									+ Constant.RESET_COLOR);
+					this.d_attackPlayer.d_negotiatePlayers.remove(this.d_targetPlayer);
 					return false;
 				} else {
 					Country attackingCountry = this.d_attackPlayer.getOwnedCountries()

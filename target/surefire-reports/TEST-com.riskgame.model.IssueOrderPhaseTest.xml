@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.GameMapTest" time="0" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.model.IssueOrderPhaseTest" time="0" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,9 +57,9 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testSetMapName" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testEditExistingMap" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testEditNullMap" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testEditNewMap" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testGetMapName" classname="com.riskgame.model.GameMapTest" time="0"/>
+  <testcase name="testInitPhaseWithZeroTotalReinforcements" classname="com.riskgame.model.IssueOrderPhaseTest" time="0"/>
+  <testcase name="testInitPhaseWithZeroReinforcements" classname="com.riskgame.model.IssueOrderPhaseTest" time="0"/>
+  <testcase name="testInitPhaseWithNoCountries" classname="com.riskgame.model.IssueOrderPhaseTest" time="0"/>
+  <testcase name="testInitPhaseWithNoPlayers" classname="com.riskgame.model.IssueOrderPhaseTest" time="0"/>
+  <testcase name="testShowMap" classname="com.riskgame.model.IssueOrderPhaseTest" time="0"/>
 </testsuite>

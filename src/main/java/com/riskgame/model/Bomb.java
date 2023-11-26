@@ -52,11 +52,12 @@ public class Bomb implements Order {
             return true;
         }
         this.status = true;
-        if (d_attackPlayer.d_negotiatePlayers != null && d_attackPlayer.d_negotiatePlayers.contains(d_targetPlayer)) {
+        if (this.d_attackPlayer.d_negotiatePlayers != null && this.d_attackPlayer.d_negotiatePlayers.contains(this.d_targetPlayer)) {
             this.d_gameState.updateLog(
-                    d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName(),
+                    this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName(),
                     "effect");
-            System.out.println(d_attackPlayer.getPlayerName() + " has negotiated " + d_targetPlayer.getPlayerName());
+            System.out.println(this.d_attackPlayer.getPlayerName() + " has negotiated " + this.d_targetPlayer.getPlayerName());
+            this.d_attackPlayer.d_negotiatePlayers.remove(this.d_targetPlayer);
             return false;
         }
         if (this.d_attackPlayer.getOwnedCountries().containsKey(this.d_countryId.toLowerCase())) {

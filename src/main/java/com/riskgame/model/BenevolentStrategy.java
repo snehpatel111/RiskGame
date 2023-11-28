@@ -52,7 +52,6 @@ public class BenevolentStrategy extends PlayerStrategy {
   /**
    * {@inheritDoc}
    */
-  @Override
   protected Country moveArmyFromCountry() {
     Object[] values = this.d_player.getOwnedCountries().values().toArray();
     int totalCount = values.length - 1;

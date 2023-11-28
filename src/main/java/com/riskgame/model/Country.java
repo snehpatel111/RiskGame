@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.riskgame.model.GameState;
 import com.riskgame.utility.Constant;
 
 /**
@@ -21,6 +22,7 @@ public class Country {
     private int d_xCoOrdinate;
     private int d_yCoOrdinate;
     private int d_numberOfArmies = 0;
+    private Player d_ownerPlayer;
 
     /**
      * Initialize Country object with default values.
@@ -157,6 +159,24 @@ public class Country {
      */
     public void setNumberOfArmies(int p_numberOfArmies) {
         this.d_numberOfArmies = p_numberOfArmies;
+    }
+
+    /**
+     * Get the owner of country.
+     * 
+     * @return Player owning this country.
+     */
+    public Player getOwnerPlayer() {
+        return this.d_ownerPlayer;
+    }
+
+    /**
+     * Sets the player owning this country
+     * 
+     * @param p_ownerPlayer Player owning this country.
+     */
+    public void setOwnerPlayer(Player p_ownerPlayer) {
+        this.d_ownerPlayer = p_ownerPlayer;
     }
 
     /**

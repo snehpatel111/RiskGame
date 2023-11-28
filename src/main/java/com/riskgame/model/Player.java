@@ -37,6 +37,12 @@ public class Player {
     private String d_countryId;
     private Order d_order;
     private Queue<Order> d_executionOrderList;
+    private PlayerStrategy d_Strategy;
+
+    /**
+     * d_isHuman check whether the player type is human or not
+     */
+    public boolean d_isHuman;
 
     /**
      * List of players who are going to negotiate with the current player.
@@ -77,6 +83,7 @@ public class Player {
         this.d_executionOrderList = new ArrayDeque<>();
         this.d_negotiatePlayers = new ArrayList<>();
         this.d_ownedCards = new ArrayList<>();
+        this.d_isHuman = false;
     }
 
     /**
@@ -201,6 +208,21 @@ public class Player {
      */
     public void addOrder(Order p_order) {
         this.d_order = p_order;
+    }
+
+    /**
+     * This function adds Order object to the list of Orders for a non-human Player
+     * 
+     * @return true if Order added else false
+     */
+    public boolean issueOrder() {
+        Order order;
+        order = d_Strategy.createOrder();
+        if (order != null) {
+            this.d_executionOrderList.add(order);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -883,6 +905,15 @@ public class Player {
         return false;
     }
 
+    /**
+     * Sets strategy for a specific player
+     * 
+     * @param p_strategy strategy
+     */
+    public void setStrategy(PlayerStrategy p_strategy) {
+        d_Strategy = p_strategy;
+    };
+
     public boolean isWinner() {
         boolean l_winner = true;
         for (String l_countryName : this.d_gameState.getGameMap().getCountries().keySet()) {
@@ -891,5 +922,14 @@ public class Player {
             }
         }
         return l_winner;
+    }
+
+    /**
+     * Sets Player as human
+     * 
+     * @param d_isHuman true if human else false
+     */
+    public void setIsHuman(boolean d_isHuman) {
+        this.d_isHuman = d_isHuman;
     }
 }

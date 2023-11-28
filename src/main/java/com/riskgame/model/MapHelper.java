@@ -50,6 +50,15 @@ public class MapHelper {
     }
 
     /**
+     * Getter method to return HashMap maintaining the list of countries in the map.
+     * 
+     * @return return HashMap maintaining the list of countries in the map
+     */
+    public HashMap<Integer, Country> getCountries() {
+        return this.d_countryList;
+    }
+
+    /**
      * Helper method to add/remove a new continent to the game map.
      * 
      * @param p_gameEngine  Current game engine
@@ -362,26 +371,27 @@ public class MapHelper {
 
     /**
      * displays neutral countries from the gamemap
-     * @param p_gameMap GameMap object containing continents and countries
+     * 
+     * @param p_gameMap    GameMap object containing continents and countries
      * @param p_playerList List of players
      */
-    public void displayNeutralCountries(GameMap p_gameMap, ArrayList<Player> p_playerList){
-        
-        for(Country l_c: p_gameMap.getCountries().values()){
+    public void displayNeutralCountries(GameMap p_gameMap, ArrayList<Player> p_playerList) {
+
+        for (Country l_c : p_gameMap.getCountries().values()) {
             boolean isOwned = false;
-            for(Player l_p : p_playerList){
-                if(l_p.getOwnedCountries().containsKey(l_c.getCountryId().toLowerCase())){
+            for (Player l_p : p_playerList) {
+                if (l_p.getOwnedCountries().containsKey(l_c.getCountryId().toLowerCase())) {
                     isOwned = true;
                 }
             }
-            if(!isOwned){
+            if (!isOwned) {
                 boolean l_isDisplayed = false;
-                for(Country l_con: l_c.getNeighbors().values()){
+                for (Country l_con : l_c.getNeighbors().values()) {
                     if (!l_isDisplayed) {
-                    System.out.format("%25s%25s%35s%25s%20s\n", "Neutral", l_c.getCountryId(), 
-                                            l_con.getCountryId(), l_c.getBelongingContinent(), l_c.getNumberOfArmies());
-                    l_isDisplayed = true;
-                    }else{
+                        System.out.format("%25s%25s%35s%25s%20s\n", "Neutral", l_c.getCountryId(),
+                                l_con.getCountryId(), l_c.getBelongingContinent(), l_c.getNumberOfArmies());
+                        l_isDisplayed = true;
+                    } else {
                         System.out.format("%25s%25s%35s%25s%20s\n", "", "", l_con.getCountryId(), "", "");
                     }
                 }

@@ -162,6 +162,10 @@ public class AggressiveStrategy extends PlayerStrategy {
     this.d_moveArmyFromCountry = null;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   */
   @Override
   public Order createOrder() {
     Country l_attackingCountry, l_defendingCountry, l_moveArmyFromCountry;

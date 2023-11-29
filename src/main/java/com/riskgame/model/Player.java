@@ -38,8 +38,6 @@ public class Player implements Serializable {
     private Queue<Order> d_executionOrderList;
     private PlayerStrategy d_strategy;
 
-
-
     /**
      * d_isHuman check whether the player type is human or not
      */
@@ -355,15 +353,13 @@ public class Player implements Serializable {
      */
     public void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
         try {
-
             ArrayList<Player> l_playerList = p_gameState.getPlayerList();
             String l_playerName = p_args[2];
-            String l_playerStretagy = p_args[3];
             if (p_args[1].equals("-add")) {
-
+                String l_playerStrategy = p_args[3];
                 if (this.isValidPlayerName(l_playerName)) {
-
-                    boolean l_isPlayerAdded = this.addPlayer(p_gameEngine, l_playerList, l_playerName, p_gameState, l_playerStretagy);
+                    boolean l_isPlayerAdded = this.addPlayer(p_gameEngine, l_playerList, l_playerName, p_gameState,
+                            l_playerStrategy);
 
                     if (l_isPlayerAdded) {
                         System.out
@@ -418,7 +414,8 @@ public class Player implements Serializable {
      * @param p_gameState  The current game state.
      * @return Return true if player added successfully, false otherwise
      */
-    public boolean addPlayer(GameEngine p_gameEngine, ArrayList<Player> p_playerList, String p_playerName, GameState p_gameState, String p_playerStretagy) {
+    public boolean addPlayer(GameEngine p_gameEngine, ArrayList<Player> p_playerList, String p_playerName,
+            GameState p_gameState, String p_playerStrategy) {
         if (p_playerList.size() == 6) {
             p_gameState.updateLog(
                     "Max number of players (6) reached!",
@@ -434,7 +431,7 @@ public class Player implements Serializable {
             return false;
         }
         Player l_p = new Player(p_playerName);
-        switch (p_playerStretagy) {
+        switch (p_playerStrategy) {
             case "human":
                 l_p.d_isHuman = true;
                 break;
@@ -454,7 +451,7 @@ public class Player implements Serializable {
                 l_p.d_isHuman = false;
                 l_p.d_strategy = new BenevolentStrategy(l_p, p_gameEngine);
                 break;
-        
+
             default:
                 return false;
         }

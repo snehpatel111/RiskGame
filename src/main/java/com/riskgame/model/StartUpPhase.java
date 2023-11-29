@@ -346,29 +346,40 @@ public class StartUpPhase extends Phase implements Serializable {
    * {@inheritDoc}
    */
   public void managePlayer(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    if (!this.d_gameState.isGameMapLoaded()) {
+    try {
+      if (!this.d_gameState.isGameMapLoaded()) {
+        this.d_gameEngine.setGameEngineLog(
+            "No map found, please execute `editmap` or `loadmap` before adding game players",
+            "effect");
+        System.out.println(
+            Constant.ERROR_COLOR
+                + "No map found, please execute `editmap` or `loadmap` before adding game players"
+                + Constant.RESET_COLOR);
+        System.out.println(
+            Constant.ERROR_COLOR
+                + "Try command -> editmap sample.map or loadmap sample.map"
+                + Constant.RESET_COLOR);
+        return;
+      } else if ((p_args[1] == "-add" && !Util.isValidCommandArgument(p_args, 3)
+          || (p_args[1] == "-remove" && !Util.isValidCommandArgument(p_args, 3)))) {
+        this.d_gameEngine.setGameEngineLog("Invalid number of arguments for gameplayer command", "effect");
+        System.out.println(Constant.ERROR_COLOR
+            + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
+        System.out.println(Constant.ERROR_COLOR
+            + "Try command -> gameplayer -add <player_name> <player_stretagy>" + Constant.RESET_COLOR);
+        return;
+      }
+      Player l_player = new Player(p_args[2]);
+      l_player.managePlayer(p_gameEngine, p_gameState, p_args);
+    } catch (Exception e) {
       this.d_gameEngine.setGameEngineLog(
-          "No map found, please execute `editmap` or `loadmap` before adding game players",
+          "Invalid command! Try command -> gameplayer -add <player_name> <player_strength>",
           "effect");
-      System.out.println(
-          Constant.ERROR_COLOR
-              + "No map found, please execute `editmap` or `loadmap` before adding game players"
-              + Constant.RESET_COLOR);
-      System.out.println(
-          Constant.ERROR_COLOR
-              + "Try command -> editmap sample.map or loadmap sample.map"
-              + Constant.RESET_COLOR);
-      return;
-    } else if (!Util.isValidCommandArgument(p_args, 4)) {
-      this.d_gameEngine.setGameEngineLog("Invalid number of arguments for gameplayer command", "effect");
       System.out.println(Constant.ERROR_COLOR
-          + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
-      System.out.println(Constant.ERROR_COLOR
-          + "Try command -> gameplayer -add <player_name> <player_stretagy>" + Constant.RESET_COLOR);
-      return;
+          + "Invalid command! Try command -> gameplayer -add <player_name> <player_strength>"
+          + Constant.RESET_COLOR);
     }
-    Player l_player = new Player(p_args[2]);
-    l_player.managePlayer(p_gameEngine, p_gameState, p_args);
+
   }
 
   /**

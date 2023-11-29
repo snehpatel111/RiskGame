@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Queue;
 
 import com.riskgame.model.GameState;
 import com.riskgame.model.MapHelper;
@@ -28,6 +29,7 @@ import com.riskgame.controller.GameEngine;
  */
 public class IssueOrderPhase extends Phase implements Serializable {
 
+  Phase d_phase;
   /**
    * Default constructor for IssueOrderPhase.
    */
@@ -70,6 +72,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
   public void initPhase() {
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
     this.assignReinforcementToPlayer(this.d_gameState);
+    MapHelper l_mapHelper = new MapHelper();
     this.d_gameState.updateLog("Reinforcement assigned to each player! \nBegin to issue order as per turn!", "effect");
     System.out.println(
         Constant.SUCCESS_COLOR
@@ -87,6 +90,12 @@ public class IssueOrderPhase extends Phase implements Serializable {
         for (Player l_player : this.d_gameState.getPlayerList()) {
           if (this.d_gameState.getTotalArmyOfAllPlayers() == 0) {
             break;
+          }
+          // Case for Not Human Player
+          System.out.println("lol Not Human outside if" + l_player.d_isHuman);
+          if (!l_player.d_isHuman) {
+            System.out.println("lol Not Human");
+            l_player.issueOrder();
           }
           this.printPlayerArmies(this.d_gameState);
           this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");

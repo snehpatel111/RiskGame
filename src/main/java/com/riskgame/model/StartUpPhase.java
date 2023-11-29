@@ -359,12 +359,12 @@ public class StartUpPhase extends Phase implements Serializable {
               + "Try command -> editmap sample.map or loadmap sample.map"
               + Constant.RESET_COLOR);
       return;
-    } else if (!Util.isValidCommandArgument(p_args, 3)) {
+    } else if (!Util.isValidCommandArgument(p_args, 4)) {
       this.d_gameEngine.setGameEngineLog("Invalid number of arguments for gameplayer command", "effect");
       System.out.println(Constant.ERROR_COLOR
           + "Invalid number of arguments for gameplayer command" + Constant.RESET_COLOR);
       System.out.println(Constant.ERROR_COLOR
-          + "Try command -> gameplayer -add <player_name>" + Constant.RESET_COLOR);
+          + "Try command -> gameplayer -add <player_name> <player_stretagy>" + Constant.RESET_COLOR);
       return;
     }
     Player l_player = new Player(p_args[2]);

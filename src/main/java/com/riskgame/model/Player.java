@@ -38,6 +38,8 @@ public class Player implements Serializable {
     private Queue<Order> d_executionOrderList;
     private PlayerStrategy d_strategy;
 
+
+
     /**
      * d_isHuman check whether the player type is human or not
      */
@@ -82,7 +84,6 @@ public class Player implements Serializable {
         this.d_executionOrderList = new ArrayDeque<>();
         this.d_negotiatePlayers = new ArrayList<>();
         this.d_ownedCards = new ArrayList<>();
-        this.d_isHuman = false;
     }
 
     /**
@@ -219,6 +220,7 @@ public class Player implements Serializable {
         order = this.d_strategy.createOrder();
         if (order != null) {
             this.d_executionOrderList.add(order);
+            this.d_gameState.getUnexecutedOrders().add(order);
             return true;
         }
         return false;
@@ -356,11 +358,12 @@ public class Player implements Serializable {
 
             ArrayList<Player> l_playerList = p_gameState.getPlayerList();
             String l_playerName = p_args[2];
+            String l_playerStretagy = p_args[3];
             if (p_args[1].equals("-add")) {
 
                 if (this.isValidPlayerName(l_playerName)) {
 
-                    boolean l_isPlayerAdded = this.addPlayer(l_playerList, l_playerName, p_gameState);
+                    boolean l_isPlayerAdded = this.addPlayer(p_gameEngine, l_playerList, l_playerName, p_gameState, l_playerStretagy);
 
                     if (l_isPlayerAdded) {
                         System.out
@@ -415,7 +418,7 @@ public class Player implements Serializable {
      * @param p_gameState  The current game state.
      * @return Return true if player added successfully, false otherwise
      */
-    public boolean addPlayer(ArrayList<Player> p_playerList, String p_playerName, GameState p_gameState) {
+    public boolean addPlayer(GameEngine p_gameEngine, ArrayList<Player> p_playerList, String p_playerName, GameState p_gameState, String p_playerStretagy) {
         if (p_playerList.size() == 6) {
             p_gameState.updateLog(
                     "Max number of players (6) reached!",
@@ -430,8 +433,32 @@ public class Player implements Serializable {
             System.out.println(Constant.ERROR_COLOR + "Player already exists!" + Constant.RESET_COLOR);
             return false;
         }
-
-        p_playerList.add(new Player(p_playerName));
+        Player l_p = new Player(p_playerName);
+        switch (p_playerStretagy) {
+            case "human":
+                l_p.d_isHuman = true;
+                break;
+            case "aggressive":
+                l_p.d_isHuman = false;
+                l_p.d_strategy = new AggressiveStrategy(l_p, p_gameEngine);
+                break;
+            case "random":
+                l_p.d_isHuman = false;
+                l_p.d_strategy = new RandomStrategy(l_p, p_gameEngine);
+                break;
+            case "cheater":
+                l_p.d_isHuman = false;
+                l_p.d_strategy = new CheaterStrategy(l_p, p_gameEngine);
+                break;
+            case "benevolent":
+                l_p.d_isHuman = false;
+                l_p.d_strategy = new BenevolentStrategy(l_p, p_gameEngine);
+                break;
+        
+            default:
+                return false;
+        }
+        p_playerList.add(l_p);
         return true;
     }
 

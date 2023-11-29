@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.riskgame.controller.GameEngine;
+
 /**
  * Unit test for Player
  */
@@ -16,6 +18,7 @@ public class PlayerTest {
     String d_playerName;
     ArrayList<Player> d_playerList;
     GameState d_gameState;
+    GameEngine d_gameEngine;
 
     @Before
     public void before() {
@@ -26,6 +29,7 @@ public class PlayerTest {
         String l_command = "deploy TestCountry 5";
         this.d_player.setArgs(l_command.split("\\s+"));
         this.d_gameState = new GameState();
+        this.d_gameEngine = new GameEngine();
     }
 
     /**
@@ -45,10 +49,10 @@ public class PlayerTest {
      */
     @Test
     public void addPlayerTest() {
-        boolean l_check = this.d_player.addPlayer(this.d_playerList, "MsDhoni", this.d_gameState);
+        boolean l_check = this.d_player.addPlayer(this.d_gameEngine, this.d_playerList, "MsDhoni", this.d_gameState, "human");
         assertTrue(l_check);
 
-        l_check = this.d_player.addPlayer(this.d_playerList, "TestPlayer", this.d_gameState);
+        l_check = this.d_player.addPlayer(this.d_gameEngine, this.d_playerList, "TestPlayer", this.d_gameState, "human");
         assertTrue(l_check);
     }
 
@@ -58,7 +62,7 @@ public class PlayerTest {
     @Test
     public void removePlayerTest() {
 
-        this.d_player.addPlayer(d_playerList, "TestPlayer", this.d_gameState);
+        this.d_player.addPlayer(this.d_gameEngine, d_playerList, "TestPlayer", this.d_gameState, "human");
         boolean l_check = this.d_player.removePlayer(this.d_playerList, "TestPlayer");
         assertTrue(l_check);
 
@@ -71,7 +75,7 @@ public class PlayerTest {
      */
     @Test
     public void isPlayerExistsTest() {
-        this.d_player.addPlayer(d_playerList, "TestPlayer", this.d_gameState);
+        this.d_player.addPlayer(this.d_gameEngine, d_playerList, "TestPlayer", this.d_gameState, "human");
         boolean l_check = this.d_player.isPlayerExist(this.d_playerList, "MsDhoni");
         assertFalse(l_check);
 

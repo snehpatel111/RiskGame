@@ -210,7 +210,7 @@ public class TournamentEngine extends GameEngine {
 
                 // Create player objects
                 for (String l_strategy : p_strategies) {
-                    l_player.addPlayer(d_gameEngine.d_gameState.getPlayerList(), l_strategy, d_gameEngine.d_gameState);
+                    l_player.addPlayer(d_gameEngine, d_gameEngine.d_gameState.getPlayerList(), l_strategy, d_gameEngine.d_gameState, l_strategy);
                 }
                 // Setting strategies as same as Player Names
                 for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {

@@ -2,6 +2,7 @@ package com.riskgame.model;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.Scanner;
@@ -14,7 +15,14 @@ import com.riskgame.model.Player;
 /**
  * Represents the order execution phase.
  */
-public class OrderExecutionPhase extends Phase {
+public class OrderExecutionPhase extends Phase implements Serializable {
+
+  /**
+   * Default constructor for OrderExecutionPhase.
+   */
+  public OrderExecutionPhase() {
+    super();
+  }
 
   /**
    * {@inheritDoc}

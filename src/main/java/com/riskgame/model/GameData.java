@@ -174,7 +174,6 @@ public class GameData extends Observable implements Serializable {
     public void setGamePhase(Phase p_gamePhase) {
 
         this.d_currentGamePhase = p_gamePhase;
-        System.out.printf("lol current phase true or false:", this.d_currentGamePhase instanceof OrderExecutionPhase);
         if (this.d_currentGamePhase instanceof OrderExecutionPhase) {
             System.out.println(this.d_ActivePlayer.getPlayerName() + "'s reinforcement phase");
             notifyObservers(this);

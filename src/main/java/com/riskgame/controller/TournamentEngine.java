@@ -175,7 +175,6 @@ public class TournamentEngine extends GameEngine {
         int l_gameNumber = 0;
         HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
         int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
-        System.out.println("lol Player Size: " + l_playerSize);
         while (l_playerSize != 0) {
             d_gameEngine.d_gameState.getPlayerList().remove(0);
             l_playerSize -= 1;

@@ -53,16 +53,14 @@ public class IssueOrderPhase extends Phase implements Serializable {
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {
-
       this.d_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
-
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> showMap"
           + Constant.RESET_COLOR);
       return;
     }
-    MapHelper l_mapHelper = new MapHelper(p_gameState);
-    l_mapHelper.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), p_gameState);
+    MapHelper l_mapHelper = new MapHelper(this.d_gameState);
+    l_mapHelper.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
   }
 
   /**
@@ -139,7 +137,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
   @Override
   protected void deploy(GameState p_gameState, Player p_player, String[] p_args) {
     p_player.setArgs(p_args);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_deployOrder();
   }
 
@@ -214,18 +212,11 @@ public class IssueOrderPhase extends Phase implements Serializable {
       }
       ObjectInputStream l_inputStream = new ObjectInputStream(
           new FileInputStream(Constant.GAME_PATH + p_args[1]));
-      System.out.println("lol read stream " + l_inputStream);
       this.d_gameEngine = (GameEngine) l_inputStream.readObject();
       this.d_gameState = this.d_gameEngine.getGameState();
-      System.out.println("lol read complete this.d_gameEngine " + this.d_gameEngine);
-      System.out.println(
-          "lol read complete this.d_gameState " + this.d_gameState + ", and " + this.d_gameState.isGameMapLoaded());
-
       this.d_gameEngine.setGameState(this.d_gameState);
       this.d_gameEngine.getCurrentGamePhase().setGameState(this.d_gameState);
       l_inputStream.close();
-      System.out.println("lol get game state engine " + this.d_gameEngine.getGameState());
-      System.out.println("lol get game phase " + this.d_gameEngine.getCurrentGamePhase().getGameState());
       this.d_gameEngine.setGameEngineLog("Game loaded successfully!", "effect");
       System.out.println(Constant.SUCCESS_COLOR + "Game loaded successfully!" + Constant.RESET_COLOR);
     } catch (Exception e) {
@@ -249,15 +240,11 @@ public class IssueOrderPhase extends Phase implements Serializable {
             + "Try command -> savegame <filename>" + Constant.RESET_COLOR);
         return;
       }
-      this.d_gameEngine.setGameState(p_gameState);
-      System.out.println("lol savegame " + p_gameEngine);
+      this.d_gameEngine.setGameState(this.d_gameState);
       FileOutputStream l_gameOutputFile = new FileOutputStream(
           Constant.GAME_PATH + p_args[1]);
-      System.out.println("lol l_gameOutputFile " + l_gameOutputFile);
       ObjectOutputStream l_gameOutputStream = new ObjectOutputStream(l_gameOutputFile);
-      System.out.println("lol map loaded " + this.d_gameState.isGameMapLoaded());
-      l_gameOutputStream.writeObject(p_gameEngine);
-      System.out.println("lol written");
+      l_gameOutputStream.writeObject(this.d_gameEngine);
       l_gameOutputStream.flush();
       l_gameOutputStream.close();
       this.d_gameEngine.setGameEngineLog("Game saved successfully!", "effect");
@@ -320,35 +307,35 @@ public class IssueOrderPhase extends Phase implements Serializable {
   @Override
   protected void advance(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_advanceOrder();
   }
 
   @Override
   protected void bomb(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_bombOrder();
   }
 
   @Override
   protected void negotiate(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_diplomacyOrder();
   }
 
   @Override
   protected void blockade(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_blockadeOrder();
   }
 
   @Override
   protected void airLift(GameState p_gameState, Player p_player, String[] l_data) {
     p_player.setArgs(l_data);
-    p_player.setGameState(p_gameState);
+    p_player.setGameState(this.d_gameState);
     p_player.issue_airliftOrder();
   }
 }

@@ -58,11 +58,6 @@ public class StartUpPhase extends Phase implements Serializable {
    */
   @Override
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
-    System.out.println("lol showmap map loaded " + this.d_gameState.isGameMapLoaded());
-    System.out.println("lol showmap gameState " + p_gameState);
-    System.out.println("lol showmap game engine " + p_gameEngine);
-    System.out.println("lol showmap game engine map loaded " + this.d_gameEngine.getGameState().isGameMapLoaded());
-
     if (!this.d_gameState.isGameMapLoaded()) {
       this.d_gameEngine.setGameEngineLog("Cannot show  map, please perform `editmap` or `loadmap` first",
           "effect");
@@ -391,22 +386,16 @@ public class StartUpPhase extends Phase implements Serializable {
       }
       ObjectInputStream l_inputStream = new ObjectInputStream(
           new FileInputStream(Constant.GAME_PATH + p_args[1]));
-      System.out.println("lol StartUpPhase read stream " + l_inputStream);
       this.d_gameEngine = (GameEngine) l_inputStream.readObject();
       this.d_gameState = this.d_gameEngine.getGameState();
-      System.out.println("lol read complete this.d_gameEngine " + this.d_gameEngine);
-      System.out.println(
-          "lol read complete this.d_gameState " + this.d_gameState + ", and " + this.d_gameState.isGameMapLoaded());
-
       this.d_gameEngine.setGameState(this.d_gameState);
       this.d_gameEngine.getCurrentGamePhase().setGameState(this.d_gameState);
       l_inputStream.close();
-      System.out.println("lol get game state engine " + this.d_gameEngine.getGameState());
-      System.out.println("lol get game phase " + this.d_gameEngine.getCurrentGamePhase().getGameState());
       this.d_gameEngine.setGameEngineLog("Game loaded successfully!", "effect");
       System.out.println(Constant.SUCCESS_COLOR + "Game loaded successfully!" + Constant.RESET_COLOR);
       if (this.d_gameEngine.getCurrentGamePhase() instanceof IssueOrderPhase) {
         this.d_gameEngine.setIssueOrderPhase();
+        return;
       }
     } catch (Exception e) {
       this.d_gameEngine.setGameEngineLog("Error while loading the game: " + e.getMessage(), "effect");
@@ -430,14 +419,10 @@ public class StartUpPhase extends Phase implements Serializable {
         return;
       }
       this.d_gameEngine.setGameState(p_gameState);
-      System.out.println("lol savegame " + p_gameEngine);
       FileOutputStream l_gameOutputFile = new FileOutputStream(
           Constant.GAME_PATH + p_args[1]);
-      System.out.println("lol l_gameOutputFile " + l_gameOutputFile);
       ObjectOutputStream l_gameOutputStream = new ObjectOutputStream(l_gameOutputFile);
-      System.out.println("lol map loaded " + this.d_gameState.isGameMapLoaded());
       l_gameOutputStream.writeObject(p_gameEngine);
-      System.out.println("lol written");
       l_gameOutputStream.flush();
       l_gameOutputStream.close();
       this.d_gameEngine.setGameEngineLog("Game saved successfully!", "effect");

@@ -205,9 +205,9 @@ public class AggressiveStrategy extends PlayerStrategy {
         }
         int l_reinforceArmies = this.d_player.getOwnedArmyCount();
         this.d_gameEngine.getCurrentGamePhase().getGameState().updateLog(
-            "Aggressive reinforce armies owned by player" + this.d_player.getOwnedArmyCount(),
+            "Aggressive reinforce armies owned by player " + this.d_player.getOwnedArmyCount(),
             "effect");
-        System.out.println("Aggressive reinforce armies owned by player" + this.d_player.getOwnedArmyCount());
+        System.out.println("Aggressive reinforce armies owned by player " + this.d_player.getOwnedArmyCount());
         this.d_testReinforceArmies = l_reinforceArmies;
         if (this.d_player.getOwnedArmyCount() == 1)
           l_reinforceArmies = 1;
@@ -233,6 +233,12 @@ public class AggressiveStrategy extends PlayerStrategy {
                   .println("Armies deployed on country :" + this.d_armyDeployableCountry.getCountryId() + " "
                       + l_reinforceArmies);
               this.d_player.setOwnedArmyCount(this.d_player.getOwnedArmyCount() - l_reinforceArmies);
+              System.out.println("lol case 0 player " + this.d_player.getPlayerName());
+              System.out.println("lol case 0 d_armyDeployableCountry " + this.d_armyDeployableCountry.getCountryId());
+              System.out.println("lol case 0 d_defendingCountry " + this.d_defendingCountry.getCountryId());
+              System.out.println("lol case 0 d_strongestCountry " + this.d_strongestCountry.getCountryId());
+              System.out.println("lol case 0 l_attackingCountry " + l_attackingCountry.getCountryId());
+
               return new Deploy(this.d_player, this.d_armyDeployableCountry.getCountryId(), l_reinforceArmies);
             }
           }
@@ -285,7 +291,7 @@ public class AggressiveStrategy extends PlayerStrategy {
               return null;
           } else {
             this.d_gameEngine.getCurrentGamePhase().getGameState().updateLog(
-                "Neighbor does not exist for this country :" + l_attackingCountry.getCountryId(),
+                "Neighbor does not exist for this country: " + l_attackingCountry.getCountryId(),
                 "effect");
             System.out.println(Constant.ERROR_COLOR + "Neighbor does not exist for this country :"
                 + l_attackingCountry.getCountryId() + Constant.RESET_COLOR);
@@ -294,18 +300,18 @@ public class AggressiveStrategy extends PlayerStrategy {
         }
 
       case 2:
-        if (l_moveArmyFromCountry != null) {
+        if (l_attackingCountry != null) {
           if (this.d_player.doesCardExists("Airlift")) {
             Random l_randomCard = new Random();
             int l_value = l_randomCard.nextInt(2);
             if (l_value == 0) {
               this.d_player.removeCard("Airlift");
-              return new Airlift(this.d_player, l_moveArmyFromCountry.getCountryId(), l_attackingCountry.getCountryId(),
+              return new Airlift(this.d_player, l_attackingCountry.getCountryId(), l_attackingCountry.getCountryId(),
                   this.d_maxArmyCount);
             } else
               break;
           }
-          return new Advance(this.d_player, l_moveArmyFromCountry.getCountryId(), l_attackingCountry.getCountryId(),
+          return new Advance(this.d_player, l_attackingCountry.getCountryId(), l_attackingCountry.getCountryId(),
               this.d_maxArmyCount - 1, l_attackingCountry.getOwnerPlayer());
         } else
           return null;

@@ -86,10 +86,12 @@ public class Advance implements Order {
 					.get(this.d_sourceCountryId.toLowerCase());
 			Country defendingCountry = attackingCountry.getNeighbors().get(d_targetCountryId.toLowerCase());
 			this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(), defendingCountry);
+			defendingCountry.setOwnerPlayer(this.d_attackPlayer);
 			int l_defendArmy = defendingCountry.getNumberOfArmies();
 			if (this.d_armyCount > l_defendArmy) {
 				this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),
 						defendingCountry);
+				defendingCountry.setOwnerPlayer(this.d_attackPlayer);
 				defendingCountry.setNumberOfArmies(this.d_armyCount - l_defendArmy);
 				attackingCountry.setNumberOfArmies(
 						((this.d_attackPlayer.getOwnedCountries().get(this.d_sourceCountryId.toLowerCase())
@@ -144,6 +146,7 @@ public class Advance implements Order {
 
 						this.d_attackPlayer.getOwnedCountries().put(this.d_targetCountryId.toLowerCase(),
 								defendingCountry);
+						defendingCountry.setOwnerPlayer(this.d_attackPlayer);
 						this.d_targetPlayer.getOwnedCountries().remove(this.d_targetCountryId.toLowerCase());
 						defendingCountry.setNumberOfArmies(this.d_armyCount - l_defendArmy);
 						attackingCountry.setNumberOfArmies(

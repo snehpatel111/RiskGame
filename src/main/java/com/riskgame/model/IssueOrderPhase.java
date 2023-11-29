@@ -30,6 +30,7 @@ import com.riskgame.controller.GameEngine;
 public class IssueOrderPhase extends Phase implements Serializable {
 
   Phase d_phase;
+
   /**
    * Default constructor for IssueOrderPhase.
    */
@@ -94,8 +95,16 @@ public class IssueOrderPhase extends Phase implements Serializable {
           // Case for Not Human Player
           System.out.println("lol Not Human outside if" + l_player.d_isHuman);
           if (!l_player.d_isHuman) {
+            l_player.setGameState(this.d_gameState);
             System.out.println("lol Not Human");
+            this.printPlayerArmies(this.d_gameState);
+            this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");
+            System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
+                + l_player.getOwnedArmyCount() + ")");
+            l_player.showCards();
             l_player.issueOrder();
+            l_player.setGameState(this.d_gameState);
+            continue;
           }
           this.printPlayerArmies(this.d_gameState);
           this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");

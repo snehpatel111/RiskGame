@@ -527,6 +527,7 @@ public class Player implements Serializable {
                 int l_randomIndex = new Random().nextInt(l_playerList.size());
                 Player l_randomPlayer = l_playerList.get(l_randomIndex);
                 l_randomPlayer.getOwnedCountries().put(l_country.getCountryId().toLowerCase(), l_country);
+                l_country.setOwnerPlayer(l_randomPlayer);
             }
             p_gameState.updateLog("Countries assigned randomly to all players!", "effect");
             System.out.println(

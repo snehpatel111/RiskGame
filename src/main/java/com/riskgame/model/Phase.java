@@ -40,6 +40,12 @@ public abstract class Phase {
     public ArrayList<Player> d_playerList;
 
     /**
+     * Constructor of Phase class.
+     */
+    public Phase() {
+    }
+
+    /**
      * Constructor to initialize the current game engine.
      *
      * @param p_gameEngine the game engine instance to update the state
@@ -95,9 +101,6 @@ public abstract class Phase {
      * @param p_player  an instance of Player Object
      */
     private void parseCommand(Player p_player, String p_command) {
-        // Command l_commandName = new Command(p_command);
-        // this.d_isMapLoaded = this.d_gameState.getMap() != null;
-
         String[] l_data = p_command.split("\\s+");
         String l_commandName = l_data[0];
         this.d_gameState.updateLog(p_command, "command");
@@ -155,6 +158,12 @@ public abstract class Phase {
                 break;
             case "execute":
                 this.execute(this.d_gameEngine, this.d_gameState, l_data);
+                break;
+            case "savegame":
+                this.saveGame(this.d_gameEngine, this.d_gameState, l_data);
+                break;
+            case "loadgame":
+                this.loadGame(this.d_gameEngine, this.d_gameState, l_data);
                 break;
             case "exit":
                 this.d_gameEngine.setGameEngineLog("Exit Command Entered, Game Ends!", "effect");
@@ -309,6 +318,26 @@ public abstract class Phase {
      * @param p_args       Command line arguments to edit continent.
      */
     protected abstract void saveMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
+
+    /**
+     * Save current game into a file
+     * 
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object containing current game state
+     * @param p_args       Command line arguments to edit continent.
+     *
+     */
+    protected abstract void saveGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
+
+    /**
+     * Load a game from a file
+     * 
+     * @param p_gameEngine GameEngine object
+     * @param p_gameState  GameState object containing current game state
+     * @param p_args       Command line arguments to edit continent.
+     *
+     */
+    protected abstract void loadGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args);
 
     /**
      * Edit an existing continent.

@@ -1,5 +1,7 @@
 package com.riskgame.controller;
 
+import java.io.Serializable;
+
 import com.riskgame.model.GameState;
 import com.riskgame.model.IssueOrderPhase;
 import com.riskgame.model.OrderExecutionPhase;
@@ -10,7 +12,7 @@ import com.riskgame.model.StartUpPhase;
  * This is the entry point of the Game and keeps the track of current Game
  * State.
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
 	/**
 	 * d_gameState stores the information about current GamePlay.
 	 */
@@ -28,15 +30,25 @@ public class GameEngine {
 	}
 
 	/**
-	 * getter method for gamestate of current game engine
-	 * @return the gamestate of current game engine
+	 * Getter method for game state of current game engine
+	 * 
+	 * @return the game state of current game engine
 	 */
-	public GameState getGameState(){
+	public GameState getGameState() {
 		return this.d_gameState;
 	}
 
 	/**
-	 * It's used to update context.
+	 * Setter method to set game state.
+	 * 
+	 * @param p_gameState new GameState to set in Game context
+	 */
+	public void setGameState(GameState p_gameState) {
+		this.d_gameState = p_gameState;
+	}
+
+	/**
+	 * Setter method to set game phase.
 	 *
 	 * @param p_phase new Phase to set in Game context
 	 */
@@ -73,7 +85,6 @@ public class GameEngine {
 		this.getCurrentGamePhase().initPhase();
 	}
 
-
 	/**
 	 * Shows and Writes GameEngine Logs.
 	 *
@@ -85,17 +96,19 @@ public class GameEngine {
 	}
 
 	// /**
-	//  * The main method responsible for accepting command from users and redirecting
-	//  * those to corresponding logical flows.
-	//  *
-	//  * @param p_args the program doesn't use default command line arguments
-	//  */
+	// * The main method responsible for accepting command from users and
+	// redirecting
+	// * those to corresponding logical flows.
+	// *
+	// * @param p_args the program doesn't use default command line arguments
+	// */
 	// public static void main(String[] p_args) {
-	// 	GameEngine l_game = new GameEngine();
+	// GameEngine l_game = new GameEngine();
 
-	// 	l_game.getCurrentGamePhase().getGameState().updateLog("Initializing the Game ......" + System.lineSeparator(),
-	// 			"start");
-	// 	l_game.setGameEngineLog("Game Startup Phase", "phase");
-	// 	l_game.getCurrentGamePhase().initPhase();
+	// l_game.getCurrentGamePhase().getGameState().updateLog("Initializing the Game
+	// ......" + System.lineSeparator(),
+	// "start");
+	// l_game.setGameEngineLog("Game Startup Phase", "phase");
+	// l_game.getCurrentGamePhase().initPhase();
 	// }
 }

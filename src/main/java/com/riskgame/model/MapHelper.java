@@ -7,19 +7,23 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.riskgame.controller.GameEngine;
+import com.riskgame.model.ConquestMap;
+import com.riskgame.model.DominationMap;
 import com.riskgame.model.GameState;
+import com.riskgame.model.MapAdapter;
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.MapValidator;
 
 /**
  * This class contains helper functions related to Map.
  */
-public class MapHelper {
+public class MapHelper implements Serializable {
 
     /**
      * Map index is used to identify the map file.
@@ -74,7 +78,15 @@ public class MapHelper {
         if (l_file.exists()) {
             p_gameEngine.setGameEngineLog(p_mapFileName + " map file exists. You can edit it.", "effect");
             System.out.println(p_mapFileName + " map file exists. You can edit it.");
-            this.readMap(l_filePath, p_gameState);
+            String l_mapType = MapAdapter.getMapType(l_filePath);
+            MapAdapter l_mapAdapter = null;
+            if (l_mapType.equals("domination")) {
+                l_mapAdapter = new DominationMap();
+            } else if (l_mapType.equals("conquest")) {
+                l_mapAdapter = new ConquestMap();
+            }
+            this.d_gameMap = l_mapAdapter.readMap(l_filePath, p_gameState);
+            // this.readMap(l_filePath, p_gameState);
             p_gameState.updateLog(p_mapFileName + " already exists and is loaded for editing", "effect");
         } else {
             p_gameEngine.setGameEngineLog(p_mapFileName + " does not exist.", "effect");
@@ -101,7 +113,15 @@ public class MapHelper {
         if (l_file.exists()) {
             p_gameEngine.setGameEngineLog("Loading map from " + p_mapFileName + "...", "effect");
             System.out.println("Loading map from " + p_mapFileName + "...");
-            this.readMap(l_filePath, p_gameState);
+            String l_mapType = MapAdapter.getMapType(l_filePath);
+            MapAdapter l_mapAdapter = null;
+            if (l_mapType.equals("domination")) {
+                l_mapAdapter = new DominationMap();
+            } else if (l_mapType.equals("conquest")) {
+                l_mapAdapter = new ConquestMap();
+            }
+            this.d_gameMap = l_mapAdapter.readMap(l_filePath, p_gameState);
+            // this.readMap(l_filePath, p_gameState);
             MapValidator l_mapValidator = new MapValidator();
             if (!l_mapValidator.isValidMap(this.d_gameMap)) {
                 p_gameEngine.setGameEngineLog(
@@ -159,13 +179,11 @@ public class MapHelper {
             }
             l_reader.close();
         } catch (FileNotFoundException e) {
-            p_gameState.updateLog("FileNotFoundException", "effect");
-            System.out.println(Constant.ERROR_COLOR + "FileNotFoundException" + Constant.RESET_COLOR);
+            p_gameState.updateLog("File not found", "effect");
+            System.out.println(Constant.ERROR_COLOR + "File not found" + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + e.getMessage() + Constant.RESET_COLOR);
         } catch (IOException e) {
-
             p_gameState.updateLog("IOException", "effect");
-
             System.out.println(Constant.ERROR_COLOR + "IOException" + Constant.RESET_COLOR);
             System.out.println(Constant.ERROR_COLOR + e.getMessage() + Constant.RESET_COLOR);
         }
@@ -491,7 +509,6 @@ public class MapHelper {
                     l_writer.write("[continents]");
                     l_writer.newLine();
                     for (Continent l_continent : l_gameMap.getContinents().values()) {
-
                         System.out.println("Continent ID:" + l_continent.getContinentId());
                         System.out.println("Controller Value:" + l_continent.getControlValue());
                         System.out.println("------------------------");
@@ -522,7 +539,6 @@ public class MapHelper {
                         l_countryIndex++;
                     }
                     l_writer.newLine();
-
                     l_writer.write("[borders]");
                     l_writer.newLine();
                     l_writer.flush();

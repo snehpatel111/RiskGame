@@ -1,8 +1,13 @@
 package com.riskgame.model;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Iterator;
 
 import com.riskgame.model.GameState;
@@ -21,7 +26,14 @@ import com.riskgame.controller.GameEngine;
 /**
  * Implementation of the Issue Order Phase for gameplay using the State Pattern.
  */
-public class IssueOrderPhase extends Phase {
+public class IssueOrderPhase extends Phase implements Serializable {
+
+  /**
+   * Default constructor for IssueOrderPhase.
+   */
+  public IssueOrderPhase() {
+    super();
+  }
 
   /**
    * Constructor to initialize the game engine context.
@@ -42,7 +54,7 @@ public class IssueOrderPhase extends Phase {
   protected void showMap(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {
 
-      p_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
+      this.d_gameState.updateLog("Invalid command! Try command -> showMap", "effect");
 
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> showMap"
@@ -50,7 +62,7 @@ public class IssueOrderPhase extends Phase {
       return;
     }
     MapHelper l_mapHelper = new MapHelper(p_gameState);
-    l_mapHelper.showMap(p_gameState.getPlayerList(), p_gameState.getGameMap(), p_gameState);
+    l_mapHelper.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), p_gameState);
   }
 
   /**
@@ -97,7 +109,7 @@ public class IssueOrderPhase extends Phase {
    */
   public void execute(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     if (!Util.isValidCommandArgument(p_args, 1)) {
-      p_gameState.updateLog("Invalid command! Try command -> execute", "effect");
+      this.d_gameState.updateLog("Invalid command! Try command -> execute", "effect");
       System.out.println(Constant.ERROR_COLOR
           + "Invalid command! Try command -> execute"
           + Constant.RESET_COLOR);
@@ -112,7 +124,7 @@ public class IssueOrderPhase extends Phase {
    * @param p_gameState GameState object containing current game state
    */
   public void printPlayerArmies(GameState p_gameState) {
-    Iterator<Player> l_itr = p_gameState.getPlayerList().listIterator();
+    Iterator<Player> l_itr = this.d_gameState.getPlayerList().listIterator();
     while (l_itr.hasNext()) {
       Player l_p = l_itr.next();
       this.d_gameEngine.setGameEngineLog(
@@ -190,6 +202,77 @@ public class IssueOrderPhase extends Phase {
   /**
    * {@inheritDoc}
    */
+  public void loadGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    try {
+      if (!Util.isValidCommandArgument(p_args, 2)) {
+        this.d_gameEngine.setGameEngineLog("Invalid number of arguments for loadgame command", "effect");
+        System.out.println(Constant.ERROR_COLOR
+            + "Invalid number of arguments for loadgame command" + Constant.RESET_COLOR);
+        System.out.println(Constant.ERROR_COLOR
+            + "Try command -> loadgame <filename>" + Constant.RESET_COLOR);
+        return;
+      }
+      ObjectInputStream l_inputStream = new ObjectInputStream(
+          new FileInputStream(Constant.GAME_PATH + p_args[1]));
+      System.out.println("lol read stream " + l_inputStream);
+      this.d_gameEngine = (GameEngine) l_inputStream.readObject();
+      this.d_gameState = this.d_gameEngine.getGameState();
+      System.out.println("lol read complete this.d_gameEngine " + this.d_gameEngine);
+      System.out.println(
+          "lol read complete this.d_gameState " + this.d_gameState + ", and " + this.d_gameState.isGameMapLoaded());
+
+      this.d_gameEngine.setGameState(this.d_gameState);
+      this.d_gameEngine.getCurrentGamePhase().setGameState(this.d_gameState);
+      l_inputStream.close();
+      System.out.println("lol get game state engine " + this.d_gameEngine.getGameState());
+      System.out.println("lol get game phase " + this.d_gameEngine.getCurrentGamePhase().getGameState());
+      this.d_gameEngine.setGameEngineLog("Game loaded successfully!", "effect");
+      System.out.println(Constant.SUCCESS_COLOR + "Game loaded successfully!" + Constant.RESET_COLOR);
+    } catch (Exception e) {
+      this.d_gameEngine.setGameEngineLog("Error while loading the game: " + e.getMessage(), "effect");
+      System.out
+          .println(Constant.ERROR_COLOR + "Error while loading the game: " + e.getMessage() + Constant.RESET_COLOR);
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void saveGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    try {
+      if (!Util.isValidCommandArgument(p_args, 2)) {
+        this.d_gameEngine.setGameEngineLog("Invalid number of arguments for savegame command", "effect");
+        System.out.println(Constant.ERROR_COLOR
+            + "Invalid number of arguments for savegame command" + Constant.RESET_COLOR);
+        System.out.println(Constant.ERROR_COLOR
+            + "Try command -> savegame <filename>" + Constant.RESET_COLOR);
+        return;
+      }
+      this.d_gameEngine.setGameState(p_gameState);
+      System.out.println("lol savegame " + p_gameEngine);
+      FileOutputStream l_gameOutputFile = new FileOutputStream(
+          Constant.GAME_PATH + p_args[1]);
+      System.out.println("lol l_gameOutputFile " + l_gameOutputFile);
+      ObjectOutputStream l_gameOutputStream = new ObjectOutputStream(l_gameOutputFile);
+      System.out.println("lol map loaded " + this.d_gameState.isGameMapLoaded());
+      l_gameOutputStream.writeObject(p_gameEngine);
+      System.out.println("lol written");
+      l_gameOutputStream.flush();
+      l_gameOutputStream.close();
+      this.d_gameEngine.setGameEngineLog("Game saved successfully!", "effect");
+      System.out.println(Constant.SUCCESS_COLOR + "Game saved successfully!" + Constant.RESET_COLOR);
+    } catch (Exception e) {
+      this.d_gameEngine.setGameEngineLog("Error while saving game: " + e.getMessage(), "effect");
+      System.out
+          .println(Constant.ERROR_COLOR + "Error while saving game " + e.getMessage() + Constant.RESET_COLOR);
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();
@@ -210,7 +293,7 @@ public class IssueOrderPhase extends Phase {
    */
   @Override
   public void assignReinforcementToPlayer(GameState p_gameState) {
-    Iterator<Player> l_iterator = p_gameState.getPlayerList().listIterator();
+    Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();
 
     while (l_iterator.hasNext()) {
       Player l_player = l_iterator.next();

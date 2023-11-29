@@ -1,12 +1,14 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
+
 import com.riskgame.model.Country;
 import com.riskgame.model.Player;
 
 /**
  * Class containing logic for implementation of Deploy order
  */
-public class Deploy implements Order {
+public class Deploy implements Order, Serializable {
 
     private boolean status = false;
     private int d_armyCount;

@@ -1,9 +1,11 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.riskgame.model.GameMap;
 import com.riskgame.model.GameState;
 import com.riskgame.utility.Constant;
 
@@ -11,7 +13,7 @@ import com.riskgame.utility.Constant;
  * Contains all details about country like name, belonging continent, neighbors,
  * and number of armies deployed on them
  */
-public class Country {
+public class Country implements Serializable {
     /**
      * Represents map index in thr map
      */
@@ -59,9 +61,9 @@ public class Country {
             String p_yCoOrdinate, GameMap p_gameMap) {
         this.d_index = Integer.parseInt(p_index);
         this.d_countryId = p_countryId;
-        for (Continent continent : p_gameMap.getContinents().values()) {
-            if (continent.getMapIndex() == Integer.parseInt(p_continentIndex)) {
-                this.d_belongingContinent = continent.getContinentId();
+        for (Continent l_continent : p_gameMap.getContinents().values()) {
+            if (l_continent.getMapIndex() == Integer.parseInt(p_continentIndex)) {
+                this.d_belongingContinent = l_continent.getContinentId();
                 // break;
             }
         }
@@ -69,6 +71,27 @@ public class Country {
         this.d_xCoOrdinate = Integer.parseInt(p_xCoOrdinate);
         this.d_yCoOrdinate = Integer.parseInt(p_yCoOrdinate);
         this.d_numberOfArmies = 0;
+    }
+
+    /**
+     * Initialize Country object as per passed parameters.
+     * 
+     * @param p_countryId          Name of the country
+     * @param p_xCoOrdinate        X-Coordinate of a country on map
+     * @param p_yCoOrdinate        Y-Coordinate of a country on map
+     * @param p_belongingContinent Name of the continent to which this country
+     *                             belongs
+     * @param p_gameMap            GameMap in which this country resides
+     */
+    public Country(String p_countryId, String p_xCoOrdinate, String p_yCoOrdinate, String p_belongingContinent) {
+        this.d_index = 0;
+        this.d_countryId = p_countryId;
+        this.d_belongingContinent = p_belongingContinent;
+        this.d_neighbors = new HashMap<String, Country>();
+        this.d_xCoOrdinate = Integer.parseInt(p_xCoOrdinate);
+        this.d_yCoOrdinate = Integer.parseInt(p_yCoOrdinate);
+        this.d_numberOfArmies = 0;
+        this.d_ownerPlayer = null;
     }
 
     /**

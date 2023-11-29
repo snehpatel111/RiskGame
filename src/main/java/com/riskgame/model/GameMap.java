@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * 
  * @author Sneh
  */
-public class GameMap {
+public class GameMap implements Serializable {
     /**
      * d_map_name is the name of the map
      */

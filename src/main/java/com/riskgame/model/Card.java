@@ -1,11 +1,12 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * This card class will handle all requests related to cards.
  */
-public class Card {
+public class Card implements Serializable {
 
     /**
      * Represents type of Card from Bomb, Airlift, Blockade and Diplomacy

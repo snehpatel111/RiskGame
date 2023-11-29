@@ -141,6 +141,20 @@ public class OrderExecutionPhase extends Phase {
   /**
    * {@inheritDoc}
    */
+  public void loadGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    this.printInvalidCommandInState();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void saveGame(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
+    this.printInvalidCommandInState();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void editContinent(GameEngine p_gameEngine, GameState p_gameState, String[] p_args) {
     this.printInvalidCommandInState();

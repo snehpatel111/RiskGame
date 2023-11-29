@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -10,7 +11,7 @@ import com.riskgame.model.Player;
 /**
  * Represents the state of the game.
  */
-public class GameState {
+public class GameState implements Serializable {
 
     /**
      * The game map.

@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +27,7 @@ import com.riskgame.utility.Util;
 /**
  * Represents a player in the game.
  */
-public class Player {
+public class Player implements Serializable {
     private String d_playerName;
     private HashMap<String, Continent> d_ownedContinents;
     private HashMap<String, Country> d_ownedCountries;

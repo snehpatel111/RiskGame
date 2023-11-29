@@ -1,12 +1,13 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import com.riskgame.view.GameLogger;
 
 /**
  * Records logs for different stages of the game.
  */
-public class LogEntryBuffer extends Observable {
+public class LogEntryBuffer extends Observable implements Serializable {
 
   /**
    * Log message to be recorded.

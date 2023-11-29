@@ -10,6 +10,11 @@ public class Constant {
     public static final String MAP_PATH = "src/main/resource/map/";
 
     /**
+     * This constant will be used to save game using default path.
+     */
+    public static final String GAME_PATH = "src/main/resource/game/";
+
+    /**
      * This constant will be used to print success message in console.
      */
     public static final String SUCCESS_COLOR = "\u001B[32m";

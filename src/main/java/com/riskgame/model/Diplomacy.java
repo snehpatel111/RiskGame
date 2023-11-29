@@ -22,7 +22,7 @@ public class Diplomacy implements Order {
     /**
      * Constructor that initializes class variable.
      * 
-     * @param p_currentPlayer sorce player giving order
+     * @param p_currentPlayer source player giving order
      * @param p_targetPlayer  target player
      */
     public Diplomacy(Player p_currentPlayer, Player p_targetPlayer) {

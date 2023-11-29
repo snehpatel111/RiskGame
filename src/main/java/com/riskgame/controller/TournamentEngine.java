@@ -24,7 +24,8 @@ public class TournamentEngine extends GameEngine {
      */
     public TournamentEngine(GameEngine p_gameEngine, GameState p_gameState) {
         super();
-        d_startUpPhase = new StartUpPhase(p_gameEngine, p_gameState);
+        this.d_gameEngine = p_gameEngine;
+        this.d_startUpPhase = new StartUpPhase(p_gameEngine, p_gameState);
     }
 
     /**

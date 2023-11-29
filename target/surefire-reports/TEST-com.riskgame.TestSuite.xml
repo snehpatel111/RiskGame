@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.TestSuite" time="0.089" tests="75" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.riskgame.TestSuite" time="0.088" tests="75" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire/surefirebooter7952664684653908916.jar /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire 2023-11-28T19-44-04_667-jvmRun1 surefire8459326057821435840tmp surefire_02058920569887373308tmp"/>
+    <property name="sun.java.command" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire/surefirebooter15460726112802708774.jar /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire 2023-11-28T19-55-50_568-jvmRun1 surefire1574825936730591891tmp surefire_0871802855922272327tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/test-classes:/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/classes:/Users/yashchhelaiya/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/yashchhelaiya/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/yashchhelaiya/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/Users/yashchhelaiya/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire/surefirebooter7952664684653908916.jar"/>
+    <property name="surefire.real.class.path" value="/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/target/surefire/surefirebooter15460726112802708774.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21+35-LTS-2513"/>
@@ -59,20 +59,20 @@
   </properties>
   <testcase name="testInitialGamePhase" classname="com.riskgame.controller.GameEngineTest" time="0.003"/>
   <testcase name="testAssignReinforcementToPlayerBasic" classname="com.riskgame.controller.GameEngineTest" time="0"/>
-  <testcase name="testAssignReinforcementToPlayerWithTenCountries" classname="com.riskgame.controller.GameEngineTest" time="0.003"/>
+  <testcase name="testAssignReinforcementToPlayerWithTenCountries" classname="com.riskgame.controller.GameEngineTest" time="0.002"/>
   <testcase name="testAssignReinforcementToPlayerWithNineCountries" classname="com.riskgame.controller.GameEngineTest" time="0"/>
-  <testcase name="testAddCardToDeck" classname="com.riskgame.model.CardTest" time="0.004"/>
+  <testcase name="testAddCardToDeck" classname="com.riskgame.model.CardTest" time="0"/>
   <testcase name="testCreateCard" classname="com.riskgame.model.CardTest" time="0"/>
-  <testcase name="testGetCardType" classname="com.riskgame.model.CardTest" time="0"/>
-  <testcase name="testEditContinentWithInvalidArguments" classname="com.riskgame.model.ContinentTest" time="0"/>
+  <testcase name="testGetCardType" classname="com.riskgame.model.CardTest" time="0.001"/>
+  <testcase name="testEditContinentWithInvalidArguments" classname="com.riskgame.model.ContinentTest" time="0.001"/>
   <testcase name="testAddContinent" classname="com.riskgame.model.ContinentTest" time="0.011"/>
   <testcase name="testEditContinentRemovingNonexistentContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
   <testcase name="testEditContinentAddingExistingContinent" classname="com.riskgame.model.ContinentTest" time="0"/>
   <testcase name="testRemoveContinent" classname="com.riskgame.model.ContinentTest" time="0.002"/>
   <testcase name="testAreCountriesNotNeighbors" classname="com.riskgame.model.CountryTest" time="0"/>
   <testcase name="testSetMapName" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testEditExistingMap" classname="com.riskgame.model.GameMapTest" time="0"/>
-  <testcase name="testEditNullMap" classname="com.riskgame.model.GameMapTest" time="0"/>
+  <testcase name="testEditExistingMap" classname="com.riskgame.model.GameMapTest" time="0.001"/>
+  <testcase name="testEditNullMap" classname="com.riskgame.model.GameMapTest" time="0.001"/>
   <testcase name="testEditNewMap" classname="com.riskgame.model.GameMapTest" time="0.001"/>
   <testcase name="testGetMapName" classname="com.riskgame.model.GameMapTest" time="0"/>
   <testcase name="testLoadMap" classname="com.riskgame.model.MapHelperTest" time="0.011"/>
@@ -98,16 +98,16 @@
   <testcase name="validateStartUpPhase" classname="com.riskgame.model.StartUpPhaseTest" time="0"/>
   <testcase name="testSaveMapMapNotSelected" classname="com.riskgame.model.StartUpPhaseTest" time="0"/>
   <testcase name="testNullArguments" classname="com.riskgame.model.StartUpPhaseTest" time="0"/>
-  <testcase name="testInvalidMapName" classname="com.riskgame.utility.MapValidatorTest" time="0.001"/>
+  <testcase name="testInvalidMapName" classname="com.riskgame.utility.MapValidatorTest" time="0"/>
   <testcase name="testMapInValidity" classname="com.riskgame.utility.MapValidatorTest" time="0"/>
   <testcase name="testValidMapName" classname="com.riskgame.utility.MapValidatorTest" time="0"/>
-  <testcase name="validateMapTest" classname="com.riskgame.utility.MapValidatorTest" time="0.009"/>
-  <testcase name="testExecuteAirliftOrder" classname="com.riskgame.model.AirliftTest" time="0"/>
+  <testcase name="validateMapTest" classname="com.riskgame.utility.MapValidatorTest" time="0.008"/>
+  <testcase name="testExecuteAirliftOrder" classname="com.riskgame.model.AirliftTest" time="0.001"/>
   <testcase name="testExecuteBlockadeSuccess" classname="com.riskgame.model.BlockadeTest" time="0"/>
   <testcase name="testExecuteBlockadeNonExistentCountry" classname="com.riskgame.model.BlockadeTest" time="0"/>
   <testcase name="testExecuteBlockadeInvalidCountry" classname="com.riskgame.model.BlockadeTest" time="0"/>
   <testcase name="testExecuteBlockadeInvalidPlayer" classname="com.riskgame.model.BlockadeTest" time="0"/>
-  <testcase name="testExecuteBlockadeNoCountry" classname="com.riskgame.model.BlockadeTest" time="0"/>
+  <testcase name="testExecuteBlockadeNoCountry" classname="com.riskgame.model.BlockadeTest" time="0.001"/>
   <testcase name="testExecuteBlockadeFailure" classname="com.riskgame.model.BlockadeTest" time="0"/>
   <testcase name="testExecuteBlockadeZeroArmies" classname="com.riskgame.model.BlockadeTest" time="0"/>
   <testcase name="testExecuteBlockadeCountryNotOwned" classname="com.riskgame.model.BlockadeTest" time="0"/>
@@ -115,21 +115,21 @@
   <testcase name="testExecuteWhenPlayersNotNegotiated" classname="com.riskgame.model.BombTest" time="0"/>
   <testcase name="testGetterAndSetterMethods" classname="com.riskgame.model.DeployTest" time="0"/>
   <testcase name="testExecuteDeployment" classname="com.riskgame.model.DeployTest" time="0"/>
-  <testcase name="testDiplomacyNegotiateList" classname="com.riskgame.model.DiplomacyTest" time="0.001"/>
+  <testcase name="testDiplomacyNegotiateList" classname="com.riskgame.model.DiplomacyTest" time="0"/>
   <testcase name="testDiplomacyExecutionSuccessful" classname="com.riskgame.model.DiplomacyTest" time="0"/>
   <testcase name="testDiplomacyWithInvalidd_targetPlayer" classname="com.riskgame.model.DiplomacyTest" time="0"/>
   <testcase name="testIsGameMapLoaded" classname="com.riskgame.model.GameStateTest" time="0"/>
   <testcase name="testGetSetUnexecutedOrders" classname="com.riskgame.model.GameStateTest" time="0"/>
   <testcase name="testGetSetGameMap" classname="com.riskgame.model.GameStateTest" time="0"/>
   <testcase name="testGetSetPlayerList" classname="com.riskgame.model.GameStateTest" time="0"/>
-  <testcase name="testGetTotalArmyOfAllPlayers" classname="com.riskgame.model.GameStateTest" time="0.001"/>
-  <testcase name="testCurrentLogEnd" classname="com.riskgame.model.LogEntryBufferTest" time="0"/>
-  <testcase name="testCurrentLogOrder" classname="com.riskgame.model.LogEntryBufferTest" time="0.002"/>
-  <testcase name="testCurrentLogPhase" classname="com.riskgame.model.LogEntryBufferTest" time="0.003"/>
+  <testcase name="testGetTotalArmyOfAllPlayers" classname="com.riskgame.model.GameStateTest" time="0"/>
+  <testcase name="testCurrentLogEnd" classname="com.riskgame.model.LogEntryBufferTest" time="0.001"/>
+  <testcase name="testCurrentLogOrder" classname="com.riskgame.model.LogEntryBufferTest" time="0.003"/>
+  <testcase name="testCurrentLogPhase" classname="com.riskgame.model.LogEntryBufferTest" time="0.002"/>
   <testcase name="testCurrentLogStart" classname="com.riskgame.model.LogEntryBufferTest" time="0"/>
   <testcase name="testCurrentLogEffect" classname="com.riskgame.model.LogEntryBufferTest" time="0"/>
   <testcase name="testCurrentLogCommand" classname="com.riskgame.model.LogEntryBufferTest" time="0.001"/>
   <testcase name="testInitPhaseWithNoUnexecutedOrders" classname="com.riskgame.model.OrderExecutionPhaseTest" time="0"/>
   <testcase name="testInitPhaseWithNoPlayers" classname="com.riskgame.model.OrderExecutionPhaseTest" time="0"/>
-  <testcase name="isAlphabeticTest" classname="com.riskgame.utility.UtilTest" time="0.001"/>
+  <testcase name="isAlphabeticTest" classname="com.riskgame.utility.UtilTest" time="0"/>
 </testsuite>

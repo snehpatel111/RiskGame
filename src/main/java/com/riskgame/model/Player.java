@@ -678,7 +678,7 @@ public class Player {
             boolean l_isPlayerOwnsSourceCountry = this.getOwnedCountries().containsKey(l_sourceCountry.toLowerCase());
             boolean l_isPlayerOwnsTargetCountry = this.getOwnedCountries().containsKey(l_targetCountry.toLowerCase());
             boolean l_hasSufficientArmy = (this.getOwnedCountries().get(l_sourceCountry.toLowerCase())
-                    .getNumberOfArmies() > l_moveArmies);
+                    .getNumberOfArmies() >= l_moveArmies);
             boolean l_hasCard = this.doesCardExists("Airlift");
 
             if (!l_hasCard) {
@@ -708,7 +708,7 @@ public class Player {
             }
             if (!l_hasSufficientArmy) {
                 System.out.println(Constant.ERROR_COLOR + "Player " + this.getPlayerName()
-                        + " does not have sufficient army to advance." + Constant.RESET_COLOR);
+                        + " does not have sufficient army to airlift." + Constant.RESET_COLOR);
                 return;
             }
 

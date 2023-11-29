@@ -79,7 +79,7 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>3.0.0</version> <!-- Adjust the version as needed -->
             <configuration>
-                <mainClass>com.riskgame.controller.GameEngine</mainClass>
+                <mainClass>com.riskgame.view.InitializeGame</mainClass>
             </configuration>
         </plugin>
       </plugins>

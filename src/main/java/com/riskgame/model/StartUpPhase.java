@@ -355,7 +355,7 @@ public class StartUpPhase extends Phase {
          * {@inheritDoc}
          */
         public void initPhase() {
-                System.out.println("\nWelcome to RiskGame!\n");
+                // System.out.println("\nWelcome to RiskGame!\n");
                 System.out.println("You can start by creating/editing existing map or loading existing map.\n");
                 this.showAvailableMap();
                 System.out.println(

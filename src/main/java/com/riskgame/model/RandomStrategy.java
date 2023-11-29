@@ -24,7 +24,7 @@ public class RandomStrategy extends PlayerStrategy {
   /**
    * Constructor for RandomStrategy
    *
-   * @param p_player     player object
+   * @param p_player     Player object
    * @param p_gameEngine GameEngine object
    */
   public RandomStrategy(Player p_player, GameEngine p_gameEngine) {

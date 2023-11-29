@@ -1,6 +1,7 @@
 package com.riskgame.controller;
 
 import com.riskgame.model.*;
+import com.riskgame.utility.Constant;
 import com.riskgame.view.TournamentResult;
 
 import java.io.*;
@@ -227,12 +228,15 @@ public class TournamentEngine extends GameEngine {
                             l_p.setStrategy(new RandomStrategy(l_p, d_gameEngine));
                             l_p.setIsHuman(false);
                             break;
-                        // case "cheater":
-                        // l_p.setStrategy(new CheaterPlayer(l_p, d_gameEngine));
-                        // l_p.setIsHuman(false);
-                        // break;
+                        case "cheater":
+                            l_p.setStrategy(new CheaterStrategy(l_p, d_gameEngine));
+                            l_p.setIsHuman(false);
+                            break;
                         default:
-                            System.out.println("Invalid Player Strategy");
+                            System.out.println(Constant.ERROR_COLOR + "Invalid Player Strategy" + Constant.RESET_COLOR);
+                            System.out.println(Constant.ERROR_COLOR
+                                    + "It should be any of the following: aggressive, benevolent, random or cheater"
+                                    + Constant.RESET_COLOR);
                             break;
                     }
                 }

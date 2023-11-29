@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
-import com.riskgame.model.Phase;
+import com.riskgame.controller.GameEngine;
 import com.riskgame.model.Advance;
 import com.riskgame.model.Airlift;
 import com.riskgame.model.Blockade;
@@ -19,11 +18,10 @@ import com.riskgame.model.Card;
 import com.riskgame.model.Deploy;
 import com.riskgame.model.Diplomacy;
 import com.riskgame.model.GameState;
-import com.riskgame.model.MapHelper;
 import com.riskgame.model.Order;
+
 import com.riskgame.utility.Constant;
 import com.riskgame.utility.Util;
-import com.riskgame.controller.GameEngine;
 
 /**
  * Represents a player in the game.
@@ -37,7 +35,7 @@ public class Player {
     private String d_countryId;
     private Order d_order;
     private Queue<Order> d_executionOrderList;
-    private PlayerStrategy d_Strategy;
+    private PlayerStrategy d_strategy;
 
     /**
      * d_isHuman check whether the player type is human or not
@@ -217,7 +215,7 @@ public class Player {
      */
     public boolean issueOrder() {
         Order order;
-        order = d_Strategy.createOrder();
+        order = this.d_strategy.createOrder();
         if (order != null) {
             this.d_executionOrderList.add(order);
             return true;
@@ -911,7 +909,7 @@ public class Player {
      * @param p_strategy strategy
      */
     public void setStrategy(PlayerStrategy p_strategy) {
-        d_Strategy = p_strategy;
+        this.d_strategy = p_strategy;
     };
 
     public boolean isWinner() {

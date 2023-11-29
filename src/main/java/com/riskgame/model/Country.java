@@ -45,6 +45,19 @@ public class Country {
     }
 
     /**
+ * Initialize Country object with the country ID.
+ * 
+ * @param p_countryId Id of the country
+ */
+public Country(String p_countryId) {
+    this.d_countryId = p_countryId;
+    this.d_belongingContinent = ""; // You may want to set a default value or modify as needed
+    this.d_neighbors = new HashMap<String, Country>();
+    this.d_numberOfArmies = 0;
+
+}
+
+    /**
      * Initialize Country object as per passed parameters.
      * This constructor is used while reading ".map" files.
      * 
@@ -115,6 +128,12 @@ public class Country {
     public int getYCoOrdinate() {
         return this.d_yCoOrdinate;
     }
+
+    public void addNeighbor(Country neighbor) {
+        this.d_neighbors.put(neighbor.getCountryId().toLowerCase(), neighbor);
+    }
+
+
 
     /**
      * Set the y-coordinate of country on map

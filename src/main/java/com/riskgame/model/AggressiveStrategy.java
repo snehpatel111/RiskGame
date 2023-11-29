@@ -29,11 +29,22 @@ public class AggressiveStrategy extends PlayerStrategy {
   public AggressiveStrategy(Player p_player, GameEngine p_gameEngine) {
     super(p_player, p_gameEngine);
     this.d_strongestCountry = null;
+    this.d_gameEngine = p_gameEngine;
     this.d_defendingCountry = null;
     this.d_armyDeployableCountry = null;
     this.d_maxArmyCount = 0;
     this.d_isTest = false;
   }
+
+   /**
+     * Gets the order value.
+     *
+     * @return The order value.
+     */
+    public int getOrderValue() {
+      return this.d_orderValue;
+  }
+
 
   /**
    * Find the strongest country which is owned by the player.
@@ -52,12 +63,13 @@ public class AggressiveStrategy extends PlayerStrategy {
       this.d_strongestCountry = this.d_armyDeployableCountry;
     }
   }
+  
 
   /**
    * {@inheritDoc}
    */
   protected Country attackToCountry() {
-    if (this.d_strongestCountry != null) {
+        if (this.d_strongestCountry != null) {
       for (Country l_neighborCountry : this.d_strongestCountry.getNeighbors().values()) {
         if (!this.d_player.getOwnedCountries().containsKey(l_neighborCountry.getCountryId().toLowerCase())) {
           this.d_defendingCountry = l_neighborCountry;

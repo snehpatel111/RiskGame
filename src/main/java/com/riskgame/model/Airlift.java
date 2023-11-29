@@ -45,6 +45,28 @@ public class Airlift implements Order {
     }
 
     /**
+     * Get the ID of the source country from which armies will be airlifted.
+     * 
+     * @return Source country ID
+     */
+    public String getMoveFromCountryId() {
+        return getSourceCountryId();
+    }
+
+    /**
+     * Get the ID of the target country to which armies will be airlifted.
+     * 
+     * @return Target country ID
+     */
+    public String getMoveToCountryId() {
+        return getTargetCountryId();
+    }
+
+   
+
+
+
+    /**
      * execution logic of Airlift order
      * 
      * @return true if executed successfully else false if it fails

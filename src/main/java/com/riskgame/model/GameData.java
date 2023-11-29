@@ -60,6 +60,16 @@ public class GameData extends Observable implements Serializable {
     /**
      * Represents Game Engine
      */
+    private GameEngine d_gameEngine;
+
+     /**
+     * Represents Game State
+     */
+    private GameState d_gameState;
+
+    /**
+     * Represents Game Engine
+     */
     // private GameEngine d_gameEngine;
 
     /**
@@ -86,6 +96,8 @@ public class GameData extends Observable implements Serializable {
     public GameData() {
         d_Map = new GameMap();
         // d_currentGamePhase = Phase.NULL;
+        d_gameEngine = new GameEngine();
+        d_gameState = new GameState();
         d_currentGamePhase = null;
         d_Players = new ArrayList<Player>();
         d_ActivePlayer = null;
@@ -172,17 +184,44 @@ public class GameData extends Observable implements Serializable {
      * @param p_gamePhase new phase of the game.
      */
     public void setGamePhase(Phase p_gamePhase) {
-
         this.d_currentGamePhase = p_gamePhase;
         System.out.printf("lol current phase true or false:", this.d_currentGamePhase instanceof OrderExecutionPhase);
         if (this.d_currentGamePhase instanceof OrderExecutionPhase) {
-            System.out.println(this.d_ActivePlayer.getPlayerName() + "'s reinforcement phase");
-            notifyObservers(this);
+            if (this.d_ActivePlayer != null) {
+                System.out.println(this.d_ActivePlayer.getPlayerName() + "'s reinforcement phase");
+                notifyObservers(this);
+            } else {
+                System.out.println("Active player is null during reinforcement phase");
+            }
         } else if (this.d_currentGamePhase instanceof IssueOrderPhase) {
-            System.out.println(this.d_ActivePlayer.getPlayerName() + "'s Issue order phase");
-            notifyObservers(this);
+            if (this.d_ActivePlayer != null) {
+                System.out.println(this.d_ActivePlayer.getPlayerName() + "'s Issue order phase");
+                notifyObservers(this);
+            } else {
+                System.out.println("Active player is null during issue order phase");
+            }
         }
     }
+    
+
+    /**
+     * Get the associated game engine.
+     * 
+     * @return The associated game engine.
+     */
+    public GameEngine getGameEngine() {
+        return d_gameEngine;
+    }
+
+    /**
+     * Get the associated game state.
+     * 
+     * @return The associated game state.
+     */
+    public GameState getGameState() {
+        return d_gameState;
+    }
+
 
     /**
      * Get the list of players.
@@ -291,11 +330,15 @@ public class GameData extends Observable implements Serializable {
      */
     public void resetGameData() {
         d_Map = new GameMap();
+        d_Map = null;
         // d_currentGamePhase = Phase.NULL;
+        d_gameEngine = new GameEngine();
+        d_gameState = new GameState();  
         d_currentGamePhase = null;
         d_Players = new ArrayList<Player>();
         d_ActivePlayer = null;
         d_Card = new Card();
+        d_Card = null; 
         d_CardsDealt = 0;
     }
 }

@@ -21,6 +21,11 @@ public class Observable {
         this.d_Observers.add(p_observer);
     }
 
+    public int getAttachedObserverCount() {
+        return d_Observers.size();
+    }
+    
+
     /**
      * Detach an observer.
      * 

@@ -33,6 +33,15 @@ public class Deploy implements Order {
     }
 
     /**
+     * Get the ID of the country to deploy armies to.
+     * 
+     * @return The ID of the country to deploy armies to.
+     */
+    public String getDeployToCountryId() {
+        return this.d_countryId;
+    }
+
+    /**
      * Set game state.
      * 
      * @param p_gameState Game state object

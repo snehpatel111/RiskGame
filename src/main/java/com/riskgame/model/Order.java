@@ -12,8 +12,8 @@ public interface Order {
       */
      public boolean execute();
 
-     /**
-      * Set game state.
+      /**
+           * Set game state.
       * @param gameState current game state
       */
      public void setGameState(GameState gameState);

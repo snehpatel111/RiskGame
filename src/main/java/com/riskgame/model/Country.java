@@ -29,8 +29,20 @@ public class Country implements Serializable {
      * HashMap to store all neighbors of this country.
      */
     private HashMap<String, Country> d_neighbors;
+
+    /**
+     * X Co-ordinate of country
+     */
     private int d_xCoOrdinate;
+
+    /**
+     * Y Co-ordinate of country
+     */
     private int d_yCoOrdinate;
+
+    /**
+     * Number of armies deployed on this country.
+     */
     private int d_numberOfArmies = 0;
     private Player d_ownerPlayer;
 

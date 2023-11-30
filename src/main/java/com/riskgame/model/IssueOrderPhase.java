@@ -29,6 +29,9 @@ import com.riskgame.controller.GameEngine;
  */
 public class IssueOrderPhase extends Phase implements Serializable {
 
+  /**
+   * Represents the current phase of the game.
+   */
   Phase d_phase;
 
   /**

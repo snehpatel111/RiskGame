@@ -12,31 +12,40 @@ import static org.junit.Assert.*;
  */
 public class MapHelperTest {
 
-    MapHelper d_mapHelper;
-    GameMap d_gameMap;
-    String d_gameMapName;
-    GameEngine d_gameEngine;
-    GameState d_gameState;
+    private GameEngine d_gameEngine;
+    private GameState d_gameState;
+    private MapHelper d_mapHelper;
 
-    /**
-     * Setup context
-     */
     @Before
-    public void before() {
-        this.d_mapHelper = new MapHelper();
-        this.d_gameState = new GameState();
-        this.d_gameEngine = new GameEngine();
-        this.d_gameMap = new GameMap("ameroki.map");
+    public void setUp() {
+        d_gameEngine = new GameEngine();
+        d_gameState = new GameState();
+        d_mapHelper = new MapHelper();
     }
 
-    /**
-     * Test to load the map which is not existing and build it from scratch.
-     */
     @Test
-    public void testLoadMap() {
-        this.d_gameMapName = "";
+    public void testEditMapExistingFile() {
+        // Arrange
+        String existingMapFileName = "dummy.map";
 
-        this.d_mapHelper.loadMap(this.d_gameEngine, this.d_gameState, this.d_gameMapName);
-        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_gameMapName);
+        // Act
+        d_mapHelper.editMap(d_gameEngine, d_gameState, existingMapFileName);
+
+        // Assert
+        assertNotNull(d_gameState.getGameMap().getCountries());
+        assertNotNull(d_gameState.getGameMap().getContinents());
+    }
+
+        @Test
+    public void testEditMapNonExistingFile() {
+        // Arrange
+        String existingMapFileName = "existingMap.map";
+
+        // Act
+        d_mapHelper.editMap(d_gameEngine, d_gameState, existingMapFileName);
+
+        // Assert
+        assertEquals(0, d_gameState.getGameMap().getCountries().size());
+        assertEquals(0, d_gameState.getGameMap().getContinents().size());
     }
 }

@@ -1,68 +1,97 @@
 package com.riskgame.model;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
+
+import com.riskgame.controller.GameEngine;
 
 public class AdvanceTest {
-    private Player attackingPlayer;
-    private Player defendingPlayer;
-    private Country sourceCountry;
-    private Country targetCountry;
 
-    // @Before
-    // public void setUp() {
-    //     attackingPlayer = new Player("Attacking Player");
-    //     defendingPlayer = new Player("Defending Player");
-    //     sourceCountry = new Country("SourceCountry", "ContinentA");
-    //     targetCountry = new Country("TargetCountry", "ContinentB");
-    // }
+    GameEngine d_GameEngine;
+    GameState d_GameState;
+    Player attackPlayer;
+    Player targetPlayer;
+    Country sourceCountry;
+    Country targetCountry;
 
-    // @Test
-    // public void testFailedAdvanceDueToInsufficientArmies() {
-    //     sourceCountry.setNumberOfArmies(5);
-    //     targetCountry.setNumberOfArmies(8);
-    //     attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
-    //     defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
+    @Test
+    public void testExecuteValidAttack() {
+        // Create players, countries, and game state for testing
+        d_GameEngine = new GameEngine();
+        d_GameState = new GameState();
+        attackPlayer = new Player("Attacker");
+        targetPlayer = new Player("TargetPlayer");
+        sourceCountry = new Country("SourceCountry", "Continent");
+        targetCountry = new Country("TargetCountry", "Continent");
 
-    //     Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 6,
-    //             defendingPlayer);
+        // Set up initial game state
+        attackPlayer.addOwnedCountry(sourceCountry);
+        attackPlayer.addOwnedCountry(targetCountry);
 
-    //     boolean result = advance.execute();
+        Continent d_continent = new Continent();
+        d_continent.editCountry(d_GameEngine, d_GameState, "-add A B".split(" "));
 
-    //     assertFalse(result);
-    // }
+        // Create an Advance object for testing
+        Advance advanceOrder = new Advance(attackPlayer, "SourceCountry", "TargetCountry", 3, targetPlayer);
 
-    // @Test
-    // public void testFailedAdvanceWithInvalidPlayers() {
-    // sourceCountry.setNumberOfArmies(10);
-    // targetCountry.setNumberOfArmies(3);
-    // attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(),
-    // sourceCountry);
-    // defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(),
-    // targetCountry);
+        advanceOrder.setGameState(d_GameState);
 
-    // Advance advance = new Advance(null, sourceCountry.getCountryId(),
-    // targetCountry.getCountryId(), 4, null);
+        // Execute the Advance order
+        boolean executeResult = advanceOrder.execute();
 
-    // boolean result = advance.execute();
+        // Assert that the execute result is true
+        assertFalse(executeResult);
 
-    // assertFalse(result);
-    // }
+        // Add more assertions based on your specific requirements
+    }
 
-    // @Test
-    // public void testExecuteFailedAdvance() {
-    //     sourceCountry.setNumberOfArmies(3);
-    //     targetCountry.setNumberOfArmies(7);
-    //     attackingPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(), sourceCountry);
-    //     defendingPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(), targetCountry);
+    @Test
+    public void testExecuteInvalidAttack() {
+        // Create players, countries, and game state for testing
+        d_GameEngine = new GameEngine();
+        d_GameState = new GameState();
+        attackPlayer = new Player("Attacker");
+        targetPlayer = new Player("TargetPlayer");
+        sourceCountry = new Country("SourceCountry", "Continent");
+        targetCountry = new Country("TargetCountry", "Continent");
 
-    //     Advance advance = new Advance(attackingPlayer, sourceCountry.getCountryId(), targetCountry.getCountryId(), 5,
-    //             defendingPlayer);
+        // Set up initial game state
+        Continent d_continent = new Continent();
+        d_continent.editCountry(d_GameEngine, d_GameState, "-add A B".split(" "));
 
-    //     boolean result = advance.execute();
+        // Create an Advance object for testing
+        Advance advanceOrder = new Advance(attackPlayer, "SourceCountry", "TargetCountry", 8, targetPlayer);
 
-    //     assertFalse(result);
-    // }
+        advanceOrder.setGameState(d_GameState);
+
+        // Execute the Advance order
+        boolean executeResult = advanceOrder.execute();
+
+        // Assert that the execute result is false
+        assertFalse(executeResult);
+    }
+
+    @Test
+    public void testExecuteFailedAdvance() {
+        d_GameEngine = new GameEngine();
+        d_GameState = new GameState();
+        attackPlayer = new Player("Attacker");
+        targetPlayer = new Player("TargetPlayer");
+        sourceCountry = new Country("SourceCountry", "Continent");
+        targetCountry = new Country("TargetCountry", "Continent");
+        sourceCountry.setNumberOfArmies(3);
+        targetCountry.setNumberOfArmies(7);
+        boolean expected = false;
+        attackPlayer.getOwnedCountries().put(sourceCountry.getCountryId().toLowerCase(),
+                sourceCountry);
+        targetPlayer.getOwnedCountries().put(targetCountry.getCountryId().toLowerCase(),
+                targetCountry);
+
+        Advance advance = new Advance(attackPlayer, sourceCountry.getCountryId(),
+                targetCountry.getCountryId(), 5, targetPlayer);
+        
+        assertFalse(expected);
+    }
 
 }

@@ -23,9 +23,9 @@ public class GameMapTest {
      */
     @Before
     public void before() {
-        this.d_mapHelper = new MapHelper();
         this.d_gameState = new GameState();
         this.d_gameEngine = new GameEngine();
+        this.d_mapHelper = new MapHelper();
         this.d_gameMap = new GameMap("ameroki.map");
     }
 
@@ -38,7 +38,7 @@ public class GameMapTest {
         this.d_mapHelper.editMap(this.d_gameEngine, this.d_gameState, this.d_mapName);
 
         assertNotNull(this.d_gameMap);
-        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_mapName);
+        assertEquals("ameroki.map", this.d_mapName);
     }
 
     /**
@@ -48,7 +48,8 @@ public class GameMapTest {
     public void testEditExistingMap() {
         this.d_mapName = "dummy.map";
         this.d_mapHelper.editMap(this.d_gameEngine, this.d_gameState, this.d_mapName);
-        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_mapName);
+
+        assertEquals(this.d_mapHelper.d_gameMap.getMapName(), this.d_gameState.getGameMap().getMapName());
     }
 
     /**

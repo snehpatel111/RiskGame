@@ -62,14 +62,14 @@ public class OrderExecutionPhase extends Phase implements Serializable {
 
           this.d_gameEngine.setGameEngineLog("All orders are executed successfully." + l_numOfOrders, "effect");
           System.out.println(Constant.SUCCESS_COLOR + "All orders are executed successfully." + Constant.RESET_COLOR);
-          System.err.println("lol after exec");
+
 
           Iterator<Player> l_iterator = this.d_gameState.getPlayerList().listIterator();
           for (Player l_p : this.d_gameState.getPlayerList()) {
             l_p.setGameState(this.d_gameState);
-            System.out.println("lol for " + l_p.isWinner());
+
             if (l_p.isWinner()) {
-              System.out.println("lol winner");
+
               MapHelper l_mh = new MapHelper();
               l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
               this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
@@ -77,19 +77,20 @@ public class OrderExecutionPhase extends Phase implements Serializable {
               System.exit(0);
             }
           }
-          // System.out.println("lol after for");
-          // while (l_iterator.hasNext()) {
-          // System.out.println("lol showing card");
-          // Player l_player = l_iterator.next();
-          // l_player.showCards();
-          // }
+
+          while (l_iterator.hasNext()) {
+
+            Player l_player = l_iterator.next();
+            l_player.showCards();
+          }
+
           System.out.println("lol setting issue order phase");
           this.d_gameEngine.setIssueOrderPhase();
-          System.out.println("lol set issue order phase");
+
         }
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
-        System.out.println("lol error execution order phase " + e.getMessage());
+        System.out.println(e.getMessage());
         e.printStackTrace();
 
       }

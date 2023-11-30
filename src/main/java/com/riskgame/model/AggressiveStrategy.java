@@ -238,11 +238,6 @@ public class AggressiveStrategy extends PlayerStrategy {
                   .println("Armies deployed on country :" + this.d_armyDeployableCountry.getCountryId() + " "
                       + l_reinforceArmies);
               this.d_player.setOwnedArmyCount(this.d_player.getOwnedArmyCount() - l_reinforceArmies);
-              System.out.println("lol case 0 player " + this.d_player.getPlayerName());
-              System.out.println("lol case 0 d_armyDeployableCountry " + this.d_armyDeployableCountry.getCountryId());
-              System.out.println("lol case 0 d_defendingCountry " + this.d_defendingCountry.getCountryId());
-              System.out.println("lol case 0 d_strongestCountry " + this.d_strongestCountry.getCountryId());
-              System.out.println("lol case 0 l_attackingCountry " + l_attackingCountry.getCountryId());
 
               return new Deploy(this.d_player, this.d_armyDeployableCountry.getCountryId(), l_reinforceArmies);
             }

@@ -76,9 +76,9 @@ public class IssueOrderPhase extends Phase implements Serializable {
   public void initPhase() {
     for (Player l_p : this.d_gameState.getPlayerList()) {
       l_p.setGameState(this.d_gameState);
-      System.out.println("lol for " + l_p.isWinner());
+
       if (l_p.isWinner()) {
-        System.out.println("lol winner");
+
         this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
         System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
         MapHelper l_mh = new MapHelper();
@@ -108,13 +108,13 @@ public class IssueOrderPhase extends Phase implements Serializable {
             break;
           }
           // Case for Not Human Player
-          System.out.println("lol Not Human outside if" + l_player.d_isHuman);
+
           if (!l_player.d_isHuman) {
             for (Player l_p : this.d_gameState.getPlayerList()) {
               l_p.setGameState(this.d_gameState);
-              System.out.println("lol for " + l_p.isWinner());
+
               if (l_p.isWinner()) {
-                System.out.println("lol winner");
+
                 this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
                 System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
                 MapHelper l_mh = new MapHelper();
@@ -123,7 +123,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
               }
             }
             l_player.setGameState(this.d_gameState);
-            System.out.println("lol Not Human");
+
             this.printPlayerArmies(this.d_gameState);
             this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");
             System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
@@ -143,7 +143,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
         }
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
-        System.out.println("lol - " + e.getMessage());
+        System.out.println(e.getMessage());
         e.printStackTrace();
       }
     }

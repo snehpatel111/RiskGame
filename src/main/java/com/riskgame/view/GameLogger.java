@@ -46,7 +46,8 @@ public class GameLogger implements Observer {
       Files.write(Paths.get("LogFile.txt"), l_logMessage.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
   }
 }

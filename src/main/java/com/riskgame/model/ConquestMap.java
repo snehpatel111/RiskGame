@@ -93,7 +93,8 @@ public class ConquestMap extends MapAdapter {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
     this.d_mapIndex = 1;
     return p_reader;
@@ -134,11 +135,13 @@ public class ConquestMap extends MapAdapter {
             }
           }
         } catch (NullPointerException e) {
-          e.printStackTrace();
+          System.out.println(e.getMessage());
+          // e.printStackTrace();
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
     return p_reader;
   }
@@ -203,7 +206,8 @@ public class ConquestMap extends MapAdapter {
       }
 
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
       return false;
     }
     return true;

@@ -88,7 +88,8 @@ public class DominationMap extends MapAdapter {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
     this.d_mapIndex = 1;
     return p_reader;
@@ -123,7 +124,8 @@ public class DominationMap extends MapAdapter {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
     return p_reader;
   }
@@ -172,7 +174,8 @@ public class DominationMap extends MapAdapter {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
+      // e.printStackTrace();
     }
     return p_reader;
   }
@@ -282,7 +285,8 @@ public class DominationMap extends MapAdapter {
             l_writer.newLine();
           }
         } catch (IOException e) {
-          e.printStackTrace();
+          System.out.println(e.getMessage());
+          // e.printStackTrace();
           return false;
         }
         return true;

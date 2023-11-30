@@ -190,10 +190,6 @@ public class AggressiveStrategy extends PlayerStrategy implements Serializable {
     System.out.println("Countries owned by aggressive player " + this.d_player.getOwnedCountries().size());
     System.out.println("Armies owned by aggressive player " + this.d_player.getOwnedArmyCount());
 
-    // // TODO
-    // if (this.d_player.getOwnedCountries().size() == 0) {
-    // // TODO
-    // }
 
     Random l_random = new Random();
 

@@ -35,6 +35,11 @@ public class IssueOrderPhase extends Phase implements Serializable {
   Phase d_phase;
 
   /**
+   * Represents the number of turns in the game.
+   */
+  static int d_numOfTurn = 0;
+
+  /**
    * Default constructor for IssueOrderPhase.
    */
   public IssueOrderPhase() {
@@ -67,6 +72,22 @@ public class IssueOrderPhase extends Phase implements Serializable {
     }
     MapHelper l_mapHelper = new MapHelper(this.d_gameState);
     l_mapHelper.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
+  }
+
+  /**
+   * This method will check the type of all players in the game
+   * 
+   * @param p_gameState current state of the game
+   * @return true if all players are not human else false
+   */
+  public boolean areAllPlayersNotHuman(GameState p_gameState) {
+    boolean flag = true;
+    for (Player l_p : p_gameState.getPlayerList()) {
+      if (l_p.d_isHuman) {
+        flag = false;
+      }
+    }
+    return flag;
   }
 
   /**
@@ -103,6 +124,39 @@ public class IssueOrderPhase extends Phase implements Serializable {
           this.d_gameEngine.setOrderExecutionPhase();
           break;
         }
+        if (this.areAllPlayersNotHuman(this.d_gameState)) {
+          if (this.d_numOfTurn > 50) {
+            System.out.println(Constant.SUCCESS_COLOR + "Game Draw!" + Constant.RESET_COLOR);
+            System.exit(0);
+          }
+          System.out.println("Turn: " + this.d_numOfTurn);
+          for (Player l_p : this.d_gameState.getPlayerList()) {
+            if (l_p.isWinner()) {
+              this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
+              System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+              MapHelper l_mh = new MapHelper();
+              l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
+              System.exit(0);
+            }
+          }
+          for (Player l_notHumanPlayer : this.d_gameState.getPlayerList()) {
+            if (this.d_gameState.getTotalArmyOfAllPlayers() == 0) {
+              this.d_gameEngine.setOrderExecutionPhase();
+            }
+            l_notHumanPlayer.setGameState(this.d_gameState);
+
+            this.printPlayerArmies(this.d_gameState);
+            this.d_gameEngine.setGameEngineLog(
+                "Player " + l_notHumanPlayer.getPlayerName() + "(" + l_notHumanPlayer.d_strategy + ")", "effect");
+            System.out.println("Player " + l_notHumanPlayer.getPlayerName() + "(" + l_notHumanPlayer.d_strategy + ")"
+                + "'s turn (Remaining Army count: "
+                + l_notHumanPlayer.getOwnedArmyCount() + ")");
+            l_notHumanPlayer.showCards();
+            l_notHumanPlayer.issueOrder();
+          }
+          this.d_numOfTurn++;
+          this.d_gameEngine.setOrderExecutionPhase();
+        }
         for (Player l_player : this.d_gameState.getPlayerList()) {
           if (this.d_gameState.getTotalArmyOfAllPlayers() == 0) {
             break;
@@ -111,31 +165,34 @@ public class IssueOrderPhase extends Phase implements Serializable {
 
           if (!l_player.d_isHuman) {
             for (Player l_p : this.d_gameState.getPlayerList()) {
-              l_p.setGameState(this.d_gameState);
+              // l_p.setGameState(this.d_gameState);
 
               if (l_p.isWinner()) {
 
                 this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
-                System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+                System.out
+                    .println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
                 MapHelper l_mh = new MapHelper();
                 l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
                 System.exit(0);
               }
             }
-            l_player.setGameState(this.d_gameState);
+            // l_player.setGameState(this.d_gameState);
 
             this.printPlayerArmies(this.d_gameState);
-            this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");
-            System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
+            this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName() + "(" + l_player.d_strategy + ")",
+                "effect");
+            System.out.println("Player " + l_player.getPlayerName() + "(" + l_player.d_strategy + ")"
+                + "'s turn (Remaining Army count: "
                 + l_player.getOwnedArmyCount() + ")");
             l_player.showCards();
             l_player.issueOrder();
-            l_player.setGameState(this.d_gameState);
+            // l_player.setGameState(this.d_gameState);
             continue;
           }
           this.printPlayerArmies(this.d_gameState);
-          this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName(), "effect");
-          System.out.println("Player " + l_player.getPlayerName() + "'s turn (Remaining Army count: "
+          this.d_gameEngine.setGameEngineLog("Player " + l_player.getPlayerName() + " (human)", "effect");
+          System.out.println("Player " + l_player.getPlayerName() + "(human) 's turn (Remaining Army count: "
               + l_player.getOwnedArmyCount() + ")");
           l_player.showCards();
           String l_command = l_reader.readLine();
@@ -144,7 +201,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
         System.out.println(e.getMessage());
-        e.printStackTrace();
+        // e.printStackTrace();
       }
     }
   }
@@ -270,7 +327,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
       this.d_gameEngine.setGameEngineLog("Error while loading the game: " + e.getMessage(), "effect");
       System.out
           .println(Constant.ERROR_COLOR + "Error while loading the game: " + e.getMessage() + Constant.RESET_COLOR);
-      e.printStackTrace();
+      // e.printStackTrace();
     }
   }
 
@@ -300,7 +357,7 @@ public class IssueOrderPhase extends Phase implements Serializable {
       this.d_gameEngine.setGameEngineLog("Error while saving game: " + e.getMessage(), "effect");
       System.out
           .println(Constant.ERROR_COLOR + "Error while saving game " + e.getMessage() + Constant.RESET_COLOR);
-      e.printStackTrace();
+      // e.printStackTrace();
     }
   }
 

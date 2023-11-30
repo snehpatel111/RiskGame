@@ -412,7 +412,7 @@ public class StartUpPhase extends Phase implements Serializable {
       this.d_gameEngine.setGameEngineLog("Error while loading the game: " + e.getMessage(), "effect");
       System.out
           .println(Constant.ERROR_COLOR + "Error while loading the game: " + e.getMessage() + Constant.RESET_COLOR);
-      e.printStackTrace();
+      // e.printStackTrace();
     }
   }
 
@@ -442,7 +442,7 @@ public class StartUpPhase extends Phase implements Serializable {
       this.d_gameEngine.setGameEngineLog("Error while saving game: " + e.getMessage(), "effect");
       System.out
           .println(Constant.ERROR_COLOR + "Error while saving game " + e.getMessage() + Constant.RESET_COLOR);
-      e.printStackTrace();
+      // e.printStackTrace();
     }
   }
 

@@ -115,9 +115,9 @@ public class MapHelper implements Serializable {
         String l_filePath = Constant.MAP_PATH + p_mapFileName;
         File l_file = new File(l_filePath);
         if (l_file.exists()) {
-            p_gameEngine.setGameEngineLog("Loading map from " + p_mapFileName + "...", "effect");
-            System.out.println("Loading map from " + p_mapFileName + "...");
             String l_mapType = MapAdapter.getMapType(l_filePath);
+            p_gameEngine.setGameEngineLog("Loading " + l_mapType + " map from " + p_mapFileName + "...", "effect");
+            System.out.println("Loading " + l_mapType + " map from " + p_mapFileName + "...");
             MapAdapter l_mapAdapter = null;
             if (l_mapType.equals("domination")) {
                 l_mapAdapter = new DominationMap();
@@ -217,7 +217,8 @@ public class MapHelper implements Serializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            // e.printStackTrace();
         }
         this.d_mapIndex = 1;
         return p_reader;
@@ -250,11 +251,13 @@ public class MapHelper implements Serializable {
                     this.addCountryToContinent(l_country, p_gameState);
                     this.d_countryList.put(l_country.getIndex(), l_country);
                 } catch (NullPointerException e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                    // e.printStackTrace();
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            // e.printStackTrace();
         }
         return p_reader;
     }
@@ -280,7 +283,8 @@ public class MapHelper implements Serializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            // e.printStackTrace();
         }
         return p_reader;
     }

@@ -83,15 +83,13 @@ public class OrderExecutionPhase extends Phase implements Serializable {
             Player l_player = l_iterator.next();
             l_player.showCards();
           }
-
-          System.out.println("lol setting issue order phase");
           this.d_gameEngine.setIssueOrderPhase();
 
         }
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
         System.out.println(e.getMessage());
-        e.printStackTrace();
+        // e.printStackTrace();
 
       }
     }

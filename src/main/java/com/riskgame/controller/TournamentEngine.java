@@ -178,31 +178,19 @@ public class TournamentEngine extends GameEngine {
      */
     public void playTournament(ArrayList<String> p_mapFiles, ArrayList<String> p_strategies, int p_numberOfGames,
             int p_numberOfTurns) {
-        // int l_numberOfPlayers = p_strategies.size();
-        // int l_traversalCounter = 0;
+        int l_numberOfPlayers = p_strategies.size();
+        int l_traversalCounter = 0;
         int l_gameNumber = 0;
         HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
-        // int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
-        // System.out.println("lol Player Size: " + l_playerSize);
-        // while (l_playerSize != 0) {
-        // d_gameEngine.d_gameState.getPlayerList().remove(0);
-        // l_playerSize -= 1;
-        // }
 
-        // Start playing on each map
+        //start playing on each map
         for (String l_mapName : p_mapFiles) {
             System.out.println("Playing on :" + l_mapName);
-            // Start playing each game
-            // int P = d_gameEngine.d_gameState.getPlayerList().size();
-            // while (P != 0) {
-            // d_gameEngine.d_gameState.getPlayerList().remove(0);
-            // P -= 1;
-            // }
+            //playing number of games on each map
             for (int i = 1; i <= p_numberOfGames; i++) {
                 l_gameNumber++;
                 System.out.println("Playing Game :" + l_gameNumber);
                 this.d_gameEngine = new GameEngine();
-                // GameData l_gameData = new GameData();
                 MapHelper l_mapHelper = new MapHelper();
                 Player l_player = new Player(null);
                 this.d_startUpPhase = new StartUpPhase(this.d_gameEngine, this.d_gameEngine.getGameState());
@@ -241,17 +229,31 @@ public class TournamentEngine extends GameEngine {
                             break;
                     }
                 }
-
+                //assigninig countries
                 Player.assignCountries(this.d_gameEngine, this.d_gameEngine.getGameState());
 
-                // AssignCountries and Reinforcements
-                assignEachPlayerReinforcements(this.d_gameEngine.getGameState().getPlayerList());
 
-                boolean anyOneWon = false;
+                boolean l_anyWon = false;
                 for (int j = 1; j <= p_numberOfTurns; j++) {
-                    int l_counter = 0;
+                    //checking is any player has won the game before next turn
+                    for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
+                        if (l_p.getOwnedCountries().size() == this.d_gameEngine.getGameState().getGameMap().getCountries().size()) {
+                            System.out.println(l_p.getPlayerName() + " has Won the Game!");
+                            this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " has Won the Game!", "effect");
+                            // d_LogEntry.setMessage(l_p.getPlayerName() + " has Won the Game!");
+                            l_winner.put(l_gameNumber, l_p.getPlayerName());
+                            l_anyWon = true;
+                            break;
+                        }
+                    }
+                    if (l_anyWon) {
+                        break;
+                    }
+                    // Assign Reinforcements
+                    assignEachPlayerReinforcements(this.d_gameEngine.getGameState().getPlayerList());
                     System.out.println("It's " + j + "'th Turn");
 
+                    int l_counter = 0;
                     // traverses through all players to check if armies left in pool
                     Iterator<Player> l_itr = this.d_gameEngine.getGameState().getPlayerList().listIterator();
                     while (l_itr.hasNext()) {
@@ -260,11 +262,12 @@ public class TournamentEngine extends GameEngine {
                             l_counter = l_counter + l_p.getOwnedArmyCount();
                         }
                     }
-
                     System.out.println("Total Armies left with all Players in Pool: " + l_counter);
+                    // if (l_counter == 0) {
+                    //     break;
+                    // }
 
-                    // Issued Orders
-                    // Gets Orders until all pool is consumed for turn
+                    //issue orders
                     while (l_counter > 0) {
                         // get Orders
                         for (Player p : this.d_gameEngine.getGameState().getPlayerList()) {
@@ -273,110 +276,81 @@ public class TournamentEngine extends GameEngine {
                             } 
                             else {
                                 p.setOwnedArmyCount(0);
-                                p.getOwnedCountries().clear();
                             }
-                            // l_counter = 0;
+                            l_counter = 0;
                             for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                                 if (l_p.getOwnedArmyCount() > 0) {
                                     l_counter = l_counter + l_p.getOwnedArmyCount();
                                 }
                             }
                         }
-
                         System.out.println("Total Armies left with all Players in Pool: " + l_counter);
 
-                        // Execute current Pool of Orders
-                        int l_count = 0;
-                        for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
-                            // Get Valid Orders Queue
-                            Queue<Order> l_temp = l_p.getExecutionOrderList();
-                            l_count = l_count + l_temp.size();
-                        }
+                    }
+                    // Execute current Pool of Orders
+                    int l_count = this.d_gameEngine.getGameState().getUnexecutedOrders().size();
+                    // for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
+                    //     // Get Valid Orders Queue
+                    //     Queue<Order> l_temp = l_p.getExecutionOrderList();
+                    //     l_count = l_count + l_temp.size();
+                    // }
 
-                        if (l_count == 0) {
-                            // Case when no Order
-                            System.out.println("Orders already executed!");
-                        } else {
-                            // Execute Orders and check if Player won
-                            System.out.println("Total Orders  :" + l_count);
-                            // Execute Current Orders
-                            boolean win = true;
-                            while (l_count != 0 && win) {
-                                if (this.d_gameEngine.getGameState().getPlayerList().size() == 1) {
-                                    Order l_toRemove = this.d_gameEngine.getGameState().getPlayerList().get(0)
-                                            .next_order();
-                                    System.out.println("Order  :" + l_toRemove + " : for "
-                                            + this.d_gameEngine.getGameState().getPlayerList().get(0));
-                                    l_winner.put(l_gameNumber,
+                    if (l_count == 0) {
+                        // Case when no Order
+                        System.out.println("Orders already executed!");
+                    } else {
+                        System.out.println("Total Orders  :" + l_count);
+                        //execute current orders
+                        while (l_count != 0) {
+                            if (this.d_gameEngine.getGameState().getPlayerList().size() == 1) {
+                                l_winner.put(l_gameNumber,
                                             this.d_gameEngine.getGameState().getPlayerList().get(0).getPlayerName());
-                                    Queue<Order> l_temp = this.d_gameEngine.getGameState().getPlayerList().get(0)
-                                            .getExecutionOrderList();
-                                    if (l_temp.size() > 0) {
-                                        Order tempO = this.d_gameEngine.getGameState().getPlayerList().get(0)
-                                                .next_order();
-                                        if (tempO != null) {
-                                            System.out.println("Executing " + l_toRemove);
-                                            l_toRemove.execute();
-                                            l_count--;
-                                        }
-                                    }
-                                    anyOneWon = true;
-                                    l_count = 0;
-                                    win = false;
-                                    break;
-                                } else {
-                                    System.out.println("When More Players");
-                                    for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
-                                        Queue<Order> l_temp = l_p.getExecutionOrderList();
-                                        System.out.println("Got Order :" + l_temp + " from " + l_p.getPlayerName());
-                                        if (l_temp.size() > 0) {
-                                            Order l_toRemove = l_p.next_order();
-                                            if (l_toRemove != null) {
-                                                System.out.println("Executing " + l_toRemove);
-                                                l_toRemove.execute();
-                                                l_count--;
-                                            }
-                                        }
-                                    }
+                            }else{
+                                System.out.println("There are more players in the Game.");
+                                Queue<Order> l_playerOrders = this.d_gameEngine.getGameState().getUnexecutedOrders();
+                                while (!l_playerOrders.isEmpty()) {
+                                    Order l_executableOrder = l_playerOrders.poll();
+                                    System.out.println("executing order " + l_executableOrder);
+                                    l_executableOrder.execute();
                                 }
                             }
-                            System.out.println("Total Armies left with all Players in Pool: " + l_counter);
-                            // Flush Owned Cards
-                            for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
-                                System.out.println("Flushing Cards of " + l_p.getPlayerName());
-                                l_p.flushNegotiators();
-                            }
                         }
-                        assignEachPlayerReinforcements(this.d_gameEngine.getGameState().getPlayerList());
-                    }
-                    for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
-                        if (l_p.getOwnedCountries().size() == l_mapHelper.getCountries().values().size()) {
-                            System.out.println(l_p.getPlayerName() + " has Won the Game!");
-                            this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " has Won the Game!", "effect");
-                            // d_LogEntry.setMessage(l_p.getPlayerName() + " has Won the Game!");
-                            l_winner.put(l_gameNumber, l_p.getPlayerName());
-                            break;
-                        } else {
-                            System.out.println("Current Game resulted in a Draw");
-                            l_winner.put(l_gameNumber, "Draw");
-                            break;
+                        for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
+                            System.out.println("Flushing Cards of " + l_p.getPlayerName());
+                            l_p.flushNegotiators();
                         }
                     }
 
-                    // Flushing Objects which are getting reused
-                    int Psize = this.d_gameEngine.getGameState().getPlayerList().size();
-                    while (Psize != 0) {
-                        this.d_gameEngine.getGameState().getPlayerList().remove(0);
-                        Psize -= 1;
-                    }
-                    System.out.println(
-                            "Players left after game " + this.d_gameEngine.getGameState().getPlayerList().size());
                 }
+                //checking for winner
+                for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
+                    if (l_p.getOwnedCountries().size() == this.d_gameEngine.getGameState().getGameMap().getCountries().values().size()) {
+                        System.out.println(l_p.getPlayerName() + " has Won the Game!");
+                        this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " has Won the Game!", "effect");
+                        // d_LogEntry.setMessage(l_p.getPlayerName() + " has Won the Game!");
+                        l_winner.put(l_gameNumber, l_p.getPlayerName());
+                        break;
+                    } else {
+                        System.out.println("Current Game resulted in a Draw");
+                        l_winner.put(l_gameNumber, "Draw");
+                        break;
+                    }
+                }
+                // Flushing Objects which are getting reused
+                int Psize = this.d_gameEngine.getGameState().getPlayerList().size();
+                while (Psize != 0) {
+                    this.d_gameEngine.getGameState().getPlayerList().remove(0);
+                    Psize -= 1;
+                }
+                System.out.println(
+                        "Players left after game " + this.d_gameEngine.getGameState().getPlayerList().size());
+
+
             }
-            // return winner;
-            TournamentResult tournamentResultView = new TournamentResult();
-            tournamentResultView.showTournamentWinner(l_winner, p_mapFiles);
         }
+        //returning winners of each game in the tournament
+        TournamentResult tournamentResultView = new TournamentResult();
+        tournamentResultView.showTournamentWinner(l_winner, p_mapFiles);   
     }
 
     /**

@@ -13,12 +13,13 @@ import com.riskgame.utility.Constant;
 public class InitializeGame {
   public static void main(String[] args) {
     try (Scanner l_scanner = new Scanner(System.in)) {
-      GameEngine l_gameEngine = new GameEngine();
+      GameEngine l_gameEngine = null;
       String l_cmd;
       String message = "";
 
       System.out.println("\n=================== Welcome To RiskGame! ======================\n");
       while (true) {
+        l_gameEngine = new GameEngine();
         System.out.println(
             "Enter S to play single-game Mode OR T to play tournament-game Mode OR Q to quit/exit the game");
         l_cmd = l_scanner.nextLine();
@@ -31,8 +32,7 @@ public class InitializeGame {
             l_gameEngine.getCurrentGamePhase().initPhase();
             break;
           case "t":
-            TournamentEngine l_tournamentEngine = new TournamentEngine(l_gameEngine,
-                l_gameEngine.getGameState());
+            TournamentEngine l_tournamentEngine = new TournamentEngine(l_gameEngine, l_gameEngine.getGameState());
             do {
               System.out.println(
                   "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4}"

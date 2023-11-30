@@ -60,7 +60,7 @@ public class Player implements Serializable {
      * List of orders to be executed
      */
     private Queue<Order> d_executionOrderList;
-    private PlayerStrategy d_strategy;
+    public PlayerStrategy d_strategy;
 
     /**
      * d_isHuman check whether the player type is human or not
@@ -395,9 +395,9 @@ public class Player implements Serializable {
 
                     if (l_isPlayerAdded) {
                         System.out
-                                .println(Constant.SUCCESS_COLOR + "Player " + l_playerName + " added successfully!"
+                                .println(Constant.SUCCESS_COLOR + "Player " + l_playerName + "(" + l_playerStrategy + ")" + " added successfully!"
                                         + Constant.RESET_COLOR);
-                        p_gameState.updateLog("Player " + l_playerName + " added successfully!", "effect");
+                        p_gameState.updateLog("Player " + l_playerName + "(" + l_playerStrategy + ")" + " added successfully!", "effect");
                     }
                 } else {
                     p_gameState.updateLog("Invalid player name", "effect");

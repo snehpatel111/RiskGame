@@ -70,6 +70,8 @@ public class OrderExecutionPhase extends Phase implements Serializable {
             System.out.println("lol for " + l_p.isWinner());
             if (l_p.isWinner()) {
               System.out.println("lol winner");
+              MapHelper l_mh = new MapHelper();
+              l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
               this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
               System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
               System.exit(0);

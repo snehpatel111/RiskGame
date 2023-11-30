@@ -55,12 +55,12 @@ public class TournamentEngine extends GameEngine {
                             if (isMapNameValid(l_data[i])) {
                                 l_maps.add(l_data[i]);
                             } else {
-                                printFailureMessage();
-                                return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                printFailureMessage("lol -- : map name validation fail");
+                                return "lol -- : map name validation fail";
                             }
                         } else {
-                            printFailureMessage();
-                            return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                            printFailureMessage("lol -- : -M i !< length fail");
+                            return "lol -- : -M i !< length fail";
                         }
                         i++;
                     }
@@ -76,13 +76,13 @@ public class TournamentEngine extends GameEngine {
                                     if (isPlayerStrategyValid(l_data[l_indexNew])) {
                                         l_strategies.add(l_data[l_indexNew]);
                                     } else {
-                                        printFailureMessage();
-                                        return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                        printFailureMessage("lol -- : stretagy validation fail");
+                                        return "lol -- : stretagy validation fail";
                                     }
 
                                 } else {
-                                    printFailureMessage();
-                                    return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                    printFailureMessage("lol -- : -P i !< length fail");
+                                    return "lol -- : -P i !< length fail";
                                 }
                                 l_indexNew++;
                             }
@@ -97,12 +97,12 @@ public class TournamentEngine extends GameEngine {
                                             l_noOfGames = Integer.parseInt(l_data[l_indexNew + 1]);
                                             // System.out.println("Number of Games:" + noOfGames);
                                         } else {
-                                            printFailureMessage();
-                                            return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                            printFailureMessage("lol -- : no of game not match [1-5]");
+                                            return "lol -- : no of game not match [1-5]";
                                         }
                                     } else {
-                                        printFailureMessage();
-                                        return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                        printFailureMessage("lol -- : -P l_indexnew+1 !< length fail");
+                                        return "lol -- : -P l_indexnew+1 !< length fail";
                                     }
 
                                     int l_newIndex = l_indexNew + 2;
@@ -118,44 +118,44 @@ public class TournamentEngine extends GameEngine {
                                                 playTournament(l_maps, l_strategies, l_noOfGames, l_noOfTurns);
                                                 return "success";
                                             } else {
-                                                printFailureMessage();
-                                                return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                                printFailureMessage("lol -- : turns not between 10 50");
+                                                return "lol -- : turns not between 10 50";
                                             }
                                         } else {
-                                            printFailureMessage();
-                                            return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                            printFailureMessage("lol -- : -D l_indexnew+1 !< length fail");
+                                            return "lol -- : -D l_indexnew+1 !< length fail";
                                         }
                                     } else {
-                                        printFailureMessage();
-                                        return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                        printFailureMessage("lol -- : -D condition fail");
+                                        return "lol -- : -D condition fail";
                                     }
                                 } else {
-                                    printFailureMessage();
-                                    return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                    printFailureMessage("lol -- : -G condition fail");
+                                    return "lol -- : -G condition fail";
                                 }
                             } else {
-                                printFailureMessage();
-                                return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                                printFailureMessage("strategy not between 2 4 or not valid strategy");
+                                return "strategy not between 2 4 or not valid strategy";
                             }
                         } else {
-                            printFailureMessage();
-                            return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                            printFailureMessage("lol -- : -P condition fail");
+                            return "lol -- : -P condition fail";
                         }
                     } else {
-                        printFailureMessage();
-                        return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                        printFailureMessage("lol -- : map size not between 1-5 or all map not exist");
+                        return "lol -- : map size between 1 5 or all map not exist";
                     }
                 } else {
-                    printFailureMessage();
-                    return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+                    printFailureMessage("lol -- : -M condition fail");
+                    return "lol -- : -M condition fail";
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 String message = "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
                 return message;
             }
         } else {
-            printFailureMessage();
-            return "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
+            printFailureMessage("command name tournament keyword not matched");
+            return "command name tournament keyword not matched";
         }
 
     }
@@ -174,61 +174,63 @@ public class TournamentEngine extends GameEngine {
         int l_traversalCounter = 0;
         int l_gameNumber = 0;
         HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
-        int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
-        while (l_playerSize != 0) {
-            d_gameEngine.d_gameState.getPlayerList().remove(0);
-            l_playerSize -= 1;
-        }
+        // int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
+        // System.out.println("lol Player Size: " + l_playerSize);
+        // while (l_playerSize != 0) {
+        //     d_gameEngine.d_gameState.getPlayerList().remove(0);
+        //     l_playerSize -= 1;
+        // }
 
         // Start playing on each map
         for (String l_mapName : p_mapFiles) {
             System.out.println("Playing on :" + l_mapName);
             // Start playing each game
-            int P = d_gameEngine.d_gameState.getPlayerList().size();
-            while (P != 0) {
-                d_gameEngine.d_gameState.getPlayerList().remove(0);
-                P -= 1;
-            }
+            // int P = d_gameEngine.d_gameState.getPlayerList().size();
+            // while (P != 0) {
+            //     d_gameEngine.d_gameState.getPlayerList().remove(0);
+            //     P -= 1;
+            // }
             for (int i = 1; i <= p_numberOfGames; i++) {
                 l_gameNumber++;
                 System.out.println("Playing Game :" + l_gameNumber);
-                d_gameEngine = new GameEngine();
-                GameData d_gameData = new GameData();
-                MapHelper d_mapHelper = new MapHelper();
+                this.d_gameEngine = new GameEngine();
+                GameData l_gameData = new GameData();
+                MapHelper l_mapHelper = new MapHelper();
                 Player l_player = new Player(null);
-                d_startUpPhase = new StartUpPhase(d_gameEngine, d_gameState);
+                this.d_startUpPhase = new StartUpPhase(this.d_gameEngine, this.d_gameEngine.getGameState());
                 // load the map
-                d_mapHelper.loadMap(d_gameEngine, d_gameState, l_mapName);
+                l_mapHelper.loadMap(this.d_gameEngine, this.d_gameEngine.getGameState(), l_mapName);
 
                 // Flushing Players
                 // Flushing Objects which are getting reused
-                int Psiz = d_gameEngine.d_gameState.getPlayerList().size();
-                while (Psiz != 0) {
-                    d_gameEngine.d_gameState.getPlayerList().remove(0);
-                    Psiz -= 1;
-                }
+                // int Psiz = d_gameEngine.d_gameState.getPlayerList().size();
+                // while (Psiz != 0) {
+                //     d_gameEngine.d_gameState.getPlayerList().remove(0);
+                //     Psiz -= 1;
+                // }
 
                 // Create player objects
                 for (String l_strategy : p_strategies) {
-                    l_player.addPlayer(d_gameEngine, d_gameEngine.d_gameState.getPlayerList(), l_strategy, d_gameEngine.d_gameState, l_strategy);
+                    l_player.addPlayer(this.d_gameEngine, this.d_gameEngine.getGameState().getPlayerList(),
+                                         l_strategy, this.d_gameEngine.getGameState(), l_strategy);
                 }
                 // Setting strategies as same as Player Names
-                for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
+                for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                     switch (l_p.getPlayerName().toLowerCase()) {
                         case "aggressive":
-                            l_p.setStrategy(new AggressiveStrategy(l_p, d_gameEngine));
+                            l_p.setStrategy(new AggressiveStrategy(l_p, this.d_gameEngine));
                             l_p.setIsHuman(false);
                             break;
                         case "benevolent":
-                            l_p.setStrategy(new BenevolentStrategy(l_p, d_gameEngine));
+                            l_p.setStrategy(new BenevolentStrategy(l_p, this.d_gameEngine));
                             l_p.setIsHuman(false);
                             break;
                         case "random":
-                            l_p.setStrategy(new RandomStrategy(l_p, d_gameEngine));
+                            l_p.setStrategy(new RandomStrategy(l_p, this.d_gameEngine));
                             l_p.setIsHuman(false);
                             break;
                         case "cheater":
-                            l_p.setStrategy(new CheaterStrategy(l_p, d_gameEngine));
+                            l_p.setStrategy(new CheaterStrategy(l_p, this.d_gameEngine));
                             l_p.setIsHuman(false);
                             break;
                         default:
@@ -242,12 +244,12 @@ public class TournamentEngine extends GameEngine {
                 // System.out.println(d_gameEngine.d_gameState.getPlayerList().size());
                 // d_startUpPhase.assignCountries(d_gameEngine, d_gameState,
                 // d_gameEngine.d_gameState.getPlayerList());
-                Player.assignCountries(d_gameEngine, d_gameState);
+                Player.assignCountries(this.d_gameEngine, this.d_gameEngine.getGameState());
                 // for (Player p : d_gameEngine.d_gameState.getPlayerList()) {
                 // System.out.println(p.getOwnedCountries());
                 // }
                 // AssignCountries and Reinforcements
-                assignEachPlayerReinforcements(d_gameEngine.d_gameState.getPlayerList());
+                assignEachPlayerReinforcements(this.d_gameEngine.getGameState().getPlayerList());
                 // for (Player p : d_gameEngine.d_gameState.getPlayerList()) {
                 // System.out.println(p.getOwnedArmyCount());
                 // }
@@ -260,7 +262,7 @@ public class TournamentEngine extends GameEngine {
                     System.out.println("It's " + j + "'th Turn");
 
                     // traverses through all players to check if armies left in pool
-                    Iterator<Player> l_itr = d_gameEngine.d_gameState.getPlayerList().listIterator();
+                    Iterator<Player> l_itr = this.d_gameEngine.getGameState().getPlayerList().listIterator();
                     while (l_itr.hasNext()) {
                         Player l_p = l_itr.next();
                         if (l_p.getOwnedArmyCount() > 0) {
@@ -275,7 +277,7 @@ public class TournamentEngine extends GameEngine {
                     // Gets Orders until all pool is consumed for turn
                     while (l_counter > 0) {
                         // get Orders
-                        for (Player p : d_gameEngine.d_gameState.getPlayerList()) {
+                        for (Player p : this.d_gameEngine.getGameState().getPlayerList()) {
                             if (p.getOwnedCountries().size() != 0) {
                                 p.issueOrder();
                             } else {
@@ -283,7 +285,7 @@ public class TournamentEngine extends GameEngine {
                                 // }
                             }
                             l_counter = 0;
-                            for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
+                            for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                                 if (l_p.getOwnedArmyCount() > 0) {
                                     l_counter = l_counter + l_p.getOwnedArmyCount();
                                 }
@@ -294,7 +296,7 @@ public class TournamentEngine extends GameEngine {
 
                         // Execute current Pool of Orders
                         int l_count = 0;
-                        for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
+                        for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                             // Get Valid Orders Queue
                             Queue<Order> l_temp = l_p.getExecutionOrderList();
                             l_count = l_count + l_temp.size();
@@ -309,16 +311,16 @@ public class TournamentEngine extends GameEngine {
                             // Execute Current Orders
                             boolean win = true;
                             while (l_count != 0 && win) {
-                                if (d_gameEngine.d_gameState.getPlayerList().size() == 1) {
-                                    Order l_toRemove = d_gameEngine.d_gameState.getPlayerList().get(0).next_order();
+                                if (this.d_gameEngine.getGameState().getPlayerList().size() == 1) {
+                                    Order l_toRemove = this.d_gameEngine.getGameState().getPlayerList().get(0).next_order();
                                     System.out.println("Order  :" + l_toRemove + " : for "
-                                            + d_gameEngine.d_gameState.getPlayerList().get(0));
+                                            + this.d_gameEngine.getGameState().getPlayerList().get(0));
                                     l_winner.put(l_gameNumber,
-                                            d_gameEngine.d_gameState.getPlayerList().get(0).getPlayerName());
-                                    Queue<Order> l_temp = d_gameEngine.d_gameState.getPlayerList().get(0)
+                                            this.d_gameEngine.getGameState().getPlayerList().get(0).getPlayerName());
+                                    Queue<Order> l_temp = this.d_gameEngine.getGameState().getPlayerList().get(0)
                                             .getExecutionOrderList();
                                     if (l_temp.size() > 0) {
-                                        Order tempO = d_gameEngine.d_gameState.getPlayerList().get(0).next_order();
+                                        Order tempO = this.d_gameEngine.getGameState().getPlayerList().get(0).next_order();
                                         if (tempO != null) {
                                             System.out.println("Executing " + l_toRemove);
                                             l_toRemove.execute();
@@ -331,7 +333,7 @@ public class TournamentEngine extends GameEngine {
                                     break;
                                 } else {
                                     System.out.println("When More Players");
-                                    for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
+                                    for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                                         Queue<Order> l_temp = l_p.getExecutionOrderList();
                                         System.out.println("Got Order :" + l_temp + " from " + l_p.getPlayerName());
                                         if (l_temp.size() > 0) {
@@ -382,12 +384,12 @@ public class TournamentEngine extends GameEngine {
                             }
                             System.out.println("Total Armies left with all Players in Pool: " + l_counter);
                             // Flush Owned Cards
-                            for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
+                            for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                                 System.out.println("Flushing Cards of " + l_p.getPlayerName());
                                 l_p.flushNegotiators();
                             }
                         }
-                        assignEachPlayerReinforcements(d_gameEngine.d_gameState.getPlayerList());
+                        assignEachPlayerReinforcements(this.d_gameEngine.getGameState().getPlayerList());
                     }
                     // Check if any Player Won
                     // if(anyOneWon = false){
@@ -404,10 +406,10 @@ public class TournamentEngine extends GameEngine {
                     // System.out.println("Current Game resulted in a Draw");
                     // l_winner.put(l_gameNumber, "Draw");
                     // }
-                    for (Player l_p : d_gameEngine.d_gameState.getPlayerList()) {
-                        if (l_p.getOwnedCountries().size() == d_mapHelper.getCountries().values().size()) {
+                    for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
+                        if (l_p.getOwnedCountries().size() == l_mapHelper.getCountries().values().size()) {
                             System.out.println(l_p.getPlayerName() + " has Won the Game!");
-                            d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " has Won the Game!", "effect");
+                            this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " has Won the Game!", "effect");
                             // d_LogEntry.setMessage(l_p.getPlayerName() + " has Won the Game!");
                             l_winner.put(l_gameNumber, l_p.getPlayerName());
                             break;
@@ -419,12 +421,12 @@ public class TournamentEngine extends GameEngine {
                     }
 
                     // Flushing Objects which are getting reused
-                    int Psize = d_gameEngine.d_gameState.getPlayerList().size();
+                    int Psize = this.d_gameEngine.getGameState().getPlayerList().size();
                     while (Psize != 0) {
-                        d_gameEngine.d_gameState.getPlayerList().remove(0);
+                        this.d_gameEngine.getGameState().getPlayerList().remove(0);
                         Psize -= 1;
                     }
-                    System.out.println("Players left after game " + d_gameEngine.d_gameState.getPlayerList().size());
+                    System.out.println("Players left after game " + this.d_gameEngine.getGameState().getPlayerList().size());
                 }
             }
             // return winner;
@@ -461,11 +463,11 @@ public class TournamentEngine extends GameEngine {
      * @return true if file exists and is a valid file, otherwise false.
      */
     public boolean isMapExists(String p_mapName) {
-        String l_filePath = "src/main/resources/maps/" + p_mapName;
+        String l_filePath = Constant.MAP_PATH + p_mapName;
         File f = new File(l_filePath);
         if (f.exists()) {
             MapHelper l_mapHelper = new MapHelper();
-            l_mapHelper.loadMap(d_gameEngine, d_gameState, l_filePath);
+            l_mapHelper.loadMap(this.d_gameEngine, this.d_gameEngine.getGameState(), p_mapName);
             ;
             return true;
         } else {
@@ -476,10 +478,10 @@ public class TournamentEngine extends GameEngine {
     /**
      * Method prints failure message for tournament command
      */
-    public void printFailureMessage() {
+    public void printFailureMessage(String p_msg) {
         String message = "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";
-        System.out.println(message);
-        d_gameEngine.setGameEngineLog(
+        System.out.println(p_msg);
+        this.d_gameEngine.setGameEngineLog(
                 "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}",
                 "effect");
 
@@ -538,7 +540,7 @@ public class TournamentEngine extends GameEngine {
     public void assignEachPlayerReinforcements(ArrayList<Player> p_Players) {
         // for (Player l_p : p_Players) {
         // AssignReinforcement.assignReinforcementArmies(l_p);
-        this.d_startUpPhase.assignReinforcementToPlayer(d_gameState);
+        this.d_startUpPhase.assignReinforcementToPlayer(this.d_gameEngine.getGameState());
         // }
     }
 }

@@ -921,9 +921,11 @@ public class Player implements Serializable {
      * @return True if target country exist on map.
      */
     public boolean validateTargetCountry(String p_targetCountry) {
-        for (Country l_c : this.d_gameState.getGameMap().getCountries().values()) {
-            if (l_c.getCountryId().equalsIgnoreCase(p_targetCountry)) {
-                return true;
+        if (this.d_gameState.getGameMap() != null) {
+            for (Country l_c : this.d_gameState.getGameMap().getCountries().values()) {
+                if (l_c.getCountryId().equalsIgnoreCase(p_targetCountry)) {
+                    return true;
+                }
             }
         }
         return false;

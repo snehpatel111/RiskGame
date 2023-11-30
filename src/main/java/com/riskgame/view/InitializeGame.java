@@ -33,7 +33,7 @@ public class InitializeGame {
             do {
               System.out.println(
                   "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4}"
-                      + ""
+                      + " "
                       + "-G numberofgames{1-5} -D maxnumberofturns{10-50}");
               l_cmd = l_scanner.nextLine();
               message = l_tournamentEngine.parse(null, l_cmd);

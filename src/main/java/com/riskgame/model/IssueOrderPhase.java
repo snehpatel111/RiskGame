@@ -78,6 +78,8 @@ public class IssueOrderPhase extends Phase implements Serializable {
         System.out.println("lol winner");
         this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
         System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+        MapHelper l_mh = new MapHelper();
+        l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
         System.exit(0);
       }
     }
@@ -112,6 +114,8 @@ public class IssueOrderPhase extends Phase implements Serializable {
                 System.out.println("lol winner");
                 this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
                 System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+                MapHelper l_mh = new MapHelper();
+                l_mh.showMap(this.d_gameState.getPlayerList(), this.d_gameState.getGameMap(), this.d_gameState);
                 System.exit(0);
               }
             }

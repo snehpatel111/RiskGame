@@ -90,7 +90,7 @@ public class BenevolentStrategy extends PlayerStrategy {
     l_sourceCountry = this.moveArmyFromCountry();
     l_advanceCountry = this.advanceArmyCountry();
 
-    int l_randomOrder = this.d_random.nextInt(2);
+    int l_randomOrder = this.d_random.nextInt(1);
     int l_armyCount = this.d_player.getOwnedArmyCount();
     this.setWeakestCountry();
     Country l_country = this.d_weakCountry;

@@ -47,6 +47,7 @@ public class OrderExecutionPhase extends Phase implements Serializable {
         if (l_numOfOrders == 0) {
           this.d_gameEngine.setGameEngineLog("Orders already executed!!", "effect");
           System.out.println("Orders already executed!!");
+          this.d_gameEngine.setIssueOrderPhase();
           break;
         } else {
           this.d_gameEngine.setGameEngineLog("total orders : " + l_numOfOrders, "effect");
@@ -74,12 +75,12 @@ public class OrderExecutionPhase extends Phase implements Serializable {
               System.exit(0);
             }
           }
-          System.out.println("lol after for");
-          while (l_iterator.hasNext()) {
-            System.out.println("lol showing card");
-            Player l_player = l_iterator.next();
-            l_player.showCards();
-          }
+          // System.out.println("lol after for");
+          // while (l_iterator.hasNext()) {
+          //   System.out.println("lol showing card");
+          //   Player l_player = l_iterator.next();
+          //   l_player.showCards();
+          // }
           System.out.println("lol setting issue order phase");
           this.d_gameEngine.setIssueOrderPhase();
           System.out.println("lol set issue order phase");

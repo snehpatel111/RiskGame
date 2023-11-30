@@ -71,6 +71,16 @@ public class IssueOrderPhase extends Phase implements Serializable {
    */
   @Override
   public void initPhase() {
+    for (Player l_p : this.d_gameState.getPlayerList()) {
+      l_p.setGameState(this.d_gameState);
+      System.out.println("lol for " + l_p.isWinner());
+      if (l_p.isWinner()) {
+        System.out.println("lol winner");
+        this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
+        System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+        System.exit(0);
+      }
+    }
     BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
     this.assignReinforcementToPlayer(this.d_gameState);
     MapHelper l_mapHelper = new MapHelper();
@@ -95,6 +105,16 @@ public class IssueOrderPhase extends Phase implements Serializable {
           // Case for Not Human Player
           System.out.println("lol Not Human outside if" + l_player.d_isHuman);
           if (!l_player.d_isHuman) {
+            for (Player l_p : this.d_gameState.getPlayerList()) {
+              l_p.setGameState(this.d_gameState);
+              System.out.println("lol for " + l_p.isWinner());
+              if (l_p.isWinner()) {
+                System.out.println("lol winner");
+                this.d_gameEngine.setGameEngineLog(l_p.getPlayerName() + " wins!", "effect");
+                System.out.println(Constant.SUCCESS_COLOR + "\n" + l_p.getPlayerName() + " wins!" + Constant.RESET_COLOR);
+                System.exit(0);
+              }
+            }
             l_player.setGameState(this.d_gameState);
             System.out.println("lol Not Human");
             this.printPlayerArmies(this.d_gameState);
@@ -116,6 +136,8 @@ public class IssueOrderPhase extends Phase implements Serializable {
         }
       } catch (Exception e) {
         this.d_gameEngine.setGameEngineLog(e.getMessage(), "effect");
+        System.out.println("lol - " + e.getMessage());
+        e.printStackTrace();
       }
     }
   }

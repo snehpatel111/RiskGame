@@ -51,10 +51,14 @@ public class Deploy implements Order, Serializable {
     @Override
     public boolean execute() {
         Country l_country = this.d_player.getOwnedCountries().get(this.d_countryId.toLowerCase());
-        int l_existingArmies = l_country.getNumberOfArmies();
-        l_existingArmies += d_armyCount;
-        l_country.setNumberOfArmies(l_existingArmies);
-        return true;
+        if (l_country != null) {
+            int l_existingArmies = l_country.getNumberOfArmies();
+            l_existingArmies += d_armyCount;
+            l_country.setNumberOfArmies(l_existingArmies);
+            return true;
+        }
+        return false;
+        
     }
 
     /**

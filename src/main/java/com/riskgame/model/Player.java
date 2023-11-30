@@ -533,7 +533,7 @@ public class Player implements Serializable {
             System.out.println(
                     Constant.SUCCESS_COLOR + "Countries assigned randomly to all players!" + Constant.RESET_COLOR);
             MapHelper l_mapHelper = new MapHelper();
-            l_mapHelper.showMap(l_gameMap, p_gameState);
+            l_mapHelper.showMap(l_playerList, l_gameMap, p_gameState);
             return true;
         } catch (Exception e) {
             p_gameState.updateLog("Error assigning countries!", "effect");

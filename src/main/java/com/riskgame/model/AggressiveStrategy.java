@@ -96,7 +96,7 @@ public class AggressiveStrategy extends PlayerStrategy {
       }
     }
     if (l_maxArmyCount == 0) {
-      this.setInitialMoveArmyFromCountry();
+      this.setArmyDeployableCountry();
     }
     return this.d_moveArmyFromCountry;
   }
@@ -137,6 +137,7 @@ public class AggressiveStrategy extends PlayerStrategy {
       for (Country l_neighborCountry : l_country.getNeighbors().values()) {
         if (!this.d_player.getOwnedCountries().containsKey(l_neighborCountry.getCountryId().toLowerCase())) {
           this.d_armyDeployableCountry = l_country;
+          break;
         }
       }
     }

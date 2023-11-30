@@ -32,3 +32,675 @@ Log: Error while saving game: src/main/resource/game/test1.game (No such file or
 Log: Player p1 has 5 armies currently.
 Log: Player p2 has 5 armies currently.
 Log: Player p2
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: Attacker does not have any country to advance armies
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: createdMap.map map file exists. You can edit it.
+Log: createdMap.map already exists and is loaded for editing
+Log: unconnectedContinent.map map file exists. You can edit it.
+Log: unconnectedContinent.map already exists and is loaded for editing
+Log: existingMap.map does not exist.
+Log: Creating a new Map named: existingMap.map
+Log: existingMap.map File has been created to edit
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: Invalid command - It should be of the form: editcountry -add <countryId> <continentId> or editcountry -remove <countryId>
+Log: world.map map file exists. You can edit it.
+Log: world.map already exists and is loaded for editing
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: AttackPlayer has negotiated TargetPlayer
+Log: AttackPlayer has negotiated TargetPlayer
+Log: invalidMapOne.map map file exists. You can edit it.
+Log: invalidMapOne.map already exists and is loaded for editing
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Invalid Map name
+Log: Invalid Map name
+Log: File not found
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer has 5 army left in the reinforcement pool
+Log: Player TestPlayer does not have sufficient army
+Log: Asiia.map does not exist.
+Log: Creating a new Map named: Asiia.map
+Log: Asiia.map File has been created to edit
+Log: dummmy.map does not exist.
+Log: Creating a new Map named: dummmy.map
+Log: dummmy.map File has been created to edit
+Log: Loading map from demo.map...
+Log: Map is valid and loaded successfully.
+Log: demo.map map is valid and loaded successfully.
+Log: dummy.map map file exists. You can edit it.
+Log: dummy.map already exists and is loaded for editing
+Log: nonexistent.map does not exist.
+Log: Creating a new Map named: nonexistent.map
+Log: nonexistent.map File has been created to edit
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Can not edit continent, please perform `editmap` first
+Log: Invalid command! Try command -> editmap sample.map 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Invalid command! Try command -> showMap
+Log: Invalid command in current state
+Log: Invalid command - It should be of the form: editcontinent -add <continentId> <controlValue> or editcontinent -remove <continentId>
+Log: Map is not selected yet, please perform `editmap` first
+Log: Map already loaded. 
+Try any of following command: editcontinent, editcountry, editneighbor, savemap, showmap, loadmap, validatemap, or exit 
+Log: Map is not selected yet, please perform `editmap` first
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Log: Reinforcement assigned to each player! 
+Begin to issue order as per turn!
+Game ended
+
+Order Issued: Attack North America
+
+=======Reinforcement Phase=======
+
+Game started
+Log: Player received reinforcement
+
+Command Entered: Move armies to Europe
+Log: Loading map from dummy.map...
+Log: Map is valid and loaded successfully.
+Log: dummy.map map is valid and loaded successfully.
+Log: Minimum two players are required to play the game.
+Log: ameroki.map map file exists. You can edit it.
+Log: ameroki.map already exists and is loaded for editing
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Countries owned by aggressive player 4
+Log: Armies owned by aggressive player 5
+Log: Aggressive reinforce armies owned by player 5
+Log: Armies deployed on country: seven 5
+Log: Player doesn't own card Bomb
+Log: Cheater has owned country: nine
+Log: Cheater has owned country: six
+Log: Cheater has owned country: two
+Log: Cheater has owned country: three
+Log: Cheater has owned country: four
+Log: Cheater has owned country: seven
+Log: Cheater has doubled army on two country
+Log: Cheater has owned country: one
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Countries owned by aggressive player 4
+Log: Armies owned by aggressive player 5
+Log: The number of armies in strongest country is 0, deploy before advance
+Log: Cheater has owned country: six
+Log: Cheater has owned country: two
+Log: Cheater has owned country: eight
+Log: Cheater has owned country: three
+Log: Cheater has doubled army on eight country
+Log: Countries owned by aggressive player 1
+Log: Armies owned by aggressive player 10
+Log: Cheater has owned country: seven
+Log: aggressive does not have any country to advance armies
+Log: aggressive has Won the Game!
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Cheater has owned country: two
+Log: Cheater has doubled army on two country
+Log: Cheater has doubled army on two country
+Log: Cheater has doubled army on two country
+Log: Player doesn't own card Bomb
+Log: Countries owned by aggressive player 4
+Log: Armies owned by aggressive player 5
+Log: Aggressive reinforce armies owned by player 5
+Log: Armies deployed on country: five 5
+Log: Cheater has owned country: four
+Log: Cheater has owned country: three
+Log: Cheater has owned country: five
+Log: Cheater has doubled army on four country
+Log: Cheater has doubled army on four country
+Log: Cheater has doubled army on five country
+Log: Player doesn't own card airlift or source country has no armies to move
+Log: Countries owned by aggressive player 2
+Log: Armies owned by aggressive player 5
+Log: ten country does not exist on map
+Log: Cheater has owned country: six
+Log: Cheater has owned country: eight
+Log: Cheater has owned country: nine
+Log: Cheater has doubled army on nine country
+Log: Cheater has doubled army on six country
+Log: Cheater has doubled army on eight country
+Log: Cheater has doubled army on eight country
+Log: Countries owned by aggressive player 2
+Log: Armies owned by aggressive player 10
+Log: The number of armies in strongest country is 0, deploy before advance
+Log: Cheater has owned country: ten
+Log: Cheater has owned country: seven
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Player doesn't own card Bomb
+Log: Cheater has owned country: ten
+Log: Cheater has owned country: eight
+Log: Cheater has owned country: one
+Log: Cheater has owned country: three
+Log: Cheater has owned country: five
+Log: Cheater has doubled army on ten country
+Log: Cheater has doubled army on five country
+Log: Cheater has doubled army on eight country
+Log: Countries owned by aggressive player 2
+Log: Armies owned by aggressive player 5
+Log: seven country does not exist on map
+Log: Cheater has owned country: nine
+Log: Cheater has owned country: seven
+Log: random has Won the Game!
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Cheater has owned country: ten
+Log: Cheater has owned country: two
+Log: Cheater has owned country: four
+Log: Cheater has owned country: seven
+Log: Cheater has doubled army on four country
+Log: Cheater has doubled army on ten country
+Log: Cheater has doubled army on two country
+Log: Player doesn't own Card Blockade
+Log: Countries owned by aggressive player 1
+Log: Armies owned by aggressive player 5
+Log: one country does not exist on map
+Log: Cheater has owned country: six
+Log: Cheater has owned country: one
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Cheater has owned country: ten
+Log: Cheater has owned country: two
+Log: Cheater has owned country: eight
+Log: Cheater has doubled army on ten country
+Log: Cheater has doubled army on two country
+Log: Cheater has doubled army on two country
+Log: Cheater has doubled army on two country
+Log: Player doesn't own card Bomb
+Log: Countries owned by aggressive player 2
+Log: Armies owned by aggressive player 5
+Log: The number of armies in strongest country is 0, deploy before advance
+Log: Cheater has owned country: nine
+Log: Cheater has owned country: one
+Log: Cheater has owned country: three
+Log: Cheater has owned country: five
+Log: Loading map from first.map...
+Log: Map is valid and loaded successfully.
+Log: first.map map is valid and loaded successfully.
+Log: Countries assigned randomly to all players!
+Log: Player doesn't own card Bomb
+Log: Countries owned by aggressive player 4
+Log: Armies owned by aggressive player 5
+Log: The number of armies in strongest country is 0, deploy before advance
+Log: Cheater has owned country: four
+Log: Cheater has owned country: three
+Log: Cheater has owned country: five
+Log: Cheater has doubled army on four country
+Log: Cheater has doubled army on four country
+Log: Cheater has doubled army on five country
+Log: Player doesn't own Card Blockade
+Log: Countries owned by aggressive player 2
+Log: Armies owned by aggressive player 10
+Log: Cheater has owned country: six
+Log: Cheater has owned country: eight
+Log: Cheater has owned country: nine
+Log: Cheater has doubled army on nine country
+Log: Cheater has doubled army on six country
+Log: Cheater has doubled army on eight country
+Log: Cheater has doubled army on eight country
+Log: seven country does not exist on map
+Log: Player doesn't own card airlift or source country has no armies to move
+Log: Countries owned by aggressive player 1
+Log: Armies owned by aggressive player 15
+Log: The number of armies in strongest country is 0, deploy before advance
+Log: Cheater has owned country: ten
+Log: Cheater has owned country: seven
+Log: random has Won the Game!

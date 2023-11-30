@@ -178,8 +178,8 @@ public class TournamentEngine extends GameEngine {
      */
     public void playTournament(ArrayList<String> p_mapFiles, ArrayList<String> p_strategies, int p_numberOfGames,
             int p_numberOfTurns) {
-        // int l_numberOfPlayers = p_strategies.size();
-        // int l_traversalCounter = 0;
+        int l_numberOfPlayers = p_strategies.size();
+        int l_traversalCounter = 0;
         int l_gameNumber = 0;
         HashMap<Integer, String> l_winner = new HashMap<Integer, String>();
         // int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
@@ -273,9 +273,8 @@ public class TournamentEngine extends GameEngine {
                             } 
                             else {
                                 p.setOwnedArmyCount(0);
-                                p.getOwnedCountries().clear();
                             }
-                            // l_counter = 0;
+                            l_counter = 0;
                             for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
                                 if (l_p.getOwnedArmyCount() > 0) {
                                     l_counter = l_counter + l_p.getOwnedArmyCount();

@@ -1,0 +1,56 @@
+@options
+@packages
+-classpath
+'/home/sneh/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar:/home/sneh/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'20'
+-sourcepath
+'/home/sneh/RiskGame/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/sneh/RiskGame/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'riskgame 1.0 API'
+-use
+-version
+-windowtitle
+'riskgame 1.0 API'
+com.riskgame.model
+com.riskgame.controller
+com.riskgame.utility
+com.riskgame.view
+/home/sneh/.m2/repository/org/jgrapht/jgrapht-core/1.3.1/jgrapht-core-1.3.1.jar = 1695569297504
+/home/sneh/.m2/repository/org/jheaps/jheaps/0.10/jheaps-0.10.jar = 1695569297464
+/home/sneh/RiskGame/src/main/java/.DS_Store = 1701318698864
+/home/sneh/RiskGame/src/main/java = 1701318698864
+/home/sneh/RiskGame/target/site/apidocs/search-page.js = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/script.js = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/type-search-index.js = 1701318950939
+/home/sneh/RiskGame/target/site/apidocs/overview-summary.html = 1701318950979
+/home/sneh/RiskGame/target/site/apidocs/index.html = 1701318950919
+/home/sneh/RiskGame/target/site/apidocs/copy.svg = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/package-search-index.js = 1701318950939
+/home/sneh/RiskGame/target/site/apidocs/overview-tree.html = 1701318950909
+/home/sneh/RiskGame/target/site/apidocs/search.js = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/allclasses-index.html = 1701318950939
+/home/sneh/RiskGame/target/site/apidocs/element-list = 1701318950739
+/home/sneh/RiskGame/target/site/apidocs/serialized-form.html = 1701318950799
+/home/sneh/RiskGame/target/site/apidocs/search.html = 1701318950979
+/home/sneh/RiskGame/target/site/apidocs/allpackages-index.html = 1701318950939
+/home/sneh/RiskGame/target/site/apidocs/index-all.html = 1701318950979
+/home/sneh/RiskGame/target/site/apidocs/stylesheet.css = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/help-doc.html = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/tag-search-index.js = 1701318950949
+/home/sneh/RiskGame/target/site/apidocs/member-search-index.js = 1701318950949
+/home/sneh/RiskGame/target/site/apidocs/constant-values.html = 1701318950769
+/home/sneh/RiskGame/target/site/apidocs/link.svg = 1701318950989
+/home/sneh/RiskGame/target/site/apidocs/module-search-index.js = 1701318950939

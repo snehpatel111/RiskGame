@@ -9,6 +9,8 @@ com/riskgame/model/OrderExecutionPhase.class
 com/riskgame/view/TournamentResult.class
 com/riskgame/model/Card.class
 com/riskgame/model/GameState.class
+com/riskgame/model/CheaterStrategy.class
+com/riskgame/model/ConquestMap.class
 com/riskgame/utility/Constant.class
 com/riskgame/controller/GameEngine.class
 com/riskgame/model/BenevolentStrategy.class
@@ -16,12 +18,14 @@ com/riskgame/model/Airlift.class
 com/riskgame/model/GameMap.class
 com/riskgame/view/GameLogger.class
 com/riskgame/controller/TournamentEngine.class
+com/riskgame/model/MapAdapter.class
 com/riskgame/model/Continent.class
 com/riskgame/model/RandomStrategy.class
 com/riskgame/model/Bomb.class
 com/riskgame/model/PlayerStrategy.class
 com/riskgame/model/AggressiveStrategy.class
 com/riskgame/model/Country.class
+com/riskgame/model/DominationMap.class
 com/riskgame/model/Player.class
 com/riskgame/view/InitializeGame.class
 com/riskgame/model/Advance.class

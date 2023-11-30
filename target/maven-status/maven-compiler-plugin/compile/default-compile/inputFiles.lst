@@ -6,12 +6,15 @@
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/controller/TournamentEngine.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/controller/GameEngine.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Country.java
+/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/CheaterStrategy.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/MapHelper.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/utility/Constant.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Bomb.java
+/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/MapAdapter.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/GameState.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Phase.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/AggressiveStrategy.java
+/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/ConquestMap.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/StartUpPhase.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Deploy.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Advance.java
@@ -23,6 +26,7 @@
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/BenevolentStrategy.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/IssueOrderPhase.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/view/TournamentResult.java
+/Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/DominationMap.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/view/GameLogger.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/Blockade.java
 /Users/yashchhelaiya/Documents/Related study/MACS/Fall-2023/APP/Project/Build3/RiskGame/src/main/java/com/riskgame/model/LogEntryBuffer.java

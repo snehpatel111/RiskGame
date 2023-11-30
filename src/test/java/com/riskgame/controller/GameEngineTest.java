@@ -22,11 +22,11 @@ public class GameEngineTest {
      */
     @Before
     public void before() {
+        this.d_gameEngine = new GameEngine();
+        this.d_gameState = new GameState();
         this.d_startUpPhase = new StartUpPhase(this.d_gameEngine, this.d_gameState);
         this.d_player = new Player("TestPlayer");
         this.d_continent = new Continent("TestContinent", 6);
-        this.d_gameState = new GameState();
-        this.d_gameEngine = new GameEngine();
     }
 
     /**

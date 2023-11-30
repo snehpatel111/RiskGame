@@ -34,6 +34,10 @@ public class MapHelper implements Serializable {
      * Stores the information about the current game map.
      */
     public GameMap d_gameMap;
+
+    /**
+     * Represents country list.
+     */
     private HashMap<Integer, Country> d_countryList;
 
     /**

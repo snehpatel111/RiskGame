@@ -34,7 +34,7 @@ public class ConquestMap extends MapAdapter {
   }
 
   /**
-   * @{inheritDoc}
+   * {@inheritDoc}
    *
    */
   public GameMap readMap(String p_mapFileName, GameState p_gameState) {
@@ -161,7 +161,7 @@ public class ConquestMap extends MapAdapter {
   }
 
   /**
-   * @{inheritDoc}
+   * {@inheritDoc}
    *
    */
   public boolean saveMap(GameState p_gameState, String p_mapFileName) {

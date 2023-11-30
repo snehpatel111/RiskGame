@@ -18,8 +18,10 @@ public abstract class MapAdapter {
   public static int d_mapIndex = 1;
 
   /**
-   * Read the game map
+   * Reads the map
    * 
+   * @param p_mapFileName File name of the map
+   * @param p_gameState   Game state object
    * @return Returns the game map
    */
   public abstract GameMap readMap(String p_mapFileName, GameState p_gameState);

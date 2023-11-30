@@ -20,11 +20,35 @@ import com.riskgame.model.Phase;
  * is country id and value is Country object.
  */
 public class Continent implements Serializable {
+
+  /**
+   * Control value of continent
+   */
   private int d_controlValue;
+
+  /**
+   * Color of continent
+   */
   private String d_continentColor;
+
+  /**
+   * Id of continent
+   */
   private String d_continentId;
+
+  /**
+   * Index of belonging continent
+   */
   private int d_belongingMapIndex;
+
+  /**
+   * Index of map where this continent belongs to
+   */
   private int d_mapIndex;
+
+  /**
+   * HashMap to store all countries of this continent.
+   */
   private HashMap<String, Country> d_countries;
 
   /**

@@ -18,6 +18,10 @@ public class AggressiveStrategy extends PlayerStrategy {
   private int d_orderValue, d_maxArmyCount;
   Country d_strongestCountry, d_defendingCountry, d_moveArmyFromCountry, d_armyDeployableCountry;
   boolean d_isTest;
+
+  /**
+   * This variable is used to test the reinforcement of armies in the game.
+   */
   public int d_testReinforceArmies;
 
   /**

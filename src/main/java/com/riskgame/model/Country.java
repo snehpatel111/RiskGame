@@ -18,8 +18,16 @@ public class Country implements Serializable {
      * Represents map index in thr map
      */
     public int d_index;
+
+    /**
+     * Represents country id
+     */
     private String d_countryId;
     private String d_belongingContinent;
+
+    /**
+     * HashMap to store all neighbors of this country.
+     */
     private HashMap<String, Country> d_neighbors;
     private int d_xCoOrdinate;
     private int d_yCoOrdinate;
@@ -81,7 +89,6 @@ public class Country implements Serializable {
      * @param p_yCoOrdinate        Y-Coordinate of a country on map
      * @param p_belongingContinent Name of the continent to which this country
      *                             belongs
-     * @param p_gameMap            GameMap in which this country resides
      */
     public Country(String p_countryId, String p_xCoOrdinate, String p_yCoOrdinate, String p_belongingContinent) {
         this.d_index = 0;

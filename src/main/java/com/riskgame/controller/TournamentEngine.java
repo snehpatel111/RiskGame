@@ -14,7 +14,15 @@ import java.util.Queue;
  * Manages Tournament
  */
 public class TournamentEngine extends GameEngine {
+
+    /**
+     * StartUpPhase instance is used to handle all the startup logic.
+     */
     StartUpPhase d_startUpPhase;
+
+    /**
+     * GameEngine instance is used to handle all the game logic.
+     */
     GameEngine d_gameEngine;
 
     /**
@@ -177,8 +185,8 @@ public class TournamentEngine extends GameEngine {
         // int l_playerSize = d_gameEngine.d_gameState.getPlayerList().size();
         // System.out.println("lol Player Size: " + l_playerSize);
         // while (l_playerSize != 0) {
-        //     d_gameEngine.d_gameState.getPlayerList().remove(0);
-        //     l_playerSize -= 1;
+        // d_gameEngine.d_gameState.getPlayerList().remove(0);
+        // l_playerSize -= 1;
         // }
 
         // Start playing on each map
@@ -187,8 +195,8 @@ public class TournamentEngine extends GameEngine {
             // Start playing each game
             // int P = d_gameEngine.d_gameState.getPlayerList().size();
             // while (P != 0) {
-            //     d_gameEngine.d_gameState.getPlayerList().remove(0);
-            //     P -= 1;
+            // d_gameEngine.d_gameState.getPlayerList().remove(0);
+            // P -= 1;
             // }
             for (int i = 1; i <= p_numberOfGames; i++) {
                 l_gameNumber++;
@@ -205,14 +213,14 @@ public class TournamentEngine extends GameEngine {
                 // Flushing Objects which are getting reused
                 // int Psiz = d_gameEngine.d_gameState.getPlayerList().size();
                 // while (Psiz != 0) {
-                //     d_gameEngine.d_gameState.getPlayerList().remove(0);
-                //     Psiz -= 1;
+                // d_gameEngine.d_gameState.getPlayerList().remove(0);
+                // Psiz -= 1;
                 // }
 
                 // Create player objects
                 for (String l_strategy : p_strategies) {
                     l_player.addPlayer(this.d_gameEngine, this.d_gameEngine.getGameState().getPlayerList(),
-                                         l_strategy, this.d_gameEngine.getGameState(), l_strategy);
+                            l_strategy, this.d_gameEngine.getGameState(), l_strategy);
                 }
                 // Setting strategies as same as Player Names
                 for (Player l_p : this.d_gameEngine.getGameState().getPlayerList()) {
@@ -312,7 +320,8 @@ public class TournamentEngine extends GameEngine {
                             boolean win = true;
                             while (l_count != 0 && win) {
                                 if (this.d_gameEngine.getGameState().getPlayerList().size() == 1) {
-                                    Order l_toRemove = this.d_gameEngine.getGameState().getPlayerList().get(0).next_order();
+                                    Order l_toRemove = this.d_gameEngine.getGameState().getPlayerList().get(0)
+                                            .next_order();
                                     System.out.println("Order  :" + l_toRemove + " : for "
                                             + this.d_gameEngine.getGameState().getPlayerList().get(0));
                                     l_winner.put(l_gameNumber,
@@ -320,7 +329,8 @@ public class TournamentEngine extends GameEngine {
                                     Queue<Order> l_temp = this.d_gameEngine.getGameState().getPlayerList().get(0)
                                             .getExecutionOrderList();
                                     if (l_temp.size() > 0) {
-                                        Order tempO = this.d_gameEngine.getGameState().getPlayerList().get(0).next_order();
+                                        Order tempO = this.d_gameEngine.getGameState().getPlayerList().get(0)
+                                                .next_order();
                                         if (tempO != null) {
                                             System.out.println("Executing " + l_toRemove);
                                             l_toRemove.execute();
@@ -426,7 +436,8 @@ public class TournamentEngine extends GameEngine {
                         this.d_gameEngine.getGameState().getPlayerList().remove(0);
                         Psize -= 1;
                     }
-                    System.out.println("Players left after game " + this.d_gameEngine.getGameState().getPlayerList().size());
+                    System.out.println(
+                            "Players left after game " + this.d_gameEngine.getGameState().getPlayerList().size());
                 }
             }
             // return winner;
@@ -476,7 +487,9 @@ public class TournamentEngine extends GameEngine {
     }
 
     /**
-     * Method prints failure message for tournament command
+     * Prints failure message
+     * 
+     * @param p_msg message to be printed
      */
     public void printFailureMessage(String p_msg) {
         String message = "Command has to be in form of 'tournament -M listofmapfiles{1-5} -P listofplayerstrategies{2-4} -G numberofgames{1-5} -D maxnumberofturns{10-50}";

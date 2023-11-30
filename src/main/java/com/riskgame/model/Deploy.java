@@ -10,9 +10,24 @@ import com.riskgame.model.Player;
  */
 public class Deploy implements Order, Serializable {
 
+    /**
+     * Representing whether the player has executed this order or not.
+     */
     private boolean status = false;
+
+    /**
+     * Number of armies to be deployed.
+     */
     private int d_armyCount;
+
+    /**
+     * Country id where armies are being deployed.
+     */
     private String d_countryId;
+
+    /**
+     * Player object who is executing this order.
+     */
     private Player d_player;
 
     /**
@@ -58,7 +73,7 @@ public class Deploy implements Order, Serializable {
             return true;
         }
         return false;
-        
+
     }
 
     /**

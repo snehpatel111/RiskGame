@@ -7,6 +7,9 @@ import com.riskgame.controller.TournamentEngine;
 import com.riskgame.model.GameState;
 import com.riskgame.utility.Constant;
 
+/**
+ * This class is responsible for initializing the game.
+ */
 public class InitializeGame {
   public static void main(String[] args) {
     try (Scanner l_scanner = new Scanner(System.in)) {

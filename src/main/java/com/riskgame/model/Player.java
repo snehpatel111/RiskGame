@@ -29,12 +29,36 @@ import com.riskgame.utility.Util;
  */
 public class Player implements Serializable {
     private String d_playerName;
+
+    /**
+     * List of continents owned by the player.
+     */
     private HashMap<String, Continent> d_ownedContinents;
+
+    /**
+     * List of countries owned by the player.
+     */
     private HashMap<String, Country> d_ownedCountries;
+
+    /**
+     * Count of owned army 
+     */
     private int d_ownedArmyCount;
+
+    /**
+     * Count of remaining army
+     */
     private int d_remainingArmyCount;
+
+    /**
+     * Id of country
+     */
     private String d_countryId;
     private Order d_order;
+
+    /**
+     * List of orders to be executed
+     */
     private Queue<Order> d_executionOrderList;
     private PlayerStrategy d_strategy;
 
@@ -63,8 +87,16 @@ public class Player implements Serializable {
      */
     private Map<String, Country> ownedCountries = new HashMap<>();
 
+    /**
+     * Game state object
+     */
     public GameState d_gameState = new GameState();
 
+    /**
+     * Add country into owner list
+     * 
+     * @param country
+     */
     public void addOwnedCountry(Country country) {
         this.ownedCountries.put(country.getCountryId(), country);
     }
@@ -407,12 +439,14 @@ public class Player implements Serializable {
     }
 
     /**
-     * Adds a player to the game
+     * Add player to the game.
      * 
-     * @param p_playerList List of existing players
-     * @param p_playerName Name of player to add
-     * @param p_gameState  The current game state.
-     * @return Return true if player added successfully, false otherwise
+     * @param p_gameEngine     Game engine object
+     * @param p_playerList     Player list object
+     * @param p_playerName     Player name
+     * @param p_gameState      Game state object
+     * @param p_playerStrategy Player strategy
+     * @return Return true if player is added, false otherwise
      */
     public boolean addPlayer(GameEngine p_gameEngine, ArrayList<Player> p_playerList, String p_playerName,
             GameState p_gameState, String p_playerStrategy) {
@@ -940,6 +974,11 @@ public class Player implements Serializable {
         this.d_strategy = p_strategy;
     };
 
+    /**
+     * Returns if any player has won the game
+     * 
+     * @return true if any player has won the game else false
+     */
     public boolean isWinner() {
         boolean l_winner = true;
         for (String l_countryName : this.d_gameState.getGameMap().getCountries().keySet()) {

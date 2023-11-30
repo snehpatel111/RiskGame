@@ -27,8 +27,8 @@ public class OrderExecutionPhase extends Phase implements Serializable {
   /**
    * {@inheritDoc}
    * 
-   * @param p_gameEngine
-   * @param p_gameState
+   * @param p_gameEngine The game engine instance to update the state.
+   * @param p_gameState  The instance of the current game state in the GameEngine.
    */
   public OrderExecutionPhase(GameEngine p_gameEngine, GameState p_gameState) {
     super(p_gameEngine, p_gameState);
@@ -79,9 +79,9 @@ public class OrderExecutionPhase extends Phase implements Serializable {
           }
           // System.out.println("lol after for");
           // while (l_iterator.hasNext()) {
-          //   System.out.println("lol showing card");
-          //   Player l_player = l_iterator.next();
-          //   l_player.showCards();
+          // System.out.println("lol showing card");
+          // Player l_player = l_iterator.next();
+          // l_player.showCards();
           // }
           System.out.println("lol setting issue order phase");
           this.d_gameEngine.setIssueOrderPhase();

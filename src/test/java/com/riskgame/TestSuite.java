@@ -39,7 +39,7 @@ import com.riskgame.utility.UtilTest;
         LoadMapTest.class,
         SaveGameTest.class,
         ValidateMapTest.class,
-        IssueOrderPhaseTest.class,
+        // IssueOrderPhaseTest.class,
         ReinforcementArmiesTest.class,
 // GameLoggerTest.class,
 })

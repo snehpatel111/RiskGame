@@ -469,6 +469,7 @@ public class StartUpPhase extends Phase implements Serializable {
     System.out
         .println("To exit, use " + Constant.SUCCESS_COLOR + "exit" + Constant.RESET_COLOR
             + " to quit\n");
+    this.showAvailableGame();
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     while (this.d_gameEngine.getCurrentGamePhase() instanceof StartUpPhase) {
@@ -517,6 +518,51 @@ public class StartUpPhase extends Phase implements Serializable {
     boolean l_isCountryAssigned = Player.assignCountries(p_gameEngine, p_gameState);
     if (l_isCountryAssigned) {
       this.d_gameEngine.setIssueOrderPhase();
+    }
+  }
+
+  /**
+   * Lists the names of saved game file in the specified folder.
+   *
+   */
+  public void showAvailableGame() {
+    File folder = new File(Constant.GAME_PATH);
+
+    if (folder.isDirectory()) {
+      File[] files = folder.listFiles();
+
+      if (files != null) {
+        // Find the maximum length of file names for formatting
+        int maxLength = 0;
+        for (File file : files) {
+          if (file.isFile()) {
+            int length = file.getName().length();
+            if (length > maxLength) {
+              maxLength = length;
+            }
+          }
+        }
+
+        System.out.printf("%85s\n",
+            "-------------------------------------------------------------------------------------------");
+        System.out.printf("%55s\n", "Saved Games");
+
+        System.out.printf("%85s\n",
+            "-------------------------------------------------------------------------------------------");
+
+        // Print file names with even distribution
+        for (File file : files) {
+          if (file.isFile()) {
+            String fileName = file.getName();
+            System.out.println(fileName);
+          }
+        }
+        System.out.println("\n");
+      } else {
+        System.out.println("No saved game found in the directory.");
+      }
+    } else {
+      System.out.println("Specified path is not a directory.");
     }
   }
 

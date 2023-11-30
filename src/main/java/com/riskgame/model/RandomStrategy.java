@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import com.riskgame.controller.GameEngine;
@@ -16,7 +17,7 @@ import com.riskgame.utility.Constant;
 /**
  * RandomStrategy class is used to implement Random Strategy
  */
-public class RandomStrategy extends PlayerStrategy {
+public class RandomStrategy extends PlayerStrategy implements Serializable {
   Random d_random = new Random();
   Country d_randomCountry, d_randomNeighborCountry, d_randomCountryWithArmy;
   Country l_attackingCountry, l_defendingCountry, l_advanceCountry;

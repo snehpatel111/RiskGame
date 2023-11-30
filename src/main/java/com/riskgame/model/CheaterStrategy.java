@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import com.riskgame.controller.GameEngine;
@@ -11,7 +12,7 @@ import com.riskgame.utility.Constant;
  * CheaterStrategy is a strategy class which is used to implement cheater
  * strategy.
  */
-public class CheaterStrategy extends PlayerStrategy {
+public class CheaterStrategy extends PlayerStrategy implements Serializable {
   /**
    * Represents object of RunGameEngine class
    */

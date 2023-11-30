@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import com.riskgame.controller.GameEngine;
@@ -14,7 +15,7 @@ import com.riskgame.utility.Constant;
 /**
  * This class is used to implement Aggressive strategy.
  */
-public class AggressiveStrategy extends PlayerStrategy {
+public class AggressiveStrategy extends PlayerStrategy implements Serializable {
   private int d_orderValue, d_maxArmyCount;
   Country d_strongestCountry, d_defendingCountry, d_moveArmyFromCountry, d_armyDeployableCountry;
   boolean d_isTest;

@@ -1,5 +1,7 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
+
 import com.riskgame.controller.GameEngine;
 import com.riskgame.model.Order;
 
@@ -7,7 +9,7 @@ import com.riskgame.model.Order;
  * This class is used to implement the strategy pattern for each player
  * behavior.
  */
-public abstract class PlayerStrategy {
+public abstract class PlayerStrategy implements Serializable {
   GameEngine d_gameEngine;
   GameMap d_gameMap;
   Player d_player;

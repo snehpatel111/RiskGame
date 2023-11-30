@@ -1,5 +1,6 @@
 package com.riskgame.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ import com.riskgame.utility.Constant;
 /**
  * This class is used to implement Benevolent strategy.
  */
-public class BenevolentStrategy extends PlayerStrategy {
+public class BenevolentStrategy extends PlayerStrategy implements Serializable {
 
   Country d_sourceCountry, d_weakCountry;
   Random d_random = new Random();
